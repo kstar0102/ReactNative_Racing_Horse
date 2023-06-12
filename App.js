@@ -1,20 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { SafeAreaView } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {
+  MD3LightTheme as DefaultTheme,
+  Provider as PaperProvider,
+} from 'react-native-paper';
+// import CountdownProvider from './src/components/CountDownProvider';
 
-export default function App() {
+// import AuthenticationProvider from './src/contexts/Authentication';
+// Route
+import Routes from './src/routes';
+
+const theme = {
+  ...DefaultTheme
+};
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <NavigationContainer>
+          <PaperProvider theme={theme} >
+            <SafeAreaView style={{flex: 1, paddingTop: 20}}>
+                <Routes/>
+            </SafeAreaView>
+          </PaperProvider>
+      </NavigationContainer>
+    </>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+  
+export default App;
