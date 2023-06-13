@@ -28,28 +28,25 @@ const RTapButton = ({ id, isActive, onPress, label}) => {
 
 export default RTapButton;
 
-
-
 const styles = StyleSheet.create({
     button: {
       borderTopRightRadius: 50,
-      width: vw(34),
+      width: vw(33.5),
       height: vh(6),
       borderWidth: 1,
-      paddingVertical: 12,
-      alignItems: 'center',
-      // transform: [{ scaleY: 1 }],
+      paddingVertical: 2,
     },
     activeButton: {
       marginTop: -22,
       height: vh(9),
-      paddingVertical: 20,
+      paddingVertical: 13
     },
     buttonText: {
       fontSize: 16,
-      fontWeight: 600
-      // paddingVertical: 5,
-      // transform: [{ scaleY: 1 }],
+      fontWeight: 600,
+      textAlign: 'center',
+      paddingVertical: 10,
+      marginLeft: -5
     },
     buttonT: {
         backgroundColor: colors.tabButtonFirst,

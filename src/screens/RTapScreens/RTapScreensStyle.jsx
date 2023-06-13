@@ -39,7 +39,7 @@ const RTapScreensStyle = StyleSheet.create({
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     paddingVertical: 3,
-    // paddingHorizontal: 9,
+    paddingHorizontal: 5,
     backgroundColor: colors.HBrown,
     flexDirection: 'row',
     // justifyContent: 'space-evenly'
@@ -53,7 +53,7 @@ const RTapScreensStyle = StyleSheet.create({
   oneRioghtHeaderTxt:{
     color: colors.white,
     paddingVertical: 3,
-    paddingLeft: 10
+    paddingLeft: 10,
   //  marginRight: -40
   },
   oneRioghtHeaderTxtPink:{

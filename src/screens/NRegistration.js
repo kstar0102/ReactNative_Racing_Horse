@@ -68,7 +68,7 @@ const NRegistration  = ({navigation}) => {
                            {!!selected && (
                              <View style={Screenstyles.NRrightTxtGroup}>
                                 <Text style={Screenstyles.NRtxtH}>{selected.labelH}</Text>
-                                <Text style={Screenstyles.NRtxtSpanH}>{selected.TypeH}</Text>
+                                <Text style={Screenstyles.NRtxtSpanH}> {selected.TypeH}</Text>
                             </View>
                             )}
                             {!!selected && (

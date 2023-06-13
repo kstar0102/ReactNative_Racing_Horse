@@ -8,7 +8,7 @@ import ScreenTwo from './RTapScreens/ScreenTwo';
 import ScreenThree from './RTapScreens/ScreenThree';
 
 const RanchTapScreen = () => {
-  const [activeButton, setActiveButton] = useState(null);
+  const [activeButton, setActiveButton] = useState(1);
 
   const handleButtonPress = (id) => {
     setActiveButton(id);

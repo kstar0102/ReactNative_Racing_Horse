@@ -47,7 +47,7 @@ const HeaderScreen = () => {
           style={HeaderStylesheet.headerLogo}
         >
           <Text style={HeaderStylesheet.goldCoinAndLevel}>馬主Lv. 100 </Text>
-          <Text style={HeaderStylesheet.goldCoinAndLevel}>資金 50000pt</Text>
+          <Text style={HeaderStylesheet.goldCoinAndLevel}>資金 50,000pt</Text>
         </ImageBackground>
       </View>
       {/* Header Midle */}

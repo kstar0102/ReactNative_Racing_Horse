@@ -15,7 +15,7 @@ const ITapButton = ({ id, isActive, onPress, label}) => {
         id ==2 ? styles.button2 : styles.button,  
         id ==3 ? styles.button3 : styles.button,  
         id ==4 ? styles.button4 : styles.button,  
-        id ==5 ? styles.button5 : styles.button,  
+        id ==5 ? styles.button5 : styles.button,
         isActive ? styles.activeButton : null,]}
         onPress={handlePress}
     >
@@ -36,16 +36,19 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       paddingVertical: 4,
       alignItems: 'center',
-      transform: [{ scaleY: 1 }],
+      // transform: [{ scaleY: 1 }],
     },
     activeButton: {
       marginTop: -20,
       height: vh(7.8),
-      paddingVertical: 15,
+      paddingVertical: 14,
+      zIndex: 1000
     },
     buttonText: {
-      paddingVertical: 5,
-      transform: [{ scaleY: 1 }],
+      paddingVertical: 5.5,
+      marginLeft: -5,
+      zIndex: 1000
+      // transform: [{ scaleY: 1 }],
     },
     button1: {
         backgroundColor: colors.tabButtonFirst,

@@ -10,7 +10,7 @@ import ScreenRoad from './InstitutionTapScreens/ScreenRoad';
 import ScreenTruck from './InstitutionTapScreens/ScreenTruck';
 
 const InstitutionTapScreen = () => {
-  const [activeButton, setActiveButton] = useState(null);
+  const [activeButton, setActiveButton] = useState(1);
 
   const handleButtonPress = (id) => {
     setActiveButton(id);

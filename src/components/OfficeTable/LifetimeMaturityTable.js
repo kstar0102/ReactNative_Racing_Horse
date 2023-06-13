@@ -43,82 +43,90 @@ const CONTENT = {
             <View style={styles.bodyContent}>
                 <View style={styles.oneColumn}>
                     <View style={styles.hidden}>
-                        <Text style={styles.hiddenTxt}>
+                        <Text style={[styles.txt, styles.hiddenTxtDotes]}>
                             隠しGI
                         </Text>
                     </View>
                     <View style={styles.hiddenWin}>
-                        <Text style={styles.hiddenTxt}>
+                        <Text style={[styles.txt]}>
                         100勝
                         </Text>
                     </View>
                     <View style={styles.hiddenWinRate}>
-                        <Text style={styles.hiddenTxt}>
+                        <Text style={[styles.txt, styles.hiddenTxtDotes, styles.hiddenColor]}>
                         勝率
                         </Text>
                     </View>
                     <View style={styles.hiddenPercent}>
-                        <Text style={styles.hiddenTxt}>
+                        <Text style={[styles.txt, styles.hiddenTxt]}>
                         50%
                         </Text>
                     </View>
                 </View>
                 {/*  */}
                 <View style={styles.twoColumn}>
-                    <View style={styles.overseas}>
-                        <Text style={styles.overseasTxt}>
-                            隠しGI
-                        </Text>
+                    <View style={styles.overseasContent}>
+                        <View style={styles.overseas}>
+                            <Text style={[styles.txt, styles.overseasTxtDotes]}>
+                                隠しGI
+                            </Text>
+                        </View>
+                        <View style={styles.overseasWin}>
+                            <Text style={[styles.txt]}>
+                            100勝
+                            </Text>
+                        </View>
                     </View>
-                    <View style={styles.overseasWin}>
-                        <Text style={styles.overseasTxt}>
-                        100勝
-                        </Text>
-                    </View>
-                    <View style={styles.overseasGrass}>
-                        <Text style={styles.overseasTxt}>
-                        芝
-                        </Text>
-                    </View>
-                    <View style={styles.overseasPercent}>
-                        <Text style={styles.overseasTxt}>
-                        50%
-                        </Text>
+                    
+
+                    <View style={styles.overseasContent}>
+                        <View style={styles.overseasGrass}>
+                            <Text style={[styles.txt, styles.overseasTxtDotes, styles.overseasColor]}>
+                            芝
+                            </Text>
+                        </View>
+                        <View style={styles.overseasPercent}>
+                            <Text style={[styles.txt]}>
+                            50%
+                            </Text>
+                        </View>
                     </View>
                 </View>
                 {/*  */}
                 <View style={styles.threeColumn}>
                     <View style={styles.domestic}>
-                        <Text style={styles.domesticTxt}>
+                        <Text style={[styles.txt, styles.domesticTxtDotes]}>
                             隠しGI
                         </Text>
                     </View>
                     <View style={styles.domesticWin}>
-                        <Text style={styles.domesticTxt}>
+                        <Text style={[styles.txt]}>
                         100勝
                         </Text>
                     </View>
+                    
                     <View style={styles.domesticDirt}>
-                        <Text style={styles.domesticTxt}>
+                        <Text style={[styles.txt,styles.domesticTxtDotes, styles.domesticColor]}>
                         ダート
                         </Text>
                     </View>
                     <View style={styles.domesticPercent}>
-                        <Text style={styles.domesticTxt}>
+                        <Text style={[styles.txt]}>
                         50%
                         </Text>
                     </View>
+
                 </View>
             </View>
             <View style={styles.lifetimeMaturity}>
                 <View style={styles.lifetimeMaturityName}>
                     <Text style={styles.lifetimeMaturityTxt}>
-                        通 算 成 精
+                        獲 得 賞 金
                     </Text>
                 </View>
                 <View style={styles.lifetimeMaturityValue}>
                     <Text style={styles.lifetimeMaturityNumber}>
-                        100-100-100-100
+                        300,000,000
                     </Text>
                 </View>
             </View>
@@ -131,67 +139,77 @@ export default LifetimeMaturityTable;
 
 const styles = StyleSheet.create({
     container:{
+
         textAlign:'center',
         alignItems: 'center',
-
+        marginTop: 60
     },
     content:{
         width: 200,
         borderWidth: 2,
         textAlign:'center',
     },
-    lifetimeMaturity:{
-        // textAlign:'center',
-        // flexDirection: 'column',
-
-    },
-    lifetimeMaturityName:{
-        
-        // width:100,
-    },
     lifetimeMaturityTxt:{
-        // borderBottomWidth: 2,
-    },
-    lifetimeMaturityValue:{
-        // borderTopWidth: 2
+        fontSize: 18,
+        textAlign: 'center',
+        backgroundColor: '#b2cefd'
     },
     lifetimeMaturityNumber:{
-
+        fontSize: 18,
+        textAlign: 'center',
+        borderTopWidth: 2,
+        borderStyle: 'dotted',
+        backgroundColor: '#fff'
     },
     bodyContent:{
         flexDirection: 'row',
-        // width: 150,
-        // justifyContent: 'space-around',
         borderTopWidth: 2,
-        borderBottomWidth: 2
+        borderBottomWidth: 2,
+        textAlign: 'center',
     },
     oneColumn:{
         borderRightWidth: 2,
+        
     },
     twoColumn:{
         borderRightWidth: 2,
     },
-  
     hidden:{
-        // borderTopWidth: 2,
-    },
-    hiddenTxt:{
-        fontSize: 18,
-        borderBottomWidth: 2,
     },
     overseas:{
-        // borderRightWidth: 2,
     },
-    overseasTxt:{
+    txt:{
+        paddingVertical:2,
+        paddingHorizontal: 5,
         fontSize: 18,
-        borderBottomWidth: 2,
+        textAlign: 'center',
+        backgroundColor: '#fff'
     },
-
     domestic:{
-        // borderRightWidth: 2,
     },
-    domesticTxt:{
-        fontSize: 18,
+    // BACKGROUND COLOR
+    hiddenTxtDotes:{
         borderBottomWidth: 2,
-    }
+        borderStyle: 'dotted',
+        backgroundColor: '#ef907f'
+    },
+    hiddenColor:{
+        backgroundColor: '#facffb'
+    },
+    overseasTxtDotes:{
+        borderBottomWidth: 2,
+        borderStyle: 'dotted',
+        backgroundColor: '#f7b0ab'
+    },
+    overseasColor:{
+        backgroundColor: '#68ff99'
+    },
+    domesticTxtDotes:{
+        borderBottomWidth: 2,
+        borderStyle: 'dotted',
+        backgroundColor: '#fbdcd7'
+    },
+    domesticColor:{
+        backgroundColor: '#ffcca5'
+    },
 });

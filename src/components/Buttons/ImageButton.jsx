@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     imgBorder: {
         borderWidth: 1,
         borderColor: colors.black,
+        backgroundColor: '#d8d848',
         borderRadius: 8
     },
     button: {
