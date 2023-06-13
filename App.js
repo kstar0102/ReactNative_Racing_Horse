@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, StatusBar } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {
   MD3LightTheme as DefaultTheme,
@@ -20,7 +20,7 @@ const App = () => {
     <>
       <NavigationContainer>
           <PaperProvider theme={theme} >
-            <SafeAreaView style={{flex: 1, paddingTop: 20}}>
+            <SafeAreaView style={{flex: 1, paddingTop: StatusBar.currentHeight }}>
                 <Routes/>
             </SafeAreaView>
           </PaperProvider>

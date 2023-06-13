@@ -11,17 +11,18 @@ import PastureNameScreen from '../screens/PastureNameScreen';
 import HorseNameScreen from '../screens/HorseNameScreen';
 import InstitutionScreen from '../screens/InstitutionScreen';
 import OfficeScreen from '../screens/OfficeScreen';
+import RacetrackScreen from '../screens/RacetrackScreen';
 
 const Stack = createNativeStackNavigator();
 const AppStack = () => {
   return (
     <>
-        <Stack.Navigator>
+      <Stack.Navigator>
           <Stack.Screen
             name={'TopScreen'}
             component={TopScreen}
             options={{ headerShown: false }}
-          />
+        />
         <Stack.Screen name={'PastureScreen'} component={PastureScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'NRegistration'} component={NRegistration} options={{ headerShown: false }}/>
         <Stack.Screen name={'HorseChoiceScreen'} component={HorseChoiceScreen} options={{ headerShown: false }}/>
@@ -30,7 +31,8 @@ const AppStack = () => {
         <Stack.Screen name={'HorseNameScreen'} component={HorseNameScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'InstitutionScreen'} component={InstitutionScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'OfficeScreen'} component={OfficeScreen} options={{ headerShown: false }}/>
-        </Stack.Navigator>
+        <Stack.Screen name={'RacetrackScreen'} component={RacetrackScreen} options={{ headerShown: false }}/>
+      </Stack.Navigator>
     </>
   );
 };

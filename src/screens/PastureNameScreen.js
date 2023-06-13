@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React from 'react';
 import {  View, ImageBackground, Text, Image} from 'react-native';
 
 // Custom Import 

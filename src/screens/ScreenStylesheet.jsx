@@ -20,6 +20,7 @@ const Screenstyles = StyleSheet.create({
       },
       content: {
         flexDirection: 'column',
+        // justifyContent: 'center'
         margin: 80
       },
       // BackGround Image Style

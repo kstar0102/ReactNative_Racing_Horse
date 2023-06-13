@@ -24,7 +24,7 @@ const PastureScreen = ({navigation}) => {
               </View>
               <View style={Screenstyles.content}>
                   <CustomButtons label="施 設" onPress={() => navigation.navigate('InstitutionScreen')}/>
-                  <CustomButtons label="競馬場"/>
+                  <CustomButtons label="競馬場" onPress={() => navigation.navigate('RacetrackScreen')}/>
                   <CustomButtons label="種 付" disabled={true}/>
               </View>
             </View>
