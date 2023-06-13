@@ -61,7 +61,7 @@ const Screenstyles = StyleSheet.create({
     },
     NRpay: {
       flexDirection: 'row',
-      justifyContent: 'space-around',
+      justifyContent: 'space-evenly',
       alignItems: 'center',
       marginTop: 20
     },
@@ -78,14 +78,14 @@ const Screenstyles = StyleSheet.create({
       fontWeight: 600
     },  
     NRImageSmall: {
-      borderWidth: 6,
+      borderWidth: 3,
       borderColor: colors.black,
       marginTop: 25,
       height: hp(14),
       width: wp(35)
     },
     NRImageMiddle: {
-      borderWidth: 6,
+      borderWidth: 3,
       borderColor: colors.black,
       marginTop: 25,
       padding: 20,
@@ -93,7 +93,7 @@ const Screenstyles = StyleSheet.create({
       width: wp(50)
     },
     NRImageBig: {
-      borderWidth: 6,
+      borderWidth: 3,
       borderColor: colors.black,
       marginTop: 25,
       height: hp(20),

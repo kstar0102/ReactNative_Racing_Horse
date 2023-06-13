@@ -83,7 +83,13 @@ const HeaderStyleSheet = StyleSheet.create({
         flexDirection: 'column',
     },
     LHeaderText: {
-        fontSize: hp(2) + wp(1)
+        fontSize: hp(2) + wp(1),
+        // marginLeft: -6
+    },
+    LHeaderTextRight:{
+        fontSize: hp(2) + wp(1),
+        marginLeft: -6,
+        letterSpacing: -2
     },
     // NEW REGISTRATION
     NRHcontainer:{

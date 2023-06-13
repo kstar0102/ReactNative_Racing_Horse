@@ -4,11 +4,11 @@ import { vw,vh  } from 'react-native-expo-viewport-units';
 import colors from '../containers/colors';
 import { ITapButton } from '../components/Buttons';
 
-import ScreenLongiField from './ITapScreens/ScreenLongiField';
-import ScreenPasture from './ITapScreens/ScreenPasture';
-import ScreenBlue from './ITapScreens/ScreenBlue';
-import ScreenRoad from './ITapScreens/ScreenRoad';
-import ScreenTruck from './ITapScreens/ScreenTruck';
+import BreedingHorseScreen from './OfficeTapScreen/BreedingHorseScreen';
+import KnightScreen from './OfficeTapScreen/KnightScreen';
+import RaceHorseScreen from './OfficeTapScreen/RaceHorseScreen';
+import SaintScreen from './OfficeTapScreen/SaintScreen';
+import StallionScreen from './OfficeTapScreen/StallionScreen';
 
 const OfficeTapScreen = () => {
   const [activeButton, setActiveButton] = useState(null);
@@ -20,28 +20,28 @@ const OfficeTapScreen = () => {
   const renderScreenBelowButtons = () => {
     switch(activeButton) {
       case 1:
-        return <ScreenPasture />;
+        return <SaintScreen />;
       case 2:
-        return <ScreenLongiField />;
+        return <KnightScreen />;
       case 3:
-        return <ScreenTruck />;
+        return <RaceHorseScreen />;
       case 4:
-        return <ScreenRoad />;
+        return <BreedingHorseScreen />;
       case 5:
-        return <ScreenBlue />;
+        return <StallionScreen />;
       default:
-        return <ScreenPasture />;
+        return <SaintScreen />;
     }
   }
 
   return (
     <View style={styles.container}>
         <View style={styles.Buttons}>
-            <ITapButton id={1} isActive={activeButton === 1} label={'牧場'} style={styles.Button1} onPress={handleButtonPress} />
-            <ITapButton id={2} isActive={activeButton === 2} label={'ロンギ場'} style={styles.Button2} onPress={handleButtonPress} />
-            <ITapButton id={3} isActive={activeButton === 3} label={'トラック'} style={styles.Button3} onPress={handleButtonPress} />
-            <ITapButton id={4} isActive={activeButton === 4} label={'坂路'} style={styles.Button4} onPress={handleButtonPress} />
-            <ITapButton id={5} isActive={activeButton === 5} label={'プール'} style={styles.Button5} onPress={handleButtonPress} />
+            <ITapButton id={1} isActive={activeButton === 1} label={'戦精'} style={styles.Button1} onPress={handleButtonPress} />
+            <ITapButton id={2} isActive={activeButton === 2} label={'騎'} style={styles.Button2} onPress={handleButtonPress} />
+            <ITapButton id={3} isActive={activeButton === 3} label={'競争馬'} style={styles.Button3} onPress={handleButtonPress} />
+            <ITapButton id={4} isActive={activeButton === 4} label={'繁殖馬'} style={styles.Button4} onPress={handleButtonPress} />
+            <ITapButton id={5} isActive={activeButton === 5} label={'種牡'} style={styles.Button5} onPress={handleButtonPress} />
         </View>     
       {renderScreenBelowButtons()}
     </View>

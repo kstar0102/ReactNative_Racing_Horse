@@ -13,7 +13,7 @@ const FooterScreen = () => (
           <FooterButton label="競馬場"/>
           <FooterButton label="セ リ"/>
           <FooterButton label="ランキング"/>
-          <FooterButton label="VIP"/>
+          <FooterButton label="V I P"/>
     </View>
 );
 

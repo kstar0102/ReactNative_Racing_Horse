@@ -7,8 +7,8 @@ import Screenstyles from './ScreenStylesheet';
 import FarmNameInput from '../components/FarmNameInput';
 import TNameInput from '../components/TNameInput';
 import { PNameRegister } from '../components/Buttons';
-import { FarmCheckButton } from '../components/Buttons';
 import {CheckRadioButton} from '../components/Buttons';
+
 const PastureNameScreen  = ({navigation}) => {
     return (
     <View style={Screenstyles.container}>

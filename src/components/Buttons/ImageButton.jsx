@@ -21,6 +21,7 @@ const ImageButton = ({label, onPress, disabled, source, id ,blurRadius}) =>{
             backgroundColor="rgba(0,0,0,0)"
             childrenWrapperStyle={{display: 'none'}}
             tooltipStyle={{width: 160}}
+
             //(Optional) Color of the fullscreen background beneath the tooltip.
             isVisible={toolTipVisible}
             //(Must) When true, tooltip is displayed
@@ -46,7 +47,7 @@ const ImageButton = ({label, onPress, disabled, source, id ,blurRadius}) =>{
                 onPress={onPress ? onPress : () => setToolTipVisible(true) }
                 disabled={disabled ? disabled : false}
             >
-                <Image source={source ? source : require('../../assets/images/Pasture/icon00.png')}  style={styles.img}/>
+                <Image source={source ? source : require('../../assets/images/Pasture/icon00.png')}  style={[styles.img, id == 2 ? styles.imgBorder : styles.img]}/>
             </TouchableOpacity>
         </Tooltip>
     )
@@ -64,7 +65,12 @@ const styles = StyleSheet.create({
     },
     img: {
         width:  vw(25),
-        height: vh(6.6)
+        height: vh(6.7)
+    },
+    imgBorder: {
+        borderWidth: 1,
+        borderColor: colors.black,
+        borderRadius: 8
     },
     button: {
         position: 'relative',

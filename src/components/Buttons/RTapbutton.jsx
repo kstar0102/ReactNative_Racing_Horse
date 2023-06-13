@@ -16,7 +16,9 @@ const RTapButton = ({ id, isActive, onPress, label}) => {
         id ==1 ? styles.buttonT : styles.button, 
         id ==2 ? styles.buttonM : styles.button,  
         id ==3 ? styles.buttonE : styles.button,  
-        isActive ? styles.activeButton : null,]}
+        isActive ? styles.activeButton : null,
+      
+      ]}
         onPress={handlePress}
     >
         <Text style={styles.buttonText}>{label}</Text>

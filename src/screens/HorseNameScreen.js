@@ -8,7 +8,7 @@ import BloodlineNameTable from '../components/BloodlineNameTable';
 import {PNameRegister} from '../components/Buttons';
 import TNameInput from '../components/TNameInput';
 
-const HorseName  = ({navigation}) => {
+const HorseNameScreen  = ({navigation}) => {
     const [selected, setSelected] = useState(undefined);
     const data = [
       { label: '・0歳馬', horseFee: '500pt', SP: '10', ST:'9', instantaneous: '12', guts: '15', Temperament:'10', health: '30', img: '1.jpg' },
@@ -59,7 +59,7 @@ const HorseName  = ({navigation}) => {
   );
 };
 
-export default HorseName;
+export default HorseNameScreen;
 
 
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { vw,vh  } from 'react-native-expo-viewport-units';
-import colors from '../containers/colors';
 import { RTapButton } from '../components/Buttons';
 
 import ScreenOne from './RTapScreens/ScreenOne';

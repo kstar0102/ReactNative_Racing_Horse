@@ -2,7 +2,7 @@ import React from 'react';
 import { View, ImageBackground } from 'react-native';
 // Custom IMPORT
 import HeaderScreen from '../screens/LayoutScreen/HeaderScreen';
-import { ReturnButton, AnimationButton } from '../components/Buttons';
+import { ReturnButton } from '../components/Buttons';
 import Screenstyles from '../screens/ScreenStylesheet';
 import RanchTapScreen from './RanchTapScreen';
 

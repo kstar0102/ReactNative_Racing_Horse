@@ -3,8 +3,8 @@ import { View, ImageBackground } from 'react-native';
 // Custom IMPORT
 import HeaderScreen from '../screens/LayoutScreen/HeaderScreen';
 import { ReturnButton, AnimationButton } from '../components/Buttons';
-import Screenstyles from '../screens/ScreenStylesheet';
-import InstitutionTapScreen from './InstitutionTapScreen';
+import Screenstyles from './ScreenStylesheet';
+import OfficeTapScreen from './OfficeTapScreen';
 
 const OfficeScreen = ({navigation}) => {
   return (
@@ -20,10 +20,10 @@ const OfficeScreen = ({navigation}) => {
                   <ReturnButton label="牧 場" onPress={() => navigation.navigate('TopScreen')}/>
                 </View>
                 <View style={Screenstyles.UPRButton}>
-                    <ReturnButton label="育 成" onPress={() => navigation.navigate('PastureScreen')}/>
+                    <ReturnButton label="事務所" onPress={() => navigation.navigate('PastureScreen')}/>
                 </View>
               </View>
-              <InstitutionTapScreen/>
+              <OfficeTapScreen/>
             </View>
       </ImageBackground>
     </View>

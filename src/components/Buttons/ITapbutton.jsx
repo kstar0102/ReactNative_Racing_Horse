@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { vw,vh  } from 'react-native-expo-viewport-units';
 import colors from '../../containers/colors';
-import TriangleCorner  from 'react-native-triangle';
 
 const ITapButton = ({ id, isActive, onPress, label}) => {
     const handlePress = () => {

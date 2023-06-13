@@ -7,10 +7,10 @@ import RTapScreensStyle from './RTapScreensStyle';
 const ScreenTwo = () => {
   const [selected, setSelected] = useState(undefined);
   const data = [
-    { label: '馬名A', value: '1', pay: '500pt' },
-    { label: '馬名B', value: '5',  Caution: ' ', CautionS:' ', labelV: '施設 : ', TypeV: '2種類', labelH: '繁殖馬 : ', TypeH: '6頭', payMent: '2000pt' },
-    { label: '馬名C', value: '10', Caution: ' ', CautionS:' ', labelV: '施設 : ', TypeV: '5種類', labelH: '繁殖馬 : ', TypeH: '1頭', payMent: '5000pt'  },
-  ];
+    { label: '馬名A', id: 1, sp: 'S', st: 'D+', fatigue: 'O',  instantaneous:'A', guts:'C', temper:'B',  health: 'A', Hair:''},
+    { label: '馬名B', id: 2, sp: 'S+', st: 'D', fatigue: '△',  instantaneous:'A+', guts:'C', temper:'B',  health: 'A', Hair:''},
+    { label: '馬名C', id: 3, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:''},
+ ];
 
 
     return (
@@ -33,26 +33,61 @@ const ScreenTwo = () => {
                       <Text style={RTapScreensStyle.oneRioghtBodyTxt}>調子</Text>  
                       <Image 
                         style={RTapScreensStyle.conditions}
-                        source={require('../../assets/images/condition/normel.png')}
+                        source={require('../../assets/images/condition/happy.png')}
                       />
+                      {/* {(!!selected && selected.value) || 1} */}
                     </View>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>SP <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}> S+   </Text></Text>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>ST <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}> D  </Text></Text>
+                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>SP <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.sp) || 'S'}</Text></Text>
+                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>ST <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.st) || 'D+'}</Text></Text>
                   </View>
                   <View>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>瞬発 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>O </Text></Text>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>瞬発 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}> A+   </Text></Text>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>根性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}> C+   </Text></Text>
+                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.fatigue) || 'O'}</Text></Text>
+                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>瞬発 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.instantaneous) || 'A'}</Text></Text>
+                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>根性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.guts) || 'C'}</Text></Text>
                   </View>
                   <View  style={RTapScreensStyle.oneRioghtBodyTxtGroup}>
                     <Text style={RTapScreensStyle.oneRioghtBodyTxtA}>中距離  <Text style={RTapScreensStyle.oneRioghtBodyTxtValueA}> 差</Text></Text>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>気性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}> B </Text></Text>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>健康 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}> A </Text></Text>
+                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>気性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.temper) || 'B'}</Text></Text>
+                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>健康 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.health) || 'A'}</Text></Text>
                   </View>
-                  <Image 
+                  {(!!selected && selected.id ==1 ? 
+                    <Image 
                       style={RTapScreensStyle.HorseAvatar}
-                      source={require('../../assets/images/horse/22.png')}
-                  />
+                      source={require('../../assets/images/horse/23.png')}
+                    />
+                    :
+                    <Image 
+                      style={RTapScreensStyle.HorseAvatar}
+                      source={require('../../assets/images/horse/23.png')}
+                    />
+                    
+                    &&
+
+                    !!selected && selected.id ==2 ? 
+                    <Image 
+                      style={RTapScreensStyle.HorseAvatar}
+                      source={require('../../assets/images/horse/23.png')}
+                    />
+                    :
+                    <Image 
+                      style={RTapScreensStyle.HorseAvatar}
+                      source={require('../../assets/images/horse/23.png')}
+                    />
+
+                    &&
+
+                    !!selected && selected.id == 3 ? 
+                    <Image 
+                      style={RTapScreensStyle.HorseAvatar}
+                      source={require('../../assets/images/horse/21.png')}
+                    />
+                    :
+                    <Image 
+                      style={RTapScreensStyle.HorseAvatar}
+                      source={require('../../assets/images/horse/23.png')}
+                    />
+                  )} 
+                  
               </View>
             </View>
           </View>
@@ -74,12 +109,12 @@ const ScreenTwo = () => {
                   <View style={[RTapScreensStyle.absoluteViewF]}>
                       <Text style={RTapScreensStyle.label}>スベシャル</Text>
                   </View>
-                  <ImageButton label={'スベシャル'} source={require('../../assets/images/Pasture/icon9.png')} id={2} disabled={true}/>
-                  <DetailButton label={'内容説明'} disabled={true}/>
-                  <Image 
+                  <ImageButton label={'スベシャル'} source={require('../../assets/images/Pasture/icon9.png')} id={2} disabled={false}/>
+                  <DetailButton label={'内容説明'} disabled={false}/>
+                  {/* <Image 
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../assets/images/Pasture/icon8.png')}
-                  />
+                  /> */}
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteViewT]}>

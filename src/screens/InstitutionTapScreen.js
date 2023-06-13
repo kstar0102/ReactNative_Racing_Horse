@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { vw,vh  } from 'react-native-expo-viewport-units';
-import colors from '../containers/colors';
 import { ITapButton } from '../components/Buttons';
 
-import ScreenLongiField from './ITapScreens/ScreenLongiField';
-import ScreenPasture from './ITapScreens/ScreenPasture';
-import ScreenBlue from './ITapScreens/ScreenBlue';
-import ScreenRoad from './ITapScreens/ScreenRoad';
-import ScreenTruck from './ITapScreens/ScreenTruck';
+import ScreenLongiField from './InstitutionTapScreens/ScreenLongiField';
+import ScreenPasture from './InstitutionTapScreens/ScreenPasture';
+import ScreenBlue from './InstitutionTapScreens/ScreenBlue';
+import ScreenRoad from './InstitutionTapScreens/ScreenRoad';
+import ScreenTruck from './InstitutionTapScreens/ScreenTruck';
 
 const InstitutionTapScreen = () => {
   const [activeButton, setActiveButton] = useState(null);

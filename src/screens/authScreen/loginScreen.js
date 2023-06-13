@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {  View, Text, ImageBackground} from 'react-native';
 
 // Custom Import 
-import LHeaderScreen from '../LayoutScreen/LHeaderScreen';
+import AuthHeaderScreen from '../LayoutScreen/AuthHeaderScreen';
 import CheckButton from '../../components/Buttons/CheckButton';
 import LoginButton from '../../components/Buttons/LoginButton';
 import EmailInput from '../../components/EmailInput';
@@ -17,7 +17,7 @@ const LoginScreen = ({navigation}) => {
         source={require('../../assets/images/1.png')}
         resizeMode="contain"
         style={Screenstyles.img}>
-            <LHeaderScreen/>
+            <AuthHeaderScreen/>
             <View style={AuthStyle.InputGroup}>
                 <View style={AuthStyle.EmailInput}>
                     <Text style={AuthStyle.labelT}>ログインID</Text>

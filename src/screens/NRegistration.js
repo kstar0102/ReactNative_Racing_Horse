@@ -11,8 +11,8 @@ const NRegistration  = ({navigation}) => {
     const [selected, setSelected] = useState(undefined);
     const data = [
       { label: '牧場 (小)', value: '1', pay: '500pt', id: 1 },
-      { label: '牧場(中)', value: '5',  Caution: ' ', id: 2, CautionS:' ', labelV: '施設 : ', TypeV: '2種類', labelH: '繁殖馬 : ', TypeH: '6頭', payMent: '2000pt' },
-      { label: '牧場(大)', value: '10', Caution: ' ', id: 3, CautionS:' ', labelV: '施設 :', TypeV: '5種類', labelH: '繁殖馬 : ', TypeH: '10頭', payMent: '5000pt'  },
+      { label: '牧場(中)', value: '5',  Caution: ' ', id: 2, CautionS:' ', labelV: '施設 : ', TypeV: '2種類', labelH: '種牡馬 : ', TypeH: '5頭', payMent: '2000pt' },
+      { label: '牧場(大)', value: '10', Caution: ' ', id: 3, CautionS:' ', labelV: '施設 :', TypeV: '5種類', labelH: '種牡馬 : ', TypeH: '10頭', payMent: '5000pt'  },
     ];
     // {(!!selected && selected.label) || label}
     return (
@@ -38,7 +38,7 @@ const NRegistration  = ({navigation}) => {
                             source={require('../assets/images/pasture.jpg')}
                         />
                             <Text  style={Screenstyles.NRcaution}>{(!!selected && selected.Caution) || '※種牡馬・施設は'}<Text style={Screenstyles.NRSpan}>{(!!selected && selected.CautionS) || '不可'}</Text></Text>
-                        <BuyButton label={'購入する'} onPress={() => navigation.navigate('HorseChoice')}/>
+                        <BuyButton label={'購入する'} onPress={() => navigation.navigate('HorseChoiceScreen')}/>
                     </View>
                         <View style={Screenstyles.NRright}>
                             <View style={Screenstyles.NRrightTxtGroup}>
@@ -59,6 +59,10 @@ const NRegistration  = ({navigation}) => {
                             </View>
                             <View style={Screenstyles.NRrightTxtGroup}>
                                 <Text style={Screenstyles.NRtxtT}>放牧馬 : </Text>
+                                <Text style={Screenstyles.NRtxtSpanT}> {(!!selected && selected.value) || 1}頭</Text>
+                            </View>
+                            <View style={Screenstyles.NRrightTxtGroup}>
+                                <Text style={Screenstyles.NRtxtT}>繁殖馬 : </Text>
                                 <Text style={Screenstyles.NRtxtSpanT}> {(!!selected && selected.value) || 1}頭</Text>
                             </View>
                            {!!selected && (

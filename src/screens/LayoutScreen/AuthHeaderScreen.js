@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View,SafeAreaView, ImageBackground, Image} from 'react-native';
 import HeaderStyleSheet from './HeaderStylesheet';
 
-const LHeaderScreen = () => {
+const AuthHeaderScreen = () => {
   return (
     <SafeAreaView style={HeaderStyleSheet.LHcontainer}>
       {/* Header Start */}
@@ -17,8 +17,8 @@ const LHeaderScreen = () => {
                 <Text style={HeaderStyleSheet.LHeaderText}>
                     ようこそ!
                 </Text>
-                <Text style={HeaderStyleSheet.LHeaderText}>
-                    『ダービードリーム』の世界へ!
+                <Text style={HeaderStyleSheet.LHeaderTextRight}>
+                  『ダービードリーム』の世界へ  !
                 </Text>
             </View>
       </View>
@@ -26,4 +26,4 @@ const LHeaderScreen = () => {
   );
 };
 
-export default LHeaderScreen;
+export default AuthHeaderScreen;

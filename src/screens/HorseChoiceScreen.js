@@ -10,7 +10,7 @@ import CheckButton from '../components/Buttons/CheckButton';
 import HorseTable from '../components/HorseTable';
 import BloodLineTable from '../components/BloodlineTable';
 
-const HorseChoice  = ({navigation}) => {
+const HorseChoiceScreen  = ({navigation}) => {
     const [selected, setSelected] = useState(undefined);
     const data = [
       { label: '・0歳馬', horseFee: '500pt', SP: '10', ST:'9', instantaneous: '12', guts: '15', Temperament:'10', health: '30', img: '1.jpg' },
@@ -119,14 +119,14 @@ const HorseChoice  = ({navigation}) => {
 
                 </ScrollView>
                 <BackButton label={'前に戻る'} onPress={() => navigation.navigate('NRegistration')}/>
-                <HorseBuyButton label={'購入する'} onPress={() => navigation.navigate('HorseName')}/>
+                <HorseBuyButton label={'購入する'} onPress={() => navigation.navigate('HorseNameScreen')}/>
             </View>
       </ImageBackground>
     </View>
   );
 };
 
-export default HorseChoice;
+export default HorseChoiceScreen;
 
 
 
