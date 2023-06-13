@@ -23,8 +23,8 @@ const PastureScreen = ({navigation}) => {
                   <CustomButtons label="事務所" onPress={() => navigation.navigate('OfficeScreen')}/>
               </View>
               <View style={Screenstyles.content}>
-                  <CustomButtons label="飼 葉"/>
                   <CustomButtons label="施 設" onPress={() => navigation.navigate('InstitutionScreen')}/>
+                  <CustomButtons label="競馬場"/>
                   <CustomButtons label="種 付" disabled={true}/>
               </View>
             </View>
