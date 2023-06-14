@@ -19,10 +19,11 @@ const ModalButton = ({ label,count, onPress,disabled }) => {
 const styles = StyleSheet.create({
 	button: {
 		backgroundColor: colors.ModalButtonColor,
+		borderWidth: 1,
+		borderColor: colors.black,
     	borderRadius: 8,
 		height: 40,
 		width: 45,
-		// paddingVertical: 8,
 		alignItems: "center"
 		
 	},

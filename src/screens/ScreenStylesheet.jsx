@@ -4,6 +4,7 @@ import {
     heightPercentageToDP as hp
   } from 'react-native-responsive-screen';
 import colors from '../containers/colors';
+import { vh, vw } from 'react-native-expo-viewport-units';
 
 
 // TopScreen Style
@@ -199,13 +200,13 @@ const Screenstyles = StyleSheet.create({
     },
     HCImage: {
       marginTop: 25,
-      height: hp(10),
-      width: wp(20)
+      height: hp(9.8),
+      width: wp(18.6)
     },
     HCNameImage: {
       marginLeft: -25,
-      height: hp(9),
-      width: wp(18)
+      height: vh(9.8),
+      width: vw(19)
     },
     DropDwonButton: {
       marginTop: 20,
