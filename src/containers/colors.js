@@ -9,7 +9,7 @@ const colors = {
     headerButtonColor:'#f6c242',
 	white: '#fff',
 	black: '#000',
-	blue: '#5D5FEE',
+	blue: '#081293',
 	grey: '#BABBC3',
 	darkBlue: '#7978B5',
 	red: 'red',
@@ -43,7 +43,8 @@ const colors = {
 	DetailColor: '#978776',
 	ModalButtonColor: '#ffd769',
 	green:'#77924b', 
-	pink:'#e9a1b6'
+	pink:'#e9a1b6',
+	borderColor: '#837358',
 
 };
 

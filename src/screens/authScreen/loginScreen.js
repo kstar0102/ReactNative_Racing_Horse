@@ -20,16 +20,16 @@ const LoginScreen = ({navigation}) => {
             <AuthHeaderScreen/>
             <View style={AuthStyle.InputGroup}>
                 <View style={AuthStyle.EmailInput}>
-                    <Text style={AuthStyle.labelT}>ログインID</Text>
+                    <Text style={AuthStyle.labelT}>ログイン<Text style={AuthStyle.labelTID}>ID</Text></Text>
                     <EmailInput/>
                 </View>   
                 <View style={AuthStyle.PasswordInput}>
-                    <Text style={AuthStyle.labelT}>パスワード</Text>
+                    <Text style={AuthStyle.labelTBottom}>パスワード</Text>
                     <PasswordInput/>
                 </View>
                 <View style={AuthStyle.checkboxContainer}>
-                <CheckButton/>
-                    <Text style={AuthStyle.label}>パスワードを保存しますか?</Text>
+                    <CheckButton/>
+                    <Text style={AuthStyle.label}>パスワードを保存しますか ?</Text>
                 </View>
                  <LoginButton label={'ログイン'}  onPress={() => navigation.navigate('AppStack')}/>
             </View>

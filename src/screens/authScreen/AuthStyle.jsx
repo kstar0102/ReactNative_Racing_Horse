@@ -1,3 +1,4 @@
+
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
@@ -21,22 +22,31 @@ const AuthStyle = StyleSheet.create({
         padding: 10,
     },
     EmailInput: {
-
+        marginTop: 8
     },
     PasswordInput:{
-
+        marginTop: 20
     },
     checkboxContainer: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        marginTop: -10,
+        marginTop: -5,
         marginLeft: -130,
         marginBottom: 35,
     },
     labelT:{
+        fontSize: wp(1.5) + hp(2),
         margin: 9,
-        marginLeft: -3
+        marginLeft: -3,
+        marginBottom: -6
+    },
+    labelTID:{
+        fontSize: wp(1.8) + hp(2),
+        fontWeight: 600
+    },
+    labelTBottom:{
+        fontSize: wp(1.8) + hp(2),
     },
     label: {
 

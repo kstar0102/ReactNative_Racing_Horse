@@ -25,7 +25,7 @@ const NRegistration  = ({navigation}) => {
             <View style={Screenstyles.NRcontainer}>
                 <View style={Screenstyles.NRtitle}>
                     <Text style={Screenstyles.NRtitleA}>牧場を購入する</Text>   
-                    <Text style={Screenstyles.NRtitleB}>[注意] 同じポイント分、 <Text style={Screenstyles.NRSpanT}>維持費</Text>がかかります!</Text> 
+                    <Text style={Screenstyles.NRtitleLabel}>[注意] 同じポイント分、 <Text style={Screenstyles.NRtitleLabelSpan}>維持費</Text>がかかります !</Text> 
                 </View>
                 <View style={Screenstyles.NRpay}>
                     <View style={Screenstyles.NRleft}> 
@@ -33,14 +33,17 @@ const NRegistration  = ({navigation}) => {
                             <Dropdown label="牧場 (小)" data={data} onSelect={setSelected} />
                             <Text style={Screenstyles.NRleftL}>{(!!selected && selected.payMent) || '500pt'}</Text>
                         </View>
-                        <Image 
-                            style={(!!selected && selected.id == 1 ? Screenstyles.NRImageSmall : !!selected && selected.id == 2 ? Screenstyles.NRImageMiddle : !!selected && selected.id == 3 ? Screenstyles.NRImageBig : Screenstyles.NRImageSmall)}
-                            source={require('../assets/images/pasture.jpg')}
-                        />
-                            <Text  style={Screenstyles.NRcaution}>{(!!selected && selected.Caution) || '※種牡馬・施設は'}<Text style={Screenstyles.NRSpan}>{(!!selected && selected.CautionS) || '不可'}</Text></Text>
+                        <View style={Screenstyles.NRImageBorder}>
+                            <Image 
+                                style={(!!selected && selected.id == 1 ? Screenstyles.NRImageSmall : !!selected && selected.id == 2 ? Screenstyles.NRImageMiddle : !!selected && selected.id == 3 ? Screenstyles.NRImageBig : Screenstyles.NRImageSmall)}
+                                source={require('../assets/images/pasture.jpg')}
+                            />
+                        </View>
+                        <Text  style={Screenstyles.NRcaution}>{(!!selected && selected.Caution) || '※種牡馬・施設は'}<Text style={Screenstyles.NRSpan}>{(!!selected && selected.CautionS) || '不可'}</Text></Text>
+                        
                         <BuyButton label={'購入する'} onPress={() => navigation.navigate('HorseChoiceScreen')}/>
                     </View>
-                        <View style={Screenstyles.NRright}>
+                        <View style={(!!selected && selected.id == 1 ? Screenstyles.NRSmallRight : !!selected && selected.id == 2 ? Screenstyles.NRMiddleRight : !!selected && selected.id == 3 ? Screenstyles.NRBigRight : Screenstyles.NRRight)}>
                             <View style={Screenstyles.NRrightTxtGroup}>
                                 <Text style={Screenstyles.NRtxt}>0歳馬 : </Text>
                                 <Text style={Screenstyles.NRtxtSpan}> {(!!selected && selected.value) || 1}頭</Text>

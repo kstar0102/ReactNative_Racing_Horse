@@ -20,8 +20,8 @@ const PastureNameScreen  = ({navigation}) => {
             <View style={Screenstyles.NRcontainer}>
                 <View style={Screenstyles.NRtitle}>
                     <Text style={Screenstyles.NRtitleA}>牧場名・冠名を決める</Text>   
-                    <Text style={Screenstyles.NRtitleB}>[注意]<Text style={Screenstyles.NRSpanT}>卑猥</Text>な名前や<Text style={Screenstyles.NRSpanT}>コンプラ違反</Text>のワードは<Text style={Screenstyles.NRSpanT}>禁止</Text>します。</Text> 
-                    <Text style={Screenstyles.NRtitleB}>[注意2] 一度決めた<Text style={Screenstyles.NRSpanT}>名前</Text>は<Text style={Screenstyles.NRSpanT}>変更できません。</Text> 慎重に!</Text> 
+                    <Text style={Screenstyles.NRtitleB}>[注意1]<Text style={Screenstyles.NRSpanT}>卑猥</Text>な名前や<Text style={Screenstyles.NRSpanT}>コンプラ違反</Text>のワードは<Text style={Screenstyles.NRSpanT}>禁止</Text>します。</Text> 
+                    <Text style={Screenstyles.NRtitleB}>[注意2] 一度決めた<Text style={Screenstyles.NRSpanT}>名前</Text>は<Text style={Screenstyles.NRSpanT}>変更できません。</Text> 慎重に !</Text> 
                 </View>
                 <View style={Screenstyles.PNameRegister}>
                     <View style={Screenstyles.FarmName}>

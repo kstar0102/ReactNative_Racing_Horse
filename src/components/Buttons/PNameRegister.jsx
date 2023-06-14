@@ -1,4 +1,8 @@
 import { TouchableOpacity, Text, StyleSheet, Button } from "react-native";
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp
+  } from 'react-native-responsive-screen';
 // container
 import colors from "../../containers/colors";
 
@@ -28,7 +32,7 @@ const styles = StyleSheet.create({
 	},
 	label: {
 		color: colors.light.white,
-		fontSize: 18,
+		fontSize: hp(1.8) + wp(2),
 		fontWeight: 500,
 		textAlign: 'center'
 	},

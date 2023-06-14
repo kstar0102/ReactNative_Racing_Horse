@@ -42,18 +42,29 @@ const Screenstyles = StyleSheet.create({
     },
     NRtitle: {
       flexDirection: 'column',
-      marginLeft: 10
+      marginTop: hp(1.5),
+      marginLeft: wp(2.6)
     },
     NRtitleA: {
-      fontSize: hp(1.5) + wp(2),
+      marginLeft: wp(1),
+      fontSize: hp(2) + wp(2),
       fontWeight: 700
     },
     NRtitleB: {
-      fontSize: hp(1.2) + wp(1),
-      fontWeight: 500
+      marginTop: hp(.6),
+      fontSize: hp(1.6) + wp(.6),
+      fontWeight: 600
+    },
+    NRtitleLabel:{
+      marginTop: hp(.6),
+      fontSize: hp(1.8) + wp(1),
+      fontWeight: 600
     },
     NRSpan: {
       
+      color: colors.red
+    },
+    NRtitleLabelSpan:{
       color: colors.red
     },
     NRSpanT: {
@@ -72,31 +83,32 @@ const Screenstyles = StyleSheet.create({
     },
     NRleftD:{
       flexDirection: 'row',
-      alignItems: 'center'
+      alignItems: 'center',
+      marginBottom: hp(3.5)
     },
     NRleftL: {
       fontSize: 22,
       fontWeight: 600
-    },  
+    },
+    NRImageBorder:{
+      borderWidth: 2,
+      borderColor: colors.borderColor,
+    },
     NRImageSmall: {
-      borderWidth: 3,
-      borderColor: colors.black,
-      marginTop: 25,
+      borderWidth: 8,
+      borderColor: colors.butonBackgroud,
       height: hp(14),
       width: wp(35)
     },
     NRImageMiddle: {
-      borderWidth: 3,
-      borderColor: colors.black,
-      marginTop: 25,
-      padding: 20,
+      borderWidth: 8,
+      borderColor: colors.butonBackgroud,
       height: hp(18),
       width: wp(50)
     },
     NRImageBig: {
-      borderWidth: 3,
-      borderColor: colors.black,
-      marginTop: 25,
+      borderWidth: 8,
+      borderColor: colors.butonBackgroud,
       height: hp(20),
       width: wp(55)
     },
@@ -106,7 +118,17 @@ const Screenstyles = StyleSheet.create({
       fontSize: 18,
       fontWeight: 600
     },
-    NRright: {
+    NRSmallRight:{
+      marginTop: hp(12)
+    },
+    NRMiddleRight:{
+      marginTop: hp(8)
+    },
+    NRBigRight:{
+      marginTop: hp(6)
+    },
+    NRRight: {
+      marginTop: hp(5)
     },
     NRrightTxtGroup:{
       flexDirection: 'row',

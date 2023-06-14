@@ -1,6 +1,10 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp
+  } from 'react-native-responsive-screen';
 import colors from '../../containers/colors';
 
  const RaceWeekTable = ({ raceWeekTitle, raceWeekData, raceWeekName}) => {
@@ -55,14 +59,17 @@ row: {
     height: 23,
 },
 text: { 
-    textAlign: 'center' 
+    textAlign: 'center'
 },
 textCol: {
-    color: colors.blue
+    color: colors.blue,
+    fontWeight: 600,
+    marginLeft: wp(1)
 },
 textHead:{
     textAlign: 'center',
-    fontSize: 18
+    fontSize: 18,
+    fontWeight: 600
 },
 wrapper: { 
     flexDirection: 'row'

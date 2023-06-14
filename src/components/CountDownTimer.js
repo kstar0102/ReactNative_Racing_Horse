@@ -1,5 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Text,StyleSheet } from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
 import colors from '../containers/colors';
 
 const CountDownTimer = ({secondsRemaining}) => {
@@ -18,8 +22,7 @@ export default CountDownTimer;
 
 const styles = StyleSheet.create({
   currentHourStyle:{
-    fontSize: 36,
+    fontSize: wp(3) + hp(4),
     color: colors.white,
-    fontWeight: 700,
   }
 })

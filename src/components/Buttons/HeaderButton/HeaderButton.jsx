@@ -23,12 +23,13 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.headerButtonColor,
         borderRadius:6,
 		width: wp(20),
-		paddingVertical: 5,
+		height: hp(4.6),
+		paddingVertical: 7,
 		
 	},
 	label: {
 		color: colors.light.white,
-		fontSize: hp(1.5) + wp(.5),
+		fontSize: hp(1.6) + wp(.5),
 		fontWeight: 700,
 		textAlign: 'center'
 

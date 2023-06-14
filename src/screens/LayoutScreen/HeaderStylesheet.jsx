@@ -26,16 +26,23 @@ const HeaderStyleSheet = StyleSheet.create({
     weatherCurrent: {
         backgroundColor: colors.white,
         padding: 3,
+        paddingTop: hp(.7),
+        paddingBottom: hp(.7),
         paddingHorizontal: 6,
-        borderRadius: 5
+        borderRadius: 5,
+        marginTop: hp(.5)
     },
     
     goldCoinAndLevel: {
-        fontSize: hp(2),
+        fontSize: hp(2.1),
     },
     headerLogo:{
-        padding: 2,
-        width: wp(26)
+        paddingTop: hp(1),
+        padding: 5,
+        paddingBottom: hp(1),
+        width: wp(28),
+        // height: hp(9),
+        // paddingVertical: 
     },   
     // Header Middle 
     headerContentMidle: {
@@ -50,7 +57,7 @@ const HeaderStyleSheet = StyleSheet.create({
     },
     // HeaderEnd
     headerContentEnd: {
-        marginTop: 4,
+        marginTop: hp(1.5),
         flexDirection: 'column',
         justifyContent: 'space-evenly',
     },
@@ -74,8 +81,10 @@ const HeaderStyleSheet = StyleSheet.create({
         alignItems: 'center'
     },
     // Logo Style
-    LHeaderLogo: {
-
+    LHeaderLogo: {  
+        borderWidth: 1,
+        borderColor: colors.white,
+        backgroundColor: colors.white
     },
     LheaderLogoImage: {
         height: hp(10),
@@ -86,13 +95,15 @@ const HeaderStyleSheet = StyleSheet.create({
         flexDirection: 'column',
     },
     LHeaderText: {
-        fontSize: hp(2) + wp(1),
+        fontSize: hp(2.2) + wp(1.2),
+        marginTop: -5,
+        marginBottom: 5
         // marginLeft: -6
     },
     LHeaderTextRight:{
-        fontSize: hp(2) + wp(1),
+        fontSize: hp(2.1) + wp(1.2),
         marginLeft: -6,
-        letterSpacing: -2
+        letterSpacing: -3
     },
     // NEW REGISTRATION
     NRHcontainer:{
@@ -114,9 +125,12 @@ const HeaderStyleSheet = StyleSheet.create({
 
     },
     NRHeaderText:{
-        fontWeight: 700,
-        fontSize: hp(2) + wp(2)
+        fontWeight: 600,
+        fontSize: hp(2) + wp(2.3)
     },
+    NRHeaderTextTop:{
+        fontSize: hp(1.8) + wp(2)
+    }
   });
 
   export default HeaderStyleSheet;

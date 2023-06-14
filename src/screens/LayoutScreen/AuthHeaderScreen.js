@@ -18,7 +18,7 @@ const AuthHeaderScreen = () => {
                     ようこそ!
                 </Text>
                 <Text style={HeaderStyleSheet.LHeaderTextRight}>
-                  『ダービードリーム』の世界へ  !
+                  『ダービードリーム』の世界へ !
                 </Text>
             </View>
       </View>

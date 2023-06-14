@@ -6,7 +6,7 @@ import RaceWeekTable from './RaceWeekTable';
 
 const RacetrackCourse = () => {
   const CONTENT = {
-    raceWeekTitle: ['今週のレース'],
+    raceWeekTitle: ['[今週のレース]'],
     raceWeekName: ['新馬', '未勝利', '1勝クラス', '2勝クラス', '3勝クラス','ジュニアC','中山金杯','京都金杯'],
     raceWeekData: [
       [' ', '中山', '芝', '1600m', '3歳限定'],
@@ -20,8 +20,8 @@ const RacetrackCourse = () => {
   
     ],
 
-    nextWeekTitle: ['来週のレース'],
-    nextWeekName: ['新馬', '未勝利', '1勝クラス', '2勝クラス', '3勝クラス','ジュニアC','中山金杯','京都金杯'],
+    nextWeekTitle: ['[来週のレース]'],
+    nextWeekName: ['新馬', '未勝利', '1勝クラス', '2勝クラス', '3勝クラス', '万葉S','シンザン記念','フェアリーS'],
     nextWeekData: [
       [' ', '騎手', 'ダ', '1400m', '3歳限定'],
       [' ', '騎手', '芝', '1600m', '3歳以上'],
