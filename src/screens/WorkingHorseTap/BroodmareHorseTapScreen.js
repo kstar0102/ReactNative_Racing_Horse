@@ -4,18 +4,18 @@ import DropDownR from '../../components/Buttons/DropDwonR';
 import RTapScreensStyle from '../RTapScreens/RTapScreensStyle';
 import WorkingButton from '../../components/Buttons/WorkingButtons';
 
-const FirstHorseTapScreen = () => {
+const BroodmareHorseTapScreen = () => {
   const [selected, setSelected] = useState(undefined);
   const data = [
     { label: '馬名A', id: 1, sp: 'S', st: 'D+', fatigue: 'O',  instantaneous:'A', guts:'C', temper:'B',  health: 'A', Hair:''},
     { label: '馬名B', id: 2, sp: 'S+', st: 'D', fatigue: '△',  instantaneous:'A+', guts:'C', temper:'B',  health: 'A', Hair:''},
-    { label: '馬名C', id: 3, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:''},
-    { label: '馬名D', id: 4, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:''},
-    { label: '馬名E', id: 5, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:''},
-    { label: '馬名F', id: 6, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:''},
-    { label: '馬名G', id: 7, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:''},
-    { label: '馬名H', id: 8, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:''},
-    { label: '馬名I', id: 9, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:''},
+    { label: '馬名C', id: 3, sp: 'S', st: 'D+', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:''},
+    { label: '馬名D', id: 4, sp: 'S', st: 'D', fatigue: 'O',  instantaneous:'A+', guts:'C+', temper:'B+',  health: 'A', Hair:''},
+    { label: '馬名E', id: 5, sp: 'S+', st: 'D+', fatigue: '▲',  instantaneous:'A', guts:'C', temper:'B+',  health: 'A', Hair:''},
+    { label: '馬名F', id: 6, sp: 'S', st: 'D', fatigue: '△',  instantaneous:'A+', guts:'C+', temper:'B',  health: 'A+', Hair:''},
+    { label: '馬名G', id: 7, sp: 'S+', st: 'D', fatigue: 'O',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:''},
+    { label: '馬名H', id: 8, sp: 'S', st: 'D+', fatigue: '▲',  instantaneous:'A', guts:'C', temper:'B+',  health: 'A', Hair:''},
+    { label: '馬名I', id: 9, sp: 'S+', st: 'D', fatigue: 'O',  instantaneous:'A+', guts:'C+', temper:'B',  health: 'A+', Hair:''},
  ];
 
 
@@ -59,7 +59,7 @@ const FirstHorseTapScreen = () => {
                   {(!!selected && selected.id ==1 ? 
                     <Image 
                       style={RTapScreensStyle.HorseAvatar}
-                      source={require('../../assets/images/horse/22.png')}
+                      source={require('../../assets/images/horse/25.png')}
                     />
                     :
                     <Image 
@@ -90,7 +90,7 @@ const FirstHorseTapScreen = () => {
                     :
                     <Image 
                       style={RTapScreensStyle.HorseAvatar}
-                      source={require('../../assets/images/horse/22.png')}
+                      source={require('../../assets/images/horse/25.png')}
                     />
                   )} 
               </View>
@@ -109,4 +109,4 @@ const FirstHorseTapScreen = () => {
       </ScrollView>
     )
   }
-export default FirstHorseTapScreen;
+export default BroodmareHorseTapScreen;

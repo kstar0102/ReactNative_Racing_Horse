@@ -3,7 +3,11 @@ import { View, StyleSheet } from 'react-native';
 import { vw,vh  } from 'react-native-expo-viewport-units';
 import { ITapButton } from '../components/Buttons';
 
-import FirstHorseTapScreen from './WorkingHorseTap/FirstHorseLisTapScreen';
+import FirstHorseTapScreen from './WorkingHorseTap/FirstHorseTapScreen';
+import SecondHorseLisTapScreen from './WorkingHorseTap/SecondHorseLisTapScreen';
+import GrazingHorseTapScreen from './WorkingHorseTap/GrazingHorseTapScreen';
+import BroodmareHorseTapScreen from './WorkingHorseTap/BroodmareHorseTapScreen';
+import StallionHorseTapScreen from './WorkingHorseTap/StallionHorseTapScreen';
 
 const WorkingHorseTapScreen = () => {
   const [activeButton, setActiveButton] = useState(1);
@@ -17,13 +21,13 @@ const WorkingHorseTapScreen = () => {
       case 1:
         return <FirstHorseTapScreen />;
       case 2:
-        return <FirstHorseTapScreen />;
+        return <SecondHorseLisTapScreen />;
       case 3:
-        return <FirstHorseTapScreen /> ;
+        return <GrazingHorseTapScreen /> ;
       case 4:
-        return <FirstHorseTapScreen />;
+        return <BroodmareHorseTapScreen />;
       case 5:
-        return <FirstHorseTapScreen />;
+        return <StallionHorseTapScreen />;
       default:
         return <FirstHorseTapScreen />;
     }
