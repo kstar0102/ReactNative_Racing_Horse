@@ -17,10 +17,10 @@ const RacetrackScreen = ({navigation}) => {
             <View style={Screenstyles.UPContainer}>
                 <View style={Screenstyles.UPcontent}>
                     <View>
-                    <ReturnButton label="牧 場" onPress={() => navigation.navigate('TopScreen')}/>
+                        <ReturnButton label="牧 場" onPress={() => navigation.navigate('TopScreen')}/>
                     </View>
                     <View style={Screenstyles.UPRButton}>
-                        <ReturnButton label="事務所" onPress={() => navigation.navigate('PastureScreen')}/>
+                        <ReturnButton label="競馬場" onPress={() => navigation.navigate('PastureScreen')}/>
                     </View>
                 </View>
                 <RacetrackCourse/>

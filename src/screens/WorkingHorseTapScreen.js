@@ -32,8 +32,8 @@ const WorkingHorseTapScreen = () => {
   return (
     <View style={styles.container}>
         <View style={styles.Buttons}>
-            <ITapButton id={1} isActive={activeButton === 1} label={'0 ~ 1繁'} style={styles.Button1} onPress={handleButtonPress} />
-            <ITapButton id={2} isActive={activeButton === 2} label={'2 ~ 3繁'} style={styles.Button2} onPress={handleButtonPress} />
+            <ITapButton id={1} isActive={activeButton === 1} label={'0 ~ 1歲'} style={styles.Button1} onPress={handleButtonPress} />
+            <ITapButton id={2} isActive={activeButton === 2} label={'2 ~ 3歲'} style={styles.Button2} onPress={handleButtonPress} />
             <ITapButton id={3} isActive={activeButton === 3} label={'放牧馬'} style={styles.Button3} onPress={handleButtonPress} />
             <ITapButton id={4} isActive={activeButton === 4} label={'繁殖牝馬'} style={styles.Button4} onPress={handleButtonPress} />
             <ITapButton id={5} isActive={activeButton === 5} label={'種牡馬'} style={styles.Button5} onPress={handleButtonPress} />

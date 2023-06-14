@@ -46,9 +46,8 @@ export default RaceWeekTable;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 180,
-    marginLeft: 30,
-    marginRight: 30,
+    // marginTop: 180,
+    
     backgroundColor: '#fff' 
 },
 tableHead: { 

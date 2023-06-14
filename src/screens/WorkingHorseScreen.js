@@ -20,7 +20,7 @@ const WorkingHorseScreen = ({navigation}) => {
                   <ReturnButton label="牧 場" onPress={() => navigation.navigate('TopScreen')}/>
                 </View>
                 <View style={Screenstyles.UPRButton}>
-                    <ReturnButton label="事務所" onPress={() => navigation.navigate('PastureScreen')}/>
+                    <ReturnButton label="繁用馬" onPress={() => navigation.navigate('PastureScreen')}/>
                 </View>
               </View>
               <WorkingHorseTapScreen/>

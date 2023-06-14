@@ -48,6 +48,9 @@ export default RacetrackCourse;
 
 const styles = StyleSheet.create({
   container:{
-    // height: 700
+    marginTop: 200,
+    marginLeft: 30,
+    marginRight: 30,
+    height: 480
   }
 })
