@@ -2,15 +2,10 @@ import React, { useState } from 'react';
 import {TouchableOpacity, Text, Image, View, StyleSheet, Button, Modal} from 'react-native';
 import colors from '../../containers/colors';
 import ModalButton from './ModalButton';
-import {
-    widthPercentageToDP as wp,
-    heightPercentageToDP as hp
-  } from 'react-native-responsive-screen';
 import { vh, vw } from 'react-native-expo-viewport-units';
 import Tooltip from 'react-native-walkthrough-tooltip';
-import style from 'react-native-background-image/style';
 
-const ImageButton = ({label, onPress, disabled, source, id ,blurRadius}) =>{
+const ImageButton = ({onPress, disabled, source, id }) =>{
     const [toolTipVisible, setToolTipVisible] = useState(false);
     return(
         <Tooltip

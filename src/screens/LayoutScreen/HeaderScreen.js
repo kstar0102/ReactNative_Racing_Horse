@@ -7,25 +7,34 @@ import HeaderStylesheet from './HeaderStylesheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HeaderScreen = () => {
-  const [secondsRemaining, setSecondsRemaining] = useState(21000);
+  const [secondsRemaining, setSecondsRemaining] = useState(6000);
 
   useEffect(() => {
-    // Set the saved value of `secondsRemaining` as the initial state when the component mounts.
-    AsyncStorage.getItem('secondsRemaining').then((value) => {
-      if (value !== null) {
-        setSecondsRemaining(parseInt(value));
-      }
-      else if(value <= 0){
-        setSecondsRemaining(21000); // Set default value
-      }
-      else {
-        setSecondsRemaining(21000); // Set default value
-      }
-    }).catch((error) => {
-      console.log(error);
-    });
+    const loadSecondsRemaining = () => {
+      AsyncStorage.getItem('secondsRemaining').then((value) => {
+        if (value !== null) {
+          AsyncStorage.setItem('secondsRemaining', String(secondsRemaining - 1)); // Save the updated value to AsyncStorage
+          if (value <= 0) {
+            setSecondsRemaining(21600); // Set default value
+          }
+        } else {
+          setSecondsRemaining(21600); // Set default value
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
+    };
+  
+    // Call the function once immediately on mount
+    loadSecondsRemaining();
+  
+    // Use setInterval to call the function every one second
+    const intervalId = setInterval(loadSecondsRemaining, 1000);
+  
+    // Return a cleanup function to clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
   }, []);
-
+  
   useEffect(() => {
     const intervalId = setInterval(() => {
       setSecondsRemaining((prevSeconds) => prevSeconds - 1);
