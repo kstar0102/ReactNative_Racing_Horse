@@ -43,9 +43,9 @@ export default RanchTapScreen;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 155,
+    marginTop: vh(28),
     flexDirection: 'column',
-  
+    
   },
   Buttons:{
     flexDirection: 'row',

@@ -190,6 +190,10 @@ const RTapScreensStyle = StyleSheet.create({
     top: -10,
     left: 37,
     zIndex: 1000,
+  },
+  ButtonGroup:{
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   }
 });
 

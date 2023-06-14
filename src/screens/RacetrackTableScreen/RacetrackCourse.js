@@ -1,40 +1,36 @@
 import React, { useState } from 'react';
-import { View, Image, Text, ScrollView, StyleSheet } from 'react-native';
+import {ScrollView, StyleSheet } from 'react-native';
 // import OfficeTableTemplate from '../../components/OfficeTable/OfficeTableTemplate';
 import NextWeekTable from './NextWeekTable';
 import RaceWeekTable from './RaceWeekTable';
 
 const RacetrackCourse = () => {
   const CONTENT = {
-    raceWeekTitle: ['順位', '馬名', ' ', '通算成精', '獲得賞金(円)'],
-    tableHeadValue1: ['1位', 'イチゴ', '騎手', '100-100-100-100', '300,000,000'],
-    tableHeadValue2: ['2位', 'バナナ', '騎手', '90-90-90-90', '250,000,000'],
-    tableHeadValue3: ['3位', '東京', '騎手', '80-80-80-80', '200,000,000'],
-    // tableNumber: ['4位', '5位', '6位', '7位', '8位','9位','10位'],
-    tableData: [
-      ['4位','アレックス', '騎手', '70-70-70-70', '150,000,000'],
-      ['5位','田中太郎', '騎手', '60-60-60-60', '100,000,000'],
-      ['6位', '王　金銀', '騎手', '50-50-50-50', '80,000,000'],
-      ['7位', 'マイケル', '騎手', '40-40-40-40', '60,000,000'],
-      ['8位', 'メイプル', '騎手', '30-30-30-30', '40,000,000'],
-      ['9位', 'ジョーダン', '騎手', '20-20-20-20', '20,000,000'],
-      ['10位', 'りんご', '騎手', '10-10-10-10', '10,000,000'],
+    raceWeekTitle: ['今週のレース'],
+    raceWeekName: ['新馬', '未勝利', '1勝クラス', '2勝クラス', '3勝クラス','ジュニアC','中山金杯','京都金杯'],
+    raceWeekData: [
+      [' ', '中山', '芝', '1600m', '3歳限定'],
+      [' ', '京都', 'ダ', '1200m', '3歳以上'],
+      [' ','中山', '芝', '2200m', '3歳以上'],
+      [' ', '京都', 'ダ', '1600m', '3歳以上'],
+      [' ', '中山', '芝', '1400m', '3歳以上'],
+      ['OP ', '京都', 'ダ', '1600m', '3歳以上'],
+      ['G III', '中山', '芝', '2000m', '3歳以上'],
+      ['G III', '京都', 'ダ', '1600m', '3歳以上'],
   
     ],
 
-    nextWeekTitle: ['順位', '馬名', ' ', '通算成精', '獲得賞金(円)'],
-    tableHeadValue1: ['1位', 'イチゴ', '騎手', '100-100-100-100', '300,000,000'],
-    tableHeadValue2: ['2位', 'バナナ', '騎手', '90-90-90-90', '250,000,000'],
-    tableHeadValue3: ['3位', '東京', '騎手', '80-80-80-80', '200,000,000'],
-    // tableNumber: ['4位', '5位', '6位', '7位', '8位','9位','10位'],
-    tableData: [
-      ['4位','アレックス', '騎手', '70-70-70-70', '150,000,000'],
-      ['5位','田中太郎', '騎手', '60-60-60-60', '100,000,000'],
-      ['6位', '王　金銀', '騎手', '50-50-50-50', '80,000,000'],
-      ['7位', 'マイケル', '騎手', '40-40-40-40', '60,000,000'],
-      ['8位', 'メイプル', '騎手', '30-30-30-30', '40,000,000'],
-      ['9位', 'ジョーダン', '騎手', '20-20-20-20', '20,000,000'],
-      ['10位', 'りんご', '騎手', '10-10-10-10', '10,000,000'],
+    nextWeekTitle: ['来週のレース'],
+    nextWeekName: ['新馬', '未勝利', '1勝クラス', '2勝クラス', '3勝クラス','ジュニアC','中山金杯','京都金杯'],
+    nextWeekData: [
+      [' ', '騎手', 'ダ', '1400m', '3歳限定'],
+      [' ', '騎手', '芝', '1600m', '3歳以上'],
+      [' ', '騎手', 'ダ', '1600m', '3歳以上'],
+      [' ', '騎手', '芝', '2400m', '3歳以上'],
+      [' ', '騎手', 'ダ', '2000m', '3歳以上'],
+      ['OP', '騎手', '芝', '3000m', '3歳以上'],
+      ['G III', '騎手', 'ダ', '1600m', '3歳以上'],
+      ['G III', '騎手', '芝', '1600m', '3歳以上'],
   
     ],
   };
@@ -43,8 +39,8 @@ const RacetrackCourse = () => {
   // {label ? label : "Button"}
     return (
       <ScrollView style={styles.container}>
-        <NextWeekTable tableHeadTitle={CONTENT.raceWeekTitle}/>
-        <RaceWeekTable tableHeadTitle={CONTENT.nextWeekTitle}/>
+        <RaceWeekTable raceWeekTitle={CONTENT.raceWeekTitle} raceWeekData={CONTENT.raceWeekData} raceWeekName={CONTENT.raceWeekName}/>
+        <NextWeekTable nextWeekTitle={CONTENT.nextWeekTitle} nextWeekData={CONTENT.nextWeekData} nextWeekName={CONTENT.nextWeekName}/>
       </ScrollView>
     )
   }
@@ -52,9 +48,6 @@ export default RacetrackCourse;
 
 const styles = StyleSheet.create({
   container:{
-    // height: 
-    // flexDirection: 'column',
-    // justifyContent: 'center'
-    // alignItems: 'center'
+    // height: 700
   }
 })

@@ -5,7 +5,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
-import colors from '../../containers/colors';
 
 const FooterScreen = () => (
     <View style={styles.containers}>
@@ -20,7 +19,7 @@ const FooterScreen = () => (
 const styles = StyleSheet.create({
   containers:{
     position: 'absolute',
-    bottom: hp(7),
+    bottom: hp(5),
     left: 1,
     right: 1,
     flexDirection: 'row',

@@ -1,47 +1,34 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
+import colors from '../../containers/colors';
 
- const NextWeekTable = ({tableHeadTitle, tableHeadValue1, tableHeadValue2, tableHeadValue3, tableData}) => {
+ const RaceWeekTable = ({ nextWeekTitle, nextWeekData, nextWeekName}) => {
   const CONTENT = {
-    tableHeadTitle: tableHeadTitle,
-    tableHeadValue1: tableHeadValue1,
-    tableHeadValue2: tableHeadValue2,
-    tableHeadValue3: tableHeadValue3,
-    // tableNumber: ['4位', '5位', '6位', '7位', '8位','9位','10位'],
-    tableData: tableData
+    nextWeekTitle: nextWeekTitle,
+    nextWeekData: nextWeekData,
+    nextWeekName: nextWeekName,
+    
   };
   return (
     <View style={styles.container}>
       <Table borderStyle={{ borderWidth: 1 }}>
         <Row
-          data={CONTENT.tableHeadTitle}
-          flexArr={[.7, 1.3, .6, 2.3, 1.8]}
-          style={styles.tableHeadTitle}
-          textStyle={styles.text}
-        />
-        <Row
-          data={CONTENT.tableHeadValue1}
-          flexArr={[.7, 1.3, .6,2.3,1.8]}
-          style={styles.tableHeadValue1}
-          textStyle={styles.text}
-        />
-        <Row
-          data={CONTENT.tableHeadValue2}
-          flexArr={[.7, 1.3, .6,2.3,1.8]}
-          style={styles.tableHeadValue2}
-          textStyle={styles.text}
-        />
-        <Row
-          data={CONTENT.tableHeadValue3}
-          flexArr={[.7, 1.3, .6,2.3,1.8]}
-          style={styles.tableHeadValue3}
-          textStyle={styles.text}
+          data={CONTENT.nextWeekTitle}
+          flexArr={[]}
+          style={styles.tableHead}
+          textStyle={styles.textHead}
         />
         <TableWrapper style={styles.wrapper}>
+        <Col
+            data={CONTENT.nextWeekName}
+            style={styles.title}
+            heightArr={[23, 23]}
+            textStyle={styles.textCol}
+          />
           <Rows
-            data={CONTENT.tableData}
-            flexArr={[.7, 1.3, .6,2.3,1.8]}
+            data={CONTENT.nextWeekData}
+            flexArr={[.3, .3, .2, .4, .5]}
             style={styles.row}
             textStyle={styles.text}
           />
@@ -51,38 +38,31 @@ import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-componen
   );
 };
 
-export default NextWeekTable;
+export default RaceWeekTable;
 
 const styles = StyleSheet.create({
   container: {
-
-    marginTop: 200,
+    // marginTop: 200,
     margin: 30,
     backgroundColor: '#fff' 
 },
-tableHeadTitle: { 
-    height: 23,
-    backgroundColor: '#fff' 
-},
-tableHeadValue1:{
-  height: 23,
-  backgroundColor: '#fce49c'
-},
-tableHeadValue2:{
-  height: 23,
-  backgroundColor: '#d8dad9'
-},
-tableHeadValue3:{
-  height: 23,
-  backgroundColor: '#fcc699'
-},
-wrapper: { 
-    flexDirection: 'row' 
+tableHead: { 
+    backgroundColor: '#aae0bc' 
 },
 row: { 
     height: 23,
 },
 text: { 
     textAlign: 'center' 
+},
+textCol: {
+    color: colors.blue
+},
+textHead:{
+    textAlign: 'center',
+    fontSize: 18
+},
+wrapper: { 
+    flexDirection: 'row'
 },
 });

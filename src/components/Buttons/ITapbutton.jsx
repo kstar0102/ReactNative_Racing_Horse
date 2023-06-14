@@ -11,11 +11,11 @@ const ITapButton = ({ id, isActive, onPress, label}) => {
   return (
     <TouchableOpacity style={[ 
         styles.button, 
-        id ==1 ? styles.button1 : styles.button, 
-        id ==2 ? styles.button2 : styles.button,  
-        id ==3 ? styles.button3 : styles.button,  
-        id ==4 ? styles.button4 : styles.button,  
-        id ==5 ? styles.button5 : styles.button,
+        id == 1 ? styles.button1 : styles.button, 
+        id == 2 ? styles.button2 : styles.button,  
+        id == 3 ? styles.button3 : styles.button,  
+        id == 4 ? styles.button4 : styles.button,  
+        id == 5 ? styles.button5 : styles.button,
         isActive ? styles.activeButton : null,]}
         onPress={handlePress}
     >

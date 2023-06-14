@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
+// import { SafeAreaView, StatusBar } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {
   MD3LightTheme as DefaultTheme,
   Provider as PaperProvider,
 } from 'react-native-paper';
-// import CountdownProvider from './src/components/CountDownProvider';
 
 // import AuthenticationProvider from './src/contexts/Authentication';
 // Route
@@ -20,9 +19,7 @@ const App = () => {
     <>
       <NavigationContainer>
           <PaperProvider theme={theme} >
-            <SafeAreaView style={{flex: 1, paddingTop: StatusBar.currentHeight }}>
                 <Routes/>
-            </SafeAreaView>
           </PaperProvider>
       </NavigationContainer>
     </>

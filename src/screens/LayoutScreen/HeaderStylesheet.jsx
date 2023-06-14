@@ -2,7 +2,7 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
   } from 'react-native-responsive-screen';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, StatusBar} from 'react-native';
 import colors from '../../containers/colors';
 
 const HeaderStyleSheet = StyleSheet.create({
@@ -11,11 +11,12 @@ const HeaderStyleSheet = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-around',
       backgroundColor: colors.headerColor,
-      height: hp(12),
+      height: hp(18),
       width: wp(100),
       position: 'absolute',
       top:0,
-      zIndex: 1000
+      zIndex: 1000,
+      paddingTop: StatusBar.currentHeight 
     },
     // Header Firts Start
     headerContentStart: {
@@ -59,9 +60,11 @@ const HeaderStyleSheet = StyleSheet.create({
         backgroundColor: colors.RheaderColor,
         borderBottomWidth: 2.5,
         borderBottomColor: colors.white,
-        width: wp(100),
-        height: hp(12),
-        zIndex: 1000
+        // width: wp(100),
+        // height: hp(12),
+        zIndex: 1000,
+        paddingTop: StatusBar.currentHeight
+
     },
     // Importent Content Style
     LHeaderContent:{
@@ -96,9 +99,10 @@ const HeaderStyleSheet = StyleSheet.create({
         backgroundColor: colors.RheaderColor,
         borderBottomWidth: 2.5,
         borderBottomColor: colors.white,
-        width: wp(100),
-        height: hp(12),
-        zIndex: 1000
+        // width: wp(100),
+        // height: hp(12),
+        zIndex: 1000,
+        paddingTop: StatusBar.currentHeight
     },
     NRHeaderContent: {
         flexDirection: 'column',

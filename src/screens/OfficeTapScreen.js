@@ -52,7 +52,7 @@ export default OfficeTapScreen;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: vh(22),
+    marginTop: vh(28),
     flexDirection: 'column',
   
   },

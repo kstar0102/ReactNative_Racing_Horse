@@ -21,12 +21,12 @@ const Screenstyles = StyleSheet.create({
       content: {
         flexDirection: 'column',
         // justifyContent: 'center'
-        margin: 80
+        marginTop: hp(20) 
       },
       // BackGround Image Style
       container:{
         backgroundColor: colors.backgroudColor,
-        height: SCREEN_HEIGHT + hp(7)
+        height: SCREEN_HEIGHT + hp(9)
       },
       img: {
           backgroundColor: colors.backgroudColor,

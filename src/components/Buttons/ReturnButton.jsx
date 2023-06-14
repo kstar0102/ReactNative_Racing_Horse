@@ -25,10 +25,10 @@ const styles = StyleSheet.create({
 		height: 30,
 		width: 80,
 		position: "absolute",
-		top: hp(12.5),
+		top: hp(18.5),
 		left: wp(1),
 		paddingVertical: 5,
-		zIndex: 100
+		zIndex: 1000
 	},
 	label: {
 		color: colors.light.white,

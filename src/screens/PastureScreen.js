@@ -19,7 +19,7 @@ const PastureScreen = ({navigation}) => {
             <View style={Screenstyles.containers}>
               <View style={Screenstyles.content}>
                   <CustomButtons label="育 成" onPress={() => navigation.navigate('UpbringingScreen')}/>
-                  <CustomButtons label="繁用馬"/>
+                  <CustomButtons label="繁用馬" onPress={() => navigation.navigate('WorkingHorseScreen')}/>
                   <CustomButtons label="事務所" onPress={() => navigation.navigate('OfficeScreen')}/>
               </View>
               <View style={Screenstyles.content}>
@@ -33,5 +33,5 @@ const PastureScreen = ({navigation}) => {
     </View>
   );
 };
-  
+
 export default PastureScreen;
