@@ -34,14 +34,14 @@ const styles = StyleSheet.create({
       width: vw(20),
       height: vh(5),
       borderWidth: 1,
-      paddingVertical: 4,
+      paddingVertical: 2,
       alignItems: 'center',
       // transform: [{ scaleY: 1 }],
     },
     activeButton: {
       marginTop: -20,
       height: vh(7.8),
-      paddingVertical: 14,
+      paddingVertical: 12,
       zIndex: 1000
     },
     buttonText: {

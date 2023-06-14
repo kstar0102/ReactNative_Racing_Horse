@@ -61,7 +61,6 @@ const Screenstyles = StyleSheet.create({
       fontWeight: 600
     },
     NRSpan: {
-      
       color: colors.red
     },
     NRtitleLabelSpan:{
@@ -205,8 +204,8 @@ const Screenstyles = StyleSheet.create({
     },
     HCNameImage: {
       marginLeft: -25,
-      height: hp(14),
-      width: wp(28)
+      height: hp(9),
+      width: wp(18)
     },
     DropDwonButton: {
       marginTop: 20,
@@ -214,6 +213,7 @@ const Screenstyles = StyleSheet.create({
       marginBottom: 30
     },
     horseCard:{
+      marginTop: 10,
       flexDirection: 'column',
     },
     horseNameCard:{

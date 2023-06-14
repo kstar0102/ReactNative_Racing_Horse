@@ -73,7 +73,9 @@ export default HorseTable;
 const styles = StyleSheet.create({
   container: { 
     flex: 1, 
-    padding: 16
+    paddingLeft: 16,
+    paddingRight: 16,
+    padding: 5
   },
   wrapper: { 
     flexDirection: 'row',

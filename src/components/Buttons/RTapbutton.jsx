@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
       width: vw(33.5),
       height: vh(6),
       borderWidth: 1,
-      paddingVertical: 2,
+      // paddingVertical: ,
     },
     activeButton: {
       marginTop: -22,
       height: vh(9),
-      paddingVertical: 13
+      paddingVertical: 10
     },
     buttonText: {
       fontSize: 16,
