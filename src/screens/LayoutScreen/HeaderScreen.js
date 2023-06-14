@@ -21,7 +21,6 @@ const HeaderScreen = () => {
       .catch(error => console.log(error));
 
     return () => {
-      clearInterval(intervalId);
       AsyncStorage.setItem('secondsRemaining', String(secondsRemainingRef.current));
     };
   }, []);
