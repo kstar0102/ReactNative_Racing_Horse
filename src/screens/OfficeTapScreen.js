@@ -41,7 +41,7 @@ const OfficeTapScreen = () => {
             <ITapButton id={2} isActive={activeButton === 2} label={'騎手'} style={styles.Button2} onPress={handleButtonPress} />
             <ITapButton id={1} isActive={activeButton === 1} label={'競争馬'} style={styles.Button3} onPress={handleButtonPress} />
             <ITapButton id={4} isActive={activeButton === 4} label={'繁殖馬'} style={styles.Button4} onPress={handleButtonPress} />
-            <ITapButton id={5} isActive={activeButton === 5} label={'種牡'} style={styles.Button5} onPress={handleButtonPress} />
+            <ITapButton id={5} isActive={activeButton === 5} label={'種牡馬'} style={styles.Button5} onPress={handleButtonPress} />
         </View>     
       {renderScreenBelowButtons()}
     </View>

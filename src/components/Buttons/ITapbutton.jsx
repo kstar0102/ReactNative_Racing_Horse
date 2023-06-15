@@ -36,19 +36,18 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       paddingVertical: 2,
       alignItems: 'center',
-      // transform: [{ scaleY: 1 }],
     },
     activeButton: {
       marginTop: -20,
-      height: vh(7.8),
+      height: vh(7.7),
       paddingVertical: 12,
       zIndex: 1000
     },
     buttonText: {
-      paddingVertical: 5.5,
+      fontSize: 15,
+      paddingVertical: 5,
       marginLeft: -5,
       zIndex: 1000
-      // transform: [{ scaleY: 1 }],
     },
     button1: {
         backgroundColor: colors.tabButtonFirst,

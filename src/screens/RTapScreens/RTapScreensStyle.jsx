@@ -57,10 +57,10 @@ const RTapScreensStyle = StyleSheet.create({
   //  marginRight: -40
   },
   oneRioghtHeaderTxtPink:{
-    color: colors.pink,
+    color: '#FF0009',
   },
   oneRioghtHeaderTxtGreen:{
-    color: colors.green,
+    color: '#1BFF00',
   },
   oneRioghtBody: {
     borderTopWidth: 1,

@@ -7,7 +7,7 @@ import HeaderStylesheet from './HeaderStylesheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HeaderScreen = () => {
-  const [secondsRemaining, setSecondsRemaining] = useState(30);
+  const [secondsRemaining, setSecondsRemaining] = useState(21000);
   const secondsRemainingRef = useRef(secondsRemaining);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const HeaderScreen = () => {
 
       if (secondsRemainingRef.current <= 0) {
         setSecondsRemaining(30);
-        secondsRemainingRef.current = 30;
+        secondsRemainingRef.current = 21000;
       } else {
         secondsRemainingRef.current -= 1;
       }

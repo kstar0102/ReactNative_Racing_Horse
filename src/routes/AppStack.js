@@ -3,6 +3,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 // Screens
 import TopScreen from '../screens/TopScreen';
+/**
+ * Pasture Screen
+ */
 import PastureScreen from '../screens/PastureScreen';
 import NRegistration from '../screens/NRegistration';
 import HorseChoiceScreen from '../screens/HorseChoiceScreen';
@@ -13,6 +16,13 @@ import InstitutionScreen from '../screens/InstitutionScreen';
 import OfficeScreen from '../screens/OfficeScreen';
 import RacetrackScreen from '../screens/RacetrackScreen';
 import WorkingHorseScreen from '../screens/WorkingHorseScreen';
+
+/**
+ * Stall SCreen
+ */
+import StallScreen from '../screens/StallScreen';
+// /////////////////////////
+
 
 const Stack = createNativeStackNavigator();
 const AppStack = () => {
@@ -34,6 +44,7 @@ const AppStack = () => {
         <Stack.Screen name={'OfficeScreen'} component={OfficeScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'RacetrackScreen'} component={RacetrackScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'WorkingHorseScreen'} component={WorkingHorseScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name={'StallScreen'} component={StallScreen} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </>
   );

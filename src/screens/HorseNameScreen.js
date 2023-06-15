@@ -27,7 +27,7 @@ const HorseNameScreen  = ({navigation}) => {
             <View style={Screenstyles.HCcontainer}>
                 <View style={Screenstyles.NRtitle}>
                     <Text style={Screenstyles.NRtitleA}>馬名を決める</Text>   
-                    <Text style={Screenstyles.NRtitleB}>[注意]<Text style={Screenstyles.NRSpanT}>卑猥</Text>な名前や<Text style={Screenstyles.NRSpanT}>コンプラ違反</Text>のワードは<Text style={Screenstyles.NRSpanT}>禁止</Text>します。</Text> 
+                    <Text style={Screenstyles.NRtitleB}>[注意1]<Text style={Screenstyles.NRSpanT}>卑猥</Text>な名前や<Text style={Screenstyles.NRSpanT}>コンプラ違反</Text>のワードは<Text style={Screenstyles.NRSpanT}>禁止</Text>します。</Text> 
                     <Text style={Screenstyles.NRtitleB}>[注意2] 一度決めた<Text style={Screenstyles.NRSpanT}>名前</Text>は<Text style={Screenstyles.NRSpanT}>変更できません。</Text> 慎重に!</Text>    
                 </View>
                 {/* ONE */}

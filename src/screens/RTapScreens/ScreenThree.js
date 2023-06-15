@@ -4,12 +4,14 @@ import DropDownR from '../../components/Buttons/DropDwonR';
 import { ImageButton } from '../../components/Buttons';
 import DetailButton from '../../components/Buttons/DetailButton';
 import RTapScreensStyle from './RTapScreensStyle';
+import WorkingButton from '../../components/Buttons/WorkingButtons';
+
 const ScreenThree = () => {
   const [selected, setSelected] = useState(undefined);
   const data = [
-    { label: '馬名A', id: 1, sp: 'S+', st: 'D+', fatigue: '△',  instantaneous:'A', guts:'C', temper:'B',  health: 'A', Hair:''},
-    { label: '馬名B', id: 2, sp: 'S+', st: 'D', fatigue: 'O',  instantaneous:'A+', guts:'C', temper:'B',  health: 'A', Hair:''},
-    { label: '馬名C', id: 3, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:''},
+    { label: '馬名A', labelValue: 'A', id: 1, sp: 'S+', st: 'D+', fatigue: '△',  instantaneous:'A', guts:'C', temper:'B',  health: 'A', Hair:''},
+    { label: '馬名B', labelValue: 'B', id: 2, sp: 'S+', st: 'D', fatigue: 'O',  instantaneous:'A+', guts:'C', temper:'B',  health: 'A', Hair:''},
+    { label: '馬名C', labelValue: 'C', id: 3, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:''},
  ];
 
 
@@ -22,7 +24,7 @@ const ScreenThree = () => {
             </View>
             <View style={RTapScreensStyle.oneTopContentRight}>
               <View style={RTapScreensStyle.oneRioghtHeader}>
-                  <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>{(!!selected && selected.label) || '馬名A'}</Text>
+                  <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>馬名<Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>{(!!selected && selected.labelValue) || 'A'}</Text></Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}><Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>牝</Text>2</Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>早熟   <Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>芝</Text></Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>白毛</Text>
@@ -88,6 +90,10 @@ const ScreenThree = () => {
                     />
                   )} 
               </View>
+              <View style={RTapScreensStyle.ButtonGroup}>
+                <WorkingButton label={'入廐'} colorNumber={2} styleId={1}/>
+                <WorkingButton label={'売却'} colorNumber={1} styleId={2}/>
+              </View>
             </View>
           </View>
           <View  style={RTapScreensStyle.oneBottomContent}>
@@ -102,14 +108,14 @@ const ScreenThree = () => {
                       <Text style={RTapScreensStyle.label}>メニュー予約</Text>
                   </View>
                   <ImageButton label={'メニュー予約'} source={require('../../assets/images/Pasture/icon1.png')} id={1}/>
-                  <DetailButton label={'内容説明'}/>
+                  <DetailButton label={'育成する'}/>
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteViewF]}>
                       <Text style={RTapScreensStyle.label}>スベシャル</Text>
                   </View>
                   <ImageButton label={'スベシャル'} source={require('../../assets/images/Pasture/icon9.png')} id={2} disabled={false}/>
-                  <DetailButton label={'内容説明'} disabled={false}/>
+                  <DetailButton label={'育成する'} disabled={false}/>
                   {/* <Image 
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../assets/images/Pasture/icon8.png')}
@@ -120,7 +126,7 @@ const ScreenThree = () => {
                       <Text style={RTapScreensStyle.label}>放牧</Text>
                   </View>
                   <ImageButton label={'放牧'} source={require('../../assets/images/Pasture/icon2.png')} id={3}/>
-                  <DetailButton label={'内容説明'}/>
+                  <DetailButton label={'育成する'}/>
                 </View>
               </View>
               <View style={RTapScreensStyle.ImageButtonMiddle}>
@@ -129,21 +135,21 @@ const ScreenThree = () => {
                       <Text style={RTapScreensStyle.label}>芝</Text>
                   </View>
                   <ImageButton label={'芝'} source={require('../../assets/images/Pasture/icon3.png')} id={4}/>
-                  <DetailButton label={'内容説明'}/>
+                  <DetailButton label={'育成する'}/>
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteView}>
                       <Text style={RTapScreensStyle.label}>ダート</Text>
                   </View>
                   <ImageButton label={'ダート'} source={require('../../assets/images/Pasture/icon4.png')} id={5}/>
-                  <DetailButton label={'内容説明'}/>
+                  <DetailButton label={'育成する'}/>
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteViewB]}>
                       <Text style={RTapScreensStyle.label}>ウッドチップ</Text>
                   </View>
-                  <ImageButton label={'ウッドチップ'} source={require('../../assets/images/Pasture/icon6.png')} id={6}/>
-                  <DetailButton label={'内容説明'}/>
+                  <ImageButton label={'ウッドチップ'} source={require('../../assets/images/Pasture/icon10.png')} id={6}/>
+                  <DetailButton label={'育成する'}/>
                 </View>
               </View>
               <View style={RTapScreensStyle.ImageButtonBottom}>
@@ -152,7 +158,7 @@ const ScreenThree = () => {
                       <Text style={RTapScreensStyle.label}>プール</Text>
                   </View>
                   <ImageButton label={'プール'} source={require('../../assets/images/Pasture/icon7.png')} id={7}/>
-                  <DetailButton label={'内容説明'}/>
+                  <DetailButton label={'育成する'}/>
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteViewT}>
@@ -163,7 +169,7 @@ const ScreenThree = () => {
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../assets/images/Pasture/icon8.png')}
                   />
-                  <DetailButton label={'内容説明'} disabled={true}/>
+                  <DetailButton label={'育成する'} disabled={true}/>
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteViewT}>
@@ -174,7 +180,7 @@ const ScreenThree = () => {
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../assets/images/Pasture/icon8.png')}
                   />
-                  <DetailButton label={'内容説明'} disabled={true}/>
+                  <DetailButton label={'育成する'} disabled={true}/>
                 </View>
                
               </View>

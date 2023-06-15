@@ -53,7 +53,7 @@ const Screenstyles = StyleSheet.create({
     },
     NRtitleB: {
       marginTop: hp(.6),
-      fontSize: hp(1.6) + wp(.6),
+      fontSize: hp(1.5) + wp(.6),
       fontWeight: 600
     },
     NRtitleLabel:{

@@ -4,7 +4,7 @@ import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-componen
 
 const CONTENT = {
     // Header Table
-        lifetimeMaturity: ['通 算 成 精'],
+        lifetimeMaturity: ['通 算 成 積'],
         lifetimeMaturityValue: ['100-100-100-100'],
     // Footer Talble
         PrizeMoneyEarned: ['通 算 成 精'],
@@ -28,7 +28,7 @@ const CONTENT = {
             <View style={styles.lifetimeMaturity}>
                 <View style={styles.lifetimeMaturityName}>
                     <Text style={styles.lifetimeMaturityTxt}>
-                        通 算 成 精
+                        通 算 成 績
                     </Text>
                 </View>
                 <View style={styles.lifetimeMaturityValue}>
@@ -49,17 +49,17 @@ const CONTENT = {
                     </View>
                     <View style={styles.hiddenWin}>
                         <Text style={[styles.txt]}>
-                        100勝
+                            100勝
                         </Text>
                     </View>
                     <View style={styles.hiddenWinRate}>
                         <Text style={[styles.txt, styles.hiddenTxtDotes, styles.hiddenColor]}>
-                        勝率
+                            勝率
                         </Text>
                     </View>
                     <View style={styles.hiddenPercent}>
                         <Text style={[styles.txt, styles.hiddenTxt]}>
-                        50%
+                            50%
                         </Text>
                     </View>
                 </View>
@@ -68,7 +68,7 @@ const CONTENT = {
                     <View style={styles.overseasContent}>
                         <View style={styles.overseas}>
                             <Text style={[styles.txt, styles.overseasTxtDotes]}>
-                                隠しGI
+                                海外GI
                             </Text>
                         </View>
                         <View style={styles.overseasWin}>
@@ -96,7 +96,7 @@ const CONTENT = {
                 <View style={styles.threeColumn}>
                     <View style={styles.domestic}>
                         <Text style={[styles.txt, styles.domesticTxtDotes]}>
-                            隠しGI
+                            国内GI
                         </Text>
                     </View>
                     <View style={styles.domesticWin}>

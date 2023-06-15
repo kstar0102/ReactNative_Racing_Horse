@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {TouchableOpacity, Text, Image, View, StyleSheet, Button, Modal} from 'react-native';
+import {TouchableOpacity, Image, View, StyleSheet } from 'react-native';
 import colors from '../../containers/colors';
 import ModalButton from './ModalButton';
 import { vh, vw } from 'react-native-expo-viewport-units';
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     imgBorder: {
         borderWidth: 1,
         borderColor: colors.black,
-        backgroundColor: '#d8d848',
+        backgroundColor: '#6a6d6b',
         borderRadius: 8
     },
     button: {

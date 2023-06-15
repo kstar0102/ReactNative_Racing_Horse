@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, StyleSheet, Button } from "react-native";
 // container
 import colors from "../../../containers/colors";
 
-const WorkingButton = ({ label, onPress, disabled, colorNumber }) => {
+const WorkingButton = ({ label, onPress, disabled, colorNumber,styleId }) => {
 	return (
 		<TouchableOpacity
 			style={[
@@ -12,6 +12,8 @@ const WorkingButton = ({ label, onPress, disabled, colorNumber }) => {
 				colorNumber == 2 ? styles.buttonTwo : 'styles.button',
 				colorNumber == 3 ? styles.buttonThree : 'styles.button',
 				colorNumber == 4 ? styles.buttonFour : 'styles.button',
+				styleId == 1 ? styles.buttonStyle : 'styles.button',
+				styleId == 2 ? styles.buttonStyle : 'styles.button',
 				disabled && styles.disabled]}
 			onPress={onPress ? onPress : () => alert("Clicked")}
 			disabled={disabled ? disabled : false}
@@ -50,7 +52,11 @@ const styles = StyleSheet.create({
 		fontWeight: 700,
 		textAlign: 'center'
 	},
+	buttonStyle:{
+		marginTop: 5
+	},
 	disabled: {
-		opacity: 0.5,
+		backgroundColor: colors.grey,
+		opacity: 0.8,
 	}
 });

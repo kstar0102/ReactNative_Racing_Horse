@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   container: {
 
     marginTop: 50,
-    margin: 30,
+    margin: 20,
     backgroundColor: '#fff' 
 },
 tableHeadTitle: { 

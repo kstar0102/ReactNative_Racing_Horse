@@ -8,11 +8,21 @@ import {
 
 const FooterScreen = () => (
     <View style={styles.containers}>
-          <FooterButton label="厩 舎"/>
-          <FooterButton label="競馬場"/>
-          <FooterButton label="セ リ"/>
-          <FooterButton label="ランキング"/>
-          <FooterButton label="V I P"/>
+          <FooterButton 
+            label="厩 舎"  
+          />
+          <FooterButton 
+            label="競馬場"  
+          />
+          <FooterButton 
+            label="セ リ" 
+          />
+          <FooterButton 
+            label="ランキング"  
+          />
+          <FooterButton 
+            label="V I P"  
+          />
     </View>
 );
 

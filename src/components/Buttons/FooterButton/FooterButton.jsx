@@ -5,10 +5,12 @@ import { heightPercentageToDP as hp,
 // container
 import colors from "../../../containers/colors";
 
-const FooterButton = ({ label, onPress, disabled }) => {
+const FooterButton = ({ label, onPress, disabled, color }) => {
 	return (
 		<TouchableOpacity
-			style={styles.button}
+			style={[
+				styles.button,
+			]}
 			onPress={onPress ? onPress : () => alert("Clicked")}
 			disabled={disabled ? disabled : false}
 		>
@@ -24,6 +26,9 @@ const styles = StyleSheet.create({
 		height: vh(4),
 		width: vw(19),
 		paddingVertical: 5,
+	},
+	stallFooterbutton:{
+		backgroundColor: colors.stallButtonColor
 	},
 	label: {
 		color: colors.light.white,

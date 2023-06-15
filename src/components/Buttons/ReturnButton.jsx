@@ -6,10 +6,13 @@ import {
 // container
 import colors from "../../containers/colors";
 
-const ReturnButton = ({ label, onPress, disabled }) => {
+const ReturnButton = ({ label, onPress, disabled, color }) => {
 	return (
 		<TouchableOpacity
-			style={styles.button}
+			style={[
+				styles.button,
+				color == 1 ? styles.stallbuttonColor : "Stallbuttoncolor"
+			]}
 			onPress={onPress ? onPress : () => alert("Clicked")}
             disabled={disabled ? disabled : false}
 		>
@@ -29,6 +32,9 @@ const styles = StyleSheet.create({
 		left: wp(1),
 		paddingVertical: 5,
 		zIndex: 1000
+	},
+	stallbuttonColor: {
+		backgroundColor: colors.stallButtonColor
 	},
 	label: {
 		color: colors.light.white,

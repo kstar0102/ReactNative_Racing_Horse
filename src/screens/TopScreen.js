@@ -15,12 +15,12 @@ const TopScreen = ({navigation}) => {
             <View style={Screenstyles.containers}>
               <View style={Screenstyles.content}>
                   <CustomButtons label="牧 場" onPress={() => navigation.navigate('PastureNameScreen')}/>
-                  <CustomButtons label="厩 舎"/>
                   <CustomButtons label="競馬場"/>
+                  <CustomButtons label="ンキング"/>
               </View>
               <View style={Screenstyles.content}>
+                  <CustomButtons label="厩 舎" onPress={() => navigation.navigate('StallScreen')}/>
                   <CustomButtons label="セ リ"/>
-                  <CustomButtons label="ンキング"/>
                   <CustomButtons label="V I P" disabled={true}/>
               </View>
             </View>

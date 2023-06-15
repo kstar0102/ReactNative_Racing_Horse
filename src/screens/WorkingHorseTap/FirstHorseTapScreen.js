@@ -94,16 +94,6 @@ const FirstHorseTapScreen = () => {
                     />
                   )} 
               </View>
-                <View style={RTapScreensStyle.ButtonGroup}>
-                    <View style={RTapScreensStyle.ButtonGroupOne}> 
-                        <WorkingButton label={'売却'} colorNumber={1}/>
-                        <WorkingButton label={'入厩'} colorNumber={2}/>
-                    </View>
-                    <View style={RTapScreensStyle.ButtonGroupTwo}>
-                        <WorkingButton label={'引退'} colorNumber={3}/>
-                        <WorkingButton label={'種付'} colorNumber={4}/>
-                    </View>
-              </View>
             </View>
           </View>
       </ScrollView>

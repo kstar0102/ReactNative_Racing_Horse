@@ -45,7 +45,8 @@ const colors = {
 	green:'#77924b', 
 	pink:'#e9a1b6',
 	borderColor: '#837358',
-
+// Stall
+	stallButtonColor: '#b4cef9',
 };
 
 export default colors;

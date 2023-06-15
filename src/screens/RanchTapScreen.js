@@ -32,7 +32,7 @@ const RanchTapScreen = () => {
         <View style={styles.Buttons}>
             <RTapButton id={1} isActive={activeButton === 1} label={'0～1歲馬'} style={styles.ButtonT} onPress={handleButtonPress} />
             <RTapButton id={2} isActive={activeButton === 2} label={'2～3歲馬'} style={styles.ButtonM} onPress={handleButtonPress} />
-            <RTapButton id={3} isActive={activeButton === 3} label={'繁殖馬'} style={styles.ButtonE} onPress={handleButtonPress} />
+            <RTapButton id={3} isActive={activeButton === 3} label={'放牧馬'} style={styles.ButtonE} onPress={handleButtonPress} />
         </View>     
       {renderScreenBelowButtons()}
     </View>
