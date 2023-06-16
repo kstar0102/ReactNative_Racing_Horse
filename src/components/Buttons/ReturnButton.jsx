@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 	button: {
 		backgroundColor: colors.headerColor,
         borderRadius: 6,
-		height: 30,
+		height: 35,
 		width: 80,
 		position: "absolute",
 		top: hp(18.5),

@@ -40,7 +40,7 @@ const HeaderStyleSheet = StyleSheet.create({
         paddingTop: hp(1),
         padding: 5,
         paddingBottom: hp(1),
-        width: wp(28),
+        width: wp(30),
         // height: hp(9),
         // paddingVertical: 
     },   

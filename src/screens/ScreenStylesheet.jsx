@@ -1,7 +1,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {
     widthPercentageToDP as wp,
-    heightPercentageToDP as hp
+    heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';
 import colors from '../containers/colors';
 import { vh, vw } from 'react-native-expo-viewport-units';
@@ -54,7 +54,8 @@ const Screenstyles = StyleSheet.create({
     NRtitleB: {
       marginTop: hp(.6),
       fontSize: hp(1.5) + wp(.6),
-      fontWeight: 600
+      fontWeight: 600,
+
     },
     NRtitleLabel:{
       marginTop: hp(.6),
@@ -200,8 +201,8 @@ const Screenstyles = StyleSheet.create({
     },
     HCImage: {
       marginTop: 25,
-      height: hp(9.8),
-      width: wp(18.6)
+      height: hp(10),
+      width: wp(19)
     },
     HCNameImage: {
       marginLeft: -25,
@@ -228,7 +229,9 @@ const Screenstyles = StyleSheet.create({
 
     },
     horseCardLeft: {
-      paddingLeft: 25
+      paddingLeft: 25,
+      height: hp(15),
+      width: wp(30)
     },
     horseCardRight: {
 

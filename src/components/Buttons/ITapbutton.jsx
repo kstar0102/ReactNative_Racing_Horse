@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { vw,vh  } from 'react-native-expo-viewport-units';
+import { getCurrentPosition } from 'react-native-geolocation-service';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
 import colors from '../../containers/colors';
 
 const ITapButton = ({ id, isActive, onPress, label}) => {
-    const handlePress = () => {
+  console.log(getCurrentPosition);  
+  const handlePress = () => {
         onPress(id);
     };
 
@@ -30,17 +36,17 @@ export default ITapButton;
 
 const styles = StyleSheet.create({
     button: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
       borderTopRightRadius: 50,
       width: vw(20),
       height: vh(5),
       borderWidth: 1,
-      paddingVertical: 2,
-      alignItems: 'center',
     },
     activeButton: {
-      marginTop: -20,
-      height: vh(7.7),
-      paddingVertical: 12,
+      height: hp(7.5),
       zIndex: 1000
     },
     buttonText: {

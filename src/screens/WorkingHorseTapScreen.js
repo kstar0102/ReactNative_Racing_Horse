@@ -58,8 +58,10 @@ const styles = StyleSheet.create({
   Buttons:{
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'flex-end',
     width: '100%',
-    height: vh(8)
+    height: vh(5),
+    paddingBottom: vh(1)
   }
 
 });
