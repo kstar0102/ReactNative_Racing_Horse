@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     },
     activeButton: {
       marginTop: -22,
-      height: vh(9),
+      height: vh(8.95),
       paddingVertical: 10
     },
     buttonText: {

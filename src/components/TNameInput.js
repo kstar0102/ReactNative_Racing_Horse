@@ -10,6 +10,7 @@ const TNameInput = () => {
   return (
     <TextInput
       style={styles.passwordS}
+      maxLength={9}
     />
   );
 };

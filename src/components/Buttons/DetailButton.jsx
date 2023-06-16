@@ -10,7 +10,7 @@ const DetailButton = ({ label, onPress,disabled }) => {
 		<Tooltip
             animated={true}
             //(Optional) When true, tooltip will animate in/out when showing/hiding
-            arrowSize={{width: 55, height: 10}}
+            arrowSize={{width: 55, height: 12}}
             //(Optional) Dimensions of arrow bubble pointing to the highlighted element
             backgroundColor="rgba(0,0,0,0)"
             childrenWrapperStyle={{display: 'none'}}
@@ -26,7 +26,7 @@ const DetailButton = ({ label, onPress,disabled }) => {
                     <ModalButton  label={'一杯'} count={'5pt'}/>
                 </View>
             }
-            contentStyle={{backgroundColor: 'rgba(0,0,0,0)', top: -83}}
+            contentStyle={{backgroundColor: 'rgba(0,0,0,0)', bottom: 90}}
             //(Must) This is the view displayed in the tooltip
             placement="bottom"
             //(Must) top, bottom, left, right, auto.

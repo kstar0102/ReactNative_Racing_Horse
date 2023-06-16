@@ -10,7 +10,7 @@ import Dropdown from '../components/Buttons/DropDwonB';
 const NRegistration  = ({navigation}) => {
     const [selected, setSelected] = useState(undefined);
     const data = [
-      { label: '牧場 (小)', value: '1', pay: '500pt', id: 1 },
+      { label: '牧場(小)', value: '1', pay: '500pt', id: 1 },
       { label: '牧場(中)', value: '5',  Caution: ' ', id: 2, CautionS:' ', labelV: '施設 : ', TypeV: '2種類', labelH: '種牡馬 : ', TypeH: '5頭', payMent: '2000pt' },
       { label: '牧場(大)', value: '10', Caution: ' ', id: 3, CautionS:' ', labelV: '施設 :', TypeV: '5種類', labelH: '種牡馬 : ', TypeH: '10頭', payMent: '5000pt'  },
     ];

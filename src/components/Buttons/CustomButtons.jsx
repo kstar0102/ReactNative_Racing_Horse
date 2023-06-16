@@ -25,9 +25,9 @@ const styles = StyleSheet.create({
 	button: {
 		backgroundColor: colors.butonBackgroud,
         borderRadius: 10,
-		height: hp(9),
-		width: wp(35),
-		paddingVertical: 10,
+		height: hp(10),
+		width: wp(40),
+		paddingVertical: 17,
 		marginTop: 60
 	},
 	buttonColor: {
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 	},
 	label: {
 		color: colors.light.white,
-		fontSize: wp(3) + hp(3),
+		fontSize: wp(2.5) + hp(2.5),
 		fontWeight: 600,
 		textAlign: 'center'
 	},

@@ -9,12 +9,11 @@ import WorkingButton from '../../components/Buttons/WorkingButtons';
 const ScreenThree = () => {
   const [selected, setSelected] = useState(undefined);
   const data = [
-    { label: '馬名A', labelValue: 'A', id: 1, sp: 'S+', st: 'D+', fatigue: '△',  instantaneous:'A', guts:'C', temper:'B',  health: 'A', Hair:''},
-    { label: '馬名B', labelValue: 'B', id: 2, sp: 'S+', st: 'D', fatigue: 'O',  instantaneous:'A+', guts:'C', temper:'B',  health: 'A', Hair:''},
-    { label: '馬名C', labelValue: 'C', id: 3, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:''},
+    { label: '馬名A', labelValue: 'A', id: 1, sp: 'S+', st: 'D+', fatigue: '△',  instantaneous:'A', guts:'C', temper:'B',  health: 'A', Hair:'栗毛', class:'GIクラス'},
+    { label: '馬名B', labelValue: 'B', id: 2, sp: 'S+', st: 'D', fatigue: 'O',  instantaneous:'A+', guts:'C', temper:'B',  health: 'A', Hair:'黑鹿毛', class:'GⅡクラス'},
+    { label: '馬名C', labelValue: 'C', id: 3, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:'栗毛', class:'GⅢクラス'},
  ];
-
-
+ 
     return (
       <ScrollView style={RTapScreensStyle.oneContainer}>
           <View  style={RTapScreensStyle.oneTopContent}>
@@ -26,8 +25,9 @@ const ScreenThree = () => {
               <View style={RTapScreensStyle.oneRioghtHeader}>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>馬名<Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>{(!!selected && selected.labelValue) || 'A'}</Text></Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}><Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>牝</Text>2</Text>
-                  <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>早熟   <Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>芝</Text></Text>
-                  <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>白毛</Text>
+                  <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>早熟</Text>
+                  <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.Hair) || '白毛'}</Text>
+                  <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.class) || 'GIクラス'}</Text>
               </View>
               <View style={RTapScreensStyle.oneRioghtBody}>
                   <View>
@@ -43,7 +43,7 @@ const ScreenThree = () => {
                     <Text style={RTapScreensStyle.oneRioghtBodyTxt}>ST <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.st) || 'D+'}</Text></Text>
                   </View>
                   <View>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.fatigue) || '△'}</Text></Text>
+                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.fatigue) || '△'}</Text>  <Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>芝 </Text></Text>
                     <Text style={RTapScreensStyle.oneRioghtBodyTxt}>瞬発 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.instantaneous) || 'A'}</Text></Text>
                     <Text style={RTapScreensStyle.oneRioghtBodyTxt}>根性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.guts) || 'C'}</Text></Text>
                   </View>
@@ -112,7 +112,7 @@ const ScreenThree = () => {
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteViewF]}>
-                      <Text style={RTapScreensStyle.label}>スベシャル</Text>
+                      <Text style={RTapScreensStyle.label}>スぺシャル</Text>
                   </View>
                   <ImageButton label={'スベシャル'} source={require('../../assets/images/Pasture/icon9.png')} id={2} disabled={false}/>
                   <DetailButton label={'育成する'} disabled={false}/>

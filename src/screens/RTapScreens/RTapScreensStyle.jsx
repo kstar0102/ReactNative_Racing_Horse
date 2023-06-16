@@ -48,18 +48,26 @@ const RTapScreensStyle = StyleSheet.create({
     fontSize: hp(1.5) + wp(2),
     color: colors.white,
     paddingLeft: 10,
-    marginRight: 50
+    marginRight: 18
   },
   oneRioghtHeaderTxt:{
     color: colors.white,
     paddingVertical: 3,
     paddingLeft: 10,
+    
   //  marginRight: -40
   },
+  oneRioghtHeaderTxtLetter:{
+    color: colors.white,
+    paddingVertical: 3,
+    paddingLeft: 10,
+    letterSpacing: -1
+  },
   oneRioghtHeaderTxtPink:{
-    color: '#FF0009',
+    color: '#FF006B',
   },
   oneRioghtHeaderTxtGreen:{
+    fontSize: 13,
     color: '#1BFF00',
   },
   oneRioghtBody: {
@@ -89,16 +97,17 @@ const RTapScreensStyle = StyleSheet.create({
     justifyContent: 'space-between'
   },
   oneRioghtBodyTxtA:{
-    fontSize:  hp(1) + wp(1),
+    fontSize:  hp(1.2) + wp(1.8),
     fontWeight: 600,
     paddingVertical: 3,
-    marginLeft: -5
+    marginRight: -30
   },
   oneRioghtBodyTxtValueA:{
 
   },
   HorseAvatar:{
     width: vw(3) + vh(5),
+    marginTop: 15.5
   },
   conditionsGroup:{
     flexDirection: 'row',

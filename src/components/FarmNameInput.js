@@ -10,6 +10,7 @@ const FarmNameInput = () => {
   return (
     <TextInput
       style={styles.passwordS}
+      maxLength={7}
     />
   );
 };
