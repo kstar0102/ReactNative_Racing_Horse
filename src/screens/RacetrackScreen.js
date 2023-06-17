@@ -23,7 +23,9 @@ const RacetrackScreen = ({navigation}) => {
                         <ReturnButton label="競馬場" onPress={() => navigation.navigate('PastureScreen')}/>
                     </View>
                 </View>
-                <RacetrackCourse/>
+                <View style={Screenstyles.UPCourse}>
+                  <RacetrackCourse/>
+                </View>
             </View>
       </ImageBackground>
     </View>

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { View, Image, Text, ScrollView } from 'react-native';
 import DropDownR from '../../components/Buttons/DropDwonR';
-import RTapScreensStyle from '../RTapScreens/RTapScreensStyle';
-import WorkingButton from '../../components/Buttons/WorkingButtons';
+import RTapScreensStyle from '../RanchTapScreens/RTapScreensStyle';
 
 const BroodmareHorseTapScreen = () => {
   const [selected, setSelected] = useState(undefined);
@@ -17,13 +16,13 @@ const BroodmareHorseTapScreen = () => {
     { label: '馬名H', id: 8, sp: 'S', st: 'D+', fatigue: '▲',  instantaneous:'A', guts:'C', temper:'B+',  health: 'A', Hair:''},
     { label: '馬名I', id: 9, sp: 'S+', st: 'D', fatigue: 'O',  instantaneous:'A+', guts:'C+', temper:'B',  health: 'A+', Hair:''},
  ];
- 
+
     return (
       <ScrollView style={RTapScreensStyle.oneContainer}>
           <View  style={RTapScreensStyle.oneTopContent}>
             <View style={RTapScreensStyle.oneTopContentLeft}>
                 <Text style={RTapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
-                <DropDownR label='馬名A'  data={data} onSelect={setSelected} />
+                <DropDownR label='馬名A' data={data} onSelect={setSelected} />
             </View>
             <View style={RTapScreensStyle.oneTopContentRight}>
               <View style={RTapScreensStyle.oneRioghtHeader}>
@@ -31,7 +30,7 @@ const BroodmareHorseTapScreen = () => {
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}><Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>牝</Text>2</Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>早熟</Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.Hair) || '白毛'}</Text>
-                  <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.class) || 'GIクラス'}</Text>
+                  <Text style={RTapScreensStyle.oneRioghtHeaderTxtLetter}>{(!!selected && selected.class) || 'GIクラス'}</Text>
               </View>
               <View style={RTapScreensStyle.oneRioghtBody}>
                   <View>

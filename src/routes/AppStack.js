@@ -20,7 +20,9 @@ import WorkingHorseScreen from '../screens/WorkingHorseScreen';
 /**
  * Stall SCreen
  */
-import StallScreen from '../screens/StallScreen';
+import StableScreen from '../screens/StableScreen';
+import Training from '../screens/StableScreens/Training';
+import RaceRegistation from '../screens/StableScreens/RaceRegistation';
 // /////////////////////////
 
 
@@ -44,7 +46,9 @@ const AppStack = () => {
         <Stack.Screen name={'OfficeScreen'} component={OfficeScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'RacetrackScreen'} component={RacetrackScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'WorkingHorseScreen'} component={WorkingHorseScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name={'StallScreen'} component={StallScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name={'StallScreen'} component={StableScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name={'Training'} component={Training} options={{ headerShown: false }}/>
+        <Stack.Screen name={'RaceRegistation'} component={RaceRegistation} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </>
   );

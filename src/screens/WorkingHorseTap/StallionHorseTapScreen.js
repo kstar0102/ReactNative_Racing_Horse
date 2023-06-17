@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { View, Image, Text, ScrollView } from 'react-native';
 import DropDownR from '../../components/Buttons/DropDwonR';
-import RTapScreensStyle from '../RTapScreens/RTapScreensStyle';
-import WorkingButton from '../../components/Buttons/WorkingButtons';
+import RTapScreensStyle from '../RanchTapScreens/RTapScreensStyle';
 
 const StallionHorseTapScreen = () => {
   const [selected, setSelected] = useState(undefined);
@@ -31,7 +30,7 @@ const StallionHorseTapScreen = () => {
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}><Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>牝</Text>2</Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>早熟</Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.Hair) || '白毛'}</Text>
-                  <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.class) || 'GIクラス'}</Text>
+                  <Text style={RTapScreensStyle.oneRioghtHeaderTxtLetter}>{(!!selected && selected.class) || 'GIクラス'}</Text>
               </View>
               <View style={RTapScreensStyle.oneRioghtBody}>
                   <View>

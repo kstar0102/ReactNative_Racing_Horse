@@ -83,13 +83,11 @@ const DropDownR: FC<Props> = ({ label, data, onSelect }) => {
 
 const styles = StyleSheet.create({
   button: {
-    marginTop: 15,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#efefef',
     height: 50,
-    width:  vw(32),
-    zIndex: 1,
+    paddingHorizontal: 5
   },
   buttonText: {
     fontSize: 20,

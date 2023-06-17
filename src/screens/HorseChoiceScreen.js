@@ -98,7 +98,7 @@ const HorseChoiceScreen  = ({navigation}) => {
                                 <BloodLineTable/>
                             </View>
                         </View>
-                        < HorseTable horseFee={'500pt'} SP={'10'} ST={'9'} instantaneous={'12'} guts={'12'} Temperament={'15'} health={'10'} HorseName={'馬名'} />
+                        <HorseTable horseFee={'500pt'} SP={'10'} ST={'9'} instantaneous={'12'} guts={'12'} Temperament={'15'} health={'10'} HorseName={'馬名'} />
                     </View>
                 {/* FIVE */}
                     <View style={Screenstyles.horseCard}>

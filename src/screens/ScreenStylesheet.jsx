@@ -120,16 +120,16 @@ const Screenstyles = StyleSheet.create({
       fontWeight: 600
     },
     NRSmallRight:{
-      marginTop: hp(12)
+      marginTop: hp(11)
     },
     NRMiddleRight:{
-      marginTop: hp(8)
+      marginTop: hp(7)
     },
     NRBigRight:{
-      marginTop: hp(6)
+      marginTop: hp(5)
     },
     NRRight: {
-      marginTop: hp(5)
+      marginTop: hp(4)
     },
     NRrightTxtGroup:{
       flexDirection: 'row',
@@ -201,13 +201,13 @@ const Screenstyles = StyleSheet.create({
     },
     HCImage: {
       marginTop: 25,
-      height: hp(10),
-      width: wp(19)
+      height: hp(8.8),
+      width: wp(18)
     },
     HCNameImage: {
       marginLeft: -25,
-      height: vh(9.8),
-      width: vw(19)
+      height: vh(8.8),
+      width: vw(18)
     },
     DropDwonButton: {
       marginTop: 20,
@@ -230,8 +230,6 @@ const Screenstyles = StyleSheet.create({
     },
     horseCardLeft: {
       paddingLeft: 25,
-      height: hp(15),
-      width: wp(30)
     },
     horseCardRight: {
 
@@ -248,10 +246,12 @@ const Screenstyles = StyleSheet.create({
 
     // UPBRINGING SCREEN =======================
     UPContainer:{
-      
     },
     UPcontent:{
       // padding: 20
+    },
+    UPCourse:{
+      marginTop: 200
     },
     UPRButton:{
       marginLeft: wp(23)

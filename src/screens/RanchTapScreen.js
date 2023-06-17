@@ -3,9 +3,10 @@ import { View, StyleSheet } from 'react-native';
 import { vw,vh  } from 'react-native-expo-viewport-units';
 import { RTapButton } from '../components/Buttons';
 
-import ScreenOne from './RTapScreens/ScreenOne';
-import ScreenTwo from './RTapScreens/ScreenTwo';
-import ScreenThree from './RTapScreens/ScreenThree';
+// import ScreenOne from './RanchTapScreen/ScreenOne';
+import ScreenOne from './RanchTapScreens/ScreenOne';
+import ScreenTwo from './RanchTapScreens/ScreenTwo';
+import ScreenThree from './RanchTapScreens/ScreenThree';
 
 const RanchTapScreen = () => {
   const [activeButton, setActiveButton] = useState(1);

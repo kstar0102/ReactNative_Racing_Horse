@@ -15,5 +15,5 @@ export { default as CheckRadioButton } from "./CheckRadioButton";
 export { default as RTapButton } from './RTapbutton';
 export { default as ITapButton } from './ITapbutton';
 export { default as ImageButton } from './ImageButton';
-export { default as TooltipButton } from './ToolTipButton';
+export { default as SaleButton } from './SaleButton';
 

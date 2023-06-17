@@ -7,31 +7,31 @@ import {
   } from 'react-native-responsive-screen';
 import colors from '../../containers/colors';
 
- const NextWeekTalbe = ({ nextWeekTitle, nextWeekData, nextWeekName}) => {
+ const ThreeWeekTable = ({ threeWeekTitle, threeWeekData, threeWeekName}) => {
   const CONTENT = {
-    nextWeekTitle: nextWeekTitle,
-    nextWeekData: nextWeekData,
-    nextWeekName: nextWeekName,
+    threeWeekTitle: threeWeekTitle,
+    threeWeekData: threeWeekData,
+    threeWeekName: threeWeekName,
     
   };
   return (
     <View style={styles.container}>
       <Table borderStyle={{ borderWidth: 1 }}>
         <Row
-          data={CONTENT.nextWeekTitle}
+          data={CONTENT.threeWeekTitle}
           flexArr={[]}
           style={styles.tableHead}
           textStyle={styles.textHead}
         />
         <TableWrapper style={styles.wrapper}>
         <Col
-            data={CONTENT.nextWeekName}
+            data={CONTENT.threeWeekName}
             style={styles.title}
             heightArr={[23, 23]}
             textStyle={styles.textCol}
           />
           <Rows
-            data={CONTENT.nextWeekData}
+            data={CONTENT.threeWeekData}
             flexArr={[.3, .3, .2, .4, .5]}
             style={styles.row}
             textStyle={styles.text}
@@ -42,7 +42,7 @@ import colors from '../../containers/colors';
   );
 };
 
-export default NextWeekTalbe;
+export default ThreeWeekTable;
 
 const styles = StyleSheet.create({
   container: {

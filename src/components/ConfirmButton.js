@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity, Text, StyleSheet,View,Alert } from "react-native";
 // container
 import colors from '../containers/colors';
 
 const ConfirmButton = ({colorNumber,pressFactor,label,disabled }) => {
+  const [activeButton, setActiveButton] = useState(1);
+
+  const handleButtonPress = (id) => {
+    setActiveButton(id);
+  };
+
+  const renderScreenBelowButtons = () => {
+    switch(activeButton) {
+      case 1:
+        return <ScreenOne />;
+      default:
+        return <ScreenOne />;
+    }
+  }
+
  const handlePress = () => {
       if(pressFactor == "bid"){
         Alert.alert(

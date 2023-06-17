@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
 		fontWeight: 700,
 		textAlign: 'center',
 		fontWeight: 600,
-      // fontSize: 24,
 		fontWeight: 'bold',
 		textShadowColor: colors.black,
 		textShadowOffset: { width: 2, height: 2 },
@@ -71,7 +70,7 @@ const styles = StyleSheet.create({
 	},
 	   TooltipContent:{
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'center'
     }
 });
 

@@ -1,9 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-// import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
-import { Table, TableWrapper, Col, Row, Rows } from 'react-native-table-component';
+import { Table,TableWrapper ,Col ,Row ,Rows } from 'react-native-table-component';
 import colors from '../containers/colors';
-// {label ? label : "Button"}
 
 function HorseTable({horseFee, SP, ST, instantaneous, guts, Temperament, health, HorseName}) {
   const CONTENT = {
@@ -18,6 +16,7 @@ function HorseTable({horseFee, SP, ST, instantaneous, guts, Temperament, health,
       ['?', '?', '?', '?', '?', '?'],
     ],
   };
+  console.log('textStyle:', textStyle);
   return (
     <View style={styles.container}>
       <Table borderStyle={{ borderWidth: 1 }}>
@@ -25,14 +24,13 @@ function HorseTable({horseFee, SP, ST, instantaneous, guts, Temperament, health,
           <Col
             data={CONTENT.name}
             style={styles.name}
-            textStyle={{textAlign: 'center' }}
-
+            textStyle={textStyle}
           />
            <Row
             data={CONTENT.initialState}
             flexArr={[1, 1, 1]}
             style={styles.initialState}
-            textStyle={{textAlign: 'center' }}
+            textStyle={textStyle}
 
           />
         </TableWrapper>
@@ -40,14 +38,14 @@ function HorseTable({horseFee, SP, ST, instantaneous, guts, Temperament, health,
           <Col
             data={CONTENT.price}
             style={styles.price}
-            textStyle={{textAlign: 'center' }}
+            textStyle={textStyle}
 
           />
            <Row
             data={CONTENT.initialValue}
             flexArr={[1, 1, 1]}
             style={styles.initialValue}
-            textStyle={{textAlign: 'center' }}
+            textStyle={textStyle}
 
           />
         </TableWrapper>
@@ -55,14 +53,14 @@ function HorseTable({horseFee, SP, ST, instantaneous, guts, Temperament, health,
             data={CONTENT.ability}
             flexArr={[1, 1, 1,1, 1, 1 ]}
             style={styles.ability}
-            textStyle={{textAlign: 'center' }}
+            textStyle={textStyle}
 
         />
         <Rows
             data={CONTENT.abilityValue}
             flexArr={[1, 1, 1,1, 1, 1]}
             style={styles.abilityValue}
-            textStyle={{textAlign: 'center' }}
+            textStyle={textStyle}
         />
       </Table>
     </View>
@@ -93,7 +91,10 @@ const styles = StyleSheet.create({
   },
   name: {
     flex: 1, 
-    backgroundColor: colors.horsTableNameColor 
+    backgroundColor: colors.horsTableNameColor,
+  },
+  celWord: {
+    textAlign: 'center'
   },
   price: {
     flex: 1, 
@@ -113,3 +114,8 @@ const styles = StyleSheet.create({
   //   textAlign: 'center' 
   // },
 });
+
+const textStyle = {
+  fontSize: 16,
+  textAlign: 'center',
+};

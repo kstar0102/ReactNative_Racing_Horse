@@ -1,10 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet,Dimensions } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import { vw,vh  } from 'react-native-expo-viewport-units';
 import colors from '../../containers/colors';
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const RTapScreensStyle = StyleSheet.create({
   BottomImg:{
@@ -15,21 +17,43 @@ const RTapScreensStyle = StyleSheet.create({
     width: vw(90),
     height: vh(40)
   },
+  RaceRegistationContainer:{
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 10,
+    marginTop: 180,
+  },
+  RaceRegistationContent:{
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 10
+  },
   oneContainer: {
     flexDirection: 'column',
     // alignItems: 'center'
-    height: vh(55)
+    height: vh(60)
+  },
+  grazingContainer:{
+    height: vh(45)
+  },
+  twoContainer:{
+    flexGrow: 1,
+    height: vh(45)
   },
   oneTopContent: {
     flexDirection: 'row',
     justifyContent: 'space-around'
   },
   oneRightContentTxt:{
-    fontSize: hp(2)+ wp(2),
-    fontWeight: 600
+    fontSize: hp(2)+ wp(1.5),
+    fontWeight: 600,
+    paddingBottom: 20
   },
   oneTopContentLeft: {
-
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingTop: 10
   },
   oneTopContentRight: {
     flexDirection: 'column',
@@ -56,6 +80,12 @@ const RTapScreensStyle = StyleSheet.create({
     paddingLeft: 10,
     
   //  marginRight: -40
+  },
+  oneRioghtHeaderTxtWin:{
+    color: colors.white,
+    paddingVertical: 3,
+    paddingLeft: 10,
+    letterSpacing: -1
   },
   oneRioghtHeaderTxtLetter:{
     color: colors.white,
@@ -107,7 +137,7 @@ const RTapScreensStyle = StyleSheet.create({
   },
   HorseAvatar:{
     width: vw(3) + vh(5),
-    marginTop: 15.5
+    marginTop: 17
   },
   conditionsGroup:{
     flexDirection: 'row',
@@ -203,6 +233,39 @@ const RTapScreensStyle = StyleSheet.create({
   ButtonGroup:{
     flexDirection: 'row',
     justifyContent: 'space-around'
+  },
+  ///////////////////////////////////////// Avatars and AvatarTap Styles
+  ranchContent:{
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: 20
+  },
+  avatarGroup:{
+    width: SCREEN_WIDTH,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    columnGap: 20,
+    padding: 5
+  },
+  avatarImage:{
+    width: 95,
+    height: 95
+  },
+  avatarTxt:{
+    width: vw(56),
+    backgroundColor: colors.headerButtonColor,
+    paddingVertical: 5,
+    paddingHorizontal: 5
+  },
+  avatarTxtLock:{
+    width: vw(57),
+    height: vh(14),
+  },
+  lockTitle:{
+    fontSize: 17,
+    padding: 2
   }
 });
 

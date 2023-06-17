@@ -10,6 +10,7 @@ const FooterButton = ({ label, onPress, disabled, color }) => {
 		<TouchableOpacity
 			style={[
 				styles.button,
+				color == 1 ? styles.stallFooterbutton : 'stallFooterbutton'
 			]}
 			onPress={onPress ? onPress : () => alert("Clicked")}
 			disabled={disabled ? disabled : false}
