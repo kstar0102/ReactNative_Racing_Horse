@@ -16,7 +16,6 @@ function HorseTable({horseFee, SP, ST, instantaneous, guts, Temperament, health,
       ['?', '?', '?', '?', '?', '?'],
     ],
   };
-  console.log('textStyle:', textStyle);
   return (
     <View style={styles.container}>
       <Table borderStyle={{ borderWidth: 1 }}>

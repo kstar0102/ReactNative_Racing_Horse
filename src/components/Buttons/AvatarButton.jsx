@@ -1,54 +1,62 @@
-import React, {useState} from 'react';
-import {TouchableOpacity, Image, View, StyleSheet,Alert } from 'react-native';
+import React from 'react';
+import {TouchableOpacity, Image, Text, StyleSheet,Alert } from 'react-native';
 import colors from '../../containers/colors';
-import { vh, vw } from 'react-native-expo-viewport-units';
 import { useNavigation } from '@react-navigation/native';
 
-const AvatarButton = ({onPress, disabled, id }) =>{
+const AvatarButton = ({onPress, disabled, id, name }) =>{
     const navigation = useNavigation();
-
     let sources = null;
+    let nameShow = "";
     if(id == 1){
         sources = require('../../assets/images/avatars/1.png')
+        nameShow = name;
     }else if( id == 2 ){
         sources = require('../../assets/images/avatars/2.png')
+        nameShow = name;
     }else if( id == 3 ){
         sources = require('../../assets/images/avatars/3.png')
+        nameShow = name;
     }else if( id == 4 ){
         sources = require('../../assets/images/avatars/4.png')
+        nameShow = name;
     }
     else if( id == 5 ){
         sources = require('../../assets/images/avatars/5.png')
+        nameShow = name;
     }
     else if( id == 6 ){
         sources = require('../../assets/images/avatars/6.png')
+        nameShow = name;
     }
     else if( id == 7 ){
         sources = require('../../assets/images/avatars/7.png')
+        nameShow = name;
     }
     else if( id == 8 ){
         sources = require('../../assets/images/avatars/8.png')
+        nameShow = name;
     }
     else if( id == 9 ){
         sources = require('../../assets/images/avatars/9.png')
+        nameShow = name;
     }
     else if( id == 10 ){
         sources = require('../../assets/images/avatars/10.png')
+        nameShow = name;
     }
     else if( id == 11 ){
         sources = require('../../assets/images/avatars/11.png')
+        nameShow = name;
     }
     else if( id == 12 ){
         sources = require('../../assets/images/avatars/12.png')
+        nameShow = name;
     }
-
-
-    
    const handlePress = () => {
         if(id){
           Alert.alert(
             "厩舎",
-            "○○厩舎に預けますか?",
+            "<"+ nameShow +">" +"  厩舎に預けますか?",
             [
               {
                 text: "いいえ",

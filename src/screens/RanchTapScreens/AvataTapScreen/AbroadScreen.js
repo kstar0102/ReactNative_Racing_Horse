@@ -8,7 +8,7 @@ const AbroadScreen = () => {
          <View style={RTapScreensStyle.ranchContent}>
             <View style={RTapScreensStyle.avatarGroup}>
                 <View style={RTapScreensStyle.avatar}>
-                    <AvatarButton id={1}/>
+                    <AvatarButton id='1' name='国沢厩舎'/>
                  </View>
                 <View style={RTapScreensStyle.avatarTxt}>
                     <Text> 国沢厩舎</Text>
@@ -21,7 +21,7 @@ const AbroadScreen = () => {
 
             <View style={RTapScreensStyle.avatarGroup}>
                 <View style={RTapScreensStyle.avatar}>
-                    <AvatarButton id={2}/>
+                    <AvatarButton id='2' name='堀塚厩舎'/>
                  </View>
                 <View style={RTapScreensStyle.avatarTxt}>
                     <Text> 堀塚厩舎</Text>
@@ -34,7 +34,7 @@ const AbroadScreen = () => {
             
             <View style={RTapScreensStyle.avatarGroup}>
                 <View style={RTapScreensStyle.avatar}>
-                    <AvatarButton id={3}/>
+                    <AvatarButton id='3' name='木藤厩舎'/>
                  </View>
                 <View style={RTapScreensStyle.avatarTxt}>
                     <Text> 木藤厩舎</Text>
@@ -47,7 +47,7 @@ const AbroadScreen = () => {
 
             <View style={RTapScreensStyle.avatarGroup}>
                 <View style={RTapScreensStyle.avatar}>
-                    <AvatarButton id={4} disabled={true}/>
+                    <AvatarButton id='4' disabled={true}/>
                  </View>
                  <View>
                     <Text style={RTapScreensStyle.lockTitle}>? ? ?厩舎</Text>

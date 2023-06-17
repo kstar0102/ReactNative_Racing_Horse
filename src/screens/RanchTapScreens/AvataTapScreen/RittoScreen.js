@@ -8,7 +8,7 @@ const Ritto = () => {
          <View style={RTapScreensStyle.ranchContent}>
             <View style={RTapScreensStyle.avatarGroup}>
                 <View style={RTapScreensStyle.avatar}>
-                    <AvatarButton id={5}/>
+                    <AvatarButton id={5} name='矢道厩舎'/>
                  </View>
                 <View style={RTapScreensStyle.avatarTxt}>
                     <Text> 矢道厩舎</Text>
@@ -21,7 +21,7 @@ const Ritto = () => {
 
             <View style={RTapScreensStyle.avatarGroup}>
                 <View style={RTapScreensStyle.avatar}>
-                    <AvatarButton id={6}/>
+                    <AvatarButton id={6} name='池貝廳舍'/>
                  </View>
                 <View style={RTapScreensStyle.avatarTxt}>
                     <Text> 池貝廳舍</Text>
@@ -34,7 +34,7 @@ const Ritto = () => {
             
             <View style={RTapScreensStyle.avatarGroup}>
                 <View style={RTapScreensStyle.avatar}>
-                    <AvatarButton id={7}/>
+                    <AvatarButton id={7} name='中外田厩舎'/>
                  </View>
                 <View style={RTapScreensStyle.avatarTxt}>
                     <Text> 中外田厩舎</Text>
