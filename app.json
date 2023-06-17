@@ -20,10 +20,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.konadev.Racing_app_japan"
     },
     "web": {
       "favicon": "./src/assets/images/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "03a682a7-583e-46a2-8dc8-7d382c80c486"
+      }
+    },
+    "owner": "konadev"
   }
 }
