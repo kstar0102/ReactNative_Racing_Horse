@@ -3,7 +3,7 @@ import { View, Image, Text, ImageBackground, ScrollView } from 'react-native';
 import DropDownR from '../../../components/Buttons/DropDwonR';
 import { ImageButton } from '../../../components/Buttons';
 import DetailButton from '../../../components/Buttons/DetailButton';
-import RTapScreensStyle from '../../RanchTapScreens/RTapScreensStyle';
+import RTapScreensStyle from '../../PastureScreens/RanchTapScreens/RTapScreensStyle';
 
 const Training = () => {
   const [selected, setSelected] = useState(undefined);

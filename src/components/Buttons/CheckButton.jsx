@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleSheet,  SafeAreaView } from 'react-native';
 import { Checkbox } from 'react-native-paper';
+
 const CheckButton = () => {
    const [checked, setChecked] = React.useState(false);
    return (

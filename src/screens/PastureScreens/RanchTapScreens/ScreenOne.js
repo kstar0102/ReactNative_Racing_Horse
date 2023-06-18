@@ -1,41 +1,26 @@
 import React, { useState } from 'react';
-import { View, Image, Text, ImageBackground } from 'react-native';
+import { View, Image, Text, ScrollView,Alert } from 'react-native';
+import RTapScreensStyle from './RTapScreensStyle';
 import DropDownR from '../../../components/Buttons/DropDwonR';
-import RTapScreensStyle from '../../PastureScreens/RanchTapScreens/RTapScreensStyle';
-import Screenstyles from '../../ScreenStylesheet';
-import HeaderScreen from '../../LayoutScreen/HeaderScreen';
-import { ReturnButton } from '../../../components/Buttons';
-import RacetrackCourse from '../../PastureScreens/RacetrackTableScreen/RacetrackCourse';
+import GrazingGroup from './GrazingGroup';
+import WorkingButton from '../../../components/Buttons/WorkingButtons/WorkingButton';
+import { SaleButton } from '../../../components/Buttons';
 
-const RaceRegistation = () => {
+const ScreenOne = () => {
   const [selected, setSelected] = useState(undefined);
+  const [activeButton, setActiveButton] = useState(0);
   const data = [
-    { label: '馬名A', labelValue: 'A', id: 1, sp: 'S', st: 'D+', fatigue: 'O',  instantaneous:'A', guts:'C', temper:'B',  health: 'A', Hair:'白毛', class:'GIクラス'},
-    { label: '馬名B', labelValue: 'B', id: 2, sp: 'S+', st: 'D', fatigue: '△',  instantaneous:'A+', guts:'C', temper:'B',  health: 'A', Hair:'黑鹿毛', class:'GⅡクラス'},
-    { label: '馬名C', labelValue: 'C', id: 3, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:'栗毛', class:'GⅢクラス'},
+    { label: '馬名A', labelValue: 'A', id: 1, sp: 'S', st: 'D+', fatigue: 'O',  instantaneous:'A', guts:'C', temper:'B',  health: 'A', Hair:'黑鹿毛',  class:'GIクラス'},
+    { label: '馬名B', labelValue: 'B', id: 2, sp: 'S+', st: 'D', fatigue: '△',  instantaneous:'A+', guts:'C', temper:'B',  health: 'A', Hair:'黑鹿毛', class:'GⅡクラス' },
+    { label: '馬名C', labelValue: 'C', id: 3, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:'栗毛', class:'GⅢクラス' },
  ];
 
     return (
-        <ImageBackground
-        source={require('../../../assets/images/horse_track/stall.jpg')}
-        resizeMode="cover"
-        style={Screenstyles.img}>
-        <HeaderScreen/>
-        <View>
-
-        
-        <View style={Screenstyles.UPcontent}>
-                <View>
-                  <ReturnButton label="牧 場" onPress={() => navigation.navigate('TopScreen')}/>
-                </View>
-                <View style={Screenstyles.UPRButton}>
-                    <ReturnButton label="事務所" onPress={() => navigation.navigate('PastureScreen')}/>
-                </View>
-        </View>
-        <View  style={RTapScreensStyle.RaceRegistationContainer}>
+      <View style={RTapScreensStyle.twoContainer}>
+          <View  style={RTapScreensStyle.oneTopContent}>
             <View style={RTapScreensStyle.oneTopContentLeft}>
                 <Text style={RTapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
-                <DropDownR label='馬名A'  data={data} onSelect={setSelected} />
+                <DropDownR label='馬名A'data={data} onSelect={setSelected} />
             </View>
             <View style={RTapScreensStyle.oneTopContentRight}>
               <View style={RTapScreensStyle.oneRioghtHeader}>
@@ -59,7 +44,7 @@ const RaceRegistation = () => {
                     <Text style={RTapScreensStyle.oneRioghtBodyTxt}>ST <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.st) || 'D+'}</Text></Text>
                   </View>
                   <View>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.fatigue) || 'O'}  </Text><Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>芝</Text></Text>
+                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.fatigue) || 'O'} </Text> <Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>芝</Text></Text>
                     <Text style={RTapScreensStyle.oneRioghtBodyTxt}>瞬発 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.instantaneous) || 'A'}</Text></Text>
                     <Text style={RTapScreensStyle.oneRioghtBodyTxt}>根性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.guts) || 'C'}</Text></Text>
                   </View>
@@ -71,12 +56,12 @@ const RaceRegistation = () => {
                   {(!!selected && selected.id ==1 ? 
                     <Image 
                       style={RTapScreensStyle.HorseAvatar}
-                      source={require('../../../assets/images/horse/22.png')}
+                      source={require('../../../assets/images/horse/23.png')}
                     />
                     :
                     <Image 
                       style={RTapScreensStyle.HorseAvatar}
-                      source={require('../../../assets/images/horse/22.png')}
+                      source={require('../../../assets/images/horse/23.png')}
                     />
                     
                     &&
@@ -102,17 +87,22 @@ const RaceRegistation = () => {
                     :
                     <Image 
                       style={RTapScreensStyle.HorseAvatar}
-                      source={require('../../../assets/images/horse/22.png')}
+                      source={require('../../../assets/images/horse/23.png')}
                     />
                   )} 
+                  
+              </View>
+              
+              <View style={RTapScreensStyle.ButtonGroup}>
+                <WorkingButton label={'飼葉'} colorNumber={5} styleId={1}/>
+                <SaleButton label={'売却'} />
               </View>
             </View>
           </View>
-          <View>
-            <RacetrackCourse/>
+          <View  style={RTapScreensStyle.oneBottomContent}>
+            <GrazingGroup />
           </View>
-          </View>
-      </ImageBackground>
+      </View>
     )
   }
-export default RaceRegistation;
+export default ScreenOne;

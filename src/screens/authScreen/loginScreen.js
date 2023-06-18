@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {  View, Text, ImageBackground} from 'react-native';
 
 // Custom Import 
 import AuthHeaderScreen from '../LayoutScreen/AuthHeaderScreen';
 import CheckButton from '../../components/Buttons/CheckButton';
 import LoginButton from '../../components/Buttons/LoginButton';
-import EmailInput from '../../components/EmailInput';
-import PasswordInput from '../../components/PasswordInput';
+import EmailInput from '../../components/input/EmailInput';
+import PasswordInput from '../../components/input/PasswordInput';
 import Screenstyles from '../ScreenStylesheet';
 import AuthStyle from './AuthStyle';
 

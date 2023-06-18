@@ -4,6 +4,7 @@ import { View, ImageBackground } from 'react-native';
 import { CustomButtons } from '../components/Buttons';
 import HeaderScreen from './LayoutScreen/HeaderScreen'
 import Screenstyles from '../screens/ScreenStylesheet';
+
 const TopScreen = ({navigation}) => {
   return (
     <View style={Screenstyles.container}>      

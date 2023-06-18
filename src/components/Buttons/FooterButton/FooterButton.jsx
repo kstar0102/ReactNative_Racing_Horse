@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 	},
 	label: {
 		color: colors.light.white,
-		fontSize: hp(1.2) + wp(1.4),
+		fontSize: hp(1.2) + wp(1.1),
 		fontWeight: 700,
 		textAlign: 'center'
 

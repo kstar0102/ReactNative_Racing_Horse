@@ -15,7 +15,7 @@ const PastureScreen = ({navigation}) => {
         resizeMode="cover"
         style={Screenstyles.img}>
         <HeaderScreen/>
-            <ReturnButton label="牧  場" onPress={() => navigation.navigate('TopScreen')}/>
+            <ReturnButton label="牧  場"/>
             <View style={Screenstyles.containers}>
               <View style={Screenstyles.content}>
                   <CustomButtons label="育 成" onPress={() => navigation.navigate('UpbringingScreen')}/>

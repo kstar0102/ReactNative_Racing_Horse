@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, SafeAreaView, ImageBackground } from 'react-native';
 import { HeaderButton } from '../../components/Buttons';
-import CountDownTimer from '../../components/CountDownTimer';
-import CurrentDateTimeWeather from '../../components/CurrentDateTimeWeather';
+import CountDownTimer from '../../components/time/CountDownTimer';
+import CurrentDateTimeWeather from '../../components/time/CurrentDateTimeWeather';
 import HeaderStylesheet from './HeaderStylesheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

@@ -9,7 +9,6 @@ import {
 import colors from '../../containers/colors';
 
 const ITapButton = ({ id, isActive, onPress, label}) => {
-  console.log(getCurrentPosition);  
   const handlePress = () => {
         onPress(id);
     };
