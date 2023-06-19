@@ -3,14 +3,16 @@ import { StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import colors from '../../containers/colors';
 
-const PasswordInput = () => {
-  const [text, setText] = useState('');
-  const [passwordVisible, setPasswordVisible] = useState(true);
+const PasswordInput = ({onChangeText}) => {
+  const handlePasswordInputChange = (inputValue) => {
+    onChangeText(inputValue);
+  };
 
   return (
     <TextInput
-      secureTextEntry={passwordVisible}
+      secureTextEntry={true}
       style={styles.passwordS}
+      onChangeText={handlePasswordInputChange} 
     />
   );
 };

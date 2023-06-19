@@ -1,9 +1,17 @@
+import { connect } from "react-redux";
 import AppStack from "./AppStack";
 import AuthStack from "./AuthStack";
 
-const Routes = () => {
+const Routes = (data) => {
+  const token = data.data.token;
 
-  return <AuthStack /> ;
+  return token ? <AppStack/> : <AuthStack /> ;
 };
 
-export default Routes;
+const mapStateToProps = state => {
+  return {
+    data: state.data
+  };
+};
+
+export default connect(mapStateToProps)(Routes);

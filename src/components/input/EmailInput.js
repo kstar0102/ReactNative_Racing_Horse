@@ -3,10 +3,14 @@ import { StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import colors from '../../containers/colors';
 
-const EmailInput = () => {
+const EmailInput = ({onChangeText}) => {
+ const handleInputChange = (inputValue) => {
+  onChangeText(inputValue);
+ };
 
   return (
     <TextInput
+      onChangeText={handleInputChange}
       style={styles.passwordS}
     />
   );
