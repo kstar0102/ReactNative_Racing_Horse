@@ -1,13 +1,73 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import {  View, ImageBackground, Text } from 'react-native';
 
+// Redux
+import { connect,useDispatch } from 'react-redux';
+import { pastureNameAction } from '../../store/actions/Pasture/pastureNameAction';
 // Custom Import 
 import NRHeaderScreen from '../LayoutScreen/NRHeaderScreen';
 import Screenstyles from '../ScreenStylesheet';
-import{ TNameInput,FarmNameInput }from '../../components/input';
-import { PNameRegister,CheckRadioButton } from '../../components/Buttons';
+import{ TNameInput, FarmNameInput }from '../../components/input';
+import { PNameRegister, CheckRadioButton } from '../../components/Buttons';
 
-const PastureNameScreen = ({navigation}) => {
+const PastureNameScreen = ({navigation, pastureData}) => {
+const dispatch = useDispatch();
+const  [pastureName, setPastureName] = useState(''); 
+const  [nameMean, setNameMean] = useState(''); 
+const  [pastureStyle, setPastureStyle] = useState('牧場');
+const [checkSub, setCheckSub] = useState(false);
+const [check, setCheck] = useState(false);
+const [displayName, setDisplayName] = useState('none');
+const [displayNameMean, setDisplayNameMean] = useState('none');
+const [displayNameStyle, setDisplayNameStyle] = useState('none');
+const [displayNameMeanStyle, setDisplayNameMeanStyle] = useState('none');
+
+  useEffect(() => {
+    setDisplayNameMean('none');
+    setDisplayName('none');
+    if (checkSub) {
+      if(pastureData.noName || pastureData.noNameMean){
+        pastureData.noName ? setDisplayName('flex') : setDisplayNameMean('flex');
+      }
+      else{
+        navigation.navigate('PastureRegistration');
+      }
+    }
+  }, [pastureData]);
+  const handleSubmit = () =>{
+    setCheckSub('ok');
+    if(pastureName == ''){
+      setDisplayNameStyle('flex');
+      setDisplayNameMeanStyle('none');
+      return false;
+    }
+    else if(nameMean == ''){
+      setDisplayNameStyle('none');
+      setDisplayNameMeanStyle('flex');
+      return false;
+    }
+    else{
+      const sendData = {
+        'name' : pastureName,
+        'name_mean' : nameMean,
+        'style' : pastureStyle
+      }
+      dispatch(pastureNameAction(sendData));
+      setDisplayNameStyle('none');
+      setDisplayNameMeanStyle('none');
+    }
+  };
+
+  const handleInputChangeName = (inputValue) => {
+    setPastureName(inputValue);
+  };
+
+  const handleInputChangeMean = (inputValue) => {
+    setNameMean(inputValue);
+  }
+  const handleCheckChange = (inputValue) => {
+    setPastureStyle(inputValue);
+  }
     return (
     <View style={Screenstyles.container}>
       <ImageBackground
@@ -25,20 +85,22 @@ const PastureNameScreen = ({navigation}) => {
                     <View style={Screenstyles.FarmName}>
                         <Text style={Screenstyles.Title1}>・牧場名</Text>
                         <View style={Screenstyles.FarmNameInput}>
-                            <FarmNameInput/> 
-                            <CheckRadioButton/>
+                            <FarmNameInput onChangeText={handleInputChangeName}/> 
+                            <CheckRadioButton  onChangeText={handleCheckChange}/>
                         </View>
-                        {/* <Text style={Screenstyles.caution}>※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。</Text> */}
+                        <Text style={[Screenstyles.cautions, {display: displayName}]} id="caution">※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。</Text>
+                        <Text style={[Screenstyles.cautions, {display: displayNameStyle}]} id="caution">※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。</Text>
                     </View>
                     <View style={Screenstyles.TName}>
                         <Text style={Screenstyles.Title}>・冠名</Text>
                         <View style={Screenstyles.TNameInput}>
-                            <TNameInput/>
+                            <TNameInput onChangeText={handleInputChangeMean}/>
                         </View>
-                        {/* <Text style={Screenstyles.caution}>※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。</Text> */}
+                        <Text style={[Screenstyles.cautions, {display: displayNameMean}]}>※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。</Text>
+                        <Text style={[Screenstyles.cautions, {display: displayNameMeanStyle}]} id="caution">※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。</Text>
                     </View>
                     
-                    <PNameRegister label={'決定する'}  onPress={() => navigation.navigate('PastureRegistration')}/>
+                    <PNameRegister label={'決定する'}  onPress={handleSubmit}/>
                 </View>
             </View>
       </ImageBackground>
@@ -46,4 +108,10 @@ const PastureNameScreen = ({navigation}) => {
   );
 };
 
-export default PastureNameScreen;
+const mapStateToProps = state => {
+  return {
+      pastureData: state.pastureData
+  };
+};
+
+export default connect(mapStateToProps)(PastureNameScreen);

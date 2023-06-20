@@ -3,9 +3,14 @@ import { StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import colors from '../../containers/colors';
 
-const FarmNameInput = () => {
+const FarmNameInput = ({onChangeText}) => {
+  const handleInputChange = (inputValue) => {
+    onChangeText(inputValue);
+   };
+   
   return (
     <TextInput
+      onChangeText={handleInputChange}  
       style={styles.passwordS}
       maxLength={7}
     />

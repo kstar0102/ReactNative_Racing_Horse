@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import {  View, Text, ImageBackground} from 'react-native';
+
+// Redux
 import { connect } from 'react-redux';
-import Toast from 'react-native-root-toast';
-// Custom Import 
 import { useDispatch } from 'react-redux';
+import Toast from 'react-native-root-toast';
+import { loginAction } from '../../store/actions/auth/loginAction';
+// Custom Import 
 import AuthHeaderScreen from '../LayoutScreen/AuthHeaderScreen';
 import CheckButton from '../../components/Buttons/CheckButton';
 import LoginButton from '../../components/Buttons/LoginButton';
@@ -11,10 +14,9 @@ import EmailInput from '../../components/input/EmailInput';
 import PasswordInput from '../../components/input/PasswordInput';
 import Screenstyles from '../ScreenStylesheet';
 import AuthStyle from './AuthStyle';
-import { loginAction } from '../../store/actions';
 
-const LoginScreen = ({navigation, data}) => {
-  const token = data.token;
+
+const LoginScreen = () => {
   const dispatch = useDispatch();
   const  [userId, setUserId] = useState(''); 
   const  [userPassword, setUserPassword] = useState(''); 
@@ -87,7 +89,7 @@ const LoginScreen = ({navigation, data}) => {
 
 const mapStateToProps = state => {
   return {
-    data: state.data
+    auth: state.auth
   };
 };
 

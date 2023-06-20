@@ -6,28 +6,35 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 
-const CheckRadioButton = () => {
-  const [checked, setChecked] = React.useState('first');
 
+const CheckRadioButton = ({onChangeText}) => {
+  const [checked, setChecked] = React.useState('牧場');
+
+    const handleCheckChange = (value) => {
+      setChecked(value);
+      onChangeText(value);
+     };
+   
+     
   return (
     <View style={styles.container}>
       <RadioButton
-        value="first"
+        value="牧場"
         label="dd"
-        status={ checked === 'first' ? 'checked' : 'unchecked' }
-        onPress={() => setChecked('first')}
+        status={ checked === '牧場' ? 'checked' : 'unchecked' }
+        onPress={() => handleCheckChange("牧場")}
       />
       <Text style={styles.title}>牧場</Text>
       <RadioButton
-        value="second"
-        status={ checked === 'second' ? 'checked' : 'unchecked' }
-        onPress={() => setChecked('second')}
+        value="ファーム"
+        status={ checked === 'ファーム' ? 'checked' : 'unchecked' }
+        onPress={() => handleCheckChange("ファーム")}
       />
       <Text style={styles.title}>ファーム</Text>
       <RadioButton
-        value="second"
-        status={ checked === 'third' ? 'checked' : 'unchecked' }
-        onPress={() => setChecked('third')}
+        value="スタリオン"
+        status={ checked === 'スタリオン' ? 'checked' : 'unchecked' }
+        onPress={() => handleCheckChange("スタリオン")}
       />
       <Text style={styles.title}>スタリオン</Text>
     </View>

@@ -13,7 +13,7 @@ const ReturnButton = ({ label, onPress, disabled, color }) => {
 				styles.button,
 				color == 1 ? styles.stallbuttonColor : "Stallbuttoncolor"
 			]}
-			onPress={onPress ? onPress : () => alert("Clicked")}
+			onPress={onPress}
             disabled={disabled ? disabled : false}
 		>
 			<Text style={styles.label}>{label ? label : "Button"}</Text>

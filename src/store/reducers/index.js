@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux';
-import data from './githubReducer';
+import auth from './authReducer';
+import pastureData from './pastureReducer'
 
 export default combineReducers({
-    data: data
+    auth: auth,
+    pastureData: pastureData,
+    
 });
