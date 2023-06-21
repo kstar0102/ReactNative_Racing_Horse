@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, ImageBackground } from 'react-native';
+// Redux
+import { connect } from 'react-redux';
 // Custom IMPORT
 import { CustomButtons } from '../components/Buttons';
 import HeaderScreen from './LayoutScreen/HeaderScreen'
 import Screenstyles from '../screens/ScreenStylesheet';
-import { connect } from 'react-redux';
 const TopScreen = ({navigation, pasture}) => {
   return (
     <View style={Screenstyles.container}>      

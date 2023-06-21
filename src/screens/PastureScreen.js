@@ -1,5 +1,7 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { View, ImageBackground} from 'react-native';
+// Redux
+import { connect } from 'react-redux';
 // Custom Import 
 import HeaderScreen from './LayoutScreen/HeaderScreen';
 import FooterScreen from './LayoutScreen/FooterScreen';
@@ -34,4 +36,10 @@ const PastureScreen = ({navigation}) => {
   );
 };
 
-export default PastureScreen;
+const mapStateToProps = state => {
+  return {
+      pasture: state.auth.pasture
+  };
+};
+
+export default connect(mapStateToProps)(PastureScreen);

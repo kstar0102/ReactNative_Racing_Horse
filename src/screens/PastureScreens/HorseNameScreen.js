@@ -42,9 +42,6 @@ const HorseNameScreen = ({ navigation, horseCheckData, user_id, pasture_id}) => 
         }
         horseNames.push(horseName);
         inputIds.push(inputId);
-        // console.log('====================================')
-        // console.log(horseNames)
-        // console.log('====================================')
       }
 
       const handleSubmit = () => {
