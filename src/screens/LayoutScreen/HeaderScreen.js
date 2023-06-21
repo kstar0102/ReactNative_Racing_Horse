@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, SafeAreaView, ImageBackground } from 'react-native';
+// Rudux
+import { connect } from 'react-redux';
+// CUSTOM IMPORT
 import { HeaderButton } from '../../components/Buttons';
 import CountDownTimer from '../../components/time/CountDownTimer';
 import CurrentDateTimeWeather from '../../components/time/CurrentDateTimeWeather';
 import HeaderStylesheet from './HeaderStylesheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const HeaderScreen = () => {
+const HeaderScreen = ({userPrice}) => {
   const [secondsRemaining, setSecondsRemaining] = useState(21000);
   const secondsRemainingRef = useRef(secondsRemaining);
 
@@ -55,7 +58,7 @@ const HeaderScreen = () => {
           style={HeaderStylesheet.headerLogo}
         >
           <Text style={HeaderStylesheet.goldCoinAndLevel}>馬主Lv. 100 </Text>
-          <Text style={HeaderStylesheet.goldCoinAndLevel}>資金 50,000pt</Text>
+          <Text style={HeaderStylesheet.goldCoinAndLevel}>資金 {userPrice}pt</Text>
         </ImageBackground>
       </View>
       {/* Header Midle */}
@@ -76,4 +79,10 @@ const HeaderScreen = () => {
   );
 };
 
-export default HeaderScreen;
+const mapStateToProps = state => {
+  return {
+      userPrice: state.auth.user.user_pt
+  };
+};
+
+export default connect(mapStateToProps)(HeaderScreen);

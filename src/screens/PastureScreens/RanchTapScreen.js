@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { vw,vh  } from 'react-native-expo-viewport-units';
-import { RTapButton } from '../../components/Buttons';
+import { vh } from 'react-native-expo-viewport-units';
 
-// import ScreenOne from './RanchTapScreen/ScreenOne';
+// REDUX
+import { connect } from 'react-redux';
+// CUSTOM BUTTON
+import { RTapButton } from '../../components/Buttons';
 import ScreenOne from './RanchTapScreens/ScreenOne';
 import ScreenTwo from './RanchTapScreens/ScreenTwo';
 import ScreenThree from './RanchTapScreens/ScreenThree';
@@ -40,7 +42,15 @@ const RanchTapScreen = () => {
   );
 };
 
-export default RanchTapScreen;
+
+const mapStateToProps = state => {
+  console.log('================mapStateToProps====================')
+  console.log(state.horseData)
+  console.log('=================mapStateToProps===================')
+  return {
+  };
+};
+export default connect(mapStateToProps)(RanchTapScreen);
 
 const styles = StyleSheet.create({
   container: {

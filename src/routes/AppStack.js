@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
 // Screens
 import TopScreen from '../screens/TopScreen';
 /**
@@ -27,6 +26,7 @@ import RaceRegistation from '../screens/StableScreens/RaceRegistation';
 
 
 const Stack = createNativeStackNavigator();
+
 const AppStack = () => {
   return (
     <>
@@ -39,7 +39,7 @@ const AppStack = () => {
         <Stack.Screen name={'PastureScreen'} component={PastureScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'PastureRegistration'} component={PastureRegistration} options={{ headerShown: false }}/>
         <Stack.Screen name={'HorseChoiceScreen'} component={HorseChoiceScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name={'UpbringingScreen'} component={UpbringingScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name={'UpbringingScreen'} component={UpbringingScreen} options={{ headerShown: false }}/> 
         <Stack.Screen name={'PastureNameScreen'} component={PastureNameScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'HorseNameScreen'} component={HorseNameScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'InstitutionScreen'} component={InstitutionScreen} options={{ headerShown: false }}/>
@@ -53,5 +53,5 @@ const AppStack = () => {
     </>
   );
 };
-  
+
 export default AppStack;

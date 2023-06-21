@@ -157,9 +157,9 @@ const Training = () => {
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteViewT}>
-                      <Text style={RTapScreensStyle.label}>並走</Text>
+                      <Text style={RTapScreensStyle.label}>併走</Text>
                   </View>
-                  <ImageButton label={'並走'} source={require('../../../assets/images/Pasture/icon5.png')} id={8} disabled={true}/>
+                  <ImageButton label={'併走'} source={require('../../../assets/images/Pasture/icon5.png')} id={8} disabled={true}/>
                   <Image 
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../../assets/images/Pasture/icon8.png')}

@@ -1,30 +1,36 @@
-import { PASTURE_SIZE_DATA } from '../types';
+import { PASTURE_SIZE_DATA, HORSE_ALL_DATA } from '../types';
 import axios from 'axios';
 import { API } from '../../../utils/config';
-import Toast from 'react-native-root-toast';
 
-export const fetchData = (pastureDatas) => {
+export const fetchData = (pastureData) => {
   return {
     type: PASTURE_SIZE_DATA,
-    payload: pastureDatas,
+    payload: pastureData,
   }
 };
 
-export const pastureSizeAction = (pastureDatas) => {
-  console.log(pastureDatas);
-  return (getState) => {
+export const horseData = (allData) => {
+  return {
+    type: HORSE_ALL_DATA,
+    payload: allData,
+  }
+};
+
+export function pastureSizeAction(pastureData) {
+  return async (dispatch, getState) => {
     const token = getState().auth.token;
-    return axios.post(API+"pasture", {
-      data: pastureDatas
+    
+    return await axios.post(API+"pasture",{
+      data: pastureData
     },
     {
       headers:{Authorization: token}
-    }
-    )
+    })
     .then(res => {
+      dispatch(horseData(res.data))
     })
     .catch(error => {
       throw(error);
     });
-  };
+  }
 };

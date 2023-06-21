@@ -24,9 +24,9 @@ export const nameMeanUnunique = (data) => {
 }
 
 export const pastureNameAction = (pastureData) => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     const token = getState().auth.token;
-    return axios.post(API+"checkPastureName", {
+    return await axios.post(API+"checkPastureName", {
       data: pastureData
     },
     {

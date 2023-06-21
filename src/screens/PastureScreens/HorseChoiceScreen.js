@@ -1,152 +1,198 @@
-import React, { useState} from 'react';
-import {  View, ImageBackground, Text, Image, ScrollView} from 'react-native';
-
-// Custom Import 
+import React, { useEffect, useState } from 'react';
+import { View, ImageBackground, Text, Image, ScrollView, StyleSheet } from 'react-native';
+// Redux
+import { connect, useDispatch } from 'react-redux';
+import { horseCheckAction } from '../../store/actions/horse/horseCheckAction';
+// Custom Import
 import NRHeaderScreen from '../LayoutScreen/NRHeaderScreen';
 import Screenstyles from '../ScreenStylesheet';
 import { HorseBuyButton, BackButton, CheckButton } from '../../components/Buttons';
 import DropDownB from '../../components/Buttons/DropDwonB';
 import HorseTable from '../../components/table/HorseTable';
 import BloodLineTable from '../../components/table/BloodlineTable';
+import { horseColor } from '../../utils/globals';
+import Spinner from 'react-native-loading-spinner-overlay';
+// Array value
+let horses = [];
+let prices = [];
+const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
+    const dispatch = useDispatch();
+    const [selected, setSelected] = useState();
+    const [groupedData, setGroupedData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-const HorseChoiceScreen  = ({navigation}) => {
-    const [selected, setSelected] = useState(undefined);
     const data = [
-      { label: '・0歳馬', horseFee: '500pt', SP: '10', ST:'9', instantaneous: '12', guts: '15', Temperament:'10', health: '30', img: '1.jpg' },
-      { label: '・1歳馬', horseFee: '2000pt', SP: '30', ST:'22', instantaneous: '23', guts: '45', Temperament:'30', health: '60'},
-      { label: '・2歳馬', horseFee: '5000pt', SP: '60', ST:'33', instantaneous: '33', guts: '55', Temperament:'60', health: '70'},
-      { label: '・繁殖馬', horseFee: '9000pt', SP: '100', ST:'110', instantaneous: '123', guts: '125', Temperament:'100', health: '120', HorseName: '馬名', HorseName1: 'Snow Fairy',  HorseName2: 'Winx',  HorseName3: 'Zenyatta',  HorseName4: 'Stacelita',  HorseName5: 'Horlicks'},
+        { label: '・0歳馬' },
+        { label: '・1歳馬' },
+        { label: '・2歳馬' },
+        { label: '・繁殖馬' },
     ];
-    // {(!!selected && selected.label) || label}
+
+    useEffect(() => {
+        let filteredData;
+        if (!selected) {
+            filteredData = (horseData && horseData.filter(data => data.age === "・0歳馬")) || [];
+        } else {
+            filteredData = (horseData && horseData.filter(data => data.age === selected.label)) || [];
+        }
+        const chunkSize = 5;
+        const chunks = [];
+        for (let i = 0; i < filteredData.length; i += chunkSize) {
+            chunks.push(filteredData.slice(i, i + chunkSize));
+        }
+        setGroupedData(chunks);
+        setLoading(false); // set loading to false after fetching the data
+    }, [horseData, selected]);
+
+    // Value and id, price array push
+    const handleCheck = (value, id, price) => {
+        if (value == true) {
+            horses.push(id);
+            prices.push(price);
+        }
+        else {
+            removeId(id);
+            removePrice(price)
+        }
+        return value;
+    };
+
+    // horses array Remove Id
+    const removeId = (id) => {
+        for (let index = 0; index < horses.length; index++) {
+            if (horses[index] == id) {
+                horses.splice(index, 1);
+            }
+        }
+    };
+    // Price array Remove price
+    const removePrice = (price) => {
+        for (let i = 0; i < prices.length; i++) {
+            if (prices[i] == price) {
+                prices.splice(i, 1);
+            }
+        }
+    };
+
+    // ClickChecked horses id === data.id
+    const handleChecked = (id) => {
+        for (let index = 0; index < horses.length; index++) {
+            if (horses[index] == id) {
+                return true;
+            }
+        }
+        return false;
+    };
+    // Click Buybutton 
+    const handleSubmit = () => {
+        const horseDataId = horseData.filter(data => horses.includes(data.id));
+        const priceByRange = {};
+        horseDataId.forEach(horse => {
+            const { price } = horse;
+
+            if (price <= 100) {
+                if (!priceByRange['1']) priceByRange['1'] = 0;
+                priceByRange['1'] += price;
+            } else if (price <= 500) {
+                if (!priceByRange['2']) priceByRange['2'] = 0;
+                priceByRange['2'] += price;
+            } else {
+                if (!priceByRange['3']) priceByRange['3'] = 0;
+                priceByRange['3'] += price;
+            }
+        });
+        let totalPrice = 0;
+
+        for (let key in priceByRange) {
+            totalPrice += priceByRange[key];
+        }
+        if(!totalPrice){
+            alert('Check you horse');
+            return false;
+        }
+        else if(userPrice < totalPrice){
+            alert('ポイントが足りません。');
+            return false;
+        }else{
+            dispatch(horseCheckAction(horseDataId));
+            navigation.navigate('HorseNameScreen')
+        } 
+    };
     return (
-    <View style={Screenstyles.container}>
-      <ImageBackground
-        source={require('../../assets/images/1.png')}
-        resizeMode="contain"
-        style={Screenstyles.img}>
-            <NRHeaderScreen/>
-            <View style={Screenstyles.HCcontainer}>
-                <View style={Screenstyles.HCtitle}>
-                    <Text style={Screenstyles.NRtitleA}>競走馬を購入する</Text>   
-                    {/* <Text style={Screenstyles.NRtitleB}>[注意] 同じポイント分、 <Text style={Screenstyles.NRSpanT}>維持費</Text>がかかります!</Text>  */}
+        <View style={Screenstyles.container}>
+            <ImageBackground
+                source={require('../../assets/images/1.png')}
+                resizeMode="contain"
+                style={Screenstyles.img}>
+                <NRHeaderScreen />
+                <View style={Screenstyles.HCcontainer}>
+                    <View style={Screenstyles.HCtitle}>
+                        <Text style={Screenstyles.NRtitleA}>競走馬を購入する</Text>
+                    </View>
+                    <View style={Screenstyles.DropDwonButton}>
+                        <DropDownB label="・0歳馬" data={data} onSelect={setSelected} />
+                    </View>
+                    {loading ? ( // show spinner if loading is true
+                        <Spinner visible={loading} textContent={'Loading...'} textStyle={styles.spinnerTextStyle} />
+                    ) : (
+                        groupedData.map((chunk) => (
+                            <ScrollView style={Screenstyles.ScrollView}>
+                                {chunk.map((data) => (
+                                    <View key={data.id} style={Screenstyles.horseCard}>
+                                        <CheckButton checkState={handleCheck} id={data.id} price={data.price} check={() => handleChecked(data.id)} />
+                                        <View style={Screenstyles.horseCardContent}>
+                                            <View style={Screenstyles.horseCardLeft}>
+                                                {horseColor.map((colorName, index) => {
+                                                    if (colorName[data.color]) {
+                                                        return (
+                                                            <Image
+                                                                key={`${data.id}${index}`}
+                                                                style={Screenstyles.HCImage}
+                                                                source={colorName[data.color]}
+                                                            />
+                                                        );
+                                                    } else {
+                                                        return null;
+                                                    }
+                                                })}
+                                            </View>
+                                            <View style={Screenstyles.horseCardRight}>
+                                                <BloodLineTable father_sys={data.f_sys} father_f_sys={data.f_f_sys} father_m_sys={data.f_m_sys} mother_sys={data.m_sys} mother_f_sys={data.m_f_sys} mohter_m_sys={data.m_m_sys} />
+                                            </View>
+                                        </View>
+                                        <HorseTable name={data.m_sys} price={data.price} />
+                                    </View>
+                                ))}
+                            </ScrollView>
+                        ))
+                    )}
+                    <BackButton label={'前に戻る'} onPress={() => navigation.navigate('PastureRegistration')} />
+                    <HorseBuyButton label={'購入する'} onPress={() =>  handleSubmit()} />
                 </View>
-                <View style={Screenstyles.DropDwonButton}>
-                    <DropDownB label="・0歳馬" data={data} onSelect={setSelected} />
-                </View>
-                <ScrollView style={Screenstyles.ScrollView}>
-                {/* ONE */}
-                    <View style={Screenstyles.horseCard}>
-                        <CheckButton/>
-                        <View style={Screenstyles.horseCardContent}>
-                            <View style={Screenstyles.horseCardLeft}>
-                                <Image 
-                                    style={Screenstyles.HCImage}
-                                    source={require('../../assets/images/horse/21.png')}
-                                />
-                            </View>
-                            <View style={Screenstyles.horseCardRight}>
-                                <BloodLineTable/>
-                            </View>
-                        </View>
-                        < HorseTable horseFee={'500pt'} SP={'10'} ST={'9'} instantaneous={'12'} guts={'12'} Temperament={'15'} health={'10'} HorseName={'馬名'} />
-                    </View>
-                {/* TWO */}
-                    <View style={Screenstyles.horseCard}>
-                        <CheckButton/>
-                        <View style={Screenstyles.horseCardContent}>
-                            <View style={Screenstyles.horseCardLeft}>
-                                <Image 
-                                    style={Screenstyles.HCImage}
-                                    source={require('../../assets/images/horse/22.png')}
-                                />
-                            </View>
-                            <View style={Screenstyles.horseCardRight}>
-                                <BloodLineTable/>
-                            </View>
-                        </View>
-                        < HorseTable horseFee={'500pt'} SP={'10'} ST={'9'} instantaneous={'12'} guts={'12'} Temperament={'15'} health={'10'} HorseName={'馬名'} />
-                    </View>
-
-                {/* THREE */}
-                    <View style={Screenstyles.horseCard}>
-                        <CheckButton/>
-                        <View style={Screenstyles.horseCardContent}>
-                            <View style={Screenstyles.horseCardLeft}>
-                                <Image 
-                                    style={Screenstyles.HCImage}
-                                    source={require('../../assets/images/horse/23.png')}
-                                />
-                            </View>
-                            <View style={Screenstyles.horseCardRight}>
-                                <BloodLineTable/>
-                            </View>
-                        </View>
-                        < HorseTable horseFee={'500pt'} SP={'10'} ST={'9'} instantaneous={'12'} guts={'12'} Temperament={'15'} health={'10'} HorseName={'馬名'} />
-                    </View>
-                {/* FORE */}
-                    <View style={Screenstyles.horseCard}>
-                        <CheckButton/>
-                        <View style={Screenstyles.horseCardContent}>
-                            <View style={Screenstyles.horseCardLeft}>
-                                <Image 
-                                    style={Screenstyles.HCImage}
-                                    source={require('../../assets/images/horse/24.png')}
-                                />
-                            </View>
-                            <View style={Screenstyles.horseCardRight}>
-                                <BloodLineTable/>
-                            </View>
-                        </View>
-                        <HorseTable horseFee={'500pt'} SP={'10'} ST={'9'} instantaneous={'12'} guts={'12'} Temperament={'15'} health={'10'} HorseName={'馬名'} />
-                    </View>
-                {/* FIVE */}
-                    <View style={Screenstyles.horseCard}>
-                        <CheckButton/>
-                        <View style={Screenstyles.horseCardContent}>
-                            <View style={Screenstyles.horseCardLeft}>
-                                <Image 
-                                    style={Screenstyles.HCImage}
-                                    source={require('../../assets/images/horse/25.png')}
-                                />
-                            </View>
-                            <View style={Screenstyles.horseCardRight}>
-                                <BloodLineTable/>
-                            </View>
-                        </View>
-                        < HorseTable horseFee={'500pt'} SP={'10'} ST={'9'} instantaneous={'12'} guts={'12'} Temperament={'15'} health={'10'} HorseName={'馬名'} />
-                    </View>
-
-                </ScrollView>
-                <BackButton label={'前に戻る'} onPress={() => navigation.navigate('PastureRegistration')}/>
-                <HorseBuyButton label={'購入する'} onPress={() => navigation.navigate('HorseNameScreen')}/>
-            </View>
-      </ImageBackground>
-    </View>
-  );
+            </ImageBackground>
+        </View>
+    );
 };
 
-export default HorseChoiceScreen;
+const mapStateToProps = state => {
+    return {
+        horseData: state.horseData.allData.data,
+        userPrice: state.auth.user.user_pt
+    };
+};
 
+export default connect(mapStateToProps)(HorseChoiceScreen);
 
-
-{/* <View style={Screenstyles.horseCard}>
-<CheckButton/>
-    <View style={Screenstyles.horseCardLeft}>
-        <Image 
-            style={Screenstyles.HCImage}
-            source={require('../assets/images/horse/25.png')}
-        />
-    </View>
-    <View style={Screenstyles.horseCardRight}>
-    <Text style={Screenstyles.HChorsePrice}>馬料金:  <Text style={Screenstyles.HChorseSkillSpan}>{(!!selected && selected.HChorsePriceS) || '500pt'}</Text> </Text>
-        {(!!selected && selected.HorseName &&
-            <Text style={Screenstyles.HChorseName}>{(!!selected && selected.HorseName)} <Text style={Screenstyles.HChorseNameS}>{(!!selected && selected.HorseName5)} </Text> </Text>
-        )} 
-        <Text style={Screenstyles.HChorseSkill}>SP:  <Text style={Screenstyles.HChorseSkillSpan}>{(!!selected && selected.SP) || '100'}</Text> </Text>
-        <Text style={Screenstyles.HChorseSkill}>ST:  <Text style={Screenstyles.HChorseSkillSpan}>{(!!selected && selected.ST) || '100'}</Text> </Text>
-        <Text style={Screenstyles.HChorseSkill}>瞬発:  <Text style={Screenstyles.HChorseSkillSpan}>{(!!selected && selected.instantaneous) || '10'}</Text> </Text>
-        <Text style={Screenstyles.HChorseSkill}>根性:  <Text style={Screenstyles.HChorseSkillSpan}>{(!!selected && selected.guts) || '20'}</Text> </Text>
-        <Text style={Screenstyles.HChorseSkill}>気性:  <Text style={Screenstyles.HChorseSkillSpan}>{(!!selected && selected.Temperament) || '30'}</Text> </Text>
-        <Text style={Screenstyles.HChorseSkill}>健康:  <Text style={Screenstyles.HChorseSkillSpan}>{(!!selected && selected.health) || '90'}</Text> </Text>
-    </View>
-</View> */}
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        textAlign: 'center',
+        paddingTop: 30,
+        backgroundColor: '#ecf0f1',
+        padding: 8,
+    },
+    spinnerTextStyle: {
+        color: '#FFF',
+    },
+});

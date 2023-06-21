@@ -3,12 +3,12 @@ import { View, StyleSheet } from 'react-native';
 import { Table,TableWrapper ,Col ,Row ,Rows } from 'react-native-table-component';
 import colors from '../../containers/colors';
 
-const HorseTable = ({horseFee, SP, ST, instantaneous, guts, Temperament, health, HorseName}) => {
+const HorseTable = ({name, price}) => {
   const CONTENT = {
     initialState: ['成長', '馬場', '距離'],
     initialValue: ['?', '?', '?'],
-    name: ['ギミックマルシェの仔'],
-    price:['金      額'],
+    name: [name+"の仔"],
+    price:[price+"pt"],
     ability: [
       ['SP', 'ST', '瞬発', '根性', '気性', '健康'],
     ],
@@ -109,12 +109,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20
   },
-  // text: { 
-  //   textAlign: 'center' 
-  // },
 });
 
 const textStyle = {
-  fontSize: 16,
+  fontSize: 15,
   textAlign: 'center',
 };

@@ -4,76 +4,80 @@ import { ImageButton } from '../../../components/Buttons';
 import DetailButton from '../../../components/Buttons/DetailButton';
 import RTapScreensStyle from './RTapScreensStyle';
 
-const GrazingGroup = () => {
+const FodderGroup = () => {
     return (
       <ScrollView style={RTapScreensStyle.grazingContainer}>
           <View  style={RTapScreensStyle.oneBottomContent}>
             <ImageBackground  style={RTapScreensStyle.BottomBackground} resizeMode="cover"  source={require('../../../assets/images/Pasture/background.jpg')}>
                 <Image 
                       style={RTapScreensStyle.TitleImage}
-                      source={require('../../../assets/images/Pasture/background_text2.png')}
+                      source={require('../../../assets/images/Fodder/fodder.png')}
                   />
               <View style={RTapScreensStyle.ImageButtonTop}>
                 <View>
-                  <View style={[RTapScreensStyle.absoluteViewB]}>
-                      <Text style={RTapScreensStyle.label}>メニュー予約</Text>
+                  <View style={[RTapScreensStyle.absoluteViewF]}>
+                      <Text style={RTapScreensStyle.label}>にんじん</Text>
                   </View>
-                  <ImageButton label={'メニュー予約'} source={require('../../../assets/images/Pasture/icon1.png')} id={1}/>
-                  <DetailButton label={'育成する'}/>
+                  <ImageButton label={'にんじん'} source={require('../../../assets/images/Fodder/carrot.png')} id={1}/>
+                  <DetailButton label={'育成する'} id={1}/>
                 </View>
                 <View>
-                  <View style={[RTapScreensStyle.absoluteViewF]}>
-                      <Text style={RTapScreensStyle.label}>スぺシャル</Text>
+                  <View style={[RTapScreensStyle.absoluteViewC]}>
+                      <Text style={RTapScreensStyle.label}>Sドリンク3</Text>
                   </View>
-                  <ImageButton label={'スベシャル'} source={require('../../../assets/images/Pasture/icon9.png')} id={2} disabled={false}/>
-                  <DetailButton label={'育成する'} disabled={false}/>
+                  <ImageButton label={'スベシャル'} source={require('../../../assets/images/Fodder/source.png')} id={0}/>
+                  <DetailButton label={'育成する'} disabled={false} id={2}/>
                   {/* <Image 
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../../assets/images/Pasture/icon8.png')}
                   /> */}
                 </View>
                 <View>
-                  <View style={[RTapScreensStyle.absoluteViewT]}>
-                      <Text style={RTapScreensStyle.label}>放牧</Text>
+                  <View style={[RTapScreensStyle.absoluteViewC]}>
+                      <Text style={RTapScreensStyle.label}>プロテイン</Text>
                   </View>
-                  <ImageButton label={'放牧'} source={require('../../../assets/images/Pasture/icon2.png')} id={3}/>
-                  <DetailButton label={'育成する'}/>
+                  <ImageButton label={'プロテイン'} source={require('../../../assets/images/Fodder/protein.png')} id={3}/>
+                  <DetailButton label={'育成する'} id={3}/>
                 </View>
               </View>
               <View style={RTapScreensStyle.ImageButtonMiddle}>
                 <View>
-                  <View style={[RTapScreensStyle.absoluteViewO]}>
-                      <Text style={RTapScreensStyle.label}>芝</Text>
+                  <View style={[RTapScreensStyle.absoluteView]}>
+                      <Text style={RTapScreensStyle.label}>角砂糖</Text>
                   </View>
-                  <ImageButton label={'芝'} source={require('../../../assets/images/Pasture/icon3.png')} id={4}/>
-                  <DetailButton label={'育成する'}/>
+                  <ImageButton label={'角砂糖'} source={require('../../../assets/images/Pasture/icon3.png')} id={4}/>
+                  <DetailButton label={'育成する'} id={4}/>
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteView}>
-                      <Text style={RTapScreensStyle.label}>ダート</Text>
+                      <Text style={RTapScreensStyle.label}>チョコ</Text>
                   </View>
-                  <ImageButton label={'ダート'} source={require('../../../assets/images/Pasture/icon4.png')} id={5}/>
-                  <DetailButton label={'育成する'}/>
+                  <ImageButton label={'チョコ'} source={require('../../../assets/images/Pasture/icon4.png')} id={5}/>
+                  <DetailButton label={'育成する'} id={5}/>
                 </View>
                 <View>
-                  <View style={[RTapScreensStyle.absoluteViewB]}>
-                      <Text style={RTapScreensStyle.label}>ウッドチップ</Text>
+                  <View style={[RTapScreensStyle.absoluteView]}>
+                      <Text style={RTapScreensStyle.label}>ケーキ</Text>
                   </View>
-                  <ImageButton label={'ウッドチップ'} source={require('../../../assets/images/Pasture/icon10.png')} id={6}/>
-                  <DetailButton label={'育成する'}/>
+                  <ImageButton label={'ケーキ'} source={require('../../../assets/images/Pasture/icon10.png')} id={6}/>
+                  <DetailButton label={'育成する'} id={6}/>
                 </View>
               </View>
               <View style={RTapScreensStyle.ImageButtonBottom}>
                 <View>
-                  <View style={RTapScreensStyle.absoluteView}>
-                      <Text style={RTapScreensStyle.label}>プール</Text>
+                  <View style={RTapScreensStyle.absoluteViewT}>
+                      <Text style={RTapScreensStyle.label}>? ? ?</Text>
                   </View>
-                  <ImageButton label={'プール'} source={require('../../../assets/images/Pasture/icon7.png')} id={7}/>
-                  <DetailButton label={'育成する'}/>
+                  <ImageButton label={'プール'} source={require('../../../assets/images/Pasture/icon7.png')} id={7} />
+                  <Image 
+                    style={RTapScreensStyle.LongiIcon}
+                    source={require('../../../assets/images/Pasture/icon8.png')}
+                  />
+                  <DetailButton label={'育成する'} disabled={true}/>
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteViewT}>
-                      <Text style={RTapScreensStyle.label}>併走</Text>
+                      <Text style={RTapScreensStyle.label}>? ? ?</Text>
                   </View>
                   <ImageButton label={'併走'} source={require('../../../assets/images/Pasture/icon5.png')} id={8} disabled={true}/>
                   <Image 
@@ -84,7 +88,7 @@ const GrazingGroup = () => {
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteViewT}>
-                      <Text style={RTapScreensStyle.label}>坂路</Text>
+                      <Text style={RTapScreensStyle.label}>? ? ?</Text>
                   </View>
                   <ImageButton label={'坂路'} source={require('../../../assets/images/Pasture/icon6.png')} id={9} disabled={true}/>
                   <Image 
@@ -100,4 +104,4 @@ const GrazingGroup = () => {
       </ScrollView>
     )
   }
-export default GrazingGroup;
+export default FodderGroup;

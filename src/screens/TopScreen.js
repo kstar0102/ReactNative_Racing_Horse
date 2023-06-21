@@ -4,8 +4,8 @@ import { View, ImageBackground } from 'react-native';
 import { CustomButtons } from '../components/Buttons';
 import HeaderScreen from './LayoutScreen/HeaderScreen'
 import Screenstyles from '../screens/ScreenStylesheet';
-
-const TopScreen = ({navigation}) => {
+import { connect } from 'react-redux';
+const TopScreen = ({navigation, pasture}) => {
   return (
     <View style={Screenstyles.container}>      
       <ImageBackground
@@ -15,7 +15,7 @@ const TopScreen = ({navigation}) => {
         <HeaderScreen/>
             <View style={Screenstyles.containers}>
               <View style={Screenstyles.content}>
-                  <CustomButtons label="牧 場" onPress={() => navigation.navigate('PastureNameScreen')}/>
+                  <CustomButtons label="牧 場" onPress={pasture ? () => navigation.navigate('PastureScreen') : () => navigation.navigate('PastureNameScreen')}/>
                   <CustomButtons label="競馬場"/>
                   <CustomButtons label="ランキング"/>
               </View>
@@ -29,5 +29,11 @@ const TopScreen = ({navigation}) => {
     </View>
   );
 };
-  
-export default TopScreen;
+
+const mapStateToProps = state => {
+  return {
+      pasture: state.auth.pasture
+  };
+};
+
+export default connect(mapStateToProps)(TopScreen);

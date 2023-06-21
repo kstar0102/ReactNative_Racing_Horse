@@ -1,17 +1,25 @@
-import { TouchableOpacity, Text, StyleSheet, Button } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, Button, View } from "react-native";
 
 // container
 import colors from "../../containers/colors";
 
-const ModalButton = ({ label,count, onPress,disabled }) => {
+const ModalButton = ({ label,count, onPress,disabled, id }) => {
 	return (
 		<TouchableOpacity
-			style={[styles.button, disabled && styles.disabled]}
+			style={[
+				styles.button, 
+				id === 1 ? styles.count : styles.button,  
+				id === 4 ? styles.count : styles.button,  
+				id === 3 ? styles.countRight : styles.button,  
+				id === 6 ? styles.countRight : styles.button,  
+				disabled && styles.disabled
+			]}
 			onPress={onPress ? onPress : () => alert("Clicked")}
 			disabled={disabled ? disabled : false}
 		>
-			<Text style={styles.label}>{label ? label : "Button"}</Text>
-			<Text style={styles.count}>{count ? count : "1pt"}</Text>
+			<Text style={[styles.label]}>{label}</Text>
+			<Text style={[styles.label, id ? styles.labelLeft : styles.label,]}>{count}</Text>
+			
 		</TouchableOpacity>
 	);
 };
@@ -33,8 +41,19 @@ const styles = StyleSheet.create({
 		fontWeight: 700,
 		textAlign: 'center'
 	},
+	labelLeft:{
+		marginTop: -10,
+		fontSize: 16,
+	},
 	count:{
-
+		height: 40,
+		width: 45,
+		marginLeft: -60
+	},
+	countRight:{
+		height: 40,
+		width: 45,
+		marginRight: -60
 	},
 	disabled: {
 		opacity: 0.5,

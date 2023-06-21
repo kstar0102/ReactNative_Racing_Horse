@@ -53,6 +53,7 @@ const Screenstyles = StyleSheet.create({
     },
     NRtitleB: {
       marginTop: hp(.6),
+      marginBottom: hp(.6),
       fontSize: hp(1.5) + wp(.6),
       fontWeight: 600,
 
@@ -190,7 +191,7 @@ const Screenstyles = StyleSheet.create({
     },
     HCcontainer:{
       flexDirection: 'column',
-      padding: 10
+      padding: 10,
     },
     HCtitle: {
       
@@ -301,6 +302,9 @@ const Screenstyles = StyleSheet.create({
     caution:{
       fontSize: 13,
     },
+    registerButton:{
+      marginLeft: 20
+    }
   });
 
 export default Screenstyles;

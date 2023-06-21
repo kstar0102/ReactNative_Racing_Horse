@@ -3,6 +3,7 @@ import { View, Image, Text, Alert } from 'react-native';
 import DropDownR from '../../../components/Buttons/DropDwonR';
 import RTapScreensStyle from './RTapScreensStyle';
 import GrazingGroup from './GrazingGroup';
+import FodderGroup from './FodderGroup';
 import WorkingButton from '../../../components/Buttons/WorkingButtons/WorkingButton';
 import AvatarTapScreen from './AvataTapScreen';
 import { SaleButton } from '../../../components/Buttons';
@@ -16,14 +17,16 @@ const ScreenThree = () => {
     { label: '馬名C', labelValue: 'C', id: 3, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:'栗毛', class:'GⅢクラス' },
  ];
 
- const handleButtonPress = (styleId) => {
-  setActiveButton(styleId);
+const handleButtonPress = (id) => {
+  setActiveButton(id);
 };
 
 const renderScreenBelowButtons = () => {
   switch(activeButton) {
     case 1:
       return <AvatarTapScreen/>;
+    case 2:
+    return <FodderGroup/>;
     default:
       return <GrazingGroup />;
   }
@@ -126,7 +129,7 @@ const handlePress = () => {
               </View>
               
               <View style={RTapScreensStyle.ButtonGroup}>
-                <WorkingButton label={'飼葉'} colorNumber={5} styleId={1} onPress={(handlePress)}/>
+                <WorkingButton label={'飼葉'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(2))}/>
                 <WorkingButton label={'入廐'} colorNumber={2} styleId={1} onPress={(handlePress)}/>
                 <SaleButton label={'売却'} />
               </View>

@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import colors from '../../containers/colors';
-import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 interface Props {
   label: string;
@@ -18,9 +17,9 @@ interface Props {
 }
 
 const DropDownB: FC<Props> = ({ label, data, onSelect }) => {
-  const DropdownButton = useRef();
+  const DropdownButton = useRef<GestureResponderEvent>();
   const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState(undefined);
+  const [selected, setSelected] = useState<{ label: string; value: string } | undefined>(undefined);
   const [dropdownTop, setDropdownTop] = useState(0);
 
   const toggleDropdown = (): void => {
@@ -66,20 +65,19 @@ const DropDownB: FC<Props> = ({ label, data, onSelect }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <React.Fragment>
       <TouchableOpacity
         ref={DropdownButton}
         style={styles.button}
         onPress={toggleDropdown}
       >
-        {renderDropdown()}
         <Icon style={styles.icon} type="font-awesome" name="chevron-down" />
         <Text style={styles.buttonText}>
           {(!!selected && selected.label) || label}
         </Text>
       </TouchableOpacity>
-    </View>
-    
+      {renderDropdown()}
+    </React.Fragment>
   );
 };
 
@@ -89,12 +87,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 50,
     zIndex: 1,
-    // marginBottom: heightPercentageToDP()
-    
   },
   buttonText: {
     fontSize: 20,
-    fontWeight: 600,
+    fontWeight: 'bold',
     padding: 10,
     textAlign: 'center',
     
