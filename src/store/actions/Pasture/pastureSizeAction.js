@@ -18,7 +18,7 @@ export const horseData = (allData) => {
 
 export function pastureSizeAction(pastureData) {
   return async (dispatch, getState) => {
-    const token = getState().auth.token;
+    const token = getState().tokenData.tokenData;
     
     return await axios.post(API+"pasture",{
       data: pastureData

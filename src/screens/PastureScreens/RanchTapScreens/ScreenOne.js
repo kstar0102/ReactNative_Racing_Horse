@@ -1,122 +1,227 @@
 import React, { useState } from 'react';
-import { View, Image, Text, ScrollView,Alert } from 'react-native';
+import { View, Image, Text, ScrollView, Alert } from 'react-native';
 import RTapScreensStyle from './RTapScreensStyle';
 import DropDownR from '../../../components/Buttons/DropDwonR';
 import GrazingGroup from './GrazingGroup';
 import FodderGroup from './FodderGroup';
 import WorkingButton from '../../../components/Buttons/WorkingButtons/WorkingButton';
 import { SaleButton } from '../../../components/Buttons';
+import { horseColor } from '../../../utils/globals';
 
-const ScreenOne = () => {
+const ScreenOne = ({ oneData }) => {
   const [selected, setSelected] = useState(undefined);
   const [activeButton, setActiveButton] = useState(0);
-  const data = [
-    { label: '馬名A', labelValue: 'A', id: 1, sp: 'S', st: 'D+', fatigue: 'O',  instantaneous:'A', guts:'C', temper:'B',  health: 'A', Hair:'黑鹿毛',  class:'GIクラス'},
-    { label: '馬名B', labelValue: 'B', id: 2, sp: 'S+', st: 'D', fatigue: '△',  instantaneous:'A+', guts:'C', temper:'B',  health: 'A', Hair:'黑鹿毛', class:'GⅡクラス' },
-    { label: '馬名C', labelValue: 'C', id: 3, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:'栗毛', class:'GⅢクラス' },
- ];
+  const [banner, setBanner] = useState(oneData[0]);
 
- const handleButtonPress = (id) => {
-  setActiveButton(id);
-};
+  const data = oneData;
 
-const renderScreenBelowButtons = () => {
-  switch(activeButton) {
-    case 1:
-      return <FodderGroup/>;
-    default:
-      return <GrazingGroup />;
+  const handleSettingId = (value) => {
+    setBanner(value);
   }
-}
+  
+  // SKILL FILLTER
+  const skillRange = (skill) => {
+    if(typeof(skill) !== 'number'){
+      return;
+    }
+    let result = "";
+    switch (true) {
+      case (skill >= 451 && skill <= 500):
+        result = 'S+';
+        break;
+      case (skill >= 401 && skill <= 450):
+        result = 'S';
+        break;
+      case (skill >= 351 && skill <= 400):
+        result = 'A+';
+        break;
+      case (skill >= 301 && skill <= 350):
+        result = 'A';
+        break;
+      case (skill >= 251 && skill <= 300):
+        result = 'B+';
+        break;
+      case (skill >= 201 && skill <= 250):
+        result = 'B';
+        break;
+      case (skill >= 151 && skill <= 200):
+        result = 'C+';
+        break;
+      case (skill >= 101 && skill <= 150):
+        result = 'C';
+        break;
+      case (skill >= 51 && skill <= 100):
+        result = 'D+';
+        break;
+      case (skill >= 1 && skill <= 50):
+        result = 'D';
+        break;
+      default:
+        return;
+    }
+    return result;
+  }
 
-    return (
-      <View style={RTapScreensStyle.twoContainer}>
-          <View  style={RTapScreensStyle.oneTopContent}>
-            <View style={RTapScreensStyle.oneTopContentLeft}>
-                <Text style={RTapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
-                <DropDownR label='馬名A'data={data} onSelect={setSelected} />
-            </View>
-            <View style={RTapScreensStyle.oneTopContentRight}>
-              <View style={RTapScreensStyle.oneRioghtHeader}>
-                  <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>馬名<Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>{(!!selected && selected.labelValue) || 'A'}</Text></Text>
-                  <Text style={RTapScreensStyle.oneRioghtHeaderTxt}><Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>牝</Text>2</Text>
-                  <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>早熟</Text>
-                  <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.Hair) || '白毛'}</Text>
-                  <Text style={RTapScreensStyle.oneRioghtHeaderTxtLetter}>{(!!selected && selected.class) || 'GIクラス'}</Text>
-              </View>
-              <View style={RTapScreensStyle.oneRioghtBody}>
-                  <View>
-                    <View style={RTapScreensStyle.conditionsGroup}>
-                      <Text style={RTapScreensStyle.oneRioghtBodyTxt}>調子</Text>  
-                      <Image 
-                        style={RTapScreensStyle.conditions}
-                        source={require('../../../assets/images/condition/happy.png')}
-                      />
-                      {/* {(!!selected && selected.value) || 1} */}
-                    </View>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>SP <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.sp) || 'S'}</Text></Text>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>ST <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.st) || 'D+'}</Text></Text>
-                  </View>
-                  <View>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.fatigue) || 'O'} </Text> <Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>芝</Text></Text>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>瞬発 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.instantaneous) || 'A'}</Text></Text>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>根性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.guts) || 'C'}</Text></Text>
-                  </View>
-                  <View  style={RTapScreensStyle.oneRioghtBodyTxtGroup}>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxtA}>中距離  <Text style={RTapScreensStyle.oneRioghtBodyTxtValueA}> 差</Text></Text>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>気性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.temper) || 'B'}</Text></Text>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>健康 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.health) || 'A'}</Text></Text>
-                  </View>
-                  {(!!selected && selected.id ==1 ? 
-                    <Image 
-                      style={RTapScreensStyle.HorseAvatar}
-                      source={require('../../../assets/images/horse/23.png')}
-                    />
-                    :
-                    <Image 
-                      style={RTapScreensStyle.HorseAvatar}
-                      source={require('../../../assets/images/horse/23.png')}
-                    />
-                    
-                    &&
+  const distanceRange = (distance) => {
+    if(typeof(distance) !== 'number'){
+      return;
+    }
+    let result = "";
+    switch (true) {
+      case (distance >= 1000 && distance <= 1600):
+        result = '短';
+        break;
+      case (distance >= 1400 && distance <= 2000):
+        result = '短中';
+        break;
+      case (distance >= 1800 && distance <= 2400):
+        result = '中';
+        break;
+      case (distance >= 2200 && distance <= 2800):
+        result = '中長';
+        break;
+      case (distance >= 3000 && distance <= 3600):
+        result = '長';
+        break;
+      default:
+        return;
+    }
+    return result;
+  }
 
-                    !!selected && selected.id ==2 ? 
-                    <Image 
-                      style={RTapScreensStyle.HorseAvatar}
-                      source={require('../../../assets/images/horse/23.png')}
-                    />
-                    :
-                    <Image 
-                      style={RTapScreensStyle.HorseAvatar}
-                      source={require('../../../assets/images/horse/23.png')}
-                    />
+  const conditionFaceRange = (conditionFace) => {
+    if(typeof(conditionFace) !== 'number'){
+      return;
+    }
+    let result = "";
+    switch (true) {
+      case (conditionFace >= 7 && conditionFace <= 500):
+        result = require('../../../assets/images/condition/happy.png');
+        break;
+      case (conditionFace >= 3 && conditionFace <= 6):
+        result = require('../../../assets/images/condition/middlehappy.png');
+        break;
+      case (conditionFace >= -2 && conditionFace <= 2):
+        result = require('../../../assets/images/condition/normel.png');
+        break;
+      case (conditionFace >= -6 && conditionFace <=  6):
+        result = require('../../../assets/images/condition/sad.png');
+        break;
+      case (conditionFace >= -10  && conditionFace <= 7):
+        result = require('../../../assets/images/condition/bad.png');
+        break;
+      default:
+       return;
+    }
+    return result;
+  }
+  
+const speed =  skillRange(banner.speed_b-(-banner.speed_w));
+const health =  skillRange(banner.health_b-(-banner.health_w));
+const moment =  skillRange(banner.moment_b-(-banner.moment_w));
+const stamina =  skillRange(banner.stamina_b-(-banner.stamina_w));
+const strength =  skillRange(banner.strength_b-(-banner.strength_w));
+const condition =  skillRange(banner.condition_b-(-banner.condition_w));
+const distanceValue =  distanceRange((banner.distance_max-(-banner.distance_min)) / 2);
+const conditionFace =  conditionFaceRange((parseInt(banner.happy)));
 
-                    &&
+  const handleButtonPress = (id) => {
+    setActiveButton(id);
+  };
 
-                    !!selected && selected.id == 3 ? 
-                    <Image 
-                      style={RTapScreensStyle.HorseAvatar}
-                      source={require('../../../assets/images/horse/21.png')}
-                    />
-                    :
-                    <Image 
-                      style={RTapScreensStyle.HorseAvatar}
-                      source={require('../../../assets/images/horse/23.png')}
-                    />
-                  )} 
-                  
-              </View>
-              
-              <View style={RTapScreensStyle.ButtonGroup}>
-                <WorkingButton label={'飼葉'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(1))}/>
-                <SaleButton label={'売却'} />
-              </View>
-            </View>
+  const renderScreenBelowButtons = () => {
+    switch (activeButton) {
+      case 1:
+        return <FodderGroup horseId={banner.id}/>;
+      default:
+        return <GrazingGroup horseId={banner.id} />;
+    }
+  }
+
+  return (
+    <View style={RTapScreensStyle.twoContainer}>
+      <View style={RTapScreensStyle.oneTopContent}>
+        <View style={RTapScreensStyle.oneTopContentLeft}>
+          <Text style={RTapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
+          <DropDownR name={data[0].name} data={data} onSelect={setSelected} setId={handleSettingId} />
+
+        </View>
+        <View style={RTapScreensStyle.oneTopContentRight}>
+          <View style={RTapScreensStyle.oneRioghtHeader}>
+            <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>馬名<Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>{(!!selected && selected.name) || data[0].name}</Text></Text>
+            <Text style={RTapScreensStyle.oneRioghtHeaderTxt}><Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>{(!!selected && selected.gender) || data[0].gender}</Text>2</Text>
+            <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.growth) || data[0].growth}</Text>
+            <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.color) || data[0].color}</Text>
+            <Text style={RTapScreensStyle.oneRioghtHeaderTxtLetter}>{(!!selected && selected.class) || 'GIクラス'}</Text>
           </View>
-          <View  style={RTapScreensStyle.oneBottomContent}>
-            {renderScreenBelowButtons()}
+          <View style={RTapScreensStyle.oneRioghtBody}>
+            <View>
+              <View style={RTapScreensStyle.conditionsGroup}>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>調子</Text>
+                <Image
+                  style={RTapScreensStyle.conditions}
+                  source={conditionFace}
+                />
+                {/* {(!!selected && selected.value) || 1} */}
+              </View>
+              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>SP <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && speed) || speed}</Text></Text>
+              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>ST <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && strength) || strength}</Text></Text>
+            </View>
+            <View>
+              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.fatigue) || 'O'} </Text> <Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>{(!!selected && selected.ground) || data[0].ground}</Text></Text>
+              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>瞬発 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && moment) || moment}</Text></Text>
+              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>根性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && stamina) || stamina}</Text></Text>
+            </View>
+            <View style={RTapScreensStyle.oneRioghtBodyTxtGroup}>
+              <Text style={RTapScreensStyle.oneRioghtBodyTxtA}>{(!!selected && distanceValue) || distanceValue}距離  <Text style={RTapScreensStyle.oneRioghtBodyTxtValueA}> {(!!selected && selected.quality_leg) || data[0].quality_leg}</Text></Text>
+              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>気性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && condition) || condition}</Text></Text>
+              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>健康 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && health) || health}</Text></Text>
+            </View>
+            {(!!selected &&
+            <>
+            {horseColor.map((colorName, index) => {
+                if (colorName[selected.color]) {
+                    return (
+                        <Image
+                            key={`${index}`}
+                            style={RTapScreensStyle.HorseAvatar}
+                            source={colorName[selected.color]}
+                        />
+                    );
+                } else {
+                    return null;
+                }
+              })}
+            </>
+            ) ||
+            <>
+            {horseColor.map((colorName, index) => {
+                if (colorName[data[0].color]) {
+                    return (
+                        <Image
+                            key={`${index}`}
+                            style={RTapScreensStyle.HorseAvatar}
+                            source={colorName[data[0].color]}
+                        />
+                    );
+                } else {
+                    return null;
+                }
+              })}
+            </>
+            }
           </View>
+
+          <View style={RTapScreensStyle.ButtonGroup}>
+            <WorkingButton label={'飼葉'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(1))} />
+            <SaleButton label={'売却'} />
+          </View>
+        </View>
       </View>
-    )
-  }
+      <View style={RTapScreensStyle.oneBottomContent}>
+        {renderScreenBelowButtons()}
+      </View>
+    </View>
+  )
+}
 export default ScreenOne;

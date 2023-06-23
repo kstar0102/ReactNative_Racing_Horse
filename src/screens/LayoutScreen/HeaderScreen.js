@@ -9,11 +9,15 @@ import CurrentDateTimeWeather from '../../components/time/CurrentDateTimeWeather
 import HeaderStylesheet from './HeaderStylesheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const HeaderScreen = ({userPrice}) => {
+const HeaderScreen = ({userData}) => {
   const [secondsRemaining, setSecondsRemaining] = useState(21000);
+  const [userPt, setUserPt] = useState();
+  const [userLevel, setUserLevel] = useState();
   const secondsRemainingRef = useRef(secondsRemaining);
 
   useEffect(() => {
+    setUserPt(userData.user_pt);
+    setUserLevel(userData.level);
     AsyncStorage.getItem('secondsRemaining')
       .then(value => {
         if (value !== null) {
@@ -26,7 +30,7 @@ const HeaderScreen = ({userPrice}) => {
     return () => {
       AsyncStorage.setItem('secondsRemaining', String(secondsRemainingRef.current));
     };
-  }, []);
+  }, [userData]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -45,7 +49,6 @@ const HeaderScreen = ({userPrice}) => {
     return () => clearInterval(intervalId);
   }, []);
 
-  
   return (
     <SafeAreaView style={HeaderStylesheet.container}>
       {/* Header Start */}
@@ -57,8 +60,8 @@ const HeaderScreen = ({userPrice}) => {
           source={require('../../assets/images/headerLogo.jpg')}
           style={HeaderStylesheet.headerLogo}
         >
-          <Text style={HeaderStylesheet.goldCoinAndLevel}>馬主Lv. 100 </Text>
-          <Text style={HeaderStylesheet.goldCoinAndLevel}>資金 {userPrice}pt</Text>
+          <Text style={HeaderStylesheet.goldCoinAndLevel}>馬主Lv. {userLevel}</Text>
+          <Text style={HeaderStylesheet.goldCoinAndLevel}>資金 {userPt}pt</Text>
         </ImageBackground>
       </View>
       {/* Header Midle */}
@@ -80,9 +83,7 @@ const HeaderScreen = ({userPrice}) => {
 };
 
 const mapStateToProps = state => {
-  return {
-      userPrice: state.auth.user.user_pt
-  };
+  return  state.user
 };
 
 export default connect(mapStateToProps)(HeaderScreen);

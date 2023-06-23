@@ -10,8 +10,8 @@ export const horseData = (allData) => {
   };
   
   export function horseAction(horseNameData) {
-    return async (dispatch, getState) => {
-      const token = getState().auth.token;
+    return async (getState) => {
+      const token = getState().tokenData.tokenData;
       return await axios.post(API+"horse",{
         data: horseNameData
       },
@@ -19,7 +19,6 @@ export const horseData = (allData) => {
         headers:{Authorization: token}
       })
       .then(res => {
-        // dispatch(horseData(res.data))
       })
       .catch(error => {
         throw(error);

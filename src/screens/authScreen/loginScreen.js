@@ -82,14 +82,10 @@ const LoginScreen = () => {
         </ImageBackground>
       </View>
     );
-
-
-
 };
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth
   };
 };
 

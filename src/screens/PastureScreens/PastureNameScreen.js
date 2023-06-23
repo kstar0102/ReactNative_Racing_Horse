@@ -10,29 +10,32 @@ import Screenstyles from '../ScreenStylesheet';
 import{ TNameInput, FarmNameInput }from '../../components/input';
 import { PNameRegister, CheckRadioButton } from '../../components/Buttons';
 
-const PastureNameScreen = ({navigation, pastureData}) => {
+const PastureNameScreen = ({navigation, validationData}) => {
 const dispatch = useDispatch();
-const  [pastureName, setPastureName] = useState(''); 
-const  [nameMean, setNameMean] = useState(''); 
-const  [pastureStyle, setPastureStyle] = useState('牧場');
+const [pastureName, setPastureName] = useState(''); 
+const [nameMean, setNameMean] = useState(''); 
+const [pastureStyle, setPastureStyle] = useState('牧場');
 const [checkSub, setCheckSub] = useState(false);
 const [displayName, setDisplayName] = useState('none');
 const [displayNameMean, setDisplayNameMean] = useState('none');
 const [displayNameStyle, setDisplayNameStyle] = useState('none');
 const [displayNameMeanStyle, setDisplayNameMeanStyle] = useState('none');
 
+//
   useEffect(() => {
     setDisplayNameMean('none');
     setDisplayName('none');
     if (checkSub) {
-      if(pastureData.noName || pastureData.noNameMean){
-        pastureData.noName ? setDisplayName('flex') : setDisplayNameMean('flex');
+      if(validationData.noName || validationData.noNameMean){
+        validationData.noName ? setDisplayName('flex') : setDisplayNameMean('flex');
       }
       else{
         navigation.navigate('PastureRegistration');
       }
     }
-  }, [pastureData]);
+  }, [validationData]);
+
+  // SUBMIT
   const handleSubmit = () =>{
     setCheckSub('ok');
     if(pastureName == ''){
@@ -57,13 +60,17 @@ const [displayNameMeanStyle, setDisplayNameMeanStyle] = useState('none');
     }
   };
 
+  // NAME
   const handleInputChangeName = (inputValue) => {
     setPastureName(inputValue);
   };
 
+  // NAME MEAN
   const handleInputChangeMean = (inputValue) => {
     setNameMean(inputValue);
   }
+
+  // CHEKC CHAGE
   const handleCheckChange = (inputValue) => {
     setPastureStyle(inputValue);
   }
@@ -87,16 +94,16 @@ const [displayNameMeanStyle, setDisplayNameMeanStyle] = useState('none');
                               <FarmNameInput onChangeText={handleInputChangeName}/> 
                               <CheckRadioButton  onChangeText={handleCheckChange}/>
                           </View>
-                          <Text style={[Screenstyles.cautions, {display: displayName}]} id="caution">※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。</Text>
-                          <Text style={[Screenstyles.cautions, {display: displayNameStyle}]} id="caution">※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。</Text>
+                          <Text style={[{display: displayName}]} id="caution">※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。</Text>
+                          <Text style={[{display: displayNameStyle}]} id="caution">※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。</Text>
                       </View>
                       <View style={Screenstyles.TName}>
                           <Text style={Screenstyles.Title}>・冠名</Text>
                           <View style={Screenstyles.TNameInput}>
                               <TNameInput onChangeText={handleInputChangeMean}/>
                           </View>
-                          <Text style={[Screenstyles.cautions, {display: displayNameMean}]}>※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。</Text>
-                          <Text style={[Screenstyles.cautions, {display: displayNameMeanStyle}]} id="caution">※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。</Text>
+                          <Text style={[{display: displayNameMean}]}>※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。</Text>
+                          <Text style={[{display: displayNameMeanStyle}]} id="caution">※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。</Text>
                       </View>
                       
                       <PNameRegister label={'決定する'}  onPress={handleSubmit}/>
@@ -109,7 +116,7 @@ const [displayNameMeanStyle, setDisplayNameMeanStyle] = useState('none');
 
 const mapStateToProps = state => {
   return {
-      pastureData: state.pastureData
+    validationData: state.validationData
   };
 };
 

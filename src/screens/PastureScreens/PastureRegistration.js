@@ -9,21 +9,23 @@ import Screenstyles from '../ScreenStylesheet';
 import { BuyButton } from '../../components/Buttons';
 import DropDownB from '../../components/Buttons/DropDwonB';
 
-const PastureRegistration  = ({navigation, pastureData, id}) => {
-    const name = pastureData.name;
-    const name_mean = pastureData.name_mean;
-    const style = pastureData.style;
-
+const PastureRegistration  = ({navigation, validationData, id}) => {
     const dispatch = useDispatch();
+    
+    const name = validationData.name;
+    const name_mean = validationData.name_mean;
+    const style = validationData.style;
+    
     const  [pasturePrice, setPasturePrice] = useState(500);
-
     const [selected, setSelected] = useState('牧場(小)');
+
     const data = [
       { label: '牧場(小)', value: '1', payMent: '500', id: 1 },
       { label: '牧場(中)', value: '5',  Caution: ' ', id: 2, CautionS:' ', labelV: '施設 : ', TypeV: '2種類', labelH: '種牡馬 : ', TypeH: '5頭', payMent: '2000' },
       { label: '牧場(大)', value: '10', Caution: ' ', id: 3, CautionS:' ', labelV: '施設 :', TypeV: '5種類', labelH: '種牡馬 : ', TypeH: '10頭', payMent: '5000'  },
     ];
     
+    // Submit....
     const handleSubmit = () =>{
         const sendData = {
             'user_id' : id,
@@ -36,6 +38,7 @@ const PastureRegistration  = ({navigation, pastureData, id}) => {
         navigation.navigate('HorseChoiceScreen');
     };
 
+    // Selected PayValue
     const onSelected = (value) => {
         setPasturePrice(value.payMent)
         setSelected(value);
@@ -116,8 +119,8 @@ const PastureRegistration  = ({navigation, pastureData, id}) => {
 
 const mapStateToProps = state => {
     return {
-        pastureData: state.pastureData.name,
-        id: state.auth.user.id
+        validationData: state.validationData.name,
+        id: state.user.userData.id
     };
   };
 

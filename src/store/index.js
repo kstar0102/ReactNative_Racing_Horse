@@ -8,3 +8,4 @@ const composedEnhancer = composeWithDevTools(applyMiddleware(thunk))
 const store = () => createStore(rootReducer, composedEnhancer);
 
 export default store;
+

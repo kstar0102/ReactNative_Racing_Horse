@@ -1,19 +1,13 @@
-import { PASTURE_NAME_DATA, PASTURE_NAME_NO, PASTURE_NAMEMEAN_NO } from "../actions/types";
+import { LOGIN_UESR_PASTURE_DATA } from '../actions/types';
 
 const initialState = {
-  name: '',
-  noName: '',
-  noNameMean: '',
+  pastureData: '',
 }
 
 export default function pastureReducer(state = initialState, action) {
   switch (action.type) {
-    case PASTURE_NAME_DATA:
-      return { ...state, name: action.payload };
-    case PASTURE_NAME_NO:
-      return { ...state, noName: action.payload };
-    case PASTURE_NAMEMEAN_NO:
-      return { ...state, noNameMean: action.payload };
+    case LOGIN_UESR_PASTURE_DATA:
+      return { ...state, pastureData: action.payload };
     default:
       return state;
   }

@@ -15,7 +15,7 @@ import InstitutionScreen from '../screens/PastureScreens/InstitutionScreen';
 import OfficeScreen from '../screens/PastureScreens/OfficeScreen';
 import RacetrackScreen from '../screens/PastureScreens/RacetrackScreen';
 import WorkingHorseScreen from '../screens/PastureScreens/WorkingHorseScreen';
-
+import ReservationScreen from '../screens/PastureScreens/RanchTapScreens/ReservationScreen';
 /**
  * Stall SCreen
  */
@@ -49,6 +49,7 @@ const AppStack = () => {
         <Stack.Screen name={'StallScreen'} component={StableScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'Training'} component={Training} options={{ headerShown: false }}/>
         <Stack.Screen name={'RaceRegistation'} component={RaceRegistation} options={{ headerShown: false }}/>
+        <Stack.Screen name={'ReservationScreen'} component={ReservationScreen} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </>
   );

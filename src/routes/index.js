@@ -3,14 +3,13 @@ import AppStack from "./AppStack";
 import AuthStack from "./AuthStack";
 
 const Routes = (auth) => {
-  const token = auth.auth.token;
+  const token = auth.tokenData;
   return token ? <AppStack/> : <AuthStack /> ;
+  
 };
 
 const mapStateToProps = state => {
-  return {
-    auth: state.auth
-  };
+  return state.tokenData;
 };
 
 export default connect(mapStateToProps)(Routes);

@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux';
-import auth from './authReducer';
-import pastureData from './pastureReducer'
+import user from './userReducer';
+import validationData from './validationReducer';
 import horseData from './horseReducer';
+import pastureData from './pastureReducer';
+import tokenData from './tokenReducer';
 
 export default combineReducers({
-    auth: auth,
+    user: user,
+    validationData: validationData,
+    horseData: horseData,
     pastureData: pastureData,
-    horseData: horseData
+    tokenData: tokenData
 });

@@ -28,6 +28,9 @@ const RTapScreensStyle = StyleSheet.create({
     justifyContent: 'space-around',
     marginBottom: 10
   },
+  reservationContainer:{
+    marginTop: 186
+  },
   grazingContainer:{
     height: vh(45)
   },
@@ -175,8 +178,8 @@ const RTapScreensStyle = StyleSheet.create({
     marginLeft: vw(30),
   },
   LongiIcon:{
-    width: 100,
-    height: 50,
+    width: vw(25.5),
+    height: vh(6.8),
     opacity: .9,
     position: 'absolute',
     // left: 30,

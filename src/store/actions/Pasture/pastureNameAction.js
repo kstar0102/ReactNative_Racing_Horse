@@ -2,10 +2,10 @@ import { PASTURE_NAME_DATA, PASTURE_NAME_NO, PASTURE_NAMEMEAN_NO } from '../type
 import axios from 'axios';
 import { API } from '../../../utils/config';
 
-export const fetchData = (pastureData) => {
+export const fetchData = (validationData) => {
   return {
     type: PASTURE_NAME_DATA,
-    payload: pastureData,
+    payload: validationData,
   }
 };
 
@@ -23,11 +23,11 @@ export const nameMeanUnunique = (data) => {
   }
 }
 
-export const pastureNameAction = (pastureData) => {
+export function pastureNameAction(validationData){
   return async (dispatch, getState) => {
-    const token = getState().auth.token;
+    const token = getState().tokenData.tokenData;
     return await axios.post(API+"checkPastureName", {
-      data: pastureData
+      data: validationData
     },
     {
       headers:{Authorization: token}
@@ -43,7 +43,7 @@ export const pastureNameAction = (pastureData) => {
         }
        else{
         dispatch(nameMeanUnunique(''));
-        dispatch(fetchData(pastureData))
+        dispatch(fetchData(validationData))
        }
          
       })

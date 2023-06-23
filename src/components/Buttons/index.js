@@ -16,4 +16,3 @@ export { default as RTapButton } from './RTapbutton';
 export { default as ITapButton } from './ITapbutton';
 export { default as ImageButton } from './ImageButton';
 export { default as SaleButton } from './SaleButton';
-

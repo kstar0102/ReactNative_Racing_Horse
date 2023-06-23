@@ -1,14 +1,23 @@
 import React,{useEffect} from 'react';
 import { View, ImageBackground} from 'react-native';
 // Redux
-import { connect } from 'react-redux';
+import { connect,useDispatch } from 'react-redux';
+import { pastureAction } from '../store/actions/Pasture/pastureAction';
 // Custom Import 
 import HeaderScreen from './LayoutScreen/HeaderScreen';
 import FooterScreen from './LayoutScreen/FooterScreen';
 import { CustomButtons, ReturnButton } from '../components/Buttons';
 import Screenstyles from '../screens/ScreenStylesheet';
 
-const PastureScreen = ({navigation}) => {
+const PastureScreen = ({navigation,user_id,pasture_id}) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const sandIds =  {
+      "user_id": user_id,
+      "pasture_id": pasture_id
+    } 
+    dispatch(pastureAction(sandIds))
+  }, [user_id, pasture_id]);
   return (
     <View style={Screenstyles.container}>
          
@@ -38,8 +47,10 @@ const PastureScreen = ({navigation}) => {
 
 const mapStateToProps = state => {
   return {
-      pasture: state.auth.pasture
-  };
+    user_id: state.user.userData.id,
+    pasture_id: state.pastureData.pastureData.id
+  }
+ 
 };
 
 export default connect(mapStateToProps)(PastureScreen);

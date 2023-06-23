@@ -304,6 +304,84 @@ const Screenstyles = StyleSheet.create({
     },
     registerButton:{
       marginLeft: 20
+    },
+    // REVERSE SCREEN STYLE
+    reserveContent:{
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      height: '45%'
+    },
+    reserveMenuLeft:{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      marginTop: -25
+      
+    },
+    reserveMenuGroup:{
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-evenly'
+    },
+    reserveMenuTitle:{
+      fontSize: 18,
+      textAlign:'center',
+      marginRight: 80
+    },
+    reserveRight:{
+      width: "38%",
+      marginRight: 5
+
+    },
+    reserveTxtGroup:{
+      marginTop: -20,
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    reserveListTitle:{
+      fontSize: 25,
+      fontWeight: 600,
+      textAlign:'center',
+      // marginRight: 80
+    },
+    reserveListConfim:{
+      display:'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      // fontSize: 25,
+      // fontWeight: 600,
+      textAlign:'center',
+    },
+    reserveListRed:{
+      color: colors.red,
+      marginTop: -18,
+      textAlign:'center',
+    },
+    reserveListBlue:{
+      color: colors.blue,
+      textAlign:'center',
+    },
+    reserveRightList:{
+    },
+    reserveList:{
+      display: 'flex',
+      flexDirection: 'column',
+      textAlign:'center',
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      
+      backgroundColor: '#efefef', 
+      height: '80%',
+      // with: 20
+    },
+    reserveListtxt:{
+      fontSize: 17
+    },
+    reserveButtonGroup:{
+      display: 'flex',
+      flexDirection: 'row',
+      marginTop: 5
     }
   });
 

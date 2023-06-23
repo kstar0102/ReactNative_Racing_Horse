@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { CustomButtons } from '../components/Buttons';
 import HeaderScreen from './LayoutScreen/HeaderScreen'
 import Screenstyles from '../screens/ScreenStylesheet';
-const TopScreen = ({navigation, pasture}) => {
+const TopScreen = ({navigation, pastureData}) => {
   return (
     <View style={Screenstyles.container}>      
       <ImageBackground
@@ -16,7 +16,7 @@ const TopScreen = ({navigation, pasture}) => {
         <HeaderScreen/>
             <View style={Screenstyles.containers}>
               <View style={Screenstyles.content}>
-                  <CustomButtons label="牧 場" onPress={pasture ? () => navigation.navigate('PastureScreen') : () => navigation.navigate('PastureNameScreen')}/>
+                  <CustomButtons label="牧 場" onPress={pastureData ? () => navigation.navigate('PastureScreen') : () => navigation.navigate('PastureNameScreen')}/>
                   <CustomButtons label="競馬場"/>
                   <CustomButtons label="ランキング"/>
               </View>
@@ -31,10 +31,10 @@ const TopScreen = ({navigation, pasture}) => {
   );
 };
 
+// 
+
 const mapStateToProps = state => {
-  return {
-      pasture: state.auth.pasture
-  };
+  return state.pastureData
 };
 
 export default connect(mapStateToProps)(TopScreen);

@@ -17,7 +17,7 @@ interface Props {
   onSelect: (item: { name: string; value: string }) => void;
 }
 
-const DropDownR: FC<Props> = ({ name, data, onSelect, setId }) => {
+const MenuDropDown: FC<Props> = ({ name, data, onSelect, setId }) => {
   const DropdownButton = useRef();
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState(undefined);
@@ -43,7 +43,7 @@ const DropDownR: FC<Props> = ({ name, data, onSelect, setId }) => {
 
   const renderItem = ({ item }: any): ReactElement<any, any> => (
     <TouchableOpacity style={styles.item} onPress={() => onItemPress(item)}>
-      <Text>{`馬名${item.name}`}</Text>
+      <Text>{`${item.name}`}</Text>
     </TouchableOpacity>
   );
 
@@ -75,7 +75,7 @@ const DropDownR: FC<Props> = ({ name, data, onSelect, setId }) => {
       {renderDropdown()}
       
       <Text style={styles.buttonText}>
-        {`馬名 ${(!!selected && selected.name) || name}`}
+        {`${(!!selected && selected.name) || name}`}
       </Text>
       <Icon style={styles.icon} type="font-awesome" name="chevron-down" />
     </TouchableOpacity>
@@ -87,10 +87,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#efefef',
-    // height: 50,
-    // height: 50,
-    width: "100%",
-    // paddingHorizontal: 5
+    width: '50%',
   },
   buttonText: {
     fontSize: vw(1.5) + vh(1.1) ,
@@ -101,7 +98,7 @@ const styles = StyleSheet.create({
   icon: {
   },
   dropdown: {
-    // marginTop: -22,
+    marginTop: -22,
     // position: 'absolute',
     left: 5,
     backgroundColor: colors.white,
@@ -122,4 +119,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DropDownR;
+export default MenuDropDown;

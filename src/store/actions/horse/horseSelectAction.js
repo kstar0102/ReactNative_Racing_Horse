@@ -11,7 +11,7 @@ export const horseData = (allData) => {
   
   export function horseSelectAction(horseSelectData) {
     return async (dispatch, getState) => {
-      const token = getState().auth.token;
+      const token = getState().tokenData.tokenData;
       return await axios.get(API+"getlineage?age="+ horseSelectData,{
         data: horseSelectData
       },

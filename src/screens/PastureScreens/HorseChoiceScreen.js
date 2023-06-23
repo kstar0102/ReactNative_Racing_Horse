@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, ImageBackground, Text, Image, ScrollView, StyleSheet } from 'react-native';
+
 // Redux
 import { connect, useDispatch } from 'react-redux';
 import { horseCheckAction } from '../../store/actions/horse/horseCheckAction';
+
 // Custom Import
 import NRHeaderScreen from '../LayoutScreen/NRHeaderScreen';
 import Screenstyles from '../ScreenStylesheet';
@@ -12,6 +14,7 @@ import HorseTable from '../../components/table/HorseTable';
 import BloodLineTable from '../../components/table/BloodlineTable';
 import { horseColor } from '../../utils/globals';
 import Spinner from 'react-native-loading-spinner-overlay';
+
 // Array value
 let horses = [];
 let prices = [];
@@ -83,6 +86,7 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
         }
         return false;
     };
+    
     // Click Buybutton 
     const handleSubmit = () => {
         const horseDataId = horseData.filter(data => horses.includes(data.id));
@@ -177,7 +181,7 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
 const mapStateToProps = state => {
     return {
         horseData: state.horseData.allData.data,
-        userPrice: state.auth.user.user_pt
+        userPrice: state.user.userData.user_pt
     };
 };
 
