@@ -8,9 +8,6 @@ import { BuyButton } from '../../../components/Buttons';
 import ITapScreenStyles from './ITapScreenStyles';
 
 const ScreenPasture = ({ pasture_name, user_id, user_level, pasture }) => {
-  console.log('====================================')
-  console.log(pasture)
-  console.log('====================================')
   const dispatch = useDispatch();
   // LV.0
   const [oneborderStyle, setOneBorderStyle] = useState(0);
@@ -115,7 +112,7 @@ const ScreenPasture = ({ pasture_name, user_id, user_level, pasture }) => {
             blurRadius={twoblueStyle ? Platform.OS === 'ios' ? 0 : 0 : Platform.OS === 'ios' ? 8 : 3}
           />
           <Text style={[ITapScreenStyles.LongiPay, { display: twoTxtStyle, borderWidth: twoborderStyle }]}>済</Text>
-          <BuyButton label={'購入する'} onPress={() => handleSubmit(2, 3000)} display={twoBtnStyle} />
+          <BuyButton label={'購入する'} onPress={() => handleSubmit(2, 2000)} display={twoBtnStyle} />
           <Image
             style={[ITapScreenStyles.LongiIcon, { display: oneBtnStyle }]}
             source={require('../../../assets/images/Lock.png')}
@@ -130,7 +127,7 @@ const ScreenPasture = ({ pasture_name, user_id, user_level, pasture }) => {
             blurRadius={threeblueStyle ? Platform.OS === 'ios' ? 0 : 0 : Platform.OS === 'ios' ? 8 : 3}
           />
           <Text style={[ITapScreenStyles.LongiPay, { display: threeTxtStyle, borderWidth: threeborderStyle }]}>済</Text>
-          <BuyButton label={'購入する'} onPress={() => handleSubmit(3, 6000)} display={threeBtnStyle} />
+          <BuyButton label={'購入する'} onPress={() => handleSubmit(3, 5000)} display={threeBtnStyle} />
           <Image
             style={[ITapScreenStyles.LongiIcon,  { display: threeLockStyle }]}
             source={require('../../../assets/images/Lock.png')}

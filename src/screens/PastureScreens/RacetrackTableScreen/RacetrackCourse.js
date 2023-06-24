@@ -1,101 +1,91 @@
-import React  from 'react';
-import {ScrollView, StyleSheet } from 'react-native';
-
+import React from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
+// Redux
+import { connect, useDispatch } from 'react-redux';
+// IMPORT CUSTOM
 import NextWeekTable from './NextWeekTable';
 import RaceWeekTable from './RaceWeekTable';
 import ThreeWeekTable from './ThreeWeekTable';
 import FourWeekTable from './FourWeekTable';
 import NextNextWeekTable from './NextNextWeekTable';
 
-const RacetrackCourse = () => {
+const RacetrackCourse = ({ thisWeekData, beforRacePlan, lastRacePlan, nextNextRacePlan, nextRacePlan}) => {
+  if(!thisWeekData || !beforRacePlan || !lastRacePlan || !nextNextRacePlan || !nextRacePlan){
+    return false
+  }
+
+  let thisRaceWD = [];
+  let thisRaceWN = [];
+  
+  thisWeekData.map((data, index)=>{
+    thisRaceWD[index] = [data.type, data.place, data.ground, data.distance, data.age_limit]
+    thisRaceWN.push(data.name);
+  });
+
+  let beforeRaceWN = [];
+  let beforeRaceWD = [];
+  beforRacePlan.map((data, index)=>{
+    beforeRaceWD[index] = [data.type, data.place, data.ground, data.distance, data.age_limit]
+    beforeRaceWN.push(data.name);
+  });
+
+  let lastRaceWN = [];
+  let lastRaceWD = [];
+  lastRacePlan.map((data, index)=>{
+    lastRaceWD[index] = [data.type, data.place, data.ground, data.distance, data.age_limit]
+    lastRaceWN.push(data.name);
+  });
+
+  let nextRaceWN = [];
+  let nextRaceWD = [];
+  nextRacePlan.map((data, index)=>{
+    nextRaceWD[index] = [data.type, data.place, data.ground, data.distance, data.age_limit]
+    nextRaceWN.push(data.name);
+  });
+
+  
+  let nextNextRaceWN = [];
+  let nextNextRaceWD = [];
+  nextRacePlan.map((data, index)=>{
+    nextNextRaceWD[index] = [data.type, data.place, data.ground, data.distance, data.age_limit]
+    nextNextRaceWN.push(data.name);
+  });
+
   const CONTENT = {
     raceWeekTitle: ['[今週のレース]'],
-    raceWeekName: ['新馬', '未勝利', '1勝クラス', '2勝クラス', '3勝クラス','ジュニアC','中山金杯','京都金杯'],
-    raceWeekData: [
-      [' ', '中山', '芝', '1600m', '3歳限定'],
-      [' ', '京都', 'ダ', '1200m', '3歳以上'],
-      [' ','中山', '芝', '2200m', '3歳以上'],
-      [' ', '京都', 'ダ', '1600m', '3歳以上'],
-      [' ', '中山', '芝', '1400m', '3歳以上'],
-      ['OP ', '京都', 'ダ', '1600m', '3歳以上'],
-      ['G III', '中山', '芝', '2000m', '3歳以上'],
-      ['G III', '京都', 'ダ', '1600m', '3歳以上'],
-  
-    ],
-
     nextWeekTitle: ['[来週のレース]'],
-    nextWeekName: ['新馬', '未勝利', '1勝クラス', '2勝クラス', '3勝クラス', '万葉S','シンザン記念','フェアリーS'],
-    nextWeekData: [
-      [' ', '京都', 'ダ', '1400m', '3歳限定'],
-      [' ', '中山', '芝', '1600m', '3歳以上'],
-      [' ', '京都', 'ダ', '1600m', '3歳以上'],
-      [' ', '中山', '芝', '2400m', '3歳以上'],
-      [' ', '中山', 'ダ', '2000m', '3歳以上'],
-      ['OP', '京都', '芝', '3000m', '3歳以上'],
-      ['G III', '中山', 'ダ', '1600m', '3歳以上'],
-      ['G III', '京都', '芝', '1600m', '3歳以上'],
-  
-    ],
-
     nextNextWeekTitle: ['[再 来週のレース]'],
-    nextNextWeekName: ['新馬', '未勝利', '1勝クラス', '2勝クラス', '3勝クラス', '万葉S','シンザン記念','フェアリーS'],
-    nextNextWeekData: [
-      [' ', '京都', 'ダ', '1400m', '3歳限定'],
-      [' ', '中山', '芝', '1600m', '3歳以上'],
-      [' ', '京都', 'ダ', '1600m', '3歳以上'],
-      [' ', '中山', '芝', '2400m', '3歳以上'],
-      [' ', '中山', 'ダ', '2000m', '3歳以上'],
-      ['OP', '京都', '芝', '3000m', '3歳以上'],
-      ['G III', '中山', 'ダ', '1600m', '3歳以上'],
-      ['G III', '京都', '芝', '1600m', '3歳以上'],
-  
-    ],
-
-
-    threeWeekTitle: ['[3 週来のレース]'],
-    threeWeekName: ['新馬', '未勝利', '1勝クラス', '2勝クラス', '3勝クラス', '万葉S','シンザン記念','フェアリーS'],
-    threeWeekData: [
-      [' ', '中山', '芝', '1600m', '3歳限定'],
-      [' ', '京都', 'ダ', '1200m', '3歳以上'],
-      [' ','中山', '芝', '2200m', '3歳以上'],
-      [' ', '京都', 'ダ', '1600m', '3歳以上'],
-      [' ', '中山', '芝', '1400m', '3歳以上'],
-      ['OP ', '京都', 'ダ', '1600m', '3歳以上'],
-      ['G III', '中山', '芝', '2000m', '3歳以上'],
-      ['G III', '京都', 'ダ', '1600m', '3歳以上'],
-    ],
-
-    fourWeekTitle: ['[4 週来のレース]'],
-    fourWeekName: ['新馬', '未勝利', '1勝クラス', '2勝クラス', '3勝クラス', '万葉S','シンザン記念','フェアリーS'],
-    fourWeekData: [
-      [' ', '京都', 'ダ', '1400m', '3歳限定'],
-      [' ', '中山', '芝', '1600m', '3歳以上'],
-      [' ', '京都', 'ダ', '1600m', '3歳以上'],
-      [' ', '中山', '芝', '2400m', '3歳以上'],
-      [' ', '中山', 'ダ', '2000m', '3歳以上'],
-      ['OP', '京都', '芝', '3000m', '3歳以上'],
-      ['G III', '中山', 'ダ', '1600m', '3歳以上'],
-      ['G III', '京都', '芝', '1600m', '3歳以上'],
-  
-    ],
+    threeWeekTitle: ['[先々週のレース]'],
+    fourWeekTitle: ['[先週のレース]'],
   };
-  
-  // < HorseTable horseFee={'500pt'} SP={'10'} ST={'9'} instantaneous={'12'} guts={'12'} Temperament={'15'} health={'10'} HorseName={'馬名'} />
-  // {label ? label : "Button"}
-    return (
-      <ScrollView style={styles.container}>
-        <RaceWeekTable raceWeekTitle={CONTENT.raceWeekTitle} raceWeekData={CONTENT.raceWeekData} raceWeekName={CONTENT.raceWeekName}/>
-        <NextWeekTable nextWeekTitle={CONTENT.nextWeekTitle} nextWeekData={CONTENT.nextWeekData} nextWeekName={CONTENT.nextWeekName}/>
-        <NextNextWeekTable nextNextWeekTitle={CONTENT.nextNextWeekTitle} nextNextWeekData={CONTENT.nextNextWeekData} nextNextWeekName={CONTENT.nextNextWeekName}/>
-        <ThreeWeekTable threeWeekTitle={CONTENT.threeWeekTitle} threeWeekData={CONTENT.threeWeekData} threeWeekName={CONTENT.threeWeekName}/>
-        <FourWeekTable fourWeekTitle={CONTENT.fourWeekTitle} fourWeekData={CONTENT.fourWeekData} fourWeekName={CONTENT.fourWeekName}/>
-      </ScrollView>
-    )
-  }
-export default RacetrackCourse;
+
+  return (
+    <ScrollView  style={styles.container}>
+      <ThreeWeekTable threeWeekTitle={CONTENT.threeWeekTitle} threeWeekData={beforeRaceWD} threeWeekName={beforeRaceWN} />
+      <FourWeekTable fourWeekTitle={CONTENT.fourWeekTitle} fourWeekData={lastRaceWD} fourWeekName={lastRaceWN} />
+      <RaceWeekTable raceWeekTitle={CONTENT.raceWeekTitle} raceWeekData={thisRaceWD} raceWeekName={thisRaceWN} />
+      <NextWeekTable nextWeekTitle={CONTENT.nextWeekTitle} nextWeekData={nextRaceWD} nextWeekName={nextRaceWN} />
+      <NextNextWeekTable nextNextWeekTitle={CONTENT.nextNextWeekTitle} nextNextWeekData={nextNextRaceWD} nextNextWeekName={nextNextRaceWN} />
+    </ScrollView>
+  )
+}
+
+const mapStateToProps = state => {
+  return {
+    thisWeekData: state.thisRacePlan.thisRacePlanData,
+    beforRacePlan: state.beforRacePlan.beforRacePlanData,
+    lastRacePlan: state.lastRacePlan.lastRacePlanData,
+    nextNextRacePlan: state.nextNextRacePlan.nextNextRacePlanData,
+    nextRacePlan: state.nextRacePlan.nextRacePlanData,
+  };
+};
+
+
+export default connect(mapStateToProps)(RacetrackCourse);
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     // marginTop: 200,
     marginLeft: 30,
     marginRight: 30,

@@ -8,8 +8,9 @@ import SecondHorseLisTapScreen from './WorkingHorseTap/SecondHorseLisTapScreen';
 import GrazingHorseTapScreen from './WorkingHorseTap/GrazingHorseTapScreen';
 import BroodmareHorseTapScreen from './WorkingHorseTap/BroodmareHorseTapScreen';
 import StallionHorseTapScreen from './WorkingHorseTap/StallionHorseTapScreen';
+import { connect } from 'react-redux';
 
-const WorkingHorseTapScreen = () => {
+const WorkingHorseTapScreen = ({allCheckData}) => {
   const [activeButton, setActiveButton] = useState(1);
 
   const handleButtonPress = (id) => {
@@ -17,13 +18,17 @@ const WorkingHorseTapScreen = () => {
   };
 
   const renderScreenBelowButtons = () => {
+    const OneData = allCheckData.filter(data => data.age === '・0歳馬' || data.age === '・1歳馬');
+    const TwoData = allCheckData.filter(data => data.age === '・2歳馬' || data.age === '・3歳馬');
+    const GrazingData = allCheckData.filter(data => data.age === '・放牧馬');
+
     switch(activeButton) {
       case 1:
-        return <FirstHorseTapScreen />;
+        return <FirstHorseTapScreen OneData={OneData} />;
       case 2:
-        return <SecondHorseLisTapScreen />;
+        return <SecondHorseLisTapScreen  TwoData={TwoData}/>;
       case 3:
-        return <GrazingHorseTapScreen /> ;
+        return <GrazingHorseTapScreen  GrazingData={GrazingData}/> ;
       case 4:
         return <BroodmareHorseTapScreen />;
       case 5:
@@ -47,7 +52,12 @@ const WorkingHorseTapScreen = () => {
   );
 };
 
-export default WorkingHorseTapScreen;
+const mapStateToProps = state => {
+  return {
+    allCheckData: state.horseData.allCheckData
+  };
+};
+export default connect(mapStateToProps)(WorkingHorseTapScreen);
 
 const styles = StyleSheet.create({
   container: {
