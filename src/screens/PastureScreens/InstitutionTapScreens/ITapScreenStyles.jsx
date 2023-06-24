@@ -31,6 +31,7 @@ const ITapScreenStyles = StyleSheet.create({
       top: 15,
       fontSize: 60,
       color: colors.red,
+      borderWidth: 8,
       borderRadius: 50,
       borderColor: colors.red,
       textAlign: 'center',
