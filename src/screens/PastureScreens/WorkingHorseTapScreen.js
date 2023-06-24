@@ -24,11 +24,11 @@ const WorkingHorseTapScreen = ({allCheckData}) => {
 
     switch(activeButton) {
       case 1:
-        return <FirstHorseTapScreen OneData={OneData} />;
+        return <FirstHorseTapScreen oneData={OneData} />;
       case 2:
-        return <SecondHorseLisTapScreen  TwoData={TwoData}/>;
+        return <SecondHorseLisTapScreen  twoData={TwoData}/>;
       case 3:
-        return <GrazingHorseTapScreen  GrazingData={GrazingData}/> ;
+        return <GrazingHorseTapScreen  grazingData={GrazingData}/> ;
       case 4:
         return <BroodmareHorseTapScreen />;
       case 5:

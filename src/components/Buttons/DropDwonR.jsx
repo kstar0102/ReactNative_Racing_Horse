@@ -43,7 +43,7 @@ const DropDownR: FC<Props> = ({ name, data, onSelect, setId }) => {
 
   const renderItem = ({ item }: any): ReactElement<any, any> => (
     <TouchableOpacity style={styles.item} onPress={() => onItemPress(item)}>
-      <Text>{`馬名${item.name}`}</Text>
+      <Text>{`馬名 ${item.name}`}</Text>
     </TouchableOpacity>
   );
 
@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#efefef',
-    // width: "40%",
+    maxWidth: '100%',
+    width:'100%'
   },
   buttonText: {
     fontSize: vw(1.5) + vh(1.1) ,
@@ -100,9 +101,9 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     marginTop: -22,
-    left: 5,
+    left: 15,
     backgroundColor: colors.white,
-    width: '30%',
+    width: '26%',
     shadowColor: '#000000',
     shadowRadius: 4,
     shadowOffset: { height: 4, width: 0 },

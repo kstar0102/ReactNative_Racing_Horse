@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#efefef',
+    maxWidth: '100%',
     width: '50%',
   },
   buttonText: {
@@ -99,10 +100,10 @@ const styles = StyleSheet.create({
   icon: {
   },
   dropdown: {
-    marginTop: -22,
-    left: 5,
+    marginTop: -18,
+    left: 8,
     backgroundColor: colors.white,
-    width: '30%',
+    width: '32%',
     shadowColor: '#000000',
     shadowRadius: 4,
     shadowOffset: { height: 4, width: 0 },

@@ -11,6 +11,10 @@ import { horseColor } from '../../../utils/globals';
 import AvatarTapScreen from './AvataTapScreen';
 
 const ScreenTwo = ({ twoData }) => {
+  if(twoData == ''){
+    alert('YOUR HORSE NOT FOUND RETURN 0 ~ 1')
+    return false
+  }
   const navigation = useNavigation();
   const data = twoData;
   if(!twoData){

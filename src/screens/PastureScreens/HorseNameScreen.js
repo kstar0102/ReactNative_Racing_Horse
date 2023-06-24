@@ -130,10 +130,11 @@ const HorseNameScreen = ({ navigation, horseCheckData, user_id, pasture_id }) =>
               );
             })}
           </ScrollView>
+          <View style={Screenstyles.registerButton}>
+            <PNameRegister label={'購入する'} onPress={handleSubmit} />
+          </View>
         </View>
-        <View style={Screenstyles.registerButton}>
-          <PNameRegister label={'購入する'} onPress={handleSubmit} />
-        </View>
+        
       </ImageBackground>
     </View>
   );

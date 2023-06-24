@@ -69,13 +69,11 @@ const RTapScreensStyle = StyleSheet.create({
   oneRioghtHeaderTxtA:{
     fontSize: hp(1.5) + wp(2),
     color: colors.white,
-    paddingLeft: 10,
-    marginRight: 18
   },
   oneRioghtHeaderTxt:{
     color: colors.white,
     paddingVertical: 3,
-    paddingLeft: 10,
+    paddingLeft: 6,
     
   //  marginRight: -40
   },

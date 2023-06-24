@@ -86,9 +86,8 @@ export default connect(mapStateToProps)(RacetrackCourse);
 
 const styles = StyleSheet.create({
   container: {
-    // marginTop: 200,
     marginLeft: 30,
     marginRight: 30,
-    height: 420
+    height: 490
   }
 })

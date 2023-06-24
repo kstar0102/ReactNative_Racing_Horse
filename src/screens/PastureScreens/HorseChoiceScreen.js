@@ -128,7 +128,7 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
                 resizeMode="contain"
                 style={Screenstyles.img}>
                 <NRHeaderScreen />
-                <View style={Screenstyles.HCcontainer}>
+                <View style={Screenstyles.HContainer}>
                     <View style={Screenstyles.HCtitle}>
                         <Text style={Screenstyles.NRtitleA}>競走馬を購入する</Text>
                     </View>

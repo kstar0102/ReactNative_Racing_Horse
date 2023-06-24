@@ -9,6 +9,10 @@ import { SaleButton } from '../../../components/Buttons';
 import { horseColor } from '../../../utils/globals';
 
 const ScreenOne = ({ oneData }) => {
+  if(oneData == ''){
+    alert('YOUR HORSE NOT FOUND RETURN')
+    return false
+  }
   const [selected, setSelected] = useState(undefined);
   const [activeButton, setActiveButton] = useState(0);
   const [banner, setBanner] = useState(oneData[0]);

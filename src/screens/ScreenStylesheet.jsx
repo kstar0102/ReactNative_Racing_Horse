@@ -47,7 +47,7 @@ const Screenstyles = StyleSheet.create({
       marginLeft: wp(2.6)
     },
     NRtitleA: {
-      marginLeft: wp(1),
+      // marginLeft: wp(1),
       fontSize: hp(2) + wp(2),
       fontWeight: 700
     },
@@ -191,6 +191,12 @@ const Screenstyles = StyleSheet.create({
     },
     HCcontainer:{
       flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 10,
+    },
+    HContainer:{
+      flexDirection: 'column',
       padding: 10,
     },
     HCtitle: {
@@ -303,7 +309,7 @@ const Screenstyles = StyleSheet.create({
       fontSize: 13,
     },
     registerButton:{
-      marginLeft: 20
+      // marginLeft: 20
     },
     // REVERSE SCREEN STYLE
     reserveContent:{

@@ -46,7 +46,6 @@ export default ThreeWeekTable;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
     backgroundColor: '#fff' 
 },
 tableHead: { 
