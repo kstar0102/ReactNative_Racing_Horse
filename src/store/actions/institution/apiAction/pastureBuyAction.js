@@ -1,11 +1,11 @@
-import { PASTURE_BUY_DATA, LOGIN_USER_DATA } from '../../types';
+import { LOGIN_UESR_PASTURE_DATA, LOGIN_USER_DATA } from '../../types';
 import axios from 'axios';
 import { API } from '../../../../utils/config';
 import Toast from 'react-native-root-toast';
 
 export const pastureData = (pasture) => {
   return {
-    type: PASTURE_BUY_DATA,
+    type: LOGIN_UESR_PASTURE_DATA,
     payload: pasture,
   }
 };
@@ -28,7 +28,7 @@ export function pastureBuyAction(pastureBuyData) {
     })
     .then(res => {
       if(!res.data.message){
-        dispatch(pastureData(res.data.data));
+        dispatch(pastureData(res.data.data[0]));
         dispatch(userData(res.data.user[0]));
       }else{
         let toast = Toast.show(res.data.message, {
