@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Image, Text, ScrollView, Alert } from 'react-native';
+import { View, Image, Text, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import RTapScreensStyle from './RTapScreensStyle';
 import DropDownR from '../../../components/Buttons/DropDwonR';
 import GrazingGroup from './GrazingGroup';
@@ -10,11 +11,29 @@ import { horseColor } from '../../../utils/globals';
 import AvatarTapScreen from './AvataTapScreen';
 
 const ScreenTwo = ({ twoData }) => {
+  const navigation = useNavigation();
+  const data = twoData;
+  if(!twoData){
+    Alert.alert(
+      "IS NOT FOUND 2~3 HORSE",
+      [
+        {
+          text: "いいえ",
+          style: "cancel"
+        },
+        { 
+          text: "はい",
+          onPress:() => navigation.replace('UpbringingScreen') 
+        }
+      ],
+      { cancelable: false }
+    );
+    return false;
+  }
   const [selected, setSelected] = useState(undefined);
   const [activeButton, setActiveButton] = useState(0);
   const [banner, setBanner] = useState(twoData[0]);
 
-  const data = twoData;
   const handleSettingId = (value) => {
     setBanner(value);
   }
@@ -26,7 +45,7 @@ const ScreenTwo = ({ twoData }) => {
     }
     let result = "";
     switch (true) {
-      case (skill >= 451 && skill <= 500):
+      case (skill >= 451):
         result = 'S+';
         break;
       case (skill >= 401 && skill <= 450):

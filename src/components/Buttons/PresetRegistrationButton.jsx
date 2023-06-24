@@ -77,7 +77,7 @@ export default PresetRegistrationButton;
 
 const styles = StyleSheet.create({
 	button: {
-		backgroundColor: colors.pink,
+		backgroundColor: colors.tabButtonMiddle,
     borderRadius: 6,
 		height: 30,
 		width: '60%',

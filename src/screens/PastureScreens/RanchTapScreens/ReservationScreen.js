@@ -13,28 +13,12 @@ import ReserveButton from '../../../components/Buttons/ReserveButton';
 import ReservationDropDown from '../../../components/Buttons/ReservationDropDown';
 import PresetRegistrationButton from '../../../components/Buttons/PresetRegistrationButton';
 
-// traning menu dropdown same // import reserve Button same
-// fodder menu dropdown same // import reserve Button same
-// preset dropdown same // import reserve Button same
-// preset registration Button
-
-// reservation list complete scrollView
-// confirm Button same
-// cutting BUtton sane 
-
-
 const ReservationScreen = ({ navigation }) => {
   const [selected, setSelected] = useState(undefined);
   const data = [
-    { name: '馬名A', id: 1, sp: 'S', st: 'D+', fatigue: 'O', instantaneous: 'A', guts: 'C', temper: 'B', health: 'A', Hair: '白毛', class: 'GIクラス' },
-    { name: '馬名B', id: 2, sp: 'S+', st: 'D', fatigue: '△', instantaneous: 'A+', guts: 'C', temper: 'B', health: 'A', Hair: '黑鹿毛', class: 'GⅡクラス' },
-    { name: '馬名C', id: 3, sp: 'S', st: 'D+', fatigue: '▲', instantaneous: 'A', guts: 'C+', temper: 'B', health: 'A+', Hair: '栗毛', class: 'GⅢクラス' },
-    { name: '馬名D', id: 4, sp: 'S', st: 'D', fatigue: 'O', instantaneous: 'A+', guts: 'C+', temper: 'B+', health: 'A', Hair: '' },
-    { name: '馬名E', id: 5, sp: 'S+', st: 'D+', fatigue: '▲', instantaneous: 'A', guts: 'C', temper: 'B+', health: 'A', Hair: '' },
-    { name: '馬名F', id: 6, sp: 'S', st: 'D', fatigue: '△', instantaneous: 'A+', guts: 'C+', temper: 'B', health: 'A+', Hair: '' },
-    { name: '馬名G', id: 7, sp: 'S+', st: 'D', fatigue: 'O', instantaneous: 'A', guts: 'C+', temper: 'B', health: 'A+', Hair: '' },
-    { name: '馬名H', id: 8, sp: 'S', st: 'D+', fatigue: '▲', instantaneous: 'A', guts: 'C', temper: 'B+', health: 'A', Hair: '' },
-    { name: '馬名I', id: 9, sp: 'S+', st: 'D', fatigue: 'O', instantaneous: 'A+', guts: 'C+', temper: 'B', health: 'A+', Hair: '' },
+    { name: 'A', id: 1, sp: 'S', st: 'D+', fatigue: 'O', instantaneous: 'A', guts: 'C', temper: 'B', health: 'A', Hair: '白毛', class: 'GIクラス' },
+    { name: 'B', id: 2, sp: 'S+', st: 'D', fatigue: '△', instantaneous: 'A+', guts: 'C', temper: 'B', health: 'A', Hair: '黑鹿毛', class: 'GⅡクラス' },
+    { name: 'C', id: 3, sp: 'S', st: 'D+', fatigue: '▲', instantaneous: 'A', guts: 'C+', temper: 'B', health: 'A+', Hair: '栗毛', class: 'GⅢクラス' },
   ];
 
 
@@ -51,7 +35,7 @@ const ReservationScreen = ({ navigation }) => {
               <ReturnButton label="牧 場" onPress={() => navigation.navigate('PastureScreen')} />
             </View>
             <View style={Screenstyles.UPRButton}>
-              <ReturnButton label="繁用馬" />
+              <ReturnButton label="育 成" />
             </View>
           </View>
 
@@ -133,7 +117,6 @@ const ReservationScreen = ({ navigation }) => {
               </View>
             </View>
           </ScrollView>
-
           <View style={Screenstyles.reserveContent}>
             <View style={Screenstyles.reserveMenuLeft}>
               <Text style={Screenstyles.reserveMenuTitle}>育成メニュー</Text>

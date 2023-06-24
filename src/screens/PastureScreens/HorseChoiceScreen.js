@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { View, ImageBackground, Text, Image, ScrollView, StyleSheet } from 'react-native';
-
+import Spinner from 'react-native-loading-spinner-overlay';
 // Redux
 import { connect, useDispatch } from 'react-redux';
 import { horseCheckAction } from '../../store/actions/horse/horseCheckAction';
-
 // Custom Import
 import NRHeaderScreen from '../LayoutScreen/NRHeaderScreen';
-import Screenstyles from '../ScreenStylesheet';
+import { horseColor } from '../../utils/globals';
 import { HorseBuyButton, BackButton, CheckButton } from '../../components/Buttons';
 import DropDownB from '../../components/Buttons/DropDwonB';
 import HorseTable from '../../components/table/HorseTable';
 import BloodLineTable from '../../components/table/BloodlineTable';
-import { horseColor } from '../../utils/globals';
-import Spinner from 'react-native-loading-spinner-overlay';
+import Screenstyles from '../ScreenStylesheet';
+
 
 // Array value
 let horses = [];

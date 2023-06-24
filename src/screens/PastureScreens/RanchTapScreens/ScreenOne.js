@@ -26,7 +26,7 @@ const ScreenOne = ({ oneData }) => {
     }
     let result = "";
     switch (true) {
-      case (skill >= 451 && skill <= 500):
+      case (skill >= 451):
         result = 'S+';
         break;
       case (skill >= 401 && skill <= 450):

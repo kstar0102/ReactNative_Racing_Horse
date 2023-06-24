@@ -31,7 +31,7 @@ const TopScreen = ({navigation, pastureData}) => {
   );
 };
 
-// 
+//  
 
 const mapStateToProps = state => {
   return state.pastureData

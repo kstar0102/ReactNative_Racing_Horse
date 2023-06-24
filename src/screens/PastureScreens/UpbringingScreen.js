@@ -20,7 +20,7 @@ const UpbringingScreen = ({navigation}) => {
                   <ReturnButton label="牧 場" onPress={() => navigation.navigate('PastureScreen')}/>
                 </View>
                 <View style={Screenstyles.UPRButton}>
-                    <ReturnButton label="育 成" onPress={() => navigation.navigate('PastureScreen')}/>
+                    <ReturnButton label="育 成"/>
                 </View>
               </View>
               <RanchTapScreen/>

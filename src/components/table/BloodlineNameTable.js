@@ -8,7 +8,7 @@ import {
   } from 'react-native-responsive-screen';
 // {label ? label : "Button"}
 
-const BloodlineNameTable = ({father_sys, father_f_sys, father_m_sys, mother_sys, mother_f_sys, mohter_m_sys}) => {
+const BloodlineNameTable = ({father_sys, father_f_sys, father_m_sys, mother_sys, mother_f_sys, mother_m_sys}) => {
   const CONTENT = {
     father_sys: [father_sys],
     father_f_sys: [father_f_sys],
@@ -16,7 +16,7 @@ const BloodlineNameTable = ({father_sys, father_f_sys, father_m_sys, mother_sys,
 
     mother_sys: [mother_sys],
     mother_f_sys: [mother_f_sys],
-    mohter_m_sys: [mohter_m_sys]
+    mohter_m_sys: [mother_m_sys]
   };
   return (
     <View style={styles.container}>

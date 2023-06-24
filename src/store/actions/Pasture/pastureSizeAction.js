@@ -1,10 +1,10 @@
-import { PASTURE_SIZE_DATA, HORSE_ALL_DATA } from '../types';
+import { LOGIN_UESR_PASTURE_DATA, HORSE_ALL_DATA } from '../types';
 import axios from 'axios';
 import { API } from '../../../utils/config';
 
 export const fetchData = (pastureData) => {
   return {
-    type: PASTURE_SIZE_DATA,
+    type: LOGIN_UESR_PASTURE_DATA,
     payload: pastureData,
   }
 };
@@ -27,7 +27,8 @@ export function pastureSizeAction(pastureData) {
       headers:{Authorization: token}
     })
     .then(res => {
-      dispatch(horseData(res.data))
+      dispatch(fetchData(res.data.pasture))
+      dispatch(horseData(res.data.horse))
     })
     .catch(error => {
       throw(error);

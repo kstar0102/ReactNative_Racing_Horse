@@ -8,16 +8,21 @@ export const horseData = (data) => {
       payload: data,
     }
   };
-  
-  export const pastureAction = ({ user_id, pasture_id }) => {
-    return async (dispatch, getState) => {
-      try {
-        const token = getState().tokenData.tokenData;
-        const getDomain = `horse?user_id=${user_id}&pasture_id=${pasture_id}`;
-        const res = await axios.get(API + getDomain, { headers:{ Authorization: token } });
-        dispatch(horseData(res.data.data));
-      } catch (error) {
-        console.error(error);
-      }
+
+export function pastureAction({user_id, pasture_id}){
+  return async (dispatch, getState) => {
+    const token = getState().tokenData.tokenData;
+    const getDomain = `horse?user_id=${user_id}&pasture_id=${pasture_id}`;
+    return await axios.get(API+ getDomain,
+    {
+      headers:{Authorization: token}
     }
+    )
+    .then(res => {
+      dispatch(horseData(res.data.data));
+    })
+      .catch(error => {
+        throw(error);
+      });
   };
+};

@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { View, Image, Text, ImageBackground, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { ImageButton } from '../../../components/Buttons';
 import DetailButton from '../../../components/Buttons/DetailButton';
 import RTapScreensStyle from './RTapScreensStyle';
-import { useNavigation } from '@react-navigation/native';
+
 
 const GrazingGroup = ({horseId}) => {
   const navigation = useNavigation();
@@ -100,7 +101,7 @@ const GrazingGroup = ({horseId}) => {
                   />
                   <DetailButton label={'育成する'} disabled={true} horseId={horseId} name={'坂路'}/>
                 </View>
-               
+                
               </View>
             </ImageBackground>              
           </View>

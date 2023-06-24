@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet,Alert } from 'react-native';
 import { vh } from 'react-native-expo-viewport-units';
 
 // REDUX
@@ -20,14 +20,14 @@ const RanchTapScreen = ({allCheckData}) => {
   
   const renderScreenBelowButtons = () => {
     const filtereOneData = allCheckData.filter(data => data.age === '・0歳馬' || data.age === '・1歳馬');
-    const filtereTwodData = allCheckData.filter(data => data.age === '・2歳馬' || data.age === '・3歳馬');
+    const filtereTwoData = allCheckData.filter(data => data.age === '・2歳馬' || data.age === '・3歳馬');
     const filtereThreedData = allCheckData.filter(data => data.age === '・放牧馬');
   
     switch(activeButton) {
       case 1:
         return <ScreenOne oneData={filtereOneData}/>;
       case 2:
-        return <ScreenTwo twoData={filtereTwodData}/>;
+        return <ScreenTwo twoData={filtereTwoData}/>;
       case 3:
         return <ScreenThree threeData={filtereThreedData}/>;
       default:

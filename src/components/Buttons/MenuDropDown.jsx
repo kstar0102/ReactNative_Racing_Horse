@@ -85,6 +85,7 @@ const MenuDropDown: FC<Props> = ({ name, data, onSelect, setId }) => {
 const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#efefef',
     width: '50%',
@@ -99,7 +100,6 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     marginTop: -22,
-    // position: 'absolute',
     left: 5,
     backgroundColor: colors.white,
     width: '30%',

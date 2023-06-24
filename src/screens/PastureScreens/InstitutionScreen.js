@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, ImageBackground } from 'react-native';
+
 // Custom IMPORT
 import HeaderScreen from '../LayoutScreen/HeaderScreen';
 import { ReturnButton } from '../../components/Buttons';
@@ -29,5 +30,7 @@ const InstitutionScreen = ({navigation}) => {
     </View>
   );
 };
-  
+
+
+
 export default InstitutionScreen;

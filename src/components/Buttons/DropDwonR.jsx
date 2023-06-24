@@ -85,12 +85,10 @@ const DropDownR: FC<Props> = ({ name, data, onSelect, setId }) => {
 const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#efefef',
-    // height: 50,
-    // height: 50,
-    width: "100%",
-    // paddingHorizontal: 5
+    // width: "40%",
   },
   buttonText: {
     fontSize: vw(1.5) + vh(1.1) ,
@@ -101,8 +99,7 @@ const styles = StyleSheet.create({
   icon: {
   },
   dropdown: {
-    // marginTop: -22,
-    // position: 'absolute',
+    marginTop: -22,
     left: 5,
     backgroundColor: colors.white,
     width: '30%',

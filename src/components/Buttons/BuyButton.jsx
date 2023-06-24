@@ -6,10 +6,10 @@ import {
 // container
 import colors from "../../containers/colors";
 
-const BuyButton = ({ label, onPress, disabled }) => {
+const BuyButton = ({ label, onPress, disabled, display }) => {
 	return (
 		<TouchableOpacity
-			style={styles.button}
+			style={[styles.button, {display: display}]}
 			onPress={onPress ? onPress : () => alert("Clicked")}
             disabled={disabled ? disabled : false}
 		>
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         borderRadius: 6,
 		height: 43,
 		width: 130,
-		paddingVertical: 6,
+		paddingVertical: 8,
 		zIndex: 100
 	},
 	label: {

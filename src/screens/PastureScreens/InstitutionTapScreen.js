@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { vw,vh  } from 'react-native-expo-viewport-units';
-import { ITapButton } from '../../components/Buttons';
+import { vh } from 'react-native-expo-viewport-units';
 
+// Custom IMPORT
+import { ITapButton } from '../../components/Buttons';
 import ScreenLongiField from './InstitutionTapScreens/ScreenLongiField';
 import ScreenPasture from './InstitutionTapScreens/ScreenPasture';
 import ScreenBlue from './InstitutionTapScreens/ScreenBlue';
