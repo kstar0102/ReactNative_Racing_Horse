@@ -51,7 +51,7 @@ const RTapScreensStyle = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: 10
+    paddingTop: 10,
   },
   oneTopContentRight: {
     flexDirection: 'column',
@@ -126,14 +126,16 @@ const RTapScreensStyle = StyleSheet.create({
     fontSize:  hp(1.2) + wp(1.8),
     fontWeight: 600,
     paddingVertical: 3,
-    marginRight: -30
+    // paddingHorizontal: 5
+    marginRight: -50,
+    paddingLeft: 10
   },
   oneRioghtBodyTxtValueA:{
 
   },
   HorseAvatar:{
-    width: vw(3) + vh(5),
-    marginTop: 17
+    width: vw(4.5) + vh(3.5),
+    marginTop: 20
   },
   conditionsGroup:{
     flexDirection: 'row',
@@ -153,7 +155,8 @@ const RTapScreensStyle = StyleSheet.create({
   },
   oneBottomContent: {
     position: 'relative',
-    alignItems: 'center'
+    alignItems: 'center',
+    zIndex: -1
   },
   ImageButtonTop: {
       flexDirection: 'row',
@@ -235,6 +238,12 @@ const RTapScreensStyle = StyleSheet.create({
   ButtonGroup:{
     flexDirection: 'row',
     justifyContent: 'space-around'
+  },
+  ButtonGroupOne:{
+    marginTop: 20
+  },
+  ButtonGroupTwo:{
+    marginTop: 5
   },
   ///////////////////////////////////////// Avatars and AvatarTap Styles
   ranchContent:{

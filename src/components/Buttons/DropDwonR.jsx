@@ -1,123 +1,43 @@
-import React, { FC, ReactElement, useRef, useState } from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Modal,
-  View,
-} from 'react-native';
-import { vw, vh } from 'react-native-expo-viewport-units';
-import { Icon } from 'react-native-elements';
-import colors from '../../containers/colors';
+import React,{useEffect, useState} from 'react';
+import { Text } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { ScrollView } from 'react-native-gesture-handler';
 
-interface Props {
-  name: string;
-  data: Array<{ name: string; value: string }>;
-  onSelect: (item: { name: string; value: string }) => void;
-}
+function DropdownR({name, data, onSelect, setId}) {
+  let dataArr = [];
+  data.map((value, index)=>{
+    dataArr[index] = {label: value.name, value: value.name, key: index}
+  });
 
-const DropDownR: FC<Props> = ({ name, data, onSelect, setId }) => {
-  const DropdownButton = useRef();
-  const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState(undefined);
-  const [dropdownTop, setDropdownTop] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(name);
+  const [items, setItems] = useState(dataArr);
 
-  const toggleDropdown = (): void => {
-    visible ? setVisible(false) : openDropdown();
-  };
-
-  const openDropdown = (): void => {
-    DropdownButton.current.measure((_fx: number, _fy: number, _w: number, h: number, _px: number, py: number) => {
-      setDropdownTop(py + h);
+  const getOneRow = (val) => {
+    data.map((value, index)=>{
+      if(value.name == val){
+        setId(data[index]);
+        onSelect(data[index]);
+      }
     });
-    setVisible(true);
-  };
-
-  const onItemPress = (item: any): void => {
-    setSelected(item);
-    onSelect(item);
-    setId(item);
-    setVisible(false);
-  };
-
-  const renderItem = ({ item }: any): ReactElement<any, any> => (
-    <TouchableOpacity style={styles.item} onPress={() => onItemPress(item)}>
-      <Text>{`馬名 ${item.name}`}</Text>
-    </TouchableOpacity>
-  );
-
-  const renderDropdown = (): ReactElement<any, any> => {
-    return (
-      <Modal visible={visible} transparent animationType="none">
-        <TouchableOpacity
-          style={styles.overlay}
-          onPress={() => setVisible(false)}
-        >
-          <View style={[styles.dropdown, { top: dropdownTop }]}>
-            <FlatList
-              data={data}
-              renderItem={renderItem}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          </View>
-        </TouchableOpacity>
-      </Modal>
-    );
-  };
-
+  }
   return (
-    <TouchableOpacity
-      ref={DropdownButton}
-      style={styles.button}
-      onPress={toggleDropdown}
-    >
-      {renderDropdown()}
-      
-      <Text style={styles.buttonText}>
-        {`馬名 ${(!!selected && selected.name) || name}`}
-      </Text>
-      <Icon style={styles.icon} type="font-awesome" name="chevron-down" />
-    </TouchableOpacity>
+    <>
+    <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setItems}
+        onChangeValue={()=>getOneRow(value)}
+        labelStyle={{ fontWeight: 'bold' }}
+        containerStyle={{ height: 10, width: 100 , borderRadius: 0, borderWidth: 0}}
+        style={{ backgroundColor: '#fff', borderRadius: 0, borderWidth: 0}}
+        disableBorderRadius={true}
+        autoScroll={true}
+      />
+    </>
   );
-};
-
-const styles = StyleSheet.create({
-  button: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#efefef',
-    maxWidth: '100%',
-    width:'100%'
-  },
-  buttonText: {
-    fontSize: vw(1.5) + vh(1.1) ,
-    fontWeight: 600,
-    padding: 8,
-    textAlign: 'center',
-  },
-  icon: {
-  },
-  dropdown: {
-    marginTop: -22,
-    left: 15,
-    backgroundColor: colors.white,
-    width: '26%',
-    shadowColor: '#000000',
-    shadowRadius: 4,
-    shadowOffset: { height: 4, width: 0 },
-    shadowOpacity: 0.5,
-  },
-  overlay: {
-    width: '100%',
-    height: '100%',
-  },
-  item: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-  },
-});
-
-export default DropDownR;
+}
+export default DropdownR;

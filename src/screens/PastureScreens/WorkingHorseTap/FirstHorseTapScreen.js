@@ -3,9 +3,11 @@ import { View, Image, Text } from 'react-native';
 import RTapScreensStyle from '../RanchTapScreens/RTapScreensStyle';
 import DropDownR from '../../../components/Buttons/DropDwonR';
 import { horseColor } from '../../../utils/globals';
+import WorkingButton from '../../../components/Buttons/WorkingButtons';
+import { SaleButton } from '../../../components/Buttons';
 
 const FirstHorseTapScreen = ({ oneData }) => {
-  if(oneData == ''){
+  if (oneData == '') {
     alert('NOT FOUND HORSE')
     return false
   }
@@ -17,10 +19,10 @@ const FirstHorseTapScreen = ({ oneData }) => {
   const handleSettingId = (value) => {
     setBanner(value);
   }
-  
+
   // SKILL FILLTER
   const skillRange = (skill) => {
-    if(typeof(skill) !== 'number'){
+    if (typeof (skill) !== 'number') {
       return;
     }
     let result = "";
@@ -62,7 +64,7 @@ const FirstHorseTapScreen = ({ oneData }) => {
   }
 
   const distanceRange = (distance) => {
-    if(typeof(distance) !== 'number'){
+    if (typeof (distance) !== 'number') {
       return;
     }
     let result = "";
@@ -89,7 +91,7 @@ const FirstHorseTapScreen = ({ oneData }) => {
   }
 
   const conditionFaceRange = (conditionFace) => {
-    if(typeof(conditionFace) !== 'number'){
+    if (typeof (conditionFace) !== 'number') {
       return;
     }
     let result = "";
@@ -103,26 +105,26 @@ const FirstHorseTapScreen = ({ oneData }) => {
       case (conditionFace >= -2 && conditionFace <= 2):
         result = require('../../../assets/images/condition/normel.png');
         break;
-      case (conditionFace >= -6 && conditionFace <=  6):
+      case (conditionFace >= -6 && conditionFace <= 6):
         result = require('../../../assets/images/condition/sad.png');
         break;
-      case (conditionFace >= -10  && conditionFace <= 7):
+      case (conditionFace >= -10 && conditionFace <= 7):
         result = require('../../../assets/images/condition/bad.png');
         break;
       default:
-       return;
+        return;
     }
     return result;
   }
-  
-const speed =  skillRange(banner.speed_b-(-banner.speed_w));
-const health =  skillRange(banner.health_b-(-banner.health_w));
-const moment =  skillRange(banner.moment_b-(-banner.moment_w));
-const stamina =  skillRange(banner.stamina_b-(-banner.stamina_w));
-const strength =  skillRange(banner.strength_b-(-banner.strength_w));
-const condition =  skillRange(banner.condition_b-(-banner.condition_w));
-const distanceValue =  distanceRange((banner.distance_max-(-banner.distance_min)) / 2);
-const conditionFace =  conditionFaceRange((parseInt(banner.happy)));
+
+  const speed = skillRange(banner.speed_b - (-banner.speed_w));
+  const health = skillRange(banner.health_b - (-banner.health_w));
+  const moment = skillRange(banner.moment_b - (-banner.moment_w));
+  const stamina = skillRange(banner.stamina_b - (-banner.stamina_w));
+  const strength = skillRange(banner.strength_b - (-banner.strength_w));
+  const condition = skillRange(banner.condition_b - (-banner.condition_w));
+  const distanceValue = distanceRange((banner.distance_max - (-banner.distance_min)) / 2);
+  const conditionFace = conditionFaceRange((parseInt(banner.happy)));
 
   return (
     <View style={RTapScreensStyle.twoContainer}>
@@ -164,38 +166,43 @@ const conditionFace =  conditionFaceRange((parseInt(banner.happy)));
               <Text style={RTapScreensStyle.oneRioghtBodyTxt}>健康 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && health) || health}</Text></Text>
             </View>
             {(!!selected &&
-            <>
-            {horseColor.map((colorName, index) => {
-                if (colorName[selected.color]) {
+              <>
+                {horseColor.map((colorName, index) => {
+                  if (colorName[selected.color]) {
                     return (
-                        <Image
-                            key={`${index}`}
-                            style={RTapScreensStyle.HorseAvatar}
-                            source={colorName[selected.color]}
-                        />
+                      <Image
+                        key={`${index}`}
+                        style={RTapScreensStyle.HorseAvatar}
+                        source={colorName[selected.color]}
+                      />
                     );
-                } else {
+                  } else {
                     return null;
-                }
-              })}
-            </>
+                  }
+                })}
+              </>
             ) ||
-            <>
-            {horseColor.map((colorName, index) => {
-                if (colorName[data[0].color]) {
+              <>
+                {horseColor.map((colorName, index) => {
+                  if (colorName[data[0].color]) {
                     return (
-                        <Image
-                            key={`${index}`}
-                            style={RTapScreensStyle.HorseAvatar}
-                            source={colorName[data[0].color]}
-                        />
+                      <Image
+                        key={`${index}`}
+                        style={RTapScreensStyle.HorseAvatar}
+                        source={colorName[data[0].color]}
+                      />
                     );
-                } else {
+                  } else {
                     return null;
-                }
-              })}
-            </>
+                  }
+                })}
+              </>
             }
+          </View>
+          <View style={RTapScreensStyle.ButtonGroup}>
+            <View style={RTapScreensStyle.ButtonGroupTwo}>
+              <SaleButton label={'売却'} colorNumber={1} />
+            </View>
           </View>
         </View>
       </View>

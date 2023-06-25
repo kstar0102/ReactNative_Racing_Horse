@@ -3,20 +3,19 @@ import { View, Image, Text, ScrollView } from 'react-native';
 import DropDownR from '../../../components/Buttons/DropDwonR';
 import RTapScreensStyle from '../RanchTapScreens/RTapScreensStyle';
 import WorkingButton from '../../../components/Buttons/WorkingButtons/WorkingButton';
+import { SaleButton } from '../../../components/Buttons';
 
 const GrazingHorseTapScreen = () => {
   const [selected, setSelected] = useState(undefined);
+  const [banner, setBanner] = useState('');
+
+  const handleSettingId = (value) => {
+    setBanner(value);
+  }
   const data = [
     { name: 'A', id: 1, sp: 'S', st: 'D+', fatigue: 'O',  instantaneous:'A', guts:'C', temper:'B',  health: 'A', Hair:'白毛', class:'GIクラス'},
     { name: 'B', id: 2, sp: 'S+', st: 'D', fatigue: '△',  instantaneous:'A+', guts:'C', temper:'B',  health: 'A', Hair:'黑鹿毛', class:'GⅡクラス'},
-    { name: 'C', id: 3, sp: 'S', st: 'D+', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:'栗毛', class:'GⅢクラス'},
-    { name: 'D', id: 4, sp: 'S', st: 'D', fatigue: 'O',  instantaneous:'A+', guts:'C+', temper:'B+',  health: 'A', Hair:''},
-    { name: 'E', id: 5, sp: 'S+', st: 'D+', fatigue: '▲',  instantaneous:'A', guts:'C', temper:'B+',  health: 'A', Hair:''},
-    { name: 'F', id: 6, sp: 'S', st: 'D', fatigue: '△',  instantaneous:'A+', guts:'C+', temper:'B',  health: 'A+', Hair:''},
-    { name: 'G', id: 7, sp: 'S+', st: 'D', fatigue: 'O',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:''},
-    { name: 'H', id: 8, sp: 'S', st: 'D+', fatigue: '▲',  instantaneous:'A', guts:'C', temper:'B+',  health: 'A', Hair:''},
-    { name: 'I', id: 9, sp: 'S+', st: 'D', fatigue: 'O',  instantaneous:'A+', guts:'C+', temper:'B',  health: 'A+', Hair:''},
- ];
+   ];
 
 
     return (
@@ -24,7 +23,7 @@ const GrazingHorseTapScreen = () => {
           <View  style={RTapScreensStyle.oneTopContent}>
             <View style={RTapScreensStyle.oneTopContentLeft}>
                 <Text style={RTapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
-                <DropDownR name='A'  data={data} onSelect={setSelected} />
+                <DropDownR name={data[0].name} data={data} onSelect={setSelected} setId={handleSettingId} />
             </View>
             <View style={RTapScreensStyle.oneTopContentRight}>
               <View style={RTapScreensStyle.oneRioghtHeader}>
@@ -97,7 +96,7 @@ const GrazingHorseTapScreen = () => {
               </View>
               <View style={RTapScreensStyle.ButtonGroup}>
                     <View style={RTapScreensStyle.ButtonGroupOne}> 
-                        <WorkingButton label={'売却'} colorNumber={1}/>
+                        <SaleButton label={'売却'} />
                         <WorkingButton label={'入厩'} colorNumber={2}/>
                     </View>
                     <View style={RTapScreensStyle.ButtonGroupTwo}>

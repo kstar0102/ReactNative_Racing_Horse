@@ -56,7 +56,7 @@ const AvatarButton = ({onPress, disabled, id, name }) =>{
         if(id){
           Alert.alert(
             "厩舎",
-            "<"+ nameShow +">" +"  厩舎に預けますか?",
+            nameShow+"に預けますか?",
             [
               {
                 text: "いいえ",

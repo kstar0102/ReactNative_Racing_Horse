@@ -126,6 +126,24 @@ const SecondHorseLisTapScreen = ({ twoData }) => {
   const distanceValue = distanceRange((banner.distance_max - (-banner.distance_min)) / 2);
   const conditionFace = conditionFaceRange((parseInt(banner.happy)));
 
+  const handlePress = () => {
+			Alert.alert(
+				"売却",
+				"セリに登録して売却しますか?",
+				[
+					{
+						text: "いいえ",
+						style: "cancel"
+					},
+					{
+						text: "はい",
+						onPress: () => handleInputButton()
+					}
+				],
+				{ cancelable: false }
+			);
+    }
+
   return (
     <View style={RTapScreensStyle.twoContainer}>
       <View style={RTapScreensStyle.oneTopContent}>
@@ -201,7 +219,7 @@ const SecondHorseLisTapScreen = ({ twoData }) => {
           </View>
           <View style={RTapScreensStyle.ButtonGroup}>
             <View style={RTapScreensStyle.ButtonGroupOne}>
-              <WorkingButton label={'売却'} colorNumber={1} />
+              <SaleButton label={'売却'} />
               <WorkingButton label={'入厩'} colorNumber={2} />
             </View>
             <View style={RTapScreensStyle.ButtonGroupTwo}>

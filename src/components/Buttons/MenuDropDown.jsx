@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Modal,
   View,
+  ScrollView
 } from 'react-native';
 import { vw, vh } from 'react-native-expo-viewport-units';
 import { Icon } from 'react-native-elements';
@@ -50,18 +51,18 @@ const MenuDropDown: FC<Props> = ({ name, data, onSelect, setId }) => {
   const renderDropdown = (): ReactElement<any, any> => {
     return (
       <Modal visible={visible} transparent animationType="none">
-        <TouchableOpacity
-          style={styles.overlay}
-          onPress={() => setVisible(false)}
-        >
-          <View style={[styles.dropdown, { top: dropdownTop }]}>
-            <FlatList
-              data={data}
-              renderItem={renderItem}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          </View>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.overlay}
+            onPress={() => setVisible(false)}
+          >
+            <View style={[styles.dropdown, { top: dropdownTop }]}>
+              <FlatList
+                data={data}
+                renderItem={renderItem}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            </View>
+          </TouchableOpacity>
       </Modal>
     );
   };

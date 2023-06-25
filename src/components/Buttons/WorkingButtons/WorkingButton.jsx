@@ -1,59 +1,73 @@
-import React, {useState} from "react";
-import { TouchableOpacity, Text, StyleSheet,Alert, TextInput  } from "react-native";
+import React, { useState } from "react";
+import { TouchableOpacity, Text, StyleSheet, Alert, TextInput } from "react-native";
 // container
 import colors from "../../../containers/colors";
 
-const WorkingButton = ({ label, onPress, disabled, colorNumber,styleId }) => {
+const WorkingButton = ({ label, onPress, disabled, colorNumber, styleId }) => {
 	const [text, setText] = useState("");
 
-  const handleTextChange = (inputText) => {
-    setText(inputText);
-  };
-	const handlePress = () => {
-		  Alert.alert(
-			"売却",
-			"セリに登録して売却しますか?",
-			[
-			  {
-				text: "いいえ",
-				style: "cancel"
-			  },
-			  { 
-				text: "はい", 
-				onPress: () => handleInputButton()
-			  }
-			],
-			{ cancelable: false }
-		  );
-		}
+	const handleTextChange = (inputText) => {
+		setText(inputText);
+	};
 
-		const handleInputButton = () =>{
+	const handlePress = () => {
+		if (colorNumber == 2) {
 			Alert.alert(
-				"・提示価格",
-				<TextInput
-					style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-					onChangeText={handleTextChange}
-					value={text}
-				/>,
-				// "この価格でセリに登録しますか?",
+				"入厩",
+				"入厩させますか?",
 				[
 					{
 						text: "いいえ",
 						style: "cancel"
 					},
-					{ 
-						text: "はい", 
-						onPress: () => console.log("Yes pressed")
+					{
+						text: "はい",
+						onPress: () => handleButtonPress(1)
+					}
+				],
+				{ cancelable: false },
+			);
+		} else {
+			Alert.alert(
+				"引退",
+				"セリに登録して売却しますか?",
+				[
+					{
+						text: "いいえ",
+						style: "cancel"
+					},
+					{
+						text: "はい",
+						onPress: () => handleInputButton()
 					}
 				],
 				{ cancelable: false }
 			);
 		}
+
+	}
+	const handleInputButton = () => {
+		Alert.alert(
+			"・提示価格",
+			"この価格でセリに登録しますか?",
+			[
+				{
+					text: "いいえ",
+					style: "cancel"
+				},
+				{
+					text: "はい",
+					onPress: () => console.log("Yes pressed")
+				}
+			],
+			{ cancelable: false }
+		);
+	}
 	return (
 		<TouchableOpacity
 			style={[
 				styles.button,
-				colorNumber == 1 ? styles.buttonOne : 'styles.button' ,
+				colorNumber == 1 ? styles.buttonOne : 'styles.button',
 				colorNumber == 2 ? styles.buttonTwo : 'styles.button',
 				colorNumber == 3 ? styles.buttonThree : 'styles.button',
 				colorNumber == 4 ? styles.buttonFour : 'styles.button',
@@ -74,26 +88,26 @@ export default WorkingButton;
 const styles = StyleSheet.create({
 	button: {
 		backgroundColor: colors.tabButtonEnd,
-        borderRadius: 6,
+		borderRadius: 6,
 		height: 30,
 		width: 80,
 		paddingVertical: 4,
-		marginTop: 30
+		marginTop: 20
 	},
-	buttonOne:{
+	buttonOne: {
 		backgroundColor: colors.tabButtonMiddle
 	},
-	buttonTwo:{
+	buttonTwo: {
 		backgroundColor: colors.tabButtonEnd
 	},
-	buttonThree:{
+	buttonThree: {
 		backgroundColor: '#94b7fe'
 	},
-	buttonFour:{
+	buttonFour: {
 		backgroundColor: colors.IButtonfour
 	},
-	buttonFive:{
-		backgroundColor: '#fecdfe'	
+	buttonFive: {
+		backgroundColor: '#fecdfe'
 	},
 	label: {
 		color: colors.light.white,
@@ -101,7 +115,7 @@ const styles = StyleSheet.create({
 		fontWeight: 700,
 		textAlign: 'center'
 	},
-	buttonStyle:{
+	buttonStyle: {
 		marginTop: 5
 	},
 	disabled: {

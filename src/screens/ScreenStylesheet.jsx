@@ -208,8 +208,8 @@ const Screenstyles = StyleSheet.create({
     },
     HCImage: {
       marginTop: 25,
-      height: hp(8.8),
-      width: wp(18)
+      height: hp(9.8),
+      width: wp(18.5)
     },
     HCNameImage: {
       marginLeft: -25,
@@ -236,7 +236,7 @@ const Screenstyles = StyleSheet.create({
 
     },
     horseCardLeft: {
-      paddingLeft: 25,
+      paddingLeft: 15,
     },
     horseCardRight: {
 
@@ -374,7 +374,6 @@ const Screenstyles = StyleSheet.create({
       display: 'flex',
       flexDirection: 'column',
       textAlign:'center',
-      paddingVertical: 10,
       paddingHorizontal: 15,
       
       backgroundColor: '#efefef', 
@@ -382,7 +381,7 @@ const Screenstyles = StyleSheet.create({
       // with: 20
     },
     reserveListtxt:{
-      fontSize: 17
+      fontSize: 15
     },
     reserveButtonGroup:{
       display: 'flex',

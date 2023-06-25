@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, Text, ScrollView } from 'react-native';
+import { View, Image, Text, ScrollView,Alert } from 'react-native';
 // Redux
 import { connect, useDispatch } from 'react-redux';
 import { pastureBuyAction } from '../../../store/actions/institution/apiAction/pastureBuyAction';
@@ -89,7 +89,24 @@ const ScreenPasture = ({ pasture_name, user_id, user_level, pasture }) => {
         "user_level": user_level
       };
     }
-    dispatch(pastureBuyAction(pastureData))
+    Alert.alert(
+      ' ',
+      `牧場 (Lv.${level})は、${price}ptですが購入しますか？`,
+      [
+        {
+          text: "いいえ",
+          style: "cancel"
+        },
+        { 
+          text: "はい",
+          onPress:() => dispatch(pastureBuyAction(pastureData))
+        }
+      ],
+      { cancelable: false,
+        style: {fontSize: 5}
+      
+      },
+    );
   }
   return (
     <ScrollView style={ITapScreenStyles.LongiContainer}>

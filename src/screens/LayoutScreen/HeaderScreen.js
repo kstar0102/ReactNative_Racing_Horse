@@ -61,7 +61,7 @@ const HeaderScreen = ({userData}) => {
           style={HeaderStylesheet.headerLogo}
         >
           <Text style={HeaderStylesheet.goldCoinAndLevel}>馬主Lv. {userLevel}</Text>
-          <Text style={HeaderStylesheet.goldCoinAndLevel}>資金 {userPt}pt</Text>
+          <Text style={HeaderStylesheet.goldCoinAndLevel}>資金 {Math.round(userPt/100)*100}pt</Text>
         </ImageBackground>
       </View>
       {/* Header Midle */}

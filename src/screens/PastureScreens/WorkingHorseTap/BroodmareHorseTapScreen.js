@@ -94,6 +94,10 @@ const BroodmareHorseTapScreen = () => {
                   )} 
               </View>
             </View>
+            
+          </View>
+          <View style={{ height: 200}}>
+
           </View>
       </ScrollView>
     )

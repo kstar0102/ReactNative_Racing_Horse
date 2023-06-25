@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, Text, ScrollView, Alert } from 'react-native';
+import { View, Image, Text } from 'react-native';
 import RTapScreensStyle from './RTapScreensStyle';
 import DropDownR from '../../../components/Buttons/DropDwonR';
 import GrazingGroup from './GrazingGroup';
@@ -7,6 +7,7 @@ import FodderGroup from './FodderGroup';
 import WorkingButton from '../../../components/Buttons/WorkingButtons/WorkingButton';
 import { SaleButton } from '../../../components/Buttons';
 import { horseColor } from '../../../utils/globals';
+import Toast from 'react-native-root-toast';
 
 const ScreenOne = ({ oneData }) => {
   if(oneData == ''){
@@ -119,6 +120,47 @@ const ScreenOne = ({ oneData }) => {
     }
     return result;
   }
+
+  const tiredRange = (tired) => {
+    if(typeof(tired) !== 'number'){
+      return;
+    }
+    let result = "";
+    switch (true) {
+      case (tired >= 80 && tired <= 100):
+        result = 'O'
+        break;
+      case (tired >= 60 && tired <= 80):
+        result = '◎'
+        break;
+      case (tired >= 40 && tired <= 60):
+        result = '▲'
+        break;
+      case (tired >= 20 && tired <=  40):
+        result = '△'
+        {
+          let toast = Toast.show('疲労が溜まりすぎるとケガ(骨折など)をする', {
+            duration: Toast.durations.LONG,
+          });
+          setTimeout(function hideToast() {
+            Toast.hide(toast);
+          }, 2000);
+        }
+        break;
+      case (tired >= 0  && tired <= 20):
+        result = 'X'
+        let toast = Toast.show('疲労が溜まりすぎるとケガ(骨折など)をする', {
+          duration: Toast.durations.LONG,
+        });
+        setTimeout(function hideToast() {
+          Toast.hide(toast);
+        }, 2000);
+        break;
+      default:
+       return;
+    }
+    return result;
+  }
   
 const speed =  skillRange(banner.speed_b-(-banner.speed_w));
 const health =  skillRange(banner.health_b-(-banner.health_w));
@@ -128,7 +170,8 @@ const strength =  skillRange(banner.strength_b-(-banner.strength_w));
 const condition =  skillRange(banner.condition_b-(-banner.condition_w));
 const distanceValue =  distanceRange((banner.distance_max-(-banner.distance_min)) / 2);
 const conditionFace =  conditionFaceRange((parseInt(banner.happy)));
-
+const tired =  tiredRange((parseInt(banner.tired)));
+// tired
   const handleButtonPress = (id) => {
     setActiveButton(id);
   };
@@ -148,7 +191,6 @@ const conditionFace =  conditionFaceRange((parseInt(banner.happy)));
         <View style={RTapScreensStyle.oneTopContentLeft}>
           <Text style={RTapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
           <DropDownR name={data[0].name} data={data} onSelect={setSelected} setId={handleSettingId} />
-
         </View>
         <View style={RTapScreensStyle.oneTopContentRight}>
           <View style={RTapScreensStyle.oneRioghtHeader}>
@@ -172,7 +214,7 @@ const conditionFace =  conditionFaceRange((parseInt(banner.happy)));
               <Text style={RTapScreensStyle.oneRioghtBodyTxt}>ST <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && strength) || strength}</Text></Text>
             </View>
             <View>
-              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.fatigue) || 'O'} </Text> <Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>{(!!selected && selected.ground) || data[0].ground}</Text></Text>
+              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && tired) || tired} </Text> <Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>{(!!selected && selected.ground) || data[0].ground}</Text></Text>
               <Text style={RTapScreensStyle.oneRioghtBodyTxt}>瞬発 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && moment) || moment}</Text></Text>
               <Text style={RTapScreensStyle.oneRioghtBodyTxt}>根性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && stamina) || stamina}</Text></Text>
             </View>

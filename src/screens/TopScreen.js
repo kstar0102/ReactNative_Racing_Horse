@@ -16,7 +16,7 @@ const TopScreen = ({navigation, pastureData}) => {
         <HeaderScreen/>
             <View style={Screenstyles.containers}>
               <View style={Screenstyles.content}>
-                  <CustomButtons label="牧 場" onPress={ () => navigation.navigate('PastureNameScreen')}/>
+                  <CustomButtons label="牧 場" onPress={ pastureData ? () => navigation.navigate('PastureScreen') : () => navigation.navigate('PastureNameScreen')}/>
                   <CustomButtons label="競馬場"/>
                   <CustomButtons label="ランキング"/>
               </View>
@@ -30,8 +30,6 @@ const TopScreen = ({navigation, pastureData}) => {
     </View>
   );
 };
-
-//  pastureData ? () => navigation.navigate('PastureScreen') :
 
 const mapStateToProps = state => {
   return state.pastureData

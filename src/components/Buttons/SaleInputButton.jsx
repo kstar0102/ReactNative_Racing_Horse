@@ -6,6 +6,7 @@ import {
 // container
 import colors from "../../containers/colors";
 
+
 const SaleInputButton = ({ label, onPress,disabled, color }) => {
 	return (
 		<TouchableOpacity

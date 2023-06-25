@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, StyleSheet,View,Alert } from "react-native";
 // container
 import colors from '../../containers/colors';
 
-const ReserveButton = ({colorNumber,pressFactor,label,disabled }) => {
+const ReserveButton = ({colorNumber, pressFactor, label, disabled, onPress }) => {
   const [activeButton, setActiveButton] = useState(1);
 
   const handleButtonPress = (id) => {
@@ -67,7 +67,7 @@ const ReserveButton = ({colorNumber,pressFactor,label,disabled }) => {
           colorNumber == 5 ? styles.buttonFive : 'styles.button',
           disabled && styles.disabled]}
            
-          onPress={() => handlePress()}
+          onPress={onPress ? onPress : () => handlePress()}
           disabled={disabled ? disabled : false}
       >
         <Text style={styles.label}>{label ? label : "Button"}</Text>

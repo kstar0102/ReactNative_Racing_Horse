@@ -144,7 +144,8 @@ const mapStateToProps = state => {
   return {
     horseCheckData: state.horseData.CheckData,
     user_id: state.user.userData.id,
-    pasture_id: state.pastureData.pastureData.id
+    pasture_id: state.pastureData.pastureData.id,
+
   };
 };
 

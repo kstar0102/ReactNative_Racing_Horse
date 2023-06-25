@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, Text, ScrollView } from 'react-native';
+import { View, Image, Text, ScrollView,Alert } from 'react-native';
 // Redux
 import { connect, useDispatch } from 'react-redux';
 import { truckBuyAction } from '../../../store/actions/institution/apiAction/truckBuyAction';
@@ -67,7 +67,7 @@ const ScreenTruck = ({ pasture_name, user_id, user_level, truck }) => {
 
   }, [truck]);
 
-  const handleSubmit = (level, price) => {
+  const handleSubmit = (level, price, effect) => {
     let truckData = {};
     if (truck != '') {
       if (truck[0].id) {
@@ -80,6 +80,24 @@ const ScreenTruck = ({ pasture_name, user_id, user_level, truck }) => {
           "user_level": user_level
         };
       }
+      Alert.alert(
+        `トラック (Lv.${level})は、${price}ptですが購入しますか？`,
+        `[効果] 馬誕生時に「根性+${effect}」?`,
+        [
+          {
+            text: "いいえ",
+            style: "cancel"
+          },
+          { 
+            text: "はい",
+            onPress:() => dispatch(truckBuyAction(truckData))
+          }
+        ],
+        { cancelable: false,
+          style: {fontSize: 5}
+        
+        },
+      );
     } else {
       truckData = {
         "truck_id": 0,
@@ -89,8 +107,26 @@ const ScreenTruck = ({ pasture_name, user_id, user_level, truck }) => {
         "pasture_name": pasture_name,
         "user_level": user_level
       };
+      Alert.alert(
+        `トラック (Lv.1)は、1000ptですが購入しますか？`,
+        "[効果] 馬誕生時に「根性+10」?",
+        [
+          {
+            text: "いいえ",
+            style: "cancel"
+          },
+          { 
+            text: "はい",
+            onPress:() => dispatch(truckBuyAction(truckData))
+          }
+        ],
+        { cancelable: false,
+          style: {fontSize: 5}
+        
+        },
+      );
     }
-    dispatch(truckBuyAction(truckData))
+    
   }
   return (
     <ScrollView style={ITapScreenStyles.LongiContainer}>
@@ -113,7 +149,7 @@ const ScreenTruck = ({ pasture_name, user_id, user_level, truck }) => {
             blurRadius={twoblueStyle ? Platform.OS === 'ios' ? 0 : 0 : Platform.OS === 'ios' ? 8 : 3}
           />
           <Text style={[ITapScreenStyles.LongiPay, { display: twoTxtStyle, borderWidth: twoborderStyle }]}>済</Text>
-          <BuyButton label={'購入する'} onPress={() => handleSubmit(2, 3000)} display={twoBtnStyle} />
+          <BuyButton label={'購入する'} onPress={() => handleSubmit(2, 3000, 20)} display={twoBtnStyle} />
           <Image
             style={[ITapScreenStyles.LongiIcon, { display: oneBtnStyle }]}
             source={require('../../../assets/images/Lock.png')}
@@ -128,7 +164,7 @@ const ScreenTruck = ({ pasture_name, user_id, user_level, truck }) => {
             blurRadius={threeblueStyle ? Platform.OS === 'ios' ? 0 : 0 : Platform.OS === 'ios' ? 8 : 3}
           />
           <Text style={[ITapScreenStyles.LongiPay, { display: threeTxtStyle, borderWidth: threeborderStyle }]}>済</Text>
-          <BuyButton label={'購入する'} onPress={() => handleSubmit(3, 6000)} display={threeBtnStyle} />
+          <BuyButton label={'購入する'} onPress={() => handleSubmit(3, 6000, 30)} display={threeBtnStyle} />
           <Image
             style={[ITapScreenStyles.LongiIcon,  { display: threeLockStyle }]}
             source={require('../../../assets/images/Lock.png')}
