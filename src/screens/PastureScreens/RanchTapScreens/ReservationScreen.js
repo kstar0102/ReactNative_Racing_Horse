@@ -15,19 +15,19 @@ import ReservationDropDown from '../../../components/Buttons/ReservationDropDown
 import PresetRegistrationButton from '../../../components/Buttons/PresetRegistrationButton';
 import { horseColor } from '../../../utils/globals';
 
-const ReservationScreen = ({ navigation, allCheckData }) => {
+const ReservationScreen = ({ navigation, saveData }) => {
   const [selected, setSelected] = useState(undefined);
   const [selectedDelete, setSelectedDelete] = useState(undefined);
   const [selectedFodder, setSelectedFodder] = useState(undefined);
   const [seletedGrazing, setSeletedGrazing] = useState(undefined);
-  const [banner, setBanner] = useState(allCheckData[0]);
+  const [banner, setBanner] = useState(saveData[0]);
   const [grazing, setGrazing] = useState('');
   const [fodder, setFodder] = useState('');
   const [allData, setAllData] = useState([]);
   const [deletes, setDeletes] = useState('');
   // useEffect(()=>{
   // },[allData])
-  const data = allCheckData;
+  const data = saveData;
 
   const handleSettingId = (value) => {
     setBanner(value);
@@ -312,7 +312,7 @@ const ReservationScreen = ({ navigation, allCheckData }) => {
                 <View style={Screenstyles.reserveButtonGroup}>
                   <ReservationDropDown name='3' data={allData} onSelect={setSelectedDelete} setId={handleDeleteId} />
                   <ReserveButton label={'確定'} colorNumber={5} />
-                  <ReserveButton label={'刪除'} colorNumber={4} onPress={() => handleDelete(deletes)} />
+                  <ReserveButton label={'削除'} colorNumber={4} onPress={() => handleDelete(deletes)} />
                 </View>
               </View>
 
@@ -327,7 +327,7 @@ const ReservationScreen = ({ navigation, allCheckData }) => {
 
 const mapStateToProps = state => {
   return {
-    allCheckData: state.horseData.allCheckData
+    saveData: state.horseData.saveData
   };
 };
 export default connect(mapStateToProps)(ReservationScreen);

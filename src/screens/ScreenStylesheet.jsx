@@ -77,16 +77,20 @@ const Screenstyles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-evenly',
       alignItems: 'center',
-      marginTop: 20
+      marginTop: 20,
+      marginLeft: -15
     },
     NRleft: {
       flexDirection: 'column',
-      alignItems: 'center'
+      alignItems: 'center',
+
     },
     NRleftD:{
+      width: '32%',
+      // marginLeft: '-20%',
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: hp(3.5)
+      marginBottom: hp(3.5),
     },
     NRleftL: {
       fontSize: 22,
@@ -130,7 +134,7 @@ const Screenstyles = StyleSheet.create({
       marginTop: hp(5)
     },
     NRRight: {
-      marginTop: hp(4)
+      marginTop: hp(4),
     },
     NRrightTxtGroup:{
       flexDirection: 'row',
@@ -217,8 +221,9 @@ const Screenstyles = StyleSheet.create({
       width: vw(18)
     },
     DropDwonButton: {
+      width: '20%',
       marginTop: 20,
-      marginLeft: 20,
+      marginLeft: 70,
       marginBottom: 30
     },
     horseCard:{
@@ -328,7 +333,8 @@ const Screenstyles = StyleSheet.create({
     reserveMenuGroup:{
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'space-evenly'
+      justifyContent: 'space-evenly',
+      marginRight: 15
     },
     reserveMenuTitle:{
       fontSize: 18,

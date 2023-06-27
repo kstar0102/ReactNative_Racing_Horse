@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import user from './userReducer';
 import validationData from './validationReducer';
 import horseData from './horseReducer';
-import pastureData from './pastureReducer';
+import pastureReducer from './pastureReducer';
 import tokenData from './tokenReducer';
 // INstitution Reducers
 import longiFieldReducer from './institution/longiFieldReducer';
@@ -15,12 +15,14 @@ import lastRacePlanReducer from './getApi/lastRacePlanReducer';
 import beforRacePlanReducer from './getApi/beforRacePlanReducer';
 import nextNextRacePlanReducer from './getApi/nextNextRacePlanReducer';
 import nextRacePlanReducer from './getApi/nextRacePlanReducer';
+// Upbringing Reducer
+import arrowReducer from './Upbring/arrowReducer';
 
 export default combineReducers({
     user: user,
     validationData: validationData,
     horseData: horseData,
-    pastureData: pastureData,
+    pasture: pastureReducer,
     tokenData: tokenData,
     // INSTITUTION
     ranch: longiFieldReducer,
@@ -33,5 +35,7 @@ export default combineReducers({
     beforRacePlan: beforRacePlanReducer,
     nextNextRacePlan: nextNextRacePlanReducer,
     nextRacePlan: nextRacePlanReducer,
+    // UPBRINGING
+    arrow: arrowReducer
 
 });

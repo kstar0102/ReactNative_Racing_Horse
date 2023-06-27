@@ -4,6 +4,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 // Redux
 import { connect, useDispatch } from 'react-redux';
 import { horseCheckAction } from '../../store/actions/horse/horseCheckAction';
+import { horseRandAction } from '../../store/actions/horse/horseRandAction';
 // Custom Import
 import NRHeaderScreen from '../LayoutScreen/NRHeaderScreen';
 import { horseColor } from '../../utils/globals';
@@ -17,7 +18,10 @@ import Screenstyles from '../ScreenStylesheet';
 // Array value
 let horses = [];
 let prices = [];
+let horsecheckornot = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
+let checkflag = 0;
 const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
+    
     const dispatch = useDispatch();
     const [selected, setSelected] = useState();
     const [groupedData, setGroupedData] = useState([]);
@@ -29,12 +33,25 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
         { label: '・2歳馬' },
         { label: '・繁殖馬' },
     ];
-
+    
     useEffect(() => {
         let filteredData;
         if (!selected) {
+            checkflag = 0;
             filteredData = (horseData && horseData.filter(data => data.age === "・0歳馬")) || [];
         } else {
+            if(selected.label == "・0歳馬"){
+                checkflag = 0;
+            }
+            else if(selected.label == "・1歳馬"){
+                checkflag = 1;
+            }
+            else if(selected.label == "・2歳馬"){
+                checkflag = 2;
+            }
+            else if(selected.label == "・繁殖馬"){
+                checkflag = 3;
+            }
             filteredData = (horseData && horseData.filter(data => data.age === selected.label)) || [];
         }
         const chunkSize = 5;
@@ -46,15 +63,21 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
         setLoading(false); // set loading to false after fetching the data
     }, [horseData, selected]);
 
+    useEffect(() => {
+        dispatch(horseRandAction())
+    }, []);
+
     // Value and id, price array push
     const handleCheck = (value, id, price) => {
         if (value == true) {
             horses.push(id);
             prices.push(price);
+            horsecheckornot[id] = true;
         }
         else {
             removeId(id);
-            removePrice(price)
+            removePrice(price);
+            horsecheckornot[id] = false;
         }
         return value;
     };
@@ -74,16 +97,6 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
                 prices.splice(i, 1);
             }
         }
-    };
-
-    // ClickChecked horses id === data.id
-    const handleChecked = (id) => {
-        for (let index = 0; index < horses.length; index++) {
-            if (horses[index] == id) {
-                return true;
-            }
-        }
-        return false;
     };
     
     // Click Buybutton 
@@ -138,11 +151,11 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
                     {loading ? ( // show spinner if loading is true
                         <Spinner visible={loading} textContent={'Loading...'} textStyle={styles.spinnerTextStyle} />
                     ) : (
-                        groupedData.map((chunk) => (
-                            <ScrollView style={Screenstyles.ScrollView}>
-                                {chunk.map((data) => (
-                                    <View key={data.id} style={Screenstyles.horseCard}>
-                                        <CheckButton checkState={handleCheck} id={data.id} price={data.price} check={() => handleChecked(data.id)} />
+                        groupedData.map((chunk, index) => (
+                            <ScrollView key={index} style={Screenstyles.ScrollView}>
+                                {chunk.map((data, index) => (
+                                    <View key={index} style={Screenstyles.horseCard}>
+                                        <CheckButton checkState={handleCheck} id={data.id} price={data.price} checkingstate={horsecheckornot[index+checkflag*5]} />
                                         <View style={Screenstyles.horseCardContent}>
                                             <View style={Screenstyles.horseCardLeft}>
                                                 {horseColor.map((colorName, index) => {
@@ -169,7 +182,7 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
                             </ScrollView>
                         ))
                     )}
-                    <BackButton label={'前に戻る'} onPress={() => navigation.navigate('PastureRegistration')} />
+                    <BackButton label={'前に戻る'} onPress={() => navigation.goBack()} />
                     <HorseBuyButton label={'購入する'} onPress={() =>  handleSubmit()} />
                 </View>
             </ImageBackground>

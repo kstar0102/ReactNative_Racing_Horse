@@ -81,8 +81,8 @@ const ScreenBlue = ({ pasture_name, user_id, user_level, pool }) => {
         };
       }
       Alert.alert(
-        `プール (Lv.${level})は、${price}ptですが購入しますか？`,
-        `[効果] 馬誕生時に「健康+${effect}」?`,
+        `プール (Lv.${level})は、${price}ptですが購入しますか`,
+        `[効果] 馬誕生時に「健康+${effect}」`,
         [
           {
             text: "いいえ",
@@ -108,8 +108,8 @@ const ScreenBlue = ({ pasture_name, user_id, user_level, pool }) => {
         "user_level": user_level
       };
       Alert.alert(
-        `プール (Lv.1)は、1000ptですが購入しますか？`,
-        "[効果] 馬誕生時に「健康+10」?",
+        `プール (Lv.1)は、1000ptですが購入しますか`,
+        "[効果] 馬誕生時に「健康+10」",
         [
           {
             text: "いいえ",
@@ -177,7 +177,7 @@ const ScreenBlue = ({ pasture_name, user_id, user_level, pool }) => {
 
 const mapStateToProps = state => {
   return {
-    pasture_name: state.pastureData.pastureData.name,
+    pasture_name: state.pasture.pastureData.name,
     user_id: state.user.userData.id,
     user_level: state.user.userData.level,
     pool: state.pool.poolBuyData,

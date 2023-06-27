@@ -10,14 +10,6 @@ export const longiFieldData = (longiField) => {
     }
 };
 
-// // PASTURE DISPATCH
-// export const pastureData = (pasture) => {
-//     return {
-//         type: PASTURE_BUY_DATA,
-//         payload: pasture,
-//     }
-// };
-
 // POOL DISPATCH
 export const poolData = (pool) => {
     return {

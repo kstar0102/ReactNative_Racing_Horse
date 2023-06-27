@@ -1,11 +1,11 @@
-import { LOGIN_UESR_PASTURE_DATA, LOGIN_USER_DATA } from '../../types';
+import { PASTURE_DATA, LOGIN_USER_DATA } from '../../types';
 import axios from 'axios';
 import { API } from '../../../../utils/config';
 import Toast from 'react-native-root-toast';
 
 export const pastureData = (pasture) => {
   return {
-    type: LOGIN_UESR_PASTURE_DATA,
+    type: PASTURE_DATA,
     payload: pasture,
   }
 };

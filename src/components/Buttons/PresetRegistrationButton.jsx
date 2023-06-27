@@ -80,10 +80,9 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.tabButtonMiddle,
     borderRadius: 6,
 		height: 30,
-		width: '60%',
+		width: '80%',
 		paddingVertical: 2,
 		marginTop: 5,
-    marginLeft:22
 	},
 	buttonOne:{
     backgroundColor: colors.tabButtonEnd

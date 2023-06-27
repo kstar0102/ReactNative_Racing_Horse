@@ -91,7 +91,7 @@ const ScreenPasture = ({ pasture_name, user_id, user_level, pasture }) => {
     }
     Alert.alert(
       ' ',
-      `牧場 (Lv.${level})は、${price}ptですが購入しますか？`,
+      `牧場 (Lv.${level})は、${price}ptですが購入しますか`,
       [
         {
           text: "いいえ",
@@ -157,10 +157,10 @@ const ScreenPasture = ({ pasture_name, user_id, user_level, pasture }) => {
 
 const mapStateToProps = state => {
   return {
-    pasture_name: state.pastureData.pastureData.name,
+    pasture_name: state.pasture.pastureData.name,
     user_id: state.user.userData.id,
     user_level: state.user.userData.level,
-    pasture: state.pastureData.pastureData,
+    pasture: state.pasture.pastureData,
   };
 }
 export default connect(mapStateToProps)(ScreenPasture);

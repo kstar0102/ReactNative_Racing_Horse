@@ -79,8 +79,8 @@ const ScreenRoad = ({ pasture_name, user_id, user_level, road }) => {
           "user_level": user_level
         };
         Alert.alert(
-          `坂路 (Lv.${level})は、${price}ptですが購入しますか？`,
-          `[効果] 馬誕生時に「瞬発+${effect}」?`,
+          `坂路 (Lv.${level})は、${price}ptですが購入しますか`,
+          `[効果] 馬誕生時に「瞬発+${effect}」`,
           [
             {
               text: "いいえ",
@@ -107,8 +107,8 @@ const ScreenRoad = ({ pasture_name, user_id, user_level, road }) => {
         "user_level": user_level
       };
       Alert.alert(
-        `坂路 (Lv.1)は、1000ptですが購入しますか？`,
-        "[効果] 馬誕生時に「瞬発+10」?",
+        `坂路 (Lv.1)は、1000ptですが購入しますか`,
+        "[効果] 馬誕生時に「瞬発+10」",
         [
           {
             text: "いいえ",
@@ -176,7 +176,7 @@ const ScreenRoad = ({ pasture_name, user_id, user_level, road }) => {
 
 const mapStateToProps = state => {
   return {
-    pasture_name: state.pastureData.pastureData.name,
+    pasture_name: state.pasture.pastureData.name,
     user_id: state.user.userData.id,
     user_level: state.user.userData.level,
     road: state.road.roadBuyData,

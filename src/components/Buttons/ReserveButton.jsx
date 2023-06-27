@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
 		height: 35,
 		width: 60,
 		paddingVertical: 5,
+    marginLeft: 1.5
 	},
 	buttonOne:{
     backgroundColor: colors.tabButtonEnd

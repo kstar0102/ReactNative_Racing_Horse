@@ -1,124 +1,59 @@
-import React, { FC, ReactElement, useRef, useState } from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Modal,
-  View,
-  ScrollView
-} from 'react-native';
-import { vw, vh } from 'react-native-expo-viewport-units';
-import { Icon } from 'react-native-elements';
-import colors from '../../containers/colors';
 
-interface Props {
-  name: string;
-  data: Array<{ name: string; value: string }>;
-  onSelect: (item: { name: string; value: string }) => void;
-}
+import React from 'react';
+import {View, StyleSheet } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import SelectDropdown from 'react-native-select-dropdown';
 
-const MenuDropDown: FC<Props> = ({ name, data, onSelect, setId }) => {
-  const DropdownButton = useRef();
-  const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState(undefined);
-  const [dropdownTop, setDropdownTop] = useState(0);
-
-  const toggleDropdown = (): void => {
-    visible ? setVisible(false) : openDropdown();
-  };
-
-  const openDropdown = (): void => {
-    DropdownButton.current.measure((_fx: number, _fy: number, _w: number, h: number, _px: number, py: number) => {
-      setDropdownTop(py + h);
-    });
-    setVisible(true);
-  };
-
-  const onItemPress = (item: any): void => {
-    setSelected(item);
-    onSelect(item);
-    setId(item);
-    setVisible(false);
-  };
-
-  const renderItem = ({ item }: any): ReactElement<any, any> => (
-    <TouchableOpacity style={styles.item} onPress={() => onItemPress(item)}>
-      <Text>{`${item.name}`}</Text>
-    </TouchableOpacity>
-  );
-
-  const renderDropdown = (): ReactElement<any, any> => {
-    return (
-      <Modal visible={visible} transparent animationType="none">
-          <TouchableOpacity
-            style={styles.overlay}
-            onPress={() => setVisible(false)}
-          >
-            <View style={[styles.dropdown, { top: dropdownTop }]}>
-              <FlatList
-                data={data}
-                renderItem={renderItem}
-                keyExtractor={(item, index) => index.toString()}
-              />
-            </View>
-          </TouchableOpacity>
-      </Modal>
-    );
-  };
-
+const MenuDropDown = ({name, data, onSelect, setId}) => {
+  const countriesWithFlags = data;
   return (
-    <TouchableOpacity
-      ref={DropdownButton}
-      style={styles.button}
-      onPress={toggleDropdown}
-    >
-      {renderDropdown()}
-      
-      <Text style={styles.buttonText}>
-        {`${(!!selected && selected.name) || name}`}
-      </Text>
-      <Icon style={styles.icon} type="font-awesome" name="chevron-down" />
-    </TouchableOpacity>
+    <>
+      <View style={styles.viewContainer}>
+          <SelectDropdown
+            data={countriesWithFlags}
+            onSelect={(selectedItem, index) => {
+              onSelect(selectedItem);
+              setId(selectedItem);
+            }}
+            defaultButtonText={name}
+            buttonTextAfterSelection={(selectedItem, index) => {
+              return selectedItem.name;
+            }}
+            rowTextForSelection={(item, index) => {
+              return item.name;
+            }}
+            buttonStyle={styles.dropdown4BtnStyle}
+            buttonTextStyle={styles.dropdown4BtnTxtStyle}
+            renderDropdownIcon={isOpened => {
+              return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+            }}
+            dropdownIconPosition={'right'}
+            dropdownStyle={styles.dropdown4DropdownStyle}
+            rowStyle={styles.dropdown4RowStyle}
+            rowTextStyle={styles.dropdown4RowTxtStyle}
+          />
+      </View>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#efefef',
-    maxWidth: '100%',
-    width: '50%',
-  },
-  buttonText: {
-    fontSize: vw(1.5) + vh(1.1) ,
-    fontWeight: 600,
-    padding: 8,
-    textAlign: 'center',
-  },
-  icon: {
-  },
-  dropdown: {
-    marginTop: -18,
-    left: 8,
-    backgroundColor: colors.white,
-    width: '32%',
-    shadowColor: '#000000',
-    shadowRadius: 4,
-    shadowOffset: { height: 4, width: 0 },
-    shadowOpacity: 0.5,
-  },
-  overlay: {
-    width: '100%',
-    height: '100%',
-  },
-  item: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-  },
-});
-
 export default MenuDropDown;
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 6},
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 10,
+  },
+
+  viewContainer: { backgroundColor: '#FFF', marginRight: 15},
+  dropdown4BtnStyle: {
+    width: 140,
+    height: 30,
+    backgroundColor: '#FFF',
+  },
+  dropdown4BtnTxtStyle: {color: '#444', textAlign: 'left', fontSize: 12},
+  dropdown4DropdownStyle: {backgroundColor: '#EFEFEF',marginTop: -20, fontSize: 12},
+  dropdown4RowStyle: {backgroundColor: '#EFEFEF', height: 30, borderBottomColor: '#C5C5C5'},
+  dropdown4RowTxtStyle: {color: '#444', textAlign: 'left', fontSize: 12},
+});

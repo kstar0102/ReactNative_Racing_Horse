@@ -81,8 +81,8 @@ const ScreenTruck = ({ pasture_name, user_id, user_level, truck }) => {
         };
       }
       Alert.alert(
-        `トラック (Lv.${level})は、${price}ptですが購入しますか？`,
-        `[効果] 馬誕生時に「根性+${effect}」?`,
+        `トラック (Lv.${level})は、${price}ptですが購入しますか`,
+        `[効果] 馬誕生時に「根性+${effect}」`,
         [
           {
             text: "いいえ",
@@ -108,8 +108,8 @@ const ScreenTruck = ({ pasture_name, user_id, user_level, truck }) => {
         "user_level": user_level
       };
       Alert.alert(
-        `トラック (Lv.1)は、1000ptですが購入しますか？`,
-        "[効果] 馬誕生時に「根性+10」?",
+        `トラック (Lv.1)は、1000ptですが購入しますか`,
+        "[効果] 馬誕生時に「根性+10」",
         [
           {
             text: "いいえ",
@@ -177,7 +177,7 @@ const ScreenTruck = ({ pasture_name, user_id, user_level, truck }) => {
 
 const mapStateToProps = state => {
   return {
-    pasture_name: state.pastureData.pastureData.name,
+    pasture_name: state.pasture.pastureData.name,
     user_id: state.user.userData.id,
     user_level: state.user.userData.level,
     truck: state.truck.truckBuyData,

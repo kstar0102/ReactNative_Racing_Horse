@@ -320,8 +320,6 @@ const DetailButton = ({ label, onPress,disabled, id, name, horseId, user_id}) =>
 			</Tooltip>
 		);
 	}
-
-	
 };
 
 const styles = StyleSheet.create({
@@ -332,7 +330,7 @@ const styles = StyleSheet.create({
 		width: 100,
 		paddingVertical: 2,
 		borderWidth: 1,
-		borderColor: colors.black
+		borderColor: colors.black,
 	},
 	label: {
 		color: colors.white,
@@ -351,7 +349,7 @@ const styles = StyleSheet.create({
 	   TooltipContent:{
         flexDirection: 'row',
         justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
     }
 });
 

@@ -52,6 +52,8 @@ const RTapScreensStyle = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     paddingTop: 10,
+    padding: 5,
+    width: '30%'
   },
   oneTopContentRight: {
     flexDirection: 'column',
@@ -93,7 +95,7 @@ const RTapScreensStyle = StyleSheet.create({
     color: '#FF006B',
   },
   oneRioghtHeaderTxtGreen:{
-    fontSize: 15,
+    fontSize: 18,
     color: '#1BFF00',
   },
   oneRioghtBody: {
@@ -108,6 +110,11 @@ const RTapScreensStyle = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center'
   },
+  oneRightTxt:{
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-end'
+  },
   oneRioghtBodyTxt:{
     fontSize: hp(1.2) + wp(1.8),
     fontWeight: 700,
@@ -118,32 +125,46 @@ const RTapScreensStyle = StyleSheet.create({
     fontWeight: 600,
     color: colors.black
   },
+  oneRioghtBodyTxtTired:{
+    fontSize: hp(1.5) + wp(2.5),
+    fontWeight: 600,
+    color: colors.black
+  },
   oneRioghtBodyTxtGroup:{
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   oneRioghtBodyTxtA:{
     fontSize:  hp(1.2) + wp(1.8),
     fontWeight: 600,
-    paddingVertical: 3,
-    // paddingHorizontal: 5
     marginRight: -50,
-    paddingLeft: 10
+    paddingLeft: 10,
+    marginTop: 12
   },
   oneRioghtBodyTxtValueA:{
 
   },
   HorseAvatar:{
     width: vw(4.5) + vh(3.5),
-    marginTop: 20
+    marginTop: 45
   },
   conditionsGroup:{
     flexDirection: 'row',
+    alignItems: 'flex-end'
   },
   conditions:{
     marginLeft:3,
     width:20,
     height:20
+  },
+  oneRightTxtUp:{
+    color: colors.red,
+    fontSize:25
+  
+  },
+  oneRightTxtDown:{
+    color: colors.blue,
+    fontSize:25
   },
   // Bottom
   BottomBackground:{
@@ -156,7 +177,6 @@ const RTapScreensStyle = StyleSheet.create({
   oneBottomContent: {
     position: 'relative',
     alignItems: 'center',
-    zIndex: -1
   },
   ImageButtonTop: {
       flexDirection: 'row',
@@ -183,16 +203,10 @@ const RTapScreensStyle = StyleSheet.create({
     height: vh(6.8),
     opacity: .9,
     position: 'absolute',
-    // left: 30,
-    // top: 8,
-    // zIndex: 1000
   },
   label:{
     color: colors.black,
-    // borderWidth: 1,
-    // borderColor: colors.white,
     fontWeight: 600,
-    // fontSize: 24,
     fontWeight: 'bold',
     color: 'black',
     textShadowColor: 'white',

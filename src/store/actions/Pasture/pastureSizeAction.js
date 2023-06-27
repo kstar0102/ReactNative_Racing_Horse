@@ -1,10 +1,10 @@
-import { LOGIN_UESR_PASTURE_DATA, HORSE_ALL_DATA } from '../types';
+import { PASTURE_DATA, HORSE_ALL_DATA } from '../types';
 import axios from 'axios';
 import { API } from '../../../utils/config';
 
 export const fetchData = (pastureData) => {
   return {
-    type: LOGIN_UESR_PASTURE_DATA,
+    type: PASTURE_DATA,
     payload: pastureData,
   }
 };

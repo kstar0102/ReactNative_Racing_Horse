@@ -1,123 +1,57 @@
-import React, { FC, ReactElement, useRef, useState } from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Modal,
-  View,
-} from 'react-native';
-import { Icon } from 'react-native-elements';
-import colors from '../../containers/colors';
 
-interface Props {
-  label: string;
-  data: Array<{ label: string; value: string }>;
-  onSelect: (item: { label: string; value: string }) => void;
-}
+import React from 'react';
+import {View, StyleSheet } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import SelectDropdown from 'react-native-select-dropdown';
 
-const DropDownB: FC<Props> = ({ label, data, onSelect }) => {
-  const DropdownButton = useRef<GestureResponderEvent>();
-  const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState<{ label: string; value: string } | undefined>(undefined);
-  const [dropdownTop, setDropdownTop] = useState(0);
-
-  const toggleDropdown = (): void => {
-    visible ? setVisible(false) : openDropdown();
-  };
-
-  const openDropdown = (): void => {
-    DropdownButton.current.measure((_fx: number, _fy: number, _w: number, h: number, _px: number, py: number) => {
-      setDropdownTop(py + h);
-    });
-    setVisible(true);
-  };
-
-  const onItemPress = (item: any): void => {
-    setSelected(item);
-    onSelect(item);
-    setVisible(false);
-  };
-
-  const renderItem = ({ item }: any): ReactElement<any, any> => (
-    <TouchableOpacity style={styles.item} onPress={() => onItemPress(item)}>
-      <Text>{item.label}</Text>
-    </TouchableOpacity>
-  );
-
-  const renderDropdown = (): ReactElement<any, any> => {
-    return (
-      <Modal visible={visible} transparent animationType="none">
-        <TouchableOpacity
-          style={styles.overlay}
-          onPress={() => setVisible(false)}
-        >
-          <View style={[styles.dropdown, { top: dropdownTop }]}>
-            <FlatList
-              data={data}
-              renderItem={renderItem}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          </View>
-        </TouchableOpacity>
-      </Modal>
-    );
-  };
-
+const DropdownB = ({label, data, onSelect}) => {
+  const countriesWithFlags = data;
   return (
-    <React.Fragment>
-      <TouchableOpacity
-        ref={DropdownButton}
-        style={styles.button}
-        onPress={toggleDropdown}
-      >
-        <Icon style={styles.icon} type="font-awesome" name="chevron-down" />
-        <Text style={styles.buttonText}>
-          {(!!selected && selected.label) || label}
-        </Text>
-      </TouchableOpacity>
-      {renderDropdown()}
-    </React.Fragment>
+    <>
+      <View style={styles.viewContainer}>
+          <SelectDropdown
+            data={countriesWithFlags}
+            onSelect={(selectedItem, index) => {
+              onSelect(selectedItem);
+            }}
+            defaultButtonText={label}
+            buttonTextAfterSelection={(selectedItem, index) => {
+              return selectedItem.label;
+            }}
+            rowTextForSelection={(item, index) => {
+              return item.label;
+            }}
+            buttonStyle={styles.dropdown4BtnStyle}
+            buttonTextStyle={styles.dropdown4BtnTxtStyle}
+            renderDropdownIcon={isOpened => {
+              return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+            }}
+            dropdownIconPosition={'right'}
+            dropdownStyle={styles.dropdown4DropdownStyle}
+            rowStyle={styles.dropdown4RowStyle}
+            rowTextStyle={styles.dropdown4RowTxtStyle}
+          />
+      </View>
+    </>
   );
 };
-
+export default DropdownB;
 const styles = StyleSheet.create({
-  button: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 50,
-    zIndex: 1,
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 6},
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 10,
   },
-  buttonText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    padding: 10,
-    textAlign: 'center',
-    
-  },
-  icon: {
-  },
-  dropdown: {
-    marginTop: -22,
-    position: 'absolute',
-    left: 23,
-    backgroundColor: colors.backgroudColor,
-    width: '32%',
-    shadowColor: '#000000',
-    shadowRadius: 4,
-    shadowOffset: { height: 4, width: 0 },
-    shadowOpacity: 0.5,
-    
-  },
-  overlay: {
-    width: '100%',
-    height: '100%',
-  },
-  item: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-  },
-});
 
-export default DropDownB;
+  viewContainer: { width: '170%', marginLeft: -60},
+  dropdown4BtnStyle: {
+    width: '100%',
+    backgroundColor: '#86d0eb',
+  },
+  dropdown4BtnTxtStyle: {color: '#000', textAlign: 'left'},
+  dropdown4DropdownStyle: {backgroundColor: '#EFEFEF', marginTop: -25},
+  dropdown4RowStyle: {  backgroundColor: '#52af54', borderBottomColor: '#000'},
+  dropdown4RowTxtStyle: {color: '#000', textAlign: 'left'},
+});

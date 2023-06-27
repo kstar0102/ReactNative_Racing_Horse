@@ -80,8 +80,8 @@ const ScreenLongiField = ({ pasture_name, user_id, user_level, ranch }) => {
           "user_level": user_level
         };
         Alert.alert(
-          `ロンギ場 (Lv.${level})は、${price}ptですが購入しますか？`,
-          `[効果] 馬誕生時に「気性+${effect}」?`,
+          `ロンギ場 (Lv.${level})は、${price}ptですが購入しますか`,
+          `[効果] 馬誕生時に「気性+${effect}」`,
           [
             {
               text: "いいえ",
@@ -108,8 +108,8 @@ const ScreenLongiField = ({ pasture_name, user_id, user_level, ranch }) => {
         "user_level": user_level
       };
       Alert.alert(
-        `ロンギ場 (Lv.1)は、1000ptですが購入しますか？`,
-        "[効果] 馬誕生時に「気性+10」?",
+        `ロンギ場 (Lv.1)は、1000ptですが購入しますか`,
+        "[効果] 馬誕生時に「気性+10」",
         [
           {
             text: "いいえ",
@@ -177,7 +177,7 @@ const ScreenLongiField = ({ pasture_name, user_id, user_level, ranch }) => {
 
 const mapStateToProps = state => {
   return {
-    pasture_name: state.pastureData.pastureData.name,
+    pasture_name: state.pasture.pastureData.name,
     user_id: state.user.userData.id,
     user_level: state.user.userData.level,
     ranch: state.ranch.ranchBuyData,

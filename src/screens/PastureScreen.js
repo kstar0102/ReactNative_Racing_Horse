@@ -2,7 +2,6 @@ import React,{useEffect} from 'react';
 import { View, ImageBackground} from 'react-native';
 // Redux
 import { connect,useDispatch } from 'react-redux';
-import { pastureAction } from '../store/actions/Pasture/pastureAction';
 import { institutionAction } from '../store/actions/institution/institutionAction';
 import { raceAction } from '../store/actions/racepaln/getApi/racePlanAction';
 // Custom Import
@@ -11,18 +10,8 @@ import FooterScreen from './LayoutScreen/FooterScreen';
 import { CustomButtons, ReturnButton } from '../components/Buttons';
 import Screenstyles from '../screens/ScreenStylesheet';
 
-const PastureScreen = ({navigation, user_id, pasture_id}) => {
+const PastureScreen = ({navigation, user_id}) => {
   const dispatch = useDispatch();
-
-  //  ROADING USER ID AND PASTURE ID
-  useEffect(() => {
-    const sandIds =  {
-      "user_id": user_id,
-      "pasture_id": pasture_id
-    } 
-    dispatch(pastureAction(sandIds))
-  }, [user_id, pasture_id]);
-
   // POST USER ID
   const handleSubmit = () => {
     const sandUserId =  {
@@ -66,9 +55,8 @@ const PastureScreen = ({navigation, user_id, pasture_id}) => {
 const mapStateToProps = state => {
   return {
     user_id: state.user.userData.id,
-    pasture_id: state.pastureData.pastureData.id
+    pasture_id: state.pasture.pastureData.id
   }
- 
 };
 
 export default connect(mapStateToProps)(PastureScreen);

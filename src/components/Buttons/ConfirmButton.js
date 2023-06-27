@@ -43,7 +43,7 @@ const ConfirmButton = ({colorNumber,pressFactor,label,disabled }) => {
           "入厩させますか?",
           [
             {
-              text: "hjkhjkhjkhjk",
+              text: "いいえ",
               style: "cancel"
             },
             { 

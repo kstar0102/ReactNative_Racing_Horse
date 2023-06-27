@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import {  View, ImageBackground, Text } from 'react-native';
 
 // Redux
-import { connect,useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { pastureNameAction } from '../../store/actions/Pasture/pastureNameAction';
 // Custom Import
 import NRHeaderScreen from '../LayoutScreen/NRHeaderScreen';

@@ -10,7 +10,7 @@ import ScreenOne from './RanchTapScreens/ScreenOne';
 import ScreenTwo from './RanchTapScreens/ScreenTwo';
 import ScreenThree from './RanchTapScreens/ScreenThree';
 
-const RanchTapScreen = ({allCheckData}) => {
+const RanchTapScreen = ({saveData}) => {
   const [activeButton, setActiveButton] = useState(1);
 
   const handleButtonPress = (id) => {
@@ -19,9 +19,9 @@ const RanchTapScreen = ({allCheckData}) => {
 
   
   const renderScreenBelowButtons = () => {
-    const filtereOneData = allCheckData.filter(data => data.age === '・0歳馬' || data.age === '・1歳馬');
-    const filtereTwoData = allCheckData.filter(data => data.age === '・2歳馬' || data.age === '・3歳馬');
-    const filtereThreedData = allCheckData.filter(data => data.age === '・放牧馬');
+    const filtereOneData = saveData.filter(data => data.age === '・0歳馬' || data.age === '・1歳馬');
+    const filtereTwoData = saveData.filter(data => data.age === '・2歳馬' || data.age === '・3歳馬');
+    const filtereThreedData = saveData.filter(data => data.age === '・放牧馬');
   
     switch(activeButton) {
       case 1:
@@ -50,7 +50,7 @@ const RanchTapScreen = ({allCheckData}) => {
 
 const mapStateToProps = state => {
   return {
-    allCheckData: state.horseData.allCheckData
+    saveData: state.horseData.saveData
   };
 };
 export default connect(mapStateToProps)(RanchTapScreen);

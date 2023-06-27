@@ -16,7 +16,7 @@ let horseNames = [];
 let inputCount;
 let inputIds = [];
 
-const HorseNameScreen = ({ navigation, horseCheckData, user_id, pasture_id }) => {
+const HorseNameScreen = ({ navigation, horseCheckData, user_id, pasture_id, saveData }) => {
   const dispatch = useDispatch();
   const [horseName, setHorseName] = useState('');
   const [inputId, setInputId] = useState('');
@@ -57,9 +57,15 @@ const HorseNameScreen = ({ navigation, horseCheckData, user_id, pasture_id }) =>
         'pasture_id' : pasture_id
       }
       dispatch(horseAction(CheckData));
-      navigation.navigate('PastureScreen');
     }
   }
+
+  useEffect(() => {
+    if(saveData != ""){
+      navigation.navigate('PastureScreen');
+    }
+    
+  }, [saveData]);
 
   return (
     <View style={Screenstyles.container}>
@@ -82,9 +88,9 @@ const HorseNameScreen = ({ navigation, horseCheckData, user_id, pasture_id }) =>
             </Text>
           </View>
           <ScrollView style={Screenstyles.ScrollView}>
-            {horseCheckData.map((item) => {
+            {horseCheckData.map((item, index) => {
               return (
-                <View key={item.horseId} style={Screenstyles.horseNameCard}>
+                <View key={index} style={Screenstyles.horseNameCard}>
                   <View style={Screenstyles.horseCardContent}>
                     <View style={Screenstyles.horseCardLeft}>
                       {horseColor.map((colorName, index) => {
@@ -144,7 +150,8 @@ const mapStateToProps = state => {
   return {
     horseCheckData: state.horseData.CheckData,
     user_id: state.user.userData.id,
-    pasture_id: state.pastureData.pastureData.id,
+    pasture_id: state.pasture.pastureData.id,
+    saveData: state.horseData.saveData
 
   };
 };

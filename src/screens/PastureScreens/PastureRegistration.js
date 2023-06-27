@@ -59,7 +59,7 @@ const PastureRegistration  = ({navigation, validationData, id}) => {
                 <View style={Screenstyles.NRpay}>
                     <View style={Screenstyles.NRleft}> 
                         <View style={Screenstyles.NRleftD}>
-                            <DropDownB label="牧場 (小)" data={data} onSelect={onSelected} />
+                            <DropDownB label="牧場(小)" data={data} onSelect={onSelected} />
                             <Text style={Screenstyles.NRleftL}>{(!!selected && selected.payMent) || '500'}pt</Text>
                         </View>
                         <View style={Screenstyles.NRImageBorder}>

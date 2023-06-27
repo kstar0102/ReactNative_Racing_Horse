@@ -1,12 +1,12 @@
-import { HORSE_NAME_DATA } from '../types';
+import { HORSE_SAVE_DATA } from '../types';
 import axios from 'axios';
 import { API } from '../../../utils/config';
 import Toast from 'react-native-root-toast';
 
-export const horseData = (allData) => {
+export const horseData = (nameCheckData) => {
   return {
-    type: HORSE_NAME_DATA,
-    payload: allData,
+    type: HORSE_SAVE_DATA,
+    payload: nameCheckData,
   }
 };
 

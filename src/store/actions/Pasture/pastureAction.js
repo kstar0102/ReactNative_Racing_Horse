@@ -1,10 +1,10 @@
-import { HORSE_CHECK_ALL_DATA } from '../types';
+import { HORSE_SAVE_DATA } from '../types';
 import axios from 'axios';
 import { API } from '../../../utils/config';
 
 export const horseData = (data) => {
     return {
-      type: HORSE_CHECK_ALL_DATA,
+      type: HORSE_SAVE_DATA,
       payload: data,
     }
   };
