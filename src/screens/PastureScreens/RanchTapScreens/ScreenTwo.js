@@ -45,6 +45,7 @@ const ScreenTwo = ({ twoData, arrowState }) => {
 
   useEffect(() => {
     setBanner(twoData[0]);
+    setPattern(tiredNumber);
   }, [twoData]);
   const data = twoData;
 
@@ -194,6 +195,7 @@ const ScreenTwo = ({ twoData, arrowState }) => {
 
   const handleSettingId = (value) => {
     setBanner(value);
+    setPattern(tiredNumber);
   }
 
   // SKILL FILLTER
@@ -299,34 +301,20 @@ const ScreenTwo = ({ twoData, arrowState }) => {
     }
     let result = "";
     switch (true) {
-      case (tired >= 80 && tired <= 100):
+      case (tired >= 0 && tired <= 7):
         result = 'O'
         break;
-      case (tired >= 60 && tired <= 80):
+      case (tired >= 9 && tired <= 12):
         result = '◎'
         break;
-      case (tired >= 40 && tired <= 60):
+      case (tired >= 13 && tired <= 14):
         result = '▲'
         break;
-      case (tired >= 20 && tired <= 40):
+      case (tired >= 15 && tired <= 17):
         result = '△'
-        {
-          let toast = Toast.show('疲労が溜まりすぎるとケガ(骨折など)をする', {
-            duration: Toast.durations.LONG,
-          });
-          setTimeout(function hideToast() {
-            Toast.hide(toast);
-          }, 2000);
-        }
         break;
-      case (tired >= 0 && tired <= 20):
+      case (tired >= 18):
         result = 'X'
-        let toast = Toast.show('疲労が溜まりすぎるとケガ(骨折など)をする', {
-          duration: Toast.durations.LONG,
-        });
-        setTimeout(function hideToast() {
-          Toast.hide(toast);
-        }, 2000);
         break;
       default:
         return;
@@ -343,6 +331,114 @@ const ScreenTwo = ({ twoData, arrowState }) => {
   const distanceValue = distanceRange((banner.distance_max - (-banner.distance_min)) / 2);
   const conditionFace = conditionFaceRange((parseInt(banner.happy)));
   const tired = tiredRange((parseInt(banner.tired)));
+  const tiredNumber = (parseInt(banner.tired));
+
+// Health State
+const setPattern = (condition) => {
+  console.log(condition)
+  let options;
+  if(condition <= 10){
+    return false;
+  }
+  else if(condition == 11 || condition == 12){
+    options = {
+      none: 79,
+      D1: 10,
+      D2: 5,
+      D3: 3,
+      D4: 2,
+      D5: 1
+    };
+  }
+  else if(condition == 13 || condition == 14){
+    options = {
+      none: 64,
+      D1: 15,
+      D2: 10,
+      D3: 5,
+      D4: 4,
+      D5: 2
+    };
+  }
+  else if(condition == 15 || condition == 16){
+    options = {
+      none: 43,
+      D1: 20,
+      D2: 15,
+      D3: 10,
+      D4: 8,
+      D5: 4
+    };
+  }
+  else if(condition == 17 || condition == 18){
+    options = {
+      none: 22,
+      D1: 25,
+      D2: 20,
+      D3: 15,
+      D4: 10,
+      D5: 8
+    };
+  }
+  else if(condition == 19 || condition == 20){
+    options = {
+      none: 0,
+      D1: 30,
+      D2: 25,
+      D3: 20,
+      D4: 15,
+      D5: 10
+    };
+  }  
+const randomNumber = Math.floor(Math.random() * 100);
+
+// Iterate over the options until we reach the chosen value
+let sum = 0;
+for (const [key, value] of Object.entries(options)) {
+   sum += value;
+   if (randomNumber < sum) {
+    
+      if(key == 'D1'){
+        let toast = Toast.show('疲労が溜まりすぎるとケガ(挫跖 ど)をする', {
+          duration: Toast.durations.LONG,
+        });
+        setTimeout(function hideToast() {
+          Toast.hide(toast);
+        }, 2000);
+      }else if(key == 'D2'){
+        let toast = Toast.show('疲労が溜まりすぎるとケガ(裂蹄 ど)をする', {
+          duration: Toast.durations.LONG,
+        });
+        setTimeout(function hideToast() {
+          Toast.hide(toast);
+        }, 2000);
+      }else if(key == 'D3'){
+        let toast = Toast.show('疲労が溜まりすぎるとケガ(屈腱炎 ど)をする', {
+          duration: Toast.durations.LONG,
+        });
+        setTimeout(function hideToast() {
+          Toast.hide(toast);
+        }, 2000);
+      }else if(key == 'D4'){
+        let toast = Toast.show('疲労が溜まりすぎるとケガ(骨折 ど)をする', {
+          duration: Toast.durations.LONG,
+        });
+        setTimeout(function hideToast() {
+          Toast.hide(toast);
+        }, 2000);
+      }else if(key == 'D5'){
+        let toast = Toast.show(' 疲労が溜まりすぎるとケガ(予後不良 ど)をする', {
+          duration: Toast.durations.LONG,
+        });
+        setTimeout(function hideToast() {
+          Toast.hide(toast);
+        }, 2000);
+      }
+      break;
+   }
+}
+}
+// Health ENd
 
   // tired
   const handleButtonPress = (id) => {

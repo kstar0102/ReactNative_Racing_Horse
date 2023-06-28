@@ -152,7 +152,6 @@ const mapStateToProps = state => {
     user_id: state.user.userData.id,
     pasture_id: state.pasture.pastureData.id,
     saveData: state.horseData.saveData
-
   };
 };
 

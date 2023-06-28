@@ -277,19 +277,19 @@ const ScreenOne = ({ oneData, arrowState }) => {
     }
     let result = "";
     switch (true) {
-      case (tired >= 80 && tired <= 500):
+      case (tired >= 0 && tired <= 7):
         result = 'O'
         break;
-      case (tired >= 60 && tired <= 80):
+      case (tired >= 9 && tired <= 12):
         result = '◎'
         break;
-      case (tired >= 40 && tired <= 60):
+      case (tired >= 13 && tired <= 14):
         result = '▲'
         break;
-      case (tired >= 20 && tired <= 40):
+      case (tired >= 15 && tired <= 17):
         result = '△'
         break;
-      case (tired >= 0 && tired <= 20):
+      case (tired >= 18):
         result = 'X'
         break;
       default:
@@ -372,6 +372,7 @@ let sum = 0;
 for (const [key, value] of Object.entries(options)) {
    sum += value;
    if (randomNumber < sum) {
+    console.log(`Select Value ${key}`)
       if(key == 'D1'){
         let toast = Toast.show('疲労が溜まりすぎるとケガ(挫跖 ど)をする', {
           duration: Toast.durations.LONG,
