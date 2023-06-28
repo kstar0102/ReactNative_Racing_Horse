@@ -42,21 +42,21 @@ const FodderGroup = ({horseId}) => {
                       <Text style={RTapScreensStyle.label}>角砂糖</Text>
                   </View>
                   <ImageButton label={'角砂糖'} source={require('../../../assets/images/Fodder/角砂糖2.png')} id={4}/>
-                  <DetailButton label={'調子回復'} id={4} name={'角砂糖'} horseId={horseId}/>
+                  <DetailButton label={'疲労回復'} id={4} name={'角砂糖'} horseId={horseId}/>
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteView}>
                       <Text style={RTapScreensStyle.label}>チョコ</Text>
                   </View>
                   <ImageButton label={'チョコ'} source={require('../../../assets/images/Fodder/チョコ.png')} id={5}/>
-                  <DetailButton label={'調子回復'} id={5} name={'チョコ'} horseId={horseId}/>
+                  <DetailButton label={'疲労回復'} id={5} name={'チョコ'} horseId={horseId}/>
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteView]}>
                       <Text style={RTapScreensStyle.label}>ケーキ</Text>
                   </View>
                   <ImageButton label={'ケーキ'} source={require('../../../assets/images/Fodder/ケーキ.png')} id={6}/>
-                  <DetailButton label={'調子回復'} id={6} name={'ケーキ'} horseId={horseId}/>
+                  <DetailButton label={'疲労回復'} id={6} name={'ケーキ'} horseId={horseId}/>
                 </View>
               </View>
               <View style={RTapScreensStyle.ImageButtonBottom}>

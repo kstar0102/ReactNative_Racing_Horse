@@ -66,11 +66,11 @@ const RTapScreensStyle = StyleSheet.create({
     paddingHorizontal: 5,
     backgroundColor: colors.HBrown,
     flexDirection: 'row',
-    // justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly'
   },
   oneRioghtHeaderTxtA:{
     fontSize: hp(1.5) + wp(2),
-    color: colors.white,
+    color: '#FF006B',
   },
   oneRioghtHeaderTxt:{
     color: colors.white,
@@ -95,7 +95,7 @@ const RTapScreensStyle = StyleSheet.create({
     color: '#FF006B',
   },
   oneRioghtHeaderTxtGreen:{
-    fontSize: 18,
+    fontSize: 17,
     color: '#1BFF00',
   },
   oneRioghtBody: {
@@ -126,10 +126,9 @@ const RTapScreensStyle = StyleSheet.create({
     color: colors.black
   },
   oneRioghtBodyTxtTired:{
-    fontSize: hp(1.3) + wp(2.5),
-    color: colors.black
-    // fontWeight: 600,
-    // color: colors.black
+    fontSize: hp(1.6) + wp(2.6),
+    color: colors.black,
+    fontWeight: 300
   },
   oneRioghtBodyTxtGroup:{
     flexDirection: 'column',
@@ -140,7 +139,7 @@ const RTapScreensStyle = StyleSheet.create({
     fontWeight: 600,
     marginRight: -50,
     paddingLeft: 10,
-    marginTop: 12
+    marginTop: 6
   },
   oneRioghtBodyTxtValueA:{
 

@@ -8,9 +8,9 @@ import RTapScreensStyle from '../../PastureScreens/RanchTapScreens/RTapScreensSt
 const Training = () => {
   const [selected, setSelected] = useState(undefined);
   const data = [
-    { label: '馬名A', labelValue: 'A', id: 1, sp: 'S', st: 'D+', fatigue: 'O',  instantaneous:'A', guts:'C', temper:'B',  health: 'A', Hair:'白毛', class:'GIクラス'},
-    { label: '馬名B', labelValue: 'B', id: 2, sp: 'S+', st: 'D', fatigue: '△',  instantaneous:'A+', guts:'C', temper:'B',  health: 'A', Hair:'黑鹿毛', class:'GⅡクラス'},
-    { label: '馬名C', labelValue: 'C', id: 3, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:'栗毛', class:'GⅢクラス'},
+    { label: 'A', labelValue: 'A', id: 1, sp: 'S', st: 'D+', fatigue: 'O',  instantaneous:'A', guts:'C', temper:'B',  health: 'A', Hair:'白毛', class:'GIクラス'},
+    { label: 'B', labelValue: 'B', id: 2, sp: 'S+', st: 'D', fatigue: '△',  instantaneous:'A+', guts:'C', temper:'B',  health: 'A', Hair:'黑鹿毛', class:'GⅡクラス'},
+    { label: 'C', labelValue: 'C', id: 3, sp: 'S', st: 'D', fatigue: '▲',  instantaneous:'A', guts:'C+', temper:'B',  health: 'A+', Hair:'栗毛', class:'GⅢクラス'},
  ];
 
     return (
@@ -18,11 +18,11 @@ const Training = () => {
          <View  style={RTapScreensStyle.oneTopContent}>
             <View style={RTapScreensStyle.oneTopContentLeft}>
                 <Text style={RTapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
-                <DropDownR label='馬名A'  data={data} onSelect={setSelected} />
+                <DropDownR label='A'  data={data} onSelect={setSelected} />
             </View>
             <View style={RTapScreensStyle.oneTopContentRight}>
               <View style={RTapScreensStyle.oneRioghtHeader}>
-                  <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>馬名<Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>{(!!selected && selected.labelValue) || 'A'}</Text></Text>
+                  <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>{(!!selected && selected.labelValue) || 'A'}</Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}><Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>牝</Text>2</Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>早熟</Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.Hair) || '白毛'}</Text>

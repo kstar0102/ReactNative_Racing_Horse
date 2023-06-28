@@ -56,7 +56,6 @@ const GrazingGroup = ({ horseId, poolLevel, truckLevel, roadLevel }) => {
         setRoadDisabled(true)
       }
     }
-  
   }, [poolLevel, truckLevel, roadLevel])
 
   return (

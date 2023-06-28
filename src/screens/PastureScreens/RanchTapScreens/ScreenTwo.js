@@ -33,7 +33,12 @@ const ScreenTwo = ({ twoData, arrowState }) => {
   const [healthState, setHealthState] = useState(0);
   // State
   const [State, setState] = useState('⬆');
+  const [tiredArror, setArrorState] = useState('⬆');
   const [colors, setColors] = useState('red');
+  const [tiredArrorColor, setArrorColor] = useState('red');
+
+  // Ground Color
+  const [groundColor, setGroundColor] = useState('#1BFF00');
 
   if (twoData == '') {
     alert('YOUR HORSE NOT FOUND RETURN')
@@ -46,6 +51,11 @@ const ScreenTwo = ({ twoData, arrowState }) => {
   useEffect(() => {
     setBanner(twoData[0]);
     setPattern(tiredNumber);
+    if(twoData[0].ground == 'ダ'){
+      setGroundColor('#1BFF00');
+    }else if(twoData[0].ground == '万'){
+      setGroundColor('#707172');
+    }
   }, [twoData]);
   const data = twoData;
 
@@ -74,7 +84,7 @@ const ScreenTwo = ({ twoData, arrowState }) => {
         setStrengthState(0);
         setMomentState(0);
         setStaminaState(0);
-      }, 3000);
+      }, 2000);
     } else if (arrowStates.what == '芝') {
       setHappyState(1);
       setTiredState(1);
@@ -83,7 +93,7 @@ const ScreenTwo = ({ twoData, arrowState }) => {
         setHappyState(0);
         setTiredState(0);
         setSpeedState(0);
-      }, 3000);
+      }, 2000);
     } else if (arrowStates.what == 'ダート') {
       setHappyState(1);
       setTiredState(1);
@@ -92,7 +102,7 @@ const ScreenTwo = ({ twoData, arrowState }) => {
         setHappyState(0);
         setTiredState(0);
         setStrengthState(0);
-      }, 3000);
+      }, 2000);
     } else if (arrowStates.what == 'ウッドチップ') {
       setHappyState(1);
       setTiredState(1);
@@ -101,7 +111,7 @@ const ScreenTwo = ({ twoData, arrowState }) => {
         setHappyState(0);
         setTiredState(0);
         setContitionState(0);
-      }, 3000);
+      }, 2000);
     } else if (arrowStates.what == 'プール') {
       setHappyState(1);
       setTiredState(1);
@@ -110,7 +120,7 @@ const ScreenTwo = ({ twoData, arrowState }) => {
         setHappyState(0);
         setTiredState(0);
         setHealthState(0);
-      }, 3000);
+      }, 2000);
     } else if (arrowStates.what == '併走') {
       setHappyState(1);
       setTiredState(1);
@@ -119,7 +129,7 @@ const ScreenTwo = ({ twoData, arrowState }) => {
         setHappyState(0);
         setTiredState(0);
         setStaminaState(0);
-      }, 3000);
+      }, 2000);
     } else if (arrowStates.what == '坂路') {
       setHappyState(1);
       setTiredState(1);
@@ -128,61 +138,43 @@ const ScreenTwo = ({ twoData, arrowState }) => {
         setHappyState(0);
         setTiredState(0);
         setMomentState(0);
-      }, 3000);
+      }, 2000);
     } else if (arrowStates.what == 'にんじん') {
       setHappyState(1);
-      setTiredState(1);
-      setMomentState(1);
       setTimeout(() => {
         setHappyState(0);
-        setTiredState(0);
-        setMomentState(0);
-      }, 3000);
+      }, 2000);
     } else if (arrowStates.what == 'Sドリンク3') {
       setHappyState(1);
-      setTiredState(1);
-      setMomentState(1);
       setTimeout(() => {
         setHappyState(0);
-        setTiredState(0);
-        setMomentState(0);
-      }, 3000);
+      }, 2000);
     } else if (arrowStates.what == 'プロテイン') {
       setHappyState(1);
-      setTiredState(1);
-      setMomentState(1);
       setTimeout(() => {
         setHappyState(0);
-        setTiredState(0);
-        setMomentState(0);
-      }, 3000);
+      }, 2000);
     } else if (arrowStates.what == '角砂糖') {
-      setHappyState(1);
       setTiredState(1);
-      setMomentState(1);
+      setArrorState('⬇');
+      setArrorColor('blue');
       setTimeout(() => {
-        setHappyState(0);
         setTiredState(0);
-        setMomentState(0);
-      }, 3000);
+      }, 2000);
     } else if (arrowStates.what == 'チョコ') {
-      setHappyState(1);
       setTiredState(1);
-      setMomentState(1);
+      setArrorState('⬇');
+      setArrorColor('blue');
       setTimeout(() => {
-        setHappyState(0);
         setTiredState(0);
-        setMomentState(0);
-      }, 3000);
+      }, 2000);
     } else if (arrowStates.what == 'ケーキ') {
-      setHappyState(1);
       setTiredState(1);
-      setMomentState(1);
+      setArrorState('⬇');
+      setArrorColor('blue');
       setTimeout(() => {
-        setHappyState(0);
         setTiredState(0);
-        setMomentState(0);
-      }, 3000);
+      }, 2000);
     }
     if (banner.direction == 0) {
       setState('⬇');
@@ -193,11 +185,31 @@ const ScreenTwo = ({ twoData, arrowState }) => {
     }
   }, [arrowStates]);
 
+
   const handleSettingId = (value) => {
     setBanner(value);
-    setPattern(tiredNumber);
+    if (value) {
+      setPattern(tiredNumber);
+    }
+    if(value.ground == 'ダ'){
+      setGroundColor('#1BFF00');
+    }else if(value.ground == '万'){
+      setGroundColor('#707172');
+    }
   }
 
+  // if (selected) {
+  //   useCallback(() => {
+  //     if (selected.ground == 'ダ') {
+  //       console.log('===ダ==')
+  //       setGroundColor('black');
+  //     } else {
+  //       console.log('=============万万万=======================')
+  //       console.log('===万万万==')
+  //       console.log('=============万万万=======================')
+  //     }
+  //   }, [selected])
+  // }
   // SKILL FILLTER
   const skillRange = (skill) => {
     if (typeof (skill) !== 'number') {
@@ -302,19 +314,19 @@ const ScreenTwo = ({ twoData, arrowState }) => {
     let result = "";
     switch (true) {
       case (tired >= 0 && tired <= 7):
-        result = 'O'
+        result = ' ◎'
         break;
       case (tired >= 9 && tired <= 12):
-        result = '◎'
+        result = ' o'
         break;
       case (tired >= 13 && tired <= 14):
-        result = '▲'
+        result = ' ▲'
         break;
       case (tired >= 15 && tired <= 17):
-        result = '△'
+        result = ' △'
         break;
       case (tired >= 18):
-        result = 'X'
+        result = ' x'
         break;
       default:
         return;
@@ -333,113 +345,110 @@ const ScreenTwo = ({ twoData, arrowState }) => {
   const tired = tiredRange((parseInt(banner.tired)));
   const tiredNumber = (parseInt(banner.tired));
 
-// Health State
-const setPattern = (condition) => {
-  let options;
-  if(condition <= 10){
-    return false;
-  }
-  else if(condition == 11 || condition == 12){
-    options = {
-      none: 79,
-      D1: 10,
-      D2: 5,
-      D3: 3,
-      D4: 2,
-      D5: 1
-    };
-  }
-  else if(condition == 13 || condition == 14){
-    options = {
-      none: 64,
-      D1: 15,
-      D2: 10,
-      D3: 5,
-      D4: 4,
-      D5: 2
-    };
-  }
-  else if(condition == 15 || condition == 16){
-    options = {
-      none: 43,
-      D1: 20,
-      D2: 15,
-      D3: 10,
-      D4: 8,
-      D5: 4
-    };
-  }
-  else if(condition == 17 || condition == 18){
-    options = {
-      none: 22,
-      D1: 25,
-      D2: 20,
-      D3: 15,
-      D4: 10,
-      D5: 8
-    };
-  }
-  else if(condition == 19 || condition == 20){
-    options = {
-      none: 0,
-      D1: 30,
-      D2: 25,
-      D3: 20,
-      D4: 15,
-      D5: 10
-    };
-  }  
-const randomNumber = Math.floor(Math.random() * 100);
+  // Health State
+  const setPattern = (condition) => {
+    let options;
+    if (condition <= 10) {
+      return false;
+    }
+    else if (condition == 11 || condition == 12) {
+      options = {
+        none: 79,
+        D1: 10,
+        D2: 5,
+        D3: 3,
+        D4: 2,
+        D5: 1
+      };
+    }
+    else if (condition == 13 || condition == 14) {
+      options = {
+        none: 64,
+        D1: 15,
+        D2: 10,
+        D3: 5,
+        D4: 4,
+        D5: 2
+      };
+    }
+    else if (condition == 15 || condition == 16) {
+      options = {
+        none: 43,
+        D1: 20,
+        D2: 15,
+        D3: 10,
+        D4: 8,
+        D5: 4
+      };
+    }
+    else if (condition == 17 || condition == 18) {
+      options = {
+        none: 22,
+        D1: 25,
+        D2: 20,
+        D3: 15,
+        D4: 10,
+        D5: 8
+      };
+    }
+    else if (condition == 19 || condition == 20) {
+      options = {
+        none: 0,
+        D1: 30,
+        D2: 25,
+        D3: 20,
+        D4: 15,
+        D5: 10
+      };
+    }
+    const randomNumber = Math.floor(Math.random() * 100);
 
-// Iterate over the options until we reach the chosen value
-let sum = 0;
-for (const [key, value] of Object.entries(options)) {
-   sum += value;
-   if (randomNumber < sum) {
-    
-      if(key == 'D1'){
-        let toast = Toast.show('疲労が溜まりすぎるとケガ(挫跖 ど)をする', {
-          duration: Toast.durations.LONG,
-        });
-        setTimeout(function hideToast() {
-          Toast.hide(toast);
-        }, 2000);
-      }else if(key == 'D2'){
-        let toast = Toast.show('疲労が溜まりすぎるとケガ(裂蹄 ど)をする', {
-          duration: Toast.durations.LONG,
-        });
-        setTimeout(function hideToast() {
-          Toast.hide(toast);
-        }, 2000);
-      }else if(key == 'D3'){
-        let toast = Toast.show('疲労が溜まりすぎるとケガ(屈腱炎 ど)をする', {
-          duration: Toast.durations.LONG,
-        });
-        setTimeout(function hideToast() {
-          Toast.hide(toast);
-        }, 2000);
-      }else if(key == 'D4'){
-        let toast = Toast.show('疲労が溜まりすぎるとケガ(骨折 ど)をする', {
-          duration: Toast.durations.LONG,
-        });
-        setTimeout(function hideToast() {
-          Toast.hide(toast);
-        }, 2000);
-      }else if(key == 'D5'){
-        let toast = Toast.show(' 疲労が溜まりすぎるとケガ(予後不良 ど)をする', {
-          duration: Toast.durations.LONG,
-        });
-        setTimeout(function hideToast() {
-          Toast.hide(toast);
-        }, 2000);
+    // Iterate over the options until we reach the chosen value
+    let sum = 0;
+    for (const [key, value] of Object.entries(options)) {
+      sum += value;
+      if (randomNumber < sum) {
+        if (key == 'D1') {
+          let toast = Toast.show('疲労が溜まりすぎるとケガ(挫跖 ど)をする', {
+            duration: Toast.durations.LONG,
+          });
+          setTimeout(function hideToast() {
+            Toast.hide(toast);
+          }, 2000);
+        } else if (key == 'D2') {
+          let toast = Toast.show('疲労が溜まりすぎるとケガ(裂蹄 ど)をする', {
+            duration: Toast.durations.LONG,
+          });
+          setTimeout(function hideToast() {
+            Toast.hide(toast);
+          }, 2000);
+        } else if (key == 'D3') {
+          let toast = Toast.show('疲労が溜まりすぎるとケガ(屈腱炎 ど)をする', {
+            duration: Toast.durations.LONG,
+          });
+          setTimeout(function hideToast() {
+            Toast.hide(toast);
+          }, 2000);
+        } else if (key == 'D4') {
+          let toast = Toast.show('疲労が溜まりすぎるとケガ(骨折 ど)をする', {
+            duration: Toast.durations.LONG,
+          });
+          setTimeout(function hideToast() {
+            Toast.hide(toast);
+          }, 2000);
+        } else if (key == 'D5') {
+          let toast = Toast.show(' 疲労が溜まりすぎるとケガ(予後不良 ど)をする', {
+            duration: Toast.durations.LONG,
+          });
+          setTimeout(function hideToast() {
+            Toast.hide(toast);
+          }, 2000);
+        }
+        break;
       }
-      break;
-   }
-}
-}
-// Health ENd
+    }
+  }
 
-  // tired
   const handleButtonPress = (id) => {
     setActiveButton(id);
   };
@@ -473,6 +482,7 @@ for (const [key, value] of Object.entries(options)) {
     );
   }
 
+
   return (
     <View style={RTapScreensStyle.twoContainer}>
       <View style={RTapScreensStyle.oneTopContent}>
@@ -482,7 +492,7 @@ for (const [key, value] of Object.entries(options)) {
         </View>
         <View style={RTapScreensStyle.oneTopContentRight}>
           <View style={RTapScreensStyle.oneRioghtHeader}>
-            <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>馬名<Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>{(!!selected && selected.name) || data[0].name}</Text></Text>
+            <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>{(!!selected && selected.name) || data[0].name}</Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}><Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>{(!!selected && selected.gender) || data[0].gender}</Text>2</Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.growth) || data[0].growth}</Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.color) || data[0].color}</Text>
@@ -511,9 +521,9 @@ for (const [key, value] of Object.entries(options)) {
               <View style={RTapScreensStyle.oneRightTxt}>
                 <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労
                   <Text style={RTapScreensStyle.oneRioghtBodyTxtTired}>{(!!selected && tired) || tired}</Text></Text>
-                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: tiredState }]}>⬆</Text>
+                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: tiredState, color: tiredArrorColor }]}>{tiredArror}</Text>
 
-                <Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>
+                <Text style={[RTapScreensStyle.oneRioghtHeaderTxtGreen, { color: groundColor }]}>
                   {(!!selected && selected.ground) || data[0].ground}
                 </Text>
               </View>
@@ -578,6 +588,7 @@ for (const [key, value] of Object.entries(options)) {
           <View style={RTapScreensStyle.ButtonGroup}>
             <WorkingButton label={'飼葉'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(2))} />
             <WorkingButton label={'入廐'} colorNumber={2} styleId={1} onPress={(handlePress)} />
+
             <SaleButton label={'売却'} />
           </View>
         </View>
@@ -591,7 +602,10 @@ for (const [key, value] of Object.entries(options)) {
 
 const mapStateToProps = state => {
   return {
-    arrowState: state.arrow.arrowState
+    arrowState: state.arrow.arrowState,
+    poolLevel: state.pool.poolBuyData,
+    truckLevel: state.truck.truckBuyData,
+    roadLevel: state.road.roadBuyData,
   };
 };
 
