@@ -372,7 +372,6 @@ let sum = 0;
 for (const [key, value] of Object.entries(options)) {
    sum += value;
    if (randomNumber < sum) {
-    console.log(`Select Value ${key}`)
       if(key == 'D1'){
         let toast = Toast.show('疲労が溜まりすぎるとケガ(挫跖 ど)をする', {
           duration: Toast.durations.LONG,
@@ -452,7 +451,7 @@ for (const [key, value] of Object.entries(options)) {
                   style={RTapScreensStyle.conditions}
                   source={conditionFace}
                 />
-                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: happySate }]}>⬆</Text>
+                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: happySate,  color: colors }]}>{State}</Text>
               </View>
               <View style={RTapScreensStyle.oneRightTxt}>
                 <Text style={RTapScreensStyle.oneRioghtBodyTxt}>SP <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && speed) || speed}</Text></Text>
@@ -467,7 +466,7 @@ for (const [key, value] of Object.entries(options)) {
               <View style={RTapScreensStyle.oneRightTxt}>
                 <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労
                   <Text style={RTapScreensStyle.oneRioghtBodyTxtTired}>{(!!selected && tired) || tired}</Text></Text>
-                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: tiredState, color: colors }]}>{State}</Text>
+                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: tiredState }]}>⬆</Text>
 
                 <Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>
                   {(!!selected && selected.ground) || data[0].ground}

@@ -20,6 +20,10 @@ const GrazingGroup = ({ horseId, poolLevel, truckLevel, roadLevel }) => {
   // ROAD STATE
   const [roadDisplay, setRoadDisplay] = useState('flex');
   const [roadDisabled, setRoadDisabled] = useState(true);
+  // SPACEIAL
+  const [spaceialDisplay, setSpaceialDisplay] = useState('flex');
+  const [spaceialDisabled, setSpaceialDisabled] = useState(true);
+
 
   const goToOtherScreen = () => {
     navigation.replace('ReservationScreen');
@@ -76,7 +80,11 @@ const GrazingGroup = ({ horseId, poolLevel, truckLevel, roadLevel }) => {
                 <Text style={RTapScreensStyle.label}>スぺシャル</Text>
               </View>
               <ImageButton label={'スベシャル'} source={require('../../../assets/images/Pasture/icon9.png')} id={2} disabled={false} />
-              <DetailButton label={'育成する'} horseId={horseId} name={'スベシャル'} disabled={false} id={11} />
+              <Image
+                style={[RTapScreensStyle.LongiIcon, { display: spaceialDisplay }]}
+                source={require('../../../assets/images/Pasture/icon8.png')}
+              />
+              <DetailButton label={'育成する'} horseId={horseId} name={'スベシャル'} disabled={spaceialDisabled} id={11} />
             </View>
             <View>
               <View style={[RTapScreensStyle.absoluteViewT]}>

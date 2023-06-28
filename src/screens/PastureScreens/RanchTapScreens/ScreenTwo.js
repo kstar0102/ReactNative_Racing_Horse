@@ -335,7 +335,6 @@ const ScreenTwo = ({ twoData, arrowState }) => {
 
 // Health State
 const setPattern = (condition) => {
-  console.log(condition)
   let options;
   if(condition <= 10){
     return false;
@@ -497,7 +496,7 @@ for (const [key, value] of Object.entries(options)) {
                   style={RTapScreensStyle.conditions}
                   source={conditionFace}
                 />
-                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: happySate }]}>⬆</Text>
+                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: happySate, color: colors }]}>{State}</Text>
               </View>
               <View style={RTapScreensStyle.oneRightTxt}>
                 <Text style={RTapScreensStyle.oneRioghtBodyTxt}>SP <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && speed) || speed}</Text></Text>
@@ -512,7 +511,7 @@ for (const [key, value] of Object.entries(options)) {
               <View style={RTapScreensStyle.oneRightTxt}>
                 <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労
                   <Text style={RTapScreensStyle.oneRioghtBodyTxtTired}>{(!!selected && tired) || tired}</Text></Text>
-                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: tiredState, color: colors }]}>{State}</Text>
+                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: tiredState }]}>⬆</Text>
 
                 <Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>
                   {(!!selected && selected.ground) || data[0].ground}
