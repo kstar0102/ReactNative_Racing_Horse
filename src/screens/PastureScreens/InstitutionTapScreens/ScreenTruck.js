@@ -9,7 +9,6 @@ import ITapScreenStyles from './ITapScreenStyles';
 
 const ScreenTruck = ({ pasture_name, user_id, user_level, truck }) => {
   const dispatch = useDispatch();
-  
   // LV.0
   const [oneborderStyle, setOneBorderStyle] = useState(0);
   const [oneBtnStyle, setOneBtnStyle] = useState('none');

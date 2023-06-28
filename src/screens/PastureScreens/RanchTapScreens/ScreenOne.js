@@ -14,28 +14,22 @@ import { horseColor } from '../../../utils/globals';
 
 
 const ScreenOne = ({ oneData, arrowState }) => {
+  const [arrowStates, setArrowState] = useState(arrowState); 
   // ALL REPEAT
   const [happySate, setHappyState] = useState(0);
   const [tiredState, setTiredState] = useState(0);
-
   // スベシャル & 芝 
   const [speedState, setSpeedState] = useState(0);
-
   // スベシャル & ダート
   const [strengthState, setStrengthState] = useState(0);
-
   // スベシャル & 坂路
   const [momentState, setMomentState] = useState(0);
-
   // スベシャル & 併走
   const [staminaState, setStaminaState] = useState(0);
-
   // ウッドチップ
   const [contitionState, setContitionState] = useState(0);
-
   // プール
   const [healthState, setHealthState] = useState(0);
-
   // State
   const [State, setState] = useState('⬆');
   const [colors, setColors] = useState('red');
@@ -50,13 +44,19 @@ const ScreenOne = ({ oneData, arrowState }) => {
 
   useEffect(() => {
     setBanner(oneData[0]);
+    setPattern(tiredNumber);
   }, [oneData]);
   const data = oneData;
 
 
   useEffect(() => {
-    if (arrowState.what == 'スベシャル') {
+    setArrowState(arrowState);
+    
+  }, [arrowState]);
 
+  useEffect(()=> {
+    if (arrowStates.what == 'スベシャル') {
+      
       // ALL REPAET
       setHappyState(1);
       setTiredState(1);
@@ -75,7 +75,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
         setMomentState(0);
         setStaminaState(0);
       }, 3000);
-    } else if (arrowState.what == '芝') {
+    } else if (arrowStates.what == '芝') {
       setHappyState(1);
       setTiredState(1);
       setSpeedState(1);
@@ -84,7 +84,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
         setTiredState(0);
         setSpeedState(0);
       }, 3000);
-    } else if (arrowState.what == 'ダート') {
+    } else if (arrowStates.what == 'ダート') {
       setHappyState(1);
       setTiredState(1);
       setStrengthState(1);
@@ -93,7 +93,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
         setTiredState(0);
         setStrengthState(0);
       }, 3000);
-    } else if (arrowState.what == 'ウッドチップ') {
+    } else if (arrowStates.what == 'ウッドチップ') {
       setHappyState(1);
       setTiredState(1);
       setContitionState(1);
@@ -102,7 +102,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
         setTiredState(0);
         setContitionState(0);
       }, 3000);
-    } else if (arrowState.what == 'プール') {
+    } else if (arrowStates.what == 'プール') {
       setHappyState(1);
       setTiredState(1);
       setHealthState(1);
@@ -111,7 +111,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
         setTiredState(0);
         setHealthState(0);
       }, 3000);
-    } else if (arrowState.what == '併走') {
+    } else if (arrowStates.what == '併走') {
       setHappyState(1);
       setTiredState(1);
       setStaminaState(1);
@@ -120,7 +120,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
         setTiredState(0);
         setStaminaState(0);
       }, 3000);
-    } else if (arrowState.what == '坂路') {
+    } else if (arrowStates.what == '坂路') {
       setHappyState(1);
       setTiredState(1);
       setMomentState(1);
@@ -129,7 +129,37 @@ const ScreenOne = ({ oneData, arrowState }) => {
         setTiredState(0);
         setMomentState(0);
       }, 3000);
-    }
+    } else if (arrowStates.what == 'にんじん') {
+      setHappyState(1);
+      setTimeout(() => {
+        setHappyState(0);
+      }, 3000);
+    } else if (arrowStates.what == 'Sドリンク3') {
+      setHappyState(1);
+      setTimeout(() => {
+        setHappyState(0);
+      }, 3000);
+    } else if (arrowStates.what == 'プロテイン') {
+      setHappyState(1);
+      setTimeout(() => {
+        setHappyState(0);
+      }, 3000);
+    } else if (arrowStates.what == '角砂糖') {
+      setTiredState(1);
+      setTimeout(() => {
+        setTiredState(0);
+      }, 3000);
+    } else if (arrowStates.what == 'チョコ') {
+      setTiredState(1);
+      setTimeout(() => {
+        setTiredState(0);
+      }, 3000);
+    } else if (arrowStates.what == 'ケーキ') {
+      setTiredState(1);
+      setTimeout(() => {
+        setTiredState(0);
+      }, 3000);
+    } 
     if (banner.direction == 0) {
       setState('⬇');
       setColors('blue')
@@ -137,9 +167,11 @@ const ScreenOne = ({ oneData, arrowState }) => {
       setState('⬆');
       setColors('red')
     }
-  }, [arrowState])
+  },[arrowStates]);
+
   const handleSettingId = (value) => {
     setBanner(value);
+    setPattern(tiredNumber);
   }
 
   // SKILL FILLTER
@@ -227,10 +259,10 @@ const ScreenOne = ({ oneData, arrowState }) => {
       case (conditionFace >= -2 && conditionFace <= 2):
         result = require('../../../assets/images/condition/normel.png');
         break;
-      case (conditionFace >= -6 && conditionFace <= 6):
+      case (conditionFace >= -6 && conditionFace <= -3):
         result = require('../../../assets/images/condition/sad.png');
         break;
-      case (conditionFace >= -10 && conditionFace <= 7):
+      case (conditionFace >= -10 && conditionFace <= -7):
         result = require('../../../assets/images/condition/bad.png');
         break;
       default:
@@ -245,7 +277,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
     }
     let result = "";
     switch (true) {
-      case (tired >= 80 && tired <= 100):
+      case (tired >= 80 && tired <= 500):
         result = 'O'
         break;
       case (tired >= 60 && tired <= 80):
@@ -256,23 +288,9 @@ const ScreenOne = ({ oneData, arrowState }) => {
         break;
       case (tired >= 20 && tired <= 40):
         result = '△'
-        {
-          let toast = Toast.show('疲労が溜まりすぎるとケガ(骨折など)をする', {
-            duration: Toast.durations.LONG,
-          });
-          setTimeout(function hideToast() {
-            Toast.hide(toast);
-          }, 2000);
-        }
         break;
       case (tired >= 0 && tired <= 20):
         result = 'X'
-        let toast = Toast.show('疲労が溜まりすぎるとケガ(骨折など)をする', {
-          duration: Toast.durations.LONG,
-        });
-        setTimeout(function hideToast() {
-          Toast.hide(toast);
-        }, 2000);
         break;
       default:
         return;
@@ -289,6 +307,112 @@ const ScreenOne = ({ oneData, arrowState }) => {
   const distanceValue = distanceRange((banner.distance_max - (-banner.distance_min)) / 2);
   const conditionFace = conditionFaceRange((parseInt(banner.happy)));
   const tired = tiredRange((parseInt(banner.tired)));
+  const tiredNumber = (parseInt(banner.tired));
+
+// Health State
+const setPattern = (condition) => {
+  let options;
+  if(condition <= 10){
+    return false;
+  }
+  else if(condition == 11 || condition == 12){
+    options = {
+      none: 79,
+      D1: 10,
+      D2: 5,
+      D3: 3,
+      D4: 2,
+      D5: 1
+    };
+  }
+  else if(condition == 13 || condition == 14){
+    options = {
+      none: 64,
+      D1: 15,
+      D2: 10,
+      D3: 5,
+      D4: 4,
+      D5: 2
+    };
+  }
+  else if(condition == 15 || condition == 16){
+    options = {
+      none: 43,
+      D1: 20,
+      D2: 15,
+      D3: 10,
+      D4: 8,
+      D5: 4
+    };
+  }
+  else if(condition == 17 || condition == 18){
+    options = {
+      none: 22,
+      D1: 25,
+      D2: 20,
+      D3: 15,
+      D4: 10,
+      D5: 8
+    };
+  }
+  else if(condition == 19 || condition == 20){
+    options = {
+      none: 0,
+      D1: 30,
+      D2: 25,
+      D3: 20,
+      D4: 15,
+      D5: 10
+    };
+  }  
+const randomNumber = Math.floor(Math.random() * 100);
+
+// Iterate over the options until we reach the chosen value
+let sum = 0;
+for (const [key, value] of Object.entries(options)) {
+   sum += value;
+   if (randomNumber < sum) {
+      if(key == 'D1'){
+        let toast = Toast.show('疲労が溜まりすぎるとケガ(挫跖 ど)をする', {
+          duration: Toast.durations.LONG,
+        });
+        setTimeout(function hideToast() {
+          Toast.hide(toast);
+        }, 2000);
+      }else if(key == 'D2'){
+        let toast = Toast.show('疲労が溜まりすぎるとケガ(裂蹄 ど)をする', {
+          duration: Toast.durations.LONG,
+        });
+        setTimeout(function hideToast() {
+          Toast.hide(toast);
+        }, 2000);
+      }else if(key == 'D3'){
+        let toast = Toast.show('疲労が溜まりすぎるとケガ(屈腱炎 ど)をする', {
+          duration: Toast.durations.LONG,
+        });
+        setTimeout(function hideToast() {
+          Toast.hide(toast);
+        }, 2000);
+      }else if(key == 'D4'){
+        let toast = Toast.show('疲労が溜まりすぎるとケガ(骨折 ど)をする', {
+          duration: Toast.durations.LONG,
+        });
+        setTimeout(function hideToast() {
+          Toast.hide(toast);
+        }, 2000);
+      }else if(key == 'D5'){
+        let toast = Toast.show(' 疲労が溜まりすぎるとケガ(予後不良 ど)をする', {
+          duration: Toast.durations.LONG,
+        });
+        setTimeout(function hideToast() {
+          Toast.hide(toast);
+        }, 2000);
+      }
+      break;
+   }
+}
+}
+// Health ENd
 
   // tired
   const handleButtonPress = (id) => {
@@ -421,7 +545,10 @@ const ScreenOne = ({ oneData, arrowState }) => {
 
 const mapStateToProps = state => {
   return {
-    arrowState: state.arrow.arrowState
+    arrowState: state.arrow.arrowState,
+    poolLevel: state.pool.poolBuyData,
+    truckLevel: state.truck.truckBuyData,
+    roadLevel: state.road.roadBuyData,
   };
 };
 

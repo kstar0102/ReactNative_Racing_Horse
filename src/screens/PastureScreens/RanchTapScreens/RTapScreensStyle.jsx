@@ -32,7 +32,7 @@ const RTapScreensStyle = StyleSheet.create({
     marginTop: 186
   },
   grazingContainer:{
-    height: vh(45)
+    marginTop: 10
   },
   twoContainer:{
     flexGrow: 1,
@@ -126,9 +126,10 @@ const RTapScreensStyle = StyleSheet.create({
     color: colors.black
   },
   oneRioghtBodyTxtTired:{
-    fontSize: hp(1.5) + wp(2.5),
-    fontWeight: 600,
+    fontSize: hp(1.3) + wp(2.5),
     color: colors.black
+    // fontWeight: 600,
+    // color: colors.black
   },
   oneRioghtBodyTxtGroup:{
     flexDirection: 'column',
@@ -146,7 +147,7 @@ const RTapScreensStyle = StyleSheet.create({
   },
   HorseAvatar:{
     width: vw(4.5) + vh(3.5),
-    marginTop: 45
+    marginTop: 35
   },
   conditionsGroup:{
     flexDirection: 'row',
@@ -159,18 +160,17 @@ const RTapScreensStyle = StyleSheet.create({
   },
   oneRightTxtUp:{
     color: colors.red,
-    fontSize:25
+    fontSize:20
   
   },
   oneRightTxtDown:{
     color: colors.blue,
-    fontSize:25
+    fontSize:20
   },
   // Bottom
   BottomBackground:{
     width: vw(95),
     height: vh(50),
-    marginTop: 10,
     flexDirection: 'column',
     justifyContent: 'space-around'
   },
@@ -202,6 +202,7 @@ const RTapScreensStyle = StyleSheet.create({
     width: vw(25.5),
     height: vh(6.8),
     opacity: .9,
+    left: -3,
     position: 'absolute',
   },
   label:{
@@ -215,39 +216,39 @@ const RTapScreensStyle = StyleSheet.create({
   },
   absoluteView: {
     position: 'absolute',
-    left: 30,
+    left: 27,
     top: -10,
-    zIndex: 1000,
+    zIndex: 1,
   },
   absoluteViewB:{
     position: 'absolute',
-    left: 8,
+    left: 5,
     top: -10,
-    zIndex: 1000,
+    zIndex: 1,
   },
   absoluteViewC:{
     position: 'absolute',
     left: 12.5,
     top: -10,
-    zIndex: 1000,
+    zIndex: 1,
   },
   absoluteViewF:{
     position: 'absolute',
     top: -10,
-    left: 18,
-    zIndex: 1000,
+    left: 12,
+    zIndex: 1,
   },
   absoluteViewO:{
     position: 'absolute',
     top: -10,
-    left: 45,
-    zIndex: 1000,
+    left: 40,
+    zIndex: 1,
   },
   absoluteViewT:{
     position: 'absolute',
     top: -10,
-    left: 37,
-    zIndex: 1000,
+    left: 34,
+    zIndex: 1,
   },
   ButtonGroup:{
     flexDirection: 'row',

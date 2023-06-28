@@ -1,50 +1,204 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Image, Text, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-root-toast';
+// Redux
+import { connect } from 'react-redux';
+// Custom import
 import RTapScreensStyle from './RTapScreensStyle';
 import DropDownR from '../../../components/Buttons/DropDwonR';
 import GrazingGroup from './GrazingGroup';
 import FodderGroup from './FodderGroup';
+import AvatarTapScreen from './AvataTapScreen';
 import WorkingButton from '../../../components/Buttons/WorkingButtons/WorkingButton';
 import { SaleButton } from '../../../components/Buttons';
 import { horseColor } from '../../../utils/globals';
-import AvatarTapScreen from './AvataTapScreen';
 
-const ScreenTwo = ({ twoData }) => {
-  if(twoData == ''){
-    alert('YOUR HORSE NOT FOUND RETURN 0 ~ 1')
+
+const ScreenTwo = ({ twoData, arrowState }) => {
+  const [arrowStates, setArrowState] = useState(arrowState);
+  // ALL REPEAT
+  const [happySate, setHappyState] = useState(0);
+  const [tiredState, setTiredState] = useState(0);
+  // スベシャル & 芝 
+  const [speedState, setSpeedState] = useState(0);
+  // スベシャル & ダート
+  const [strengthState, setStrengthState] = useState(0);
+  // スベシャル & 坂路
+  const [momentState, setMomentState] = useState(0);
+  // スベシャル & 併走
+  const [staminaState, setStaminaState] = useState(0);
+  // ウッドチップ
+  const [contitionState, setContitionState] = useState(0);
+  // プール
+  const [healthState, setHealthState] = useState(0);
+  // State
+  const [State, setState] = useState('⬆');
+  const [colors, setColors] = useState('red');
+
+  if (twoData == '') {
+    alert('YOUR HORSE NOT FOUND RETURN')
     return false
-  }
-  const navigation = useNavigation();
-  const data = twoData;
-  if(!twoData){
-    Alert.alert(
-      "IS NOT FOUND 2~3 HORSE",
-      [
-        {
-          text: "いいえ",
-          style: "cancel"
-        },
-        { 
-          text: "はい",
-          onPress:() => navigation.replace('UpbringingScreen') 
-        }
-      ],
-      { cancelable: false }
-    );
-    return false;
   }
   const [selected, setSelected] = useState(undefined);
   const [activeButton, setActiveButton] = useState(0);
   const [banner, setBanner] = useState(twoData[0]);
 
+  useEffect(() => {
+    setBanner(twoData[0]);
+  }, [twoData]);
+  const data = twoData;
+
+
+  useEffect(() => {
+    setArrowState(arrowState);
+  }, [arrowState]);
+
+  useEffect(() => {
+    if (arrowStates.what == 'スベシャル') {
+
+      // ALL REPAET
+      setHappyState(1);
+      setTiredState(1);
+      // ===========
+      setSpeedState(1);
+      setStrengthState(1);
+      setMomentState(1);
+      setStaminaState(1);
+      // ===========
+
+      setTimeout(() => {
+        setHappyState(0);
+        setTiredState(0);
+        setSpeedState(0);
+        setStrengthState(0);
+        setMomentState(0);
+        setStaminaState(0);
+      }, 3000);
+    } else if (arrowStates.what == '芝') {
+      setHappyState(1);
+      setTiredState(1);
+      setSpeedState(1);
+      setTimeout(() => {
+        setHappyState(0);
+        setTiredState(0);
+        setSpeedState(0);
+      }, 3000);
+    } else if (arrowStates.what == 'ダート') {
+      setHappyState(1);
+      setTiredState(1);
+      setStrengthState(1);
+      setTimeout(() => {
+        setHappyState(0);
+        setTiredState(0);
+        setStrengthState(0);
+      }, 3000);
+    } else if (arrowStates.what == 'ウッドチップ') {
+      setHappyState(1);
+      setTiredState(1);
+      setContitionState(1);
+      setTimeout(() => {
+        setHappyState(0);
+        setTiredState(0);
+        setContitionState(0);
+      }, 3000);
+    } else if (arrowStates.what == 'プール') {
+      setHappyState(1);
+      setTiredState(1);
+      setHealthState(1);
+      setTimeout(() => {
+        setHappyState(0);
+        setTiredState(0);
+        setHealthState(0);
+      }, 3000);
+    } else if (arrowStates.what == '併走') {
+      setHappyState(1);
+      setTiredState(1);
+      setStaminaState(1);
+      setTimeout(() => {
+        setHappyState(0);
+        setTiredState(0);
+        setStaminaState(0);
+      }, 3000);
+    } else if (arrowStates.what == '坂路') {
+      setHappyState(1);
+      setTiredState(1);
+      setMomentState(1);
+      setTimeout(() => {
+        setHappyState(0);
+        setTiredState(0);
+        setMomentState(0);
+      }, 3000);
+    } else if (arrowStates.what == 'にんじん') {
+      setHappyState(1);
+      setTiredState(1);
+      setMomentState(1);
+      setTimeout(() => {
+        setHappyState(0);
+        setTiredState(0);
+        setMomentState(0);
+      }, 3000);
+    } else if (arrowStates.what == 'Sドリンク3') {
+      setHappyState(1);
+      setTiredState(1);
+      setMomentState(1);
+      setTimeout(() => {
+        setHappyState(0);
+        setTiredState(0);
+        setMomentState(0);
+      }, 3000);
+    } else if (arrowStates.what == 'プロテイン') {
+      setHappyState(1);
+      setTiredState(1);
+      setMomentState(1);
+      setTimeout(() => {
+        setHappyState(0);
+        setTiredState(0);
+        setMomentState(0);
+      }, 3000);
+    } else if (arrowStates.what == '角砂糖') {
+      setHappyState(1);
+      setTiredState(1);
+      setMomentState(1);
+      setTimeout(() => {
+        setHappyState(0);
+        setTiredState(0);
+        setMomentState(0);
+      }, 3000);
+    } else if (arrowStates.what == 'チョコ') {
+      setHappyState(1);
+      setTiredState(1);
+      setMomentState(1);
+      setTimeout(() => {
+        setHappyState(0);
+        setTiredState(0);
+        setMomentState(0);
+      }, 3000);
+    } else if (arrowStates.what == 'ケーキ') {
+      setHappyState(1);
+      setTiredState(1);
+      setMomentState(1);
+      setTimeout(() => {
+        setHappyState(0);
+        setTiredState(0);
+        setMomentState(0);
+      }, 3000);
+    }
+    if (banner.direction == 0) {
+      setState('⬇');
+      setColors('blue')
+    } else if (banner.direction == 1) {
+      setState('⬆');
+      setColors('red')
+    }
+  }, [arrowStates]);
+
   const handleSettingId = (value) => {
     setBanner(value);
   }
-  
+
   // SKILL FILLTER
   const skillRange = (skill) => {
-    if(typeof(skill) !== 'number'){
+    if (typeof (skill) !== 'number') {
       return;
     }
     let result = "";
@@ -86,7 +240,7 @@ const ScreenTwo = ({ twoData }) => {
   }
 
   const distanceRange = (distance) => {
-    if(typeof(distance) !== 'number'){
+    if (typeof (distance) !== 'number') {
       return;
     }
     let result = "";
@@ -113,7 +267,7 @@ const ScreenTwo = ({ twoData }) => {
   }
 
   const conditionFaceRange = (conditionFace) => {
-    if(typeof(conditionFace) !== 'number'){
+    if (typeof (conditionFace) !== 'number') {
       return;
     }
     let result = "";
@@ -127,10 +281,10 @@ const ScreenTwo = ({ twoData }) => {
       case (conditionFace >= -2 && conditionFace <= 2):
         result = require('../../../assets/images/condition/normel.png');
         break;
-      case (conditionFace >= -6 && conditionFace <=  6):
+      case (conditionFace >= -6 && conditionFace <= -3):
         result = require('../../../assets/images/condition/sad.png');
         break;
-      case (conditionFace >= -10  && conditionFace <= 7):
+      case (conditionFace >= -10 && conditionFace <= -7):
         result = require('../../../assets/images/condition/bad.png');
         break;
       default:
@@ -138,48 +292,90 @@ const ScreenTwo = ({ twoData }) => {
     }
     return result;
   }
-  
-const speed =  skillRange(banner.speed_b-(-banner.speed_w));
-const health =  skillRange(banner.health_b-(-banner.health_w));
-const moment =  skillRange(banner.moment_b-(-banner.moment_w));
-const stamina =  skillRange(banner.stamina_b-(-banner.stamina_w));
-const strength =  skillRange(banner.strength_b-(-banner.strength_w));
-const condition =  skillRange(banner.condition_b-(-banner.condition_w));
-const distanceValue =  distanceRange((banner.distance_max-(-banner.distance_min)) / 2);
-const conditionFace =  conditionFaceRange((parseInt(banner.happy)));
 
+  const tiredRange = (tired) => {
+    if (typeof (tired) !== 'number') {
+      return;
+    }
+    let result = "";
+    switch (true) {
+      case (tired >= 80 && tired <= 100):
+        result = 'O'
+        break;
+      case (tired >= 60 && tired <= 80):
+        result = '◎'
+        break;
+      case (tired >= 40 && tired <= 60):
+        result = '▲'
+        break;
+      case (tired >= 20 && tired <= 40):
+        result = '△'
+        {
+          let toast = Toast.show('疲労が溜まりすぎるとケガ(骨折など)をする', {
+            duration: Toast.durations.LONG,
+          });
+          setTimeout(function hideToast() {
+            Toast.hide(toast);
+          }, 2000);
+        }
+        break;
+      case (tired >= 0 && tired <= 20):
+        result = 'X'
+        let toast = Toast.show('疲労が溜まりすぎるとケガ(骨折など)をする', {
+          duration: Toast.durations.LONG,
+        });
+        setTimeout(function hideToast() {
+          Toast.hide(toast);
+        }, 2000);
+        break;
+      default:
+        return;
+    }
+    return result;
+  }
 
+  const speed = skillRange(banner.speed_b - (-banner.speed_w));
+  const health = skillRange(banner.health_b - (-banner.health_w));
+  const moment = skillRange(banner.moment_b - (-banner.moment_w));
+  const stamina = skillRange(banner.stamina_b - (-banner.stamina_w));
+  const strength = skillRange(banner.strength_b - (-banner.strength_w));
+  const condition = skillRange(banner.condition_b - (-banner.condition_w));
+  const distanceValue = distanceRange((banner.distance_max - (-banner.distance_min)) / 2);
+  const conditionFace = conditionFaceRange((parseInt(banner.happy)));
+  const tired = tiredRange((parseInt(banner.tired)));
+
+  // tired
   const handleButtonPress = (id) => {
     setActiveButton(id);
   };
 
   const renderScreenBelowButtons = () => {
-    switch(activeButton) {
+    switch (activeButton) {
       case 1:
-        return <AvatarTapScreen horseId={banner.id}/>;
+        return <AvatarTapScreen />;
       case 2:
-      return <FodderGroup horseId={banner.id}/>;
+        return <FodderGroup />;
       default:
-        return <GrazingGroup horseId={banner.id}/>;
+        return <GrazingGroup />;
     }
   }
-  
-const handlePress = () => {
-  Alert.alert(
-    "入厩",
-    "入厩させますか?",
-    [
-      {
-        text: "いいえ",
-        style: "cancel"
-      },
-      { 
-        text: "はい", 
-        onPress: () => handleButtonPress(1)
-      }
-    ],
-    { cancelable: false },
-  );
+
+  const handlePress = () => {
+    Alert.alert(
+      "入厩",
+      "入厩させますか?",
+      [
+        {
+          text: "いいえ",
+          style: "cancel"
+        },
+        {
+          text: "はい",
+          onPress: () => handleButtonPress(1)
+        }
+      ],
+      { cancelable: false },
+    );
   }
 
   return (
@@ -188,7 +384,6 @@ const handlePress = () => {
         <View style={RTapScreensStyle.oneTopContentLeft}>
           <Text style={RTapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
           <DropDownR name={data[0].name} data={data} onSelect={setSelected} setId={handleSettingId} />
-
         </View>
         <View style={RTapScreensStyle.oneTopContentRight}>
           <View style={RTapScreensStyle.oneRioghtHeader}>
@@ -206,59 +401,88 @@ const handlePress = () => {
                   style={RTapScreensStyle.conditions}
                   source={conditionFace}
                 />
-                {/* {(!!selected && selected.value) || 1} */}
+                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: happySate }]}>⬆</Text>
               </View>
-              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>SP <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && speed) || speed}</Text></Text>
-              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>ST <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && strength) || strength}</Text></Text>
+              <View style={RTapScreensStyle.oneRightTxt}>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>SP <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && speed) || speed}</Text></Text>
+                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: speedState }]}>⬆</Text>
+              </View>
+              <View style={RTapScreensStyle.oneRightTxt}>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>ST <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && strength) || strength}</Text></Text>
+                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: strengthState }]}>⬆</Text>
+              </View>
             </View>
             <View>
-              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.fatigue) || 'O'} </Text> <Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>{(!!selected && selected.ground) || data[0].ground}</Text></Text>
-              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>瞬発 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && moment) || moment}</Text></Text>
-              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>根性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && stamina) || stamina}</Text></Text>
+              <View style={RTapScreensStyle.oneRightTxt}>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労
+                  <Text style={RTapScreensStyle.oneRioghtBodyTxtTired}>{(!!selected && tired) || tired}</Text></Text>
+                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: tiredState, color: colors }]}>{State}</Text>
+
+                <Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>
+                  {(!!selected && selected.ground) || data[0].ground}
+                </Text>
+              </View>
+
+              <View style={RTapScreensStyle.oneRightTxt}>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>瞬発 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && moment) || moment}</Text></Text>
+                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: momentState }]}>⬆</Text>
+              </View>
+
+              <View style={RTapScreensStyle.oneRightTxt}>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>根性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && stamina) || stamina}</Text></Text>
+                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: staminaState }]}>⬆</Text>
+              </View>
             </View>
+
             <View style={RTapScreensStyle.oneRioghtBodyTxtGroup}>
               <Text style={RTapScreensStyle.oneRioghtBodyTxtA}>{(!!selected && distanceValue) || distanceValue}距離  <Text style={RTapScreensStyle.oneRioghtBodyTxtValueA}> {(!!selected && selected.quality_leg) || data[0].quality_leg}</Text></Text>
-              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>気性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && condition) || condition}</Text></Text>
-              <Text style={RTapScreensStyle.oneRioghtBodyTxt}>健康 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && health) || health}</Text></Text>
+              <View style={RTapScreensStyle.oneRightTxt}>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>気性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && condition) || condition}</Text></Text>
+                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: contitionState }]}>⬆</Text>
+              </View>
+              <View style={RTapScreensStyle.oneRightTxt}>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>健康 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && health) || health}</Text></Text>
+                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: healthState }]}>⬆</Text>
+              </View>
             </View>
             {(!!selected &&
-            <>
-            {horseColor.map((colorName, index) => {
-                if (colorName[selected.color]) {
+              <>
+                {horseColor.map((colorName, index) => {
+                  if (colorName[selected.color]) {
                     return (
-                        <Image
-                            key={`${index}`}
-                            style={RTapScreensStyle.HorseAvatar}
-                            source={colorName[selected.color]}
-                        />
+                      <Image
+                        key={`${index}`}
+                        style={RTapScreensStyle.HorseAvatar}
+                        source={colorName[selected.color]}
+                      />
                     );
-                } else {
+                  } else {
                     return null;
-                }
-              })}
-            </>
+                  }
+                })}
+              </>
             ) ||
-            <>
-            {horseColor.map((colorName, index) => {
-                if (colorName[data[0].color]) {
+              <>
+                {horseColor.map((colorName, index) => {
+                  if (colorName[data[0].color]) {
                     return (
-                        <Image
-                            key={`${index}`}
-                            style={RTapScreensStyle.HorseAvatar}
-                            source={colorName[data[0].color]}
-                        />
+                      <Image
+                        key={`${index}`}
+                        style={RTapScreensStyle.HorseAvatar}
+                        source={colorName[data[0].color]}
+                      />
                     );
-                } else {
+                  } else {
                     return null;
-                }
-              })}
-            </>
+                  }
+                })}
+              </>
             }
           </View>
 
           <View style={RTapScreensStyle.ButtonGroup}>
             <WorkingButton label={'飼葉'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(2))} />
-            <WorkingButton label={'入廐'} colorNumber={2} styleId={1} onPress={(handlePress)}/>
+            <WorkingButton label={'入廐'} colorNumber={2} styleId={1} onPress={(handlePress)} />
             <SaleButton label={'売却'} />
           </View>
         </View>
@@ -269,4 +493,13 @@ const handlePress = () => {
     </View>
   )
 }
-export default ScreenTwo;
+
+const mapStateToProps = state => {
+  return {
+    arrowState: state.arrow.arrowState
+  };
+};
+
+
+
+export default connect(mapStateToProps)(ScreenTwo);

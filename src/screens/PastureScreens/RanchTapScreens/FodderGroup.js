@@ -27,10 +27,6 @@ const FodderGroup = ({horseId}) => {
                   </View>
                   <ImageButton label={'Sドリンク3'} source={require('../../../assets/images/Fodder/source.png')} id={0}/>
                   <DetailButton label={'調子回復'} disabled={false} id={2}  name={'Sドリンク3'} horseId={horseId}/>
-                  {/* <Image 
-                    style={RTapScreensStyle.LongiIcon}
-                    source={require('../../../assets/images/Pasture/icon8.png')}
-                  /> */}
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteViewC]}>
