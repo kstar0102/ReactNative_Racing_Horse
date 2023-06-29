@@ -337,6 +337,8 @@ const ScreenOne = ({ oneData, arrowState }) => {
 
   // Health State
   const setPattern = (condition) => {
+     // Disable Injery
+     return;
     let options;
     if (condition <= 10) {
       return false;

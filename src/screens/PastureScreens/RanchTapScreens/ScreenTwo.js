@@ -8,7 +8,7 @@ import RTapScreensStyle from './RTapScreensStyle';
 import DropDownR from '../../../components/Buttons/DropDwonR';
 import GrazingGroup from './GrazingGroup';
 import FodderGroup from './FodderGroup';
-import AvatarTapScreen from './AvataTapScreen';3
+import AvatarTapScreen from './AvataTapScreen';
 import WorkingButton from '../../../components/Buttons/WorkingButtons/WorkingButton';
 import { SaleButton } from '../../../components/Buttons';
 import { horseColor } from '../../../utils/globals';
@@ -52,9 +52,11 @@ const ScreenTwo = ({ twoData, arrowState }) => {
     setBanner(twoData[0]);
     setPattern(tiredNumber);
     if(twoData[0].ground == 'ダ'){
+      setGroundColor('#707172');
+    }else if(twoData[0].ground == '芝'){
       setGroundColor('#1BFF00');
     }else if(twoData[0].ground == '万'){
-      setGroundColor('#707172');
+      setGroundColor('red');
     }
   }, [twoData]);
   const data = twoData;
@@ -192,9 +194,11 @@ const ScreenTwo = ({ twoData, arrowState }) => {
       setPattern(tiredNumber);
     }
     if(value.ground == 'ダ'){
+      setGroundColor('#707172');
+    }else if(value.ground == '芝'){
       setGroundColor('#1BFF00');
     }else if(value.ground == '万'){
-      setGroundColor('#707172');
+      setGroundColor('red');
     }
   }
 
@@ -347,6 +351,8 @@ const ScreenTwo = ({ twoData, arrowState }) => {
 
   // Health State
   const setPattern = (condition) => {
+    // Disable Injery
+    return;
     let options;
     if (condition <= 10) {
       return false;
@@ -458,9 +464,9 @@ const ScreenTwo = ({ twoData, arrowState }) => {
       case 1:
         return <AvatarTapScreen />;
       case 2:
-        return <FodderGroup />;
+        return <FodderGroup horseId={banner.id} />;
       default:
-        return <GrazingGroup />;
+        return <GrazingGroup horseId={banner.id}/>;
     }
   }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, ImageBackground, Image, Text, ScrollView } from 'react-native';
 // REDUX
 import { connect } from 'react-redux';
@@ -25,12 +25,32 @@ const ReservationScreen = ({ navigation, saveData }) => {
   const [fodder, setFodder] = useState('');
   const [allData, setAllData] = useState([]);
   const [deletes, setDeletes] = useState('');
+  const [groundColor, setGroundColor] = useState('#000');
   // useEffect(()=>{
   // },[allData])
   const data = saveData;
 
+  useEffect(()=>{
+    if(saveData != ''){
+      if(saveData[0].ground === 'ダ'){
+        setGroundColor('#707172');
+      }else if(saveData[0].ground === '芝'){
+        setGroundColor('#1BFF00');
+      }else if(saveData[0].ground === '万'){
+        setGroundColor('red');
+      }
+    }
+  },[saveData])
+
   const handleSettingId = (value) => {
     setBanner(value);
+    if(value.ground == 'ダ'){
+      setGroundColor('#707172');
+    }else if(value.ground == '芝'){
+      setGroundColor('#1BFF00');
+    }else if(value.ground == '万'){
+      setGroundColor('red');
+    }
   }
 
   const handleGrazingId = (value) => {
@@ -230,7 +250,7 @@ const ReservationScreen = ({ navigation, saveData }) => {
                     <Text style={RTapScreensStyle.oneRioghtBodyTxt}>ST <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && strength) || strength}</Text></Text>
                   </View>
                   <View>
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>  疲労 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.fatigue) || 'O'} </Text> <Text style={RTapScreensStyle.oneRioghtHeaderTxtGreen}>{(!!selected && selected.ground) || data[0].ground}</Text></Text>
+                    <Text style={RTapScreensStyle.oneRioghtBodyTxt}>  疲労 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && selected.fatigue) || 'O'} </Text> <Text style={[RTapScreensStyle.oneRioghtHeaderTxtGreen, {color: groundColor}]}>{(!!selected && selected.ground) || data[0].ground}</Text></Text>
                     <Text style={RTapScreensStyle.oneRioghtBodyTxt}>  瞬発 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && moment) || moment}</Text></Text>
                     <Text style={RTapScreensStyle.oneRioghtBodyTxt}>  根性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && stamina) || stamina}</Text></Text>
                   </View>
