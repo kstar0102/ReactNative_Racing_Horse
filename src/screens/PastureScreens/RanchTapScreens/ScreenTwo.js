@@ -8,7 +8,7 @@ import RTapScreensStyle from './RTapScreensStyle';
 import DropDownR from '../../../components/Buttons/DropDwonR';
 import GrazingGroup from './GrazingGroup';
 import FodderGroup from './FodderGroup';
-import AvatarTapScreen from './AvataTapScreen';
+import AvatarTapScreen from './AvataTapScreen';3
 import WorkingButton from '../../../components/Buttons/WorkingButtons/WorkingButton';
 import { SaleButton } from '../../../components/Buttons';
 import { horseColor } from '../../../utils/globals';
@@ -144,7 +144,7 @@ const ScreenTwo = ({ twoData, arrowState }) => {
       setTimeout(() => {
         setHappyState(0);
       }, 2000);
-    } else if (arrowStates.what == 'Sドリンク3') {
+    } else if (arrowStates.what == 'Sドリンク') {
       setHappyState(1);
       setTimeout(() => {
         setHappyState(0);

@@ -303,7 +303,7 @@ const DetailButton = ({ label, onPress, disabled, id, name, horseId, user_id }) 
 						<ModalButton label={'一杯'} count={'5pt'} onPress={() => handleSubmit(5)} />
 					</View>
 				}
-				contentStyle={{ backgroundColor: 'rgba(0,0,0,0)', bottom: 80 }}
+				contentStyle={{ backgroundColor: 'rgba(0,0,0,0)', bottom: 90 }}
 				//(Must) This is the view displayed in the tooltip
 				placement="bottom"
 				//(Must) top, bottom, left, right, auto.

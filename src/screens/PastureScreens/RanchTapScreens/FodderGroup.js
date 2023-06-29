@@ -23,10 +23,10 @@ const FodderGroup = ({horseId}) => {
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteViewC]}>
-                      <Text style={RTapScreensStyle.label}>Sドリンク3</Text>
+                      <Text style={RTapScreensStyle.label}>Sドリンク</Text>
                   </View>
-                  <ImageButton label={'Sドリンク3'} source={require('../../../assets/images/Fodder/source.png')} id={0}/>
-                  <DetailButton label={'調子回復'} disabled={false} id={2}  name={'Sドリンク3'} horseId={horseId}/>
+                  <ImageButton label={'Sドリンク'} source={require('../../../assets/images/Fodder/source.png')} id={0}/>
+                  <DetailButton label={'調子回復'} disabled={false} id={2}  name={'Sドリンク'} horseId={horseId}/>
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteViewC]}>

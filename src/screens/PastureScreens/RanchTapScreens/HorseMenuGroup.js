@@ -6,14 +6,14 @@ import { connect } from 'react-redux';
 // Custom import
 import RTapScreensStyle from './RTapScreensStyle';
 import DropDownR from '../../../components/Buttons/DropDwonR';
-import GrazingGroup from './GrazingGroup';
-import FodderGroup from './FodderGroup';
-import WorkingButton from '../../../components/Buttons/WorkingButtons/WorkingButton';
-import { SaleButton } from '../../../components/Buttons';
+// import GrazingGroup from './GrazingGroup';
+// import FodderGroup from './FodderGroup';
+// import WorkingButton from '../../../components/Buttons/WorkingButtons/WorkingButton';
+// import { SaleButton } from '../../../components/Buttons';
 import { horseColor } from '../../../utils/globals';
 
 
-const ScreenOne = ({ oneData, arrowState }) => {
+const HorseMenuGroup = ({ oneData, arrowState }) => {
   const [arrowStates, setArrowState] = useState(arrowState);
   // ALL REPEAT
   const [happySate, setHappyState] = useState(0);
@@ -145,7 +145,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
       setTimeout(() => {
         setHappyState(0);
       }, 2000);
-    } else if (arrowStates.what == 'Sドリンク') {
+    } else if (arrowStates.what == 'Sドリンク3') {
       setHappyState(1);
       setTimeout(() => {
         setHappyState(0);
@@ -439,18 +439,18 @@ const ScreenOne = ({ oneData, arrowState }) => {
     }
   }
   // tired
-  const handleButtonPress = (id) => {
-    setActiveButton(id);
-  };
+//   const handleButtonPress = (id) => {
+//     setActiveButton(id);
+//   };
 
-  const renderScreenBelowButtons = () => {
-    switch (activeButton) {
-      case 1:
-        return <FodderGroup horseId={banner.id} />;
-      default:
-        return <GrazingGroup horseId={banner.id} />;
-    }
-  }
+//   const renderScreenBelowButtons = () => {
+//     switch (activeButton) {
+//       case 1:
+//         return <FodderGroup horseId={banner.id} />;
+//       default:
+//         return <GrazingGroup horseId={banner.id} />;
+//     }
+//   }
 
   return (
     <View style={RTapScreensStyle.twoContainer}>
@@ -553,16 +553,11 @@ const ScreenOne = ({ oneData, arrowState }) => {
               </>
             }
           </View>
-
-          <View style={RTapScreensStyle.ButtonGroup}>
-            <WorkingButton label={'飼葉'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(1))} />
-            <SaleButton label={'売却'} />
-          </View>
         </View>
       </View>
-      <View style={RTapScreensStyle.oneBottomContent}>
+      {/* <View style={RTapScreensStyle.oneBottomContent}>
         {renderScreenBelowButtons()}
-      </View>
+      </View> */}
     </View>
   )
 }
@@ -578,4 +573,4 @@ const mapStateToProps = state => {
 
 
 
-export default connect(mapStateToProps)(ScreenOne);
+export default connect(mapStateToProps)(HorseMenuGroup);

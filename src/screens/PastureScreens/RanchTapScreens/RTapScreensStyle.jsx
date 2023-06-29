@@ -32,7 +32,7 @@ const RTapScreensStyle = StyleSheet.create({
     marginTop: 186
   },
   grazingContainer:{
-    marginTop: 10
+    marginTop: 5
   },
   twoContainer:{
     flexGrow: 1,
@@ -146,7 +146,7 @@ const RTapScreensStyle = StyleSheet.create({
   },
   HorseAvatar:{
     width: vw(4.5) + vh(3.5),
-    marginTop: 35
+    marginTop: 32
   },
   conditionsGroup:{
     flexDirection: 'row',
@@ -169,7 +169,7 @@ const RTapScreensStyle = StyleSheet.create({
   // Bottom
   BottomBackground:{
     width: vw(95),
-    height: vh(50),
+    height: vh(45),
     flexDirection: 'column',
     justifyContent: 'space-around'
   },
@@ -198,8 +198,8 @@ const RTapScreensStyle = StyleSheet.create({
     marginLeft: vw(30),
   },
   LongiIcon:{
-    width: vw(25.5),
-    height: vh(6.8),
+    width: vw(26),
+    height: vh(6.7),
     opacity: .9,
     left: -3,
     position: 'absolute',
