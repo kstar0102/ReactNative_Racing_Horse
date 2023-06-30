@@ -36,17 +36,17 @@ const Institution = ({ navigation, level }) => {
                 <View style={Screenstyles.footerTap}>
                     <View>
                         <View>
-                            <ReturnButton label="牧 場" color={1} onPress={() => navigation.navigate('StallScreen')} />
+                            <ReturnButton label="厩 舎" color={1} onPress={() => navigation.navigate('StallScreen')} />
                         </View>
                         <View style={Screenstyles.UPRButton}>
-                            <ReturnButton label="育 成" color={1} />
+                            <ReturnButton label="施 設" color={1} />
                         </View>
                     </View>
                     {/* SCREEN SHOW */}
                     <View style={StableStyles.institutionContainer}>
                         <View style={StableStyles.upperContent}>
                             <View style={StableStyles.upperLeft}>
-                                <Text style={StableStyles.upperLeftTxt}>所有馬一覧</Text>
+                                <Text style={StableStyles.upperLeftTxt}>廠告 一覧</Text>
                                 <DropDwonI name={data[0].name} data={data} onSelect={setSelected} setId={handleSettingId} />
                             </View>
                             <View style={StableStyles.upperRight}>
@@ -55,14 +55,14 @@ const Institution = ({ navigation, level }) => {
                                     <Text style={StableStyles.cardHeaderTxtLv}>厩舎Lv.{level}</Text>
                                 </View>
                                 <View style={StableStyles.cardBody}>
-                                    <View style={StableStyles.cardBodyRow}>
+                                    <View style={StableStyles.cardRow}>
                                         <Text style={StableStyles.cardBodyTxt}>厩舎Lv.1</Text>
                                         <Text style={StableStyles.cardBodyTxt}>ロンギ場 Lv.1</Text>
                                         <Text style={StableStyles.cardBodyTxt}>トラック-</Text>
                                     </View>
-                                    <View style={StableStyles.cardBodyRow}>
+                                    <View style={StableStyles.cardRow}>
                                         <Text style={StableStyles.cardBodyTxt}>坂路-</Text>
-                                        <Text style={StableStyles.cardBodyTxt}>ブール-</Text>
+                                        <Text style={StableStyles.cardBodyTxt}>ブールー</Text>
                                         <Text style={StableStyles.cardBodyTxt}>?????</Text>
                                     </View>
                                 </View>

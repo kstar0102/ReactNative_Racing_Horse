@@ -1,7 +1,7 @@
 // Navigation
 import { createStackNavigator } from "@react-navigation/stack";
 
-import LoginScreen from "../screens/authScreen/LoginScreen";
+import LoginScreen from "../screens/authScreen/loginScreen";
 import AppStack from "./AppStack";
 // Screen
 

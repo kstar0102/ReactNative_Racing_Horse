@@ -237,7 +237,7 @@ const RTapScreensStyle = StyleSheet.create({
   },
   absoluteViewC:{
     position: 'absolute',
-    left: 12.5,
+    left: 18,
     top: -10,
     zIndex: 1,
   },
@@ -262,6 +262,12 @@ const RTapScreensStyle = StyleSheet.create({
   ButtonGroup:{
     flexDirection: 'row',
     justifyContent: 'space-around'
+  },
+  ButtonJokeyGroup:{
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    columnGap: 30,
+    marginRight: 45
   },
   ButtonGroupOne:{
     marginTop: 20

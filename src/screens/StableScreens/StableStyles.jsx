@@ -22,12 +22,16 @@ const StableStyles = StyleSheet.create({
   },
   upperContent:{
     flexDirection: 'row',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
   },
   upperLeft:{
     flexDirection: 'column',
     justifyContent: 'space-around',
     width: '35%',
+  },
+  upperLeftImg:{
+      width: 100,
+      height: 100
   },
   upperLeftTxt:{
     color: colors.white,
@@ -48,6 +52,12 @@ const StableStyles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 5
   },
+  cardJokeyHeader:{
+    backgroundColor: colors.cardHeader,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 5
+  },
   cardHeaderTxt:{
     fontWeight: 600
   },
@@ -61,12 +71,29 @@ const StableStyles = StyleSheet.create({
   cardBodyRow:{
     flexDirection: 'row',
     justifyContent: 'space-around',
+  },
+  cardRow:{
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     padding: 5
+  },
+  cardAlilityRow:{
+    flexDirection: 'row',
+    padding: 2
+  },
+    upperAlilityImg:{
+    marginLeft: 5
   },
   cardBodyTxt:{
     fontSize: 13,
     fontWeight: 600
   },
+  cardBodyGroundTxt:{
+    color: colors.HBrown
+  },
+  cardTxtRed:{
+    color: colors.red
+  } ,
   // InstitutionContainer End
   stallGroup:{
     padding: 10

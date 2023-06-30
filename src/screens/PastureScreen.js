@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, ImageBackground} from 'react-native';
 // Redux
 import { connect,useDispatch } from 'react-redux';
@@ -6,24 +6,27 @@ import { institutionAction } from '../store/actions/institution/institutionActio
 import { raceAction } from '../store/actions/racepaln/getApi/racePlanAction';
 import { signAction } from '../store/actions/horse/signAction';
 // Custom Import
-import HeaderScreen from './LayoutScreen/HeaderScreen';
+import HeaderScreen, { calculateGameDate } from './LayoutScreen/HeaderScreen';
 import FooterScreen from './LayoutScreen/FooterScreen';
 import { CustomButtons, ReturnButton } from '../components/Buttons';
 import Screenstyles from '../screens/ScreenStylesheet';
 
-const PastureScreen = ({navigation, user_id}) => {
+const PastureScreen = ({navigation, user_id, gameTime}) => {
   const dispatch = useDispatch();
+
+  const [currentTime, setCurrentTime] = useState(new Date());
+
   // POST USER ID
   const handleSubmit = () => {
     const sandUserId =  {
       "user_id": user_id
     } 
     dispatch(institutionAction(sandUserId));
-    navigation.navigate('InstitutionScreen')
+    navigation.navigate('InstitutionScreen');
   }
   // GET RACE DATA
   const handleGetSubmit = () => {
-    dispatch(raceAction());
+    dispatch(raceAction(calculateGameDate(currentTime)));
     navigation.navigate('RacetrackScreen')
   }
 
@@ -37,7 +40,6 @@ const PastureScreen = ({navigation, user_id}) => {
   }
   return (
     <View style={Screenstyles.container}>
-         
       <ImageBackground
         source={require('../assets/images/1.png')}
         resizeMode="cover"
@@ -65,7 +67,8 @@ const PastureScreen = ({navigation, user_id}) => {
 const mapStateToProps = state => {
   return {
     user_id: state.user.userData.id,
-    pasture_id: state.pasture.pastureData.id
+    pasture_id: state.pasture.pastureData.id,
+    // gameTime: state.currentGameTime.gameTime
   }
 };
 

@@ -1,14 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, ImageBackground} from 'react-native';
 // Redux
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { raceAction } from '../store/actions/racepaln/getApi/racePlanAction';
 // Custom Import 
-import HeaderScreen from './LayoutScreen/HeaderScreen';
+import HeaderScreen, { calculateGameDate } from './LayoutScreen/HeaderScreen';
 import StableFooterScreen from './LayoutScreen/StableFooterScreen';
 import { CustomButtons, ReturnButton } from '../components/Buttons';
 import Screenstyles from '../screens/ScreenStylesheet';
 
 const StableScreen = ({navigation}) => {
+  const dispatch = useDispatch();
+  const [currentTime, setCurrentTime] = useState(new Date());
+    // GET RACE DATA
+    const handleGetSubmit = () => {
+      dispatch(raceAction(calculateGameDate(currentTime)));
+      navigation.navigate('RaceCourse')
+    }
+
   return (
     <View style={Screenstyles.container}>
          
@@ -22,7 +31,7 @@ const StableScreen = ({navigation}) => {
               <View style={Screenstyles.content}>
                   <CustomButtons label="調 教" color={1} onPress={() => navigation.navigate('Training')}/>
                   <CustomButtons label="騎手育成"color={1} onPress={() => navigation.navigate('JockeyTraingin')}/>
-                  <CustomButtons label="競馬場"color={1}/>
+                  <CustomButtons label="競馬場"color={1}   onPress={handleGetSubmit}/>
               </View>
               <View style={Screenstyles.content}>
                   <CustomButtons label="出走登錄" color={1} onPress={() => navigation.navigate('RaceRegistation')}/>
@@ -37,9 +46,6 @@ const StableScreen = ({navigation}) => {
 };
 
 const mapStateToProps = state => {
-  // console.log('====================================')
-  // console.log(state.horseData.saveData)
-  // console.log('====================================')
   return{
 
   }

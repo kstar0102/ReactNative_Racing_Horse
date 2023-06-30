@@ -14,13 +14,13 @@ const Training = ({navigation}) => {
         resizeMode="cover"
         style={Screenstyles.img}>
         <HeaderScreen/>
-            <View style={Screenstyles.UPContainer}>
-              <View style={Screenstyles.UPcontent}>
+            <View>
+              <View>
                 <View>
-                  <ReturnButton label="牧 場" onPress={() => navigation.navigate('StallScreen')}/>
+                  <ReturnButton label="厩 舎" color={1} onPress={() => navigation.navigate('StallScreen')}/>
                 </View>
                 <View style={Screenstyles.UPRButton}>
-                    <ReturnButton label="育 成"/>
+                    <ReturnButton label="調 教" color={1}/>
                 </View>
               </View>
               <TapScreen/>

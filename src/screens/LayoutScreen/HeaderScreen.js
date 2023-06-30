@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, SafeAreaView, ImageBackground } from 'react-native';
 // Rudux
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { gameTimeAction } from '../../store/actions/gameTime/gameTimeAction';
 // CUSTOM IMPORT
 import { HeaderButton } from '../../components/Buttons';
 import CountDownTimer from '../../components/time/CountDownTimer';
@@ -9,11 +10,25 @@ import CurrentDateTimeWeather from '../../components/time/CurrentDateTimeWeather
 import HeaderStylesheet from './HeaderStylesheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
+export const calculateGameDate = (time) => {
+  const startCalTime = new Date("2023-06-25");
+  const startTime = new Date("2023-01-01");
+  let currentGameSecond = (time - startCalTime)*14;
+  const currentDateMilliseconds = startTime.getTime() + currentGameSecond;
+  let currentDate = new Date(currentDateMilliseconds);
+  //dispatch(gameTimeAction(currentDate));
+  return currentDate;
+};
+
+
 const HeaderScreen = ({userData}) => {
+  const dispatch = useDispatch();
   const [secondsRemaining, setSecondsRemaining] = useState(21000);
   const [userPt, setUserPt] = useState();
   const [userLevel, setUserLevel] = useState();
   const secondsRemainingRef = useRef(secondsRemaining);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     setUserPt(userData.user_pt);
@@ -32,6 +47,7 @@ const HeaderScreen = ({userData}) => {
     };
   }, [userData]);
 
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       setSecondsRemaining(prevSeconds => prevSeconds - 1);
@@ -43,18 +59,20 @@ const HeaderScreen = ({userData}) => {
       } else {
         secondsRemainingRef.current -= 1;
       }
+      setCurrentTime(new Date());
 
     }, 1000);
 
     return () => clearInterval(intervalId);
   }, []);
 
+
   return (
     <SafeAreaView style={HeaderStylesheet.container}>
       {/* Header Start */}
       <View style={HeaderStylesheet.headerContentStart}>
         <Text style={HeaderStylesheet.weatherCurrent}>
-          {<CurrentDateTimeWeather />}
+          {<CurrentDateTimeWeather gameTime = {calculateGameDate(currentTime)} />}
         </Text>
         <ImageBackground
           source={require('../../assets/images/headerLogo.jpg')}

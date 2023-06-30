@@ -17,6 +17,8 @@ import nextNextRacePlanReducer from './getApi/nextNextRacePlanReducer';
 import nextRacePlanReducer from './getApi/nextRacePlanReducer';
 // Upbringing Reducer
 import arrowReducer from './Upbring/arrowReducer';
+// Game Time
+import gameTimeRuducer from './gameTime/gameTimeRuducer';
 
 export default combineReducers({
     user: user,
@@ -36,6 +38,8 @@ export default combineReducers({
     nextNextRacePlan: nextNextRacePlanReducer,
     nextRacePlan: nextRacePlanReducer,
     // UPBRINGING
-    arrow: arrowReducer
+    arrow: arrowReducer,
+    // GAME TIME
+    currentGameTime: gameTimeRuducer
 
 });

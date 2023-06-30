@@ -202,18 +202,6 @@ const ScreenTwo = ({ twoData, arrowState }) => {
     }
   }
 
-  // if (selected) {
-  //   useCallback(() => {
-  //     if (selected.ground == 'ダ') {
-  //       console.log('===ダ==')
-  //       setGroundColor('black');
-  //     } else {
-  //       console.log('=============万万万=======================')
-  //       console.log('===万万万==')
-  //       console.log('=============万万万=======================')
-  //     }
-  //   }, [selected])
-  // }
   // SKILL FILLTER
   const skillRange = (skill) => {
     if (typeof (skill) !== 'number') {

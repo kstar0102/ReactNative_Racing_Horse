@@ -25,6 +25,8 @@ import RaceRegistation from '../screens/StableScreens/RaceRegistation';
 import RaceResults from '../screens/StableScreens/RaceResults';
 import Institution from '../screens/StableScreens/Instituion';
 import JockeyTraingin from '../screens/StableScreens/Jockeytraingin';
+import JocTraining from '../screens/StableScreens/Jockeytraingin/JocTraining';
+import RaceCourse from '../screens/StableScreens/RaceCourse';
 // /////////////////////////
 
 
@@ -58,6 +60,8 @@ const AppStack = () => {
         <Stack.Screen name={'RaceResults'} component={RaceResults} options={{ headerShown: false }}/>
         <Stack.Screen name={'Institution'} component={Institution} options={{ headerShown: false }}/>
         <Stack.Screen name={'JockeyTraingin'} component={JockeyTraingin} options={{ headerShown: false }}/>
+        <Stack.Screen name={'JocTraining'} component={JocTraining} options={{ headerShown: false }}/>
+        <Stack.Screen name={'RaceCourse'} component={RaceCourse} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </>
   );
