@@ -19,6 +19,8 @@ const RTapButton = ({ id, isActive, onPress, label}) => {
         id ==1 ? styles.buttonT : styles.button, 
         id ==2 ? styles.buttonM : styles.button,  
         id ==3 ? styles.buttonE : styles.button,  
+        id ==4 ? styles.buttonR : styles.button,  
+        id ==5 ? styles.buttonA : styles.button,  
         isActive ? styles.activeButton : null,
       
       ]}
@@ -60,5 +62,11 @@ const styles = StyleSheet.create({
     buttonE: {
         backgroundColor: colors.tabButtonEnd
     },
+    buttonR: {
+      backgroundColor: colors.tapRittoColor
+    },
+    buttonA: {
+      backgroundColor: colors.tapAbroadColor
+    }
   
   });

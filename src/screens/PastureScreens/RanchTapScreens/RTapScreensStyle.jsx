@@ -38,6 +38,16 @@ const RTapScreensStyle = StyleSheet.create({
     flexGrow: 1,
     height: vh(45)
   },
+  oneRioghtHeader:{
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    paddingVertical: 3,
+    paddingHorizontal: 5,
+    backgroundColor: colors.HBrown,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  },
+  // STALL STYLE END
   oneTopContent: {
     flexDirection: 'row',
     justifyContent: 'space-around'

@@ -22,6 +22,9 @@ import ReservationScreen from '../screens/PastureScreens/RanchTapScreens/Reserva
 import StableScreen from '../screens/StableScreen';
 import Training from '../screens/StableScreens/Training';
 import RaceRegistation from '../screens/StableScreens/RaceRegistation';
+import RaceResults from '../screens/StableScreens/RaceResults';
+import Institution from '../screens/StableScreens/Instituion';
+import JockeyTraingin from '../screens/StableScreens/Jockeytraingin';
 // /////////////////////////
 
 
@@ -36,6 +39,7 @@ const AppStack = () => {
             component={TopScreen}
             options={{ headerShown: false }}
         />
+        {/* PASTURE */}
         <Stack.Screen name={'PastureScreen'} component={PastureScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'PastureRegistration'} component={PastureRegistration} options={{ headerShown: false }}/>
         <Stack.Screen name={'HorseChoiceScreen'} component={HorseChoiceScreen} options={{ headerShown: false }}/>
@@ -46,10 +50,14 @@ const AppStack = () => {
         <Stack.Screen name={'OfficeScreen'} component={OfficeScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'RacetrackScreen'} component={RacetrackScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'WorkingHorseScreen'} component={WorkingHorseScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name={'ReservationScreen'} component={ReservationScreen} options={{ headerShown: false }}/>
+        {/* STALBE */}
         <Stack.Screen name={'StallScreen'} component={StableScreen} options={{ headerShown: false }}/>
         <Stack.Screen name={'Training'} component={Training} options={{ headerShown: false }}/>
         <Stack.Screen name={'RaceRegistation'} component={RaceRegistation} options={{ headerShown: false }}/>
-        <Stack.Screen name={'ReservationScreen'} component={ReservationScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name={'RaceResults'} component={RaceResults} options={{ headerShown: false }}/>
+        <Stack.Screen name={'Institution'} component={Institution} options={{ headerShown: false }}/>
+        <Stack.Screen name={'JockeyTraingin'} component={JockeyTraingin} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </>
   );

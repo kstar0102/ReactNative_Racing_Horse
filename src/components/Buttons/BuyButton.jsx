@@ -9,7 +9,7 @@ import colors from "../../containers/colors";
 const BuyButton = ({ label, onPress, disabled, display }) => {
 	return (
 		<TouchableOpacity
-			style={[styles.button, {display: display}]}
+			style={[styles.button, {display: display }]}
 			onPress={onPress ? onPress : () => alert("Clicked")}
             disabled={disabled ? disabled : false}
 		>

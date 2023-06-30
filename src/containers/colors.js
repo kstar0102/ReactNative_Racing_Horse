@@ -47,6 +47,10 @@ const colors = {
 	borderColor: '#837358',
 // Stall
 	stallButtonColor: '#b4cef9',
+	tapRittoColor: '#a0e5b9',
+	tapAbroadColor: '#988be4',
+	cardHeader: '#3c82f9',
+	cardBody: '#8fb6f9'
 };
 
 export default colors;

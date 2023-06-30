@@ -6,14 +6,11 @@ import {
 // container
 import colors from "../../containers/colors";
 
-const ReturnButton = ({ label, onPress, disabled, color }) => {
+const BuyTapButton = ({ label, onPress, disabled, display }) => {
 	return (
 		<TouchableOpacity
-			style={[
-				styles.button,
-				color == 1 ? styles.stallbuttonColor : "Stallbuttoncolor"
-			]}
-			onPress={onPress}
+			style={[styles.button, {display: display }]}
+			onPress={onPress ? onPress : () => alert("Clicked")}
             disabled={disabled ? disabled : false}
 		>
 			<Text style={styles.label}>{label ? label : "Button"}</Text>
@@ -23,29 +20,20 @@ const ReturnButton = ({ label, onPress, disabled, color }) => {
 
 const styles = StyleSheet.create({
 	button: {
-		backgroundColor: colors.headerColor,
+		backgroundColor: colors.butonBackgroud,
         borderRadius: 6,
-		height: 35,
-		width: 80,
-		position: "absolute",
-		top: hp(18.5),
-		left: wp(1),
-		paddingVertical: 7,
-		zIndex: 1000
-	},
-	stallbuttonColor: {
-		backgroundColor: colors.stallButtonColor,
-		height: 30,
-		width: 70,
+		height: 33,
+		width: 110,
 		paddingVertical: 5,
+		zIndex: 100,
 	},
 	label: {
 		color: colors.light.white,
-		fontSize: 16,
-		fontWeight: 700,
+		fontSize: hp(1.7) + wp(1.6),
+		fontWeight: 600,
 		textAlign: 'center'
 
 	},
 });
 
-export default ReturnButton;
+export default BuyTapButton;

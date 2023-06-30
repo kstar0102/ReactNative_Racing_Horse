@@ -4,6 +4,7 @@ export { default as ReturnButton } from "./ReturnButton";
 export { default as HeaderButton } from "./HeaderButton";
 export { default as FooterButton } from "./FooterButton";
 export { default as BuyButton } from "./BuyButton";
+export { default as BuyTapButton } from "./BuyTapButton";
 export { default as HorseBuyButton } from "./HorseBuyButton";
 export { default as BackButton } from "./BackButton";
 export { default as DropDwonB } from "./DropDwonB";

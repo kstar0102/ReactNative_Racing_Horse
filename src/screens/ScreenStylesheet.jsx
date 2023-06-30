@@ -34,6 +34,9 @@ const Screenstyles = StyleSheet.create({
           height: SCREEN_HEIGHT + hp(1),
           width:  SCREEN_WIDTH ,
       },
+      // footerTap:{
+      //   marginBottom: 30
+      // },
     // All Style End
 
     // NEW RGISTRATION =======================
@@ -255,13 +258,7 @@ const Screenstyles = StyleSheet.create({
       color: colors.red,
       marginLeft: -30
     },
-
     // UPBRINGING SCREEN =======================
-    UPContainer:{
-    },
-    UPcontent:{
-      // padding: 20
-    },
     UPCourse:{
       marginTop: 200
     },

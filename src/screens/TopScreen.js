@@ -35,6 +35,10 @@ const TopScreen = ({navigation, pastureData, user_id, horseData, pasture_id}) =>
     
   }, [user_id,pasture_id]);
 
+  const handleStalleSubmit = () => {
+    navigation.navigate('StallScreen')
+  }
+
   return (
     <View style={Screenstyles.container}>      
       <ImageBackground
@@ -50,7 +54,7 @@ const TopScreen = ({navigation, pastureData, user_id, horseData, pasture_id}) =>
                   <CustomButtons label="ランキング"/>
               </View>
               <View style={Screenstyles.content}>
-                  <CustomButtons label="厩 舎" onPress={() => navigation.navigate('StallScreen')}/>
+                  <CustomButtons label="厩 舎" onPress={() => handleStalleSubmit()}/>
                   <CustomButtons label="セ リ"/>
                   <CustomButtons label="V I P" disabled={true}/>
               </View>
