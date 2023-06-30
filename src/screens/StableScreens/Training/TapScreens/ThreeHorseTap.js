@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, Text, Alert } from 'react-native';
+import { View, Image, Text, Alert, ScrollView } from 'react-native';
 import Toast from 'react-native-root-toast';
 // Redux
 import { connect } from 'react-redux';
@@ -478,7 +478,7 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
 
 
   return (
-    <View style={RTapScreensStyle.twoContainer}>
+    <ScrollView style={RTapScreensStyle.twoContainer}>
       <View style={RTapScreensStyle.oneTopContent}>
         <View style={RTapScreensStyle.oneTopContentLeft}>
           <Text style={RTapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
@@ -590,7 +590,7 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
       <View style={RTapScreensStyle.oneBottomContent}>
         {renderScreenBelowButtons()}
       </View>
-    </View>
+    </ScrollView>
   )
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, ScrollView } from 'react-native';
 import Toast from 'react-native-root-toast';
 // Redux
 import { connect } from 'react-redux';
@@ -455,7 +455,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
   }
 
   return (
-    <View style={RTapScreensStyle.twoContainer}>
+    <ScrollView style={RTapScreensStyle.twoContainer}>
       <View style={RTapScreensStyle.oneTopContent}>
         <View style={RTapScreensStyle.oneTopContentLeft}>
           <Text style={RTapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
@@ -565,7 +565,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
       <View style={RTapScreensStyle.oneBottomContent}>
         {renderScreenBelowButtons()}
       </View>
-    </View>
+    </ScrollView>
   )
 }
 

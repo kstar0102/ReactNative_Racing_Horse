@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, Text, Alert } from 'react-native';
+import { View, Image, Text, Alert, ScrollView } from 'react-native';
 // Custom import
 import DropDownR from '../../../../components/Buttons/DropDwonR';
 import RTapScreensStyle from '../../../PastureScreens/RanchTapScreens/RTapScreensStyle';
@@ -52,7 +52,7 @@ const handlePress = () => {
     }
 
     return (
-      <View style={RTapScreensStyle.twoContainer}>
+      <ScrollView style={RTapScreensStyle.twoContainer}>
           <View  style={RTapScreensStyle.oneTopContent}>
             <View style={RTapScreensStyle.oneTopContentLeft}>
                 <Text style={RTapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
@@ -139,7 +139,7 @@ const handlePress = () => {
           <View  style={RTapScreensStyle.oneBottomContent}>
             {renderScreenBelowButtons()}
           </View>
-      </View>
+      </ScrollView>
     )
   }
 export default GrazingHorseTap;

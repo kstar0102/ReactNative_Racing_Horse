@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   viewContainer: { backgroundColor: '#FFF' },
   dropdown4BtnStyle: {
     width: '100%',
-    height: 50,
+    height: 30,
     backgroundColor: '#FFF',
   },
   dropdown4BtnTxtStyle: { color: '#444', textAlign: 'left' },

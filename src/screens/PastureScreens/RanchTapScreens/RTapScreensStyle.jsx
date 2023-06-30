@@ -17,9 +17,13 @@ const RTapScreensStyle = StyleSheet.create({
     width: vw(90),
     height: vh(40)
   },
+  RacetrackCourse:{
+    height: vh(42)
+  },
   RaceRegistationContainer:{
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: 'column',
+    alignItems: 'center',
+    // justifyContent: 'space-around',
     marginBottom: 10,
     marginTop: 180,
   },
@@ -36,7 +40,7 @@ const RTapScreensStyle = StyleSheet.create({
   },
   twoContainer:{
     flexGrow: 1,
-    height: vh(45)
+    height: vh(65)
   },
   oneRioghtHeader:{
     borderTopRightRadius: 10,
@@ -49,21 +53,32 @@ const RTapScreensStyle = StyleSheet.create({
   },
   // STALL STYLE END
   oneTopContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-around'
+    flexDirection: 'column',
+    alignItems: 'center'
+    // justifyContent: 'space-around'
   },
   oneRightContentTxt:{
     fontSize: hp(2)+ wp(1.5),
     fontWeight: 600,
-    paddingBottom: 20
+    paddingBottom: 10
+  },
+  shadowTxt:{
+    color: colors.white,
+    fontSize: hp(2)+ wp(1.5),
+    fontWeight: 600,
+    paddingBottom: 10,
+
+    textShadowColor: 'black',
+    textShadowOffset: { width: 4, height: 4 },
+    textShadowRadius: 5,
   },
   oneTopContentLeft: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column', 
     alignItems: 'center',
     paddingTop: 10,
     padding: 5,
-    width: '30%'
+    width: '50%'
   },
   oneTopContentRight: {
     flexDirection: 'column',

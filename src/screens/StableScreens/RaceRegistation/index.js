@@ -108,7 +108,7 @@ const RaceRegistation = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <View>
+        <View  style={RTapScreensStyle.RacetrackCourse}>
           <RacetrackCourse />
         </View>
       </View>
