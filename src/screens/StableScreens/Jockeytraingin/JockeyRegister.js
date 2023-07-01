@@ -9,12 +9,10 @@ import JokeyNameInput from '../../../components/input/JokeyNameInput';
 import { useNavigation } from '@react-navigation/native';
 // import all the components we are going to use
 import {
-    SafeAreaView,
     StyleSheet,
     View,
     Text,
     Image,
-    Button,
     Alert,
     ImageBackground
 } from 'react-native';

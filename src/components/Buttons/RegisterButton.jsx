@@ -3,10 +3,11 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
   } from 'react-native-responsive-screen';
+  import ButtonStyle from "./ButtonStyle";
 // container
 import colors from "../../containers/colors";
 
-const CustomButtons = ({ label, onPress,disabled, color }) => {
+const RegisterButton = ({ label, onPress,disabled, color }) => {
 	return (
 		<>
 		<TouchableOpacity
@@ -72,4 +73,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default CustomButtons;
+export default RegisterButton;

@@ -8,7 +8,7 @@ import colors from '../../../containers/colors';
 
 const ITapScreenStyles = StyleSheet.create({
     LongiContainer: {
-      height: hp(60),
+      height: hp(63),
     },
     Longicontent: {
       marginLeft: 50,

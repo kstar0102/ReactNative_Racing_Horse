@@ -8,7 +8,6 @@ import { Table, TableWrapper, Row, Rows } from 'react-native-table-component';
     tableHeadValue1: tableHeadValue1,
     tableHeadValue2: tableHeadValue2,
     tableHeadValue3: tableHeadValue3,
-    // tableNumber: ['4位', '5位', '6位', '7位', '8位','9位','10位'],
     tableData: tableData
   };
   return (

@@ -64,7 +64,7 @@ const UpGrazing = ({ horseId, poolLevel, truckLevel, roadLevel }) => {
         <ImageBackground style={RTapScreensStyle.BottomBackground} resizeMode="cover" source={require('../../../../assets/images/Pasture/background.jpg')}>
           <Image
             style={RTapScreensStyle.TitleImage}
-            source={require('../../../../assets/images/Pasture/background_text2.png')}
+            source={require('../../../../assets/images/Fodder/2.png')}
           />
           <View style={RTapScreensStyle.ImageButtonTop}>
             <View>

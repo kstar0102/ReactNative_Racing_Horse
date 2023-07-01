@@ -318,13 +318,12 @@ const Screenstyles = StyleSheet.create({
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'flex-end',
-      height: '45%'
+      height: '40%'
     },
     reserveMenuLeft:{
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
-      marginTop: -25
       
     },
     reserveMenuGroup:{
@@ -344,7 +343,7 @@ const Screenstyles = StyleSheet.create({
 
     },
     reserveTxtGroup:{
-      marginTop: -20,
+      // marginTop: -20,
       display: 'flex',
       flexDirection: 'row',
     },

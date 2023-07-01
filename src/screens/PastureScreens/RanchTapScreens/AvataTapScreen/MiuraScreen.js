@@ -4,7 +4,7 @@ import AvatarButton from '../../../../components/Buttons/AvatarButton';
 import RTapScreensStyle from '../RTapScreensStyle';
 const MiuraScreen = () => {
     return (
-      <ScrollView style={RTapScreensStyle.twoContainer}>
+      <ScrollView style={RTapScreensStyle.avatarContainer}>
          <View style={RTapScreensStyle.ranchContent}>
          <View style={RTapScreensStyle.avatarGroup}>
                 <View style={RTapScreensStyle.avatar}>

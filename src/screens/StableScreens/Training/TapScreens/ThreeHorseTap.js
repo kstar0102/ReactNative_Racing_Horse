@@ -597,9 +597,6 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
 const mapStateToProps = state => {
   return {
     arrowState: state.arrow.arrowState,
-    poolLevel: state.pool.poolBuyData,
-    truckLevel: state.truck.truckBuyData,
-    roadLevel: state.road.roadBuyData,
   };
 };
 

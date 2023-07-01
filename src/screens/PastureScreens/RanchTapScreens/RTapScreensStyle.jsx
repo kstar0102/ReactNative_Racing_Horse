@@ -24,7 +24,7 @@ const RTapScreensStyle = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     // justifyContent: 'space-around',
-    marginBottom: 10,
+    marginBottom: 5,
     marginTop: 180,
   },
   RaceRegistationContent:{
@@ -33,10 +33,11 @@ const RTapScreensStyle = StyleSheet.create({
     marginBottom: 10
   },
   reservationContainer:{
-    marginTop: 186
+    marginTop: 186,
   },
   grazingContainer:{
-    marginTop: 5
+    marginTop: 5,
+    height: vh(32)
   },
   twoContainer:{
     flexGrow: 1,
@@ -78,11 +79,12 @@ const RTapScreensStyle = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 10,
     padding: 5,
-    width: '50%'
+    width: '98%'
   },
   oneTopContentRight: {
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    minWidth: '95%'
   },
   oneRioghtHeader:{
     borderTopRightRadius: 10,
@@ -291,10 +293,13 @@ const RTapScreensStyle = StyleSheet.create({
     marginTop: 5
   },
   ///////////////////////////////////////// Avatars and AvatarTap Styles
+  avatarContainer:{
+
+  },
   ranchContent:{
     display: 'flex',
     flexDirection: 'column',
-    rowGap: 20
+    rowGap: 2
   },
   avatarGroup:{
     width: SCREEN_WIDTH,
