@@ -39,6 +39,10 @@ const RTapScreensStyle = StyleSheet.create({
     marginTop: 5,
     height: vh(32)
   },
+  fodderContainer:{
+    marginTop: 5,
+    height: vh(52)
+  },
   twoContainer:{
     flexGrow: 1,
     height: vh(65)

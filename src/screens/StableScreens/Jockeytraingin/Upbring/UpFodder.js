@@ -6,7 +6,7 @@ import DetailButton from '../../../../components/Buttons/DetailButton';
 
 const UpFodder = ({horseId}) => {
     return (
-      <ScrollView style={RTapScreensStyle.grazingContainer}>
+      <ScrollView style={RTapScreensStyle.fodderContainer}>
           <View  style={RTapScreensStyle.oneBottomContent}>
             <ImageBackground  style={RTapScreensStyle.BottomBackground} resizeMode="cover"  source={require('../../../../assets/images/Pasture/background.jpg')}>
                 <Image 

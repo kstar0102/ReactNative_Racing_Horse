@@ -30,7 +30,7 @@ const JockeyRegister = () => {
     const handlePress = (value) => {
         Alert.alert(
             `${value}`,
-            `${value} 性でよろしいですか。`,
+            `${value} でよろしいですか。`,
             [
                 {
                     text: "いいえ",

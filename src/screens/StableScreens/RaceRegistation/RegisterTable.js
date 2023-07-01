@@ -5,13 +5,14 @@ import { RegisterButton, CustomButtons } from '../../../components/Buttons';
 import ButtonStyle from '../../../components/Buttons/ButtonStyle';
 import SaleInputButton from '../../../components/Buttons/SaleInputButton';
 import DropdownR from '../../../components/Buttons/DropDwonR';
+import { useNavigation } from '@react-navigation/native';
 
 const RegisterTable = () => {
+  const navigation = useNavigation();
   const [activeBtn, setActiveBin] = useState(1);
   const [modalVisible, setModalVisible] = useState(false);
   const [secondModalVisible, setSecondModalVisible] = useState(false);
-
-
+ 
   const handleClick = (value) => {
     setModalVisible(true);
     setActiveBin(value);
@@ -218,7 +219,7 @@ const RegisterTable = () => {
       </ScrollView>
       <View style={styles.buttonLayout}>
         <RegisterButton label={'出走登録'} color={2} onPress={() => handleClick(0)} />
-        <CustomButtons label={'戻る'} color={2} />
+        <CustomButtons label={'戻る'} color={2} onPress={() => navigation.goBack()} />
       </View>
 
       {/* MOdal */}
