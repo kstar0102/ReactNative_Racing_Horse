@@ -106,8 +106,8 @@ const JockeyRegister = () => {
                 <View
                     style={{
                         // flex: 1,
-                        height: 300,
-                        marginTop: 80,
+                        height: 350,
+                        marginTop: 60,
                         opacity: 0.9,
                         backgroundColor: item.backgroundColor,
                         alignItems: 'center',

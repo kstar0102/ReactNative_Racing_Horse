@@ -58,7 +58,7 @@ const Institution = ({ navigation, level }) => {
                                     <View style={StableStyles.cardRow}>
                                         <Text style={StableStyles.cardBodyTxt}>厩舎Lv.1</Text>
                                         <Text style={StableStyles.cardBodyTxt}>ロンギ場 Lv.1</Text>
-                                        <Text style={StableStyles.cardBodyTxt}>?????-</Text>
+                                        <Text style={StableStyles.cardBodyTxt}>?????</Text>
                                     </View>
                                     <View style={StableStyles.cardRow}>
                                         <Text style={StableStyles.cardBodyTxt}>?????</Text>
