@@ -44,11 +44,11 @@ const JockeyRegister = () => {
             { cancelable: false },
         );
     }
-
+    // navigation.replace('JocTraining')
     const handleDonePress = (value) => {
         Alert.alert(
             ' ',
-            '「鍛えてたくさんレースに勝ってもらいましょう!」',
+            ' (入力した名前→)〇〇でよろしいでしょうか？ ',
             [
                 {
                     text: "いいえ",
@@ -56,12 +56,28 @@ const JockeyRegister = () => {
                 },
                 {
                     text: "はい",
+                    onPress: () => handleSecondPress()
+                }
+            ],
+            { cancelable: false },
+        );
+    }
+
+    const handleSecondPress = (value) => {
+        Alert.alert(
+            ' ',
+            '鍛えてたくさんレースに勝ってもらいましょう!',
+            [
+             
+                {
+                    text: "閉じる",
                     onPress: () => navigation.replace('JocTraining')
                 }
             ],
             { cancelable: false },
         );
     }
+
 
     const handleNameChange = (value) => {
     }
@@ -71,8 +87,9 @@ const JockeyRegister = () => {
             return (
                 <View
                     style={{
-                        height: 500,
-                        // flex: 1,
+                        height: 300,
+                        marginTop: 80,
+                        opacity: 0.9,
                         backgroundColor: item.backgroundColor,
                         alignItems: 'center',
                         justifyContent: 'center'
@@ -80,7 +97,7 @@ const JockeyRegister = () => {
                     <Text style={styles.introTextStyle}>{item.text}</Text>
                     <View style={styles.introBtnGroupStyle}>
                         <JockeyOk label={'いいえ'} onPress={() => navigation.goBack()} />
-                        <JockeyOk label={'はい'} onPress={() => this.refSlider.goToSlide(1)} />
+                        <JockeyOk label={'はい'}  onPress={() => this.refSlider.goToSlide(1)} />
                     </View>
                 </View>
             );
@@ -89,7 +106,9 @@ const JockeyRegister = () => {
                 <View
                     style={{
                         // flex: 1,
-                        height: 500,
+                        height: 300,
+                        marginTop: 80,
+                        opacity: 0.9,
                         backgroundColor: item.backgroundColor,
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -98,12 +117,12 @@ const JockeyRegister = () => {
                     <View style={styles.introGenderStyle}>
                         <View style={styles.introGroupStyle}>
                             <Image style={styles.introImageStyle} source={item.male} />
-                            <JockeyCheck label={'男性'} onPress={() => handlePress('男性')} />
+                            <JockeyCheck label={'男性'} color={2} onPress={() => handlePress('男性')} />
                         </View>
 
                         <View style={styles.introGroupStyle}>
                             <Image style={styles.introImageStyle} source={item.female} />
-                            <JockeyCheck label={'女性'} onPress={() => handlePress('女性')} />
+                            <JockeyCheck label={'女性'} color={3} onPress={() => handlePress('女性')} />
                         </View>
 
                     </View>
@@ -114,7 +133,9 @@ const JockeyRegister = () => {
                 <View
                     style={{
                         // flex: 1,
-                        height: 500,
+                        height: 300,
+                        marginTop: 80,
+                        opacity: 0.9,
                         backgroundColor: item.backgroundColor,
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -243,12 +264,12 @@ const styles = StyleSheet.create({
 const slides = [
     {
         key: 's1',
-        text: '「専属騎手がいません。 雇用契約費用 5000pt が 毎年かかりますが契約しますか?」',
+        text: '専属騎手がいません。 雇用契約費用 5000pt が 毎年かかりますが契約しますか?',
         backgroundColor: '#b3cefb',
     },
     {
         key: 's2',
-        text: '「男性か女性かを選んでください。」',
+        text: '男性か女性かを選んでください。',
         male: require('../../../assets/images/People/1.png'),
         female: require('../../../assets/images/People/0.png'),
         btnTitle: "はい",
@@ -256,7 +277,7 @@ const slides = [
     },
     {
         key: 's3',
-        text: '「騎手の名前を教えてください。」',
+        text: '騎手の名前を教えてください。',
         backgroundColor: '#b3cefb',
     }
 ];

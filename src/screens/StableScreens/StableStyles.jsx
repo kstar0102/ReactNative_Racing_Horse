@@ -1,39 +1,39 @@
-import { StyleSheet,Dimensions } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
-import { vw,vh  } from 'react-native-expo-viewport-units';
+import { vw, vh } from 'react-native-expo-viewport-units';
 import colors from '../../containers/colors';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const StableStyles = StyleSheet.create({
   // Stall Style
-  stallContainer:{
+  stallContainer: {
     flexGrow: 1,
     height: vh(57),
     borderWidth: 1,
     borderColor: colors.black
   },
   // InstitutionContainer Start
-  institutionContainer:{
+  institutionContainer: {
     marginTop: 190
   },
-  upperContent:{
+  upperContent: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
-  upperLeft:{
+  upperLeft: {
     flexDirection: 'column',
     justifyContent: 'space-around',
     width: '35%',
   },
-  upperLeftImg:{
-      width: 100,
-      height: 100
+  upperLeftImg: {
+    width: 100,
+    height: 100
   },
-  upperLeftTxt:{
+  upperLeftTxt: {
     color: colors.white,
     fontWeight: 600,
     fontSize: 18,
@@ -43,68 +43,76 @@ const StableStyles = StyleSheet.create({
     textShadowRadius: 2,
   },
   // Right
-  upperRight:{
+  upperRight: {
     width: '60%',
   },
-  cardHeader:{
+  cardHeader: {
     backgroundColor: colors.cardHeader,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     padding: 5
   },
-  cardJokeyHeader:{
+  cardJokeyHeader: {
     backgroundColor: colors.cardHeader,
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 5
   },
-  cardHeaderTxt:{
+  cardHeaderTxt: {
     fontWeight: 600
   },
-  cardHeaderTxtLv:{
+  cardHeaderTxtLv: {
     color: colors.white,
     marginLeft: 30
   },
-  cardBody:{
+  cardBody: {
     backgroundColor: colors.cardBody,
   },
-  cardBodyRow:{
+  cardBodyRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  cardRow:{
+  cardRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 5
   },
-  cardAlilityRow:{
+  cardAlilityRow: {
     flexDirection: 'row',
     padding: 2
   },
-    upperAlilityImg:{
+  upperAlilityImg: {
     marginLeft: 5
   },
-  cardBodyTxt:{
+  cardBodyTxt: {
     fontSize: 13,
     fontWeight: 600
   },
-  cardBodyGroundTxt:{
+  cardBodyAngle: {
+    flexDirection: 'row'
+  },
+  cardBodyTxtAngle: {
+    marginLeft: -5,
+    transform: [{ rotateZ: '-90deg' }],
+  },
+  cardBodyGroundTxt: {
     color: colors.HBrown
   },
-  cardTxtRed:{
+  cardTxtRed: {
     color: colors.red
-  } ,
+  },
   // InstitutionContainer End
-  stallGroup:{
+  stallGroup: {
     padding: 10
   },
-  abroadTap:{
+  abroadTap: {
     backgroundColor: colors.tapAbroadColor,
+    // color: 'rgba(0, 0, 0, 0.8)'
   },
-  rittoTap:{
+  rittoTap: {
     backgroundColor: colors.tapRittoColor
   },
-  miuraTap:{
+  miuraTap: {
     backgroundColor: colors.tabButtonMiddle,
     borderWidth: 1,
     borderColor: colors.black
@@ -149,11 +157,22 @@ const StableStyles = StyleSheet.create({
     width: vw(16),
     height: vh(10),
   },
-  tapImage:{
+
+  RaceLockIcon: {
+    position: 'absolute',
+    top: '25%',
+    left: '35%',
+    // right: 0,
+    // bottom: 0,
+    //justifyContent: "center",
+    width: vw(30),
+    height: vh(20),
+  },
+  tapImage: {
     width: vw(40),
     height: vh(10),
     marginTop: vh(3),
   }
 });
 
-  export default StableStyles;
+export default StableStyles;

@@ -37,11 +37,11 @@ const TapScreen = () => {
   return (
     <View style={styles.container}>
         <View style={styles.Buttons}>
-            <ITapButton id={3} isActive={activeButton === 3} label={'厩 舎'} onPress={handleButtonPress} />
-            <ITapButton id={2} isActive={activeButton === 2} label={'ロンギ場'} onPress={handleButtonPress} />
-            <ITapButton id={1} isActive={activeButton === 1} label={'トラック'} onPress={handleButtonPress} />
-            <ITapButton id={4} isActive={activeButton === 4} label={'坂路'} onPress={handleButtonPress} />
-            <ITapButton id={5} isActive={activeButton === 5} label={'プール'} onPress={handleButtonPress} />
+            <ITapButton id={3} color={3} isActive={activeButton === 3} label={'厩 舎'} onPress={handleButtonPress} />
+            <ITapButton id={2} color={5} isActive={activeButton === 2} label={'ロンギ場'} onPress={handleButtonPress} />
+            <ITapButton id={1} color={4} isActive={activeButton === 1} label={'トラック'} onPress={handleButtonPress} />
+            <ITapButton id={4} color={2} isActive={activeButton === 4} label={'坂路'} onPress={handleButtonPress} />
+            <ITapButton id={5} color={1} isActive={activeButton === 5} label={'プール'} onPress={handleButtonPress} />
         </View>     
       {renderScreenBelowButtons()}
     </View>

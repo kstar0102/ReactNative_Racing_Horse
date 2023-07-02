@@ -8,7 +8,7 @@ import {
 } from 'react-native-responsive-screen';
 import colors from '../../containers/colors';
 
-const ITapButton = ({ id, isActive, onPress, label}) => {
+const ITapButton = ({ id, isActive, onPress, label, color, otherColor}) => {
   const handlePress = () => {
         onPress(id);
     };
@@ -16,11 +16,16 @@ const ITapButton = ({ id, isActive, onPress, label}) => {
   return (
     <TouchableOpacity style={[ 
         styles.button, 
-        id == 1 ? styles.button1 : styles.button, 
-        id == 2 ? styles.button2 : styles.button,  
-        id == 3 ? styles.button3 : styles.button,  
-        id == 4 ? styles.button4 : styles.button,  
-        id == 5 ? styles.button5 : styles.button,
+        color == 1 ? styles.button1 : styles.button, 
+        color == 2 ? styles.button2 : styles.button,  
+        color == 3 ? styles.button3 : styles.button,  
+        color == 4 ? styles.button4 : styles.button,  
+        color == 5 ? styles.button5 : styles.button,
+        otherColor == 1 ? styles.button1 : styles.button, 
+        otherColor == 2 ? styles.button2 : styles.button,  
+        otherColor == 3 ? styles.button3 : styles.button,  
+        otherColor == 4 ? styles.button4 : styles.button,  
+        otherColor == 5 ? styles.button5 : styles.button,
         isActive ? styles.activeButton : null,]}
         onPress={handlePress}
     >
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
       zIndex: 1000
     },
     button1: {
-        backgroundColor: colors.tabButtonFirst,
+        backgroundColor: colors.headerButtonColor,
     },
     button2: {
         backgroundColor: colors.tabButtonMiddle

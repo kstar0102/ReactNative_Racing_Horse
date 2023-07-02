@@ -46,7 +46,7 @@ const Institution = ({ navigation, level }) => {
                     <View style={StableStyles.institutionContainer}>
                         <View style={StableStyles.upperContent}>
                             <View style={StableStyles.upperLeft}>
-                                <Text style={StableStyles.upperLeftTxt}>廠告 一覧</Text>
+                                <Text style={StableStyles.upperLeftTxt}>厩舎 一覧</Text>
                                 <DropDwonI name={data[0].name} data={data} onSelect={setSelected} setId={handleSettingId} />
                             </View>
                             <View style={StableStyles.upperRight}>
@@ -58,11 +58,11 @@ const Institution = ({ navigation, level }) => {
                                     <View style={StableStyles.cardRow}>
                                         <Text style={StableStyles.cardBodyTxt}>厩舎Lv.1</Text>
                                         <Text style={StableStyles.cardBodyTxt}>ロンギ場 Lv.1</Text>
-                                        <Text style={StableStyles.cardBodyTxt}>トラック-</Text>
+                                        <Text style={StableStyles.cardBodyTxt}>?????-</Text>
                                     </View>
                                     <View style={StableStyles.cardRow}>
-                                        <Text style={StableStyles.cardBodyTxt}>坂路-</Text>
-                                        <Text style={StableStyles.cardBodyTxt}>ブールー</Text>
+                                        <Text style={StableStyles.cardBodyTxt}>?????</Text>
+                                        <Text style={StableStyles.cardBodyTxt}>?????</Text>
                                         <Text style={StableStyles.cardBodyTxt}>?????</Text>
                                     </View>
                                 </View>

@@ -12,6 +12,8 @@ const JockeyOk = ({ label, onPress, disabled, color }) => {
 			style={[
 				styles.button,
 				color == 1 ? styles.buttonColor : 'Style',
+				color == 2 ? styles.buttonColor : 'Style',
+				color == 2 ? styles.buttonColor : 'Style',
 				disabled && styles.disabled]}
 			onPress={onPress ? onPress : () => alert("Clicked")}
 			disabled={disabled ? disabled : false}

@@ -130,7 +130,7 @@ const RanchTap = ({ pasture_name, user_id, user_level, ranch }) => {
     
   }
   return (
-    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.tabButtonMiddle}]}>
+    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.IButtonFive}]}>
       <View style={StableStyles.tapContent}>
         <View style={StableStyles.Bundle}>
           <Image

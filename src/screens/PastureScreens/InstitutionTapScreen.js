@@ -18,7 +18,7 @@ const InstitutionTapScreen = () => {
   };
 
   const renderScreenBelowButtons = () => {
-    switch(activeButton) {
+    switch (activeButton) {
       case 1:
         return <ScreenPasture />;
       case 2:
@@ -36,13 +36,13 @@ const InstitutionTapScreen = () => {
 
   return (
     <View style={styles.container}>
-        <View style={styles.Buttons}>
-            <ITapButton id={1} isActive={activeButton === 1} label={'牧場'} style={styles.Button1} onPress={handleButtonPress} />
-            <ITapButton id={2} isActive={activeButton === 2} label={'ロンギ場'} style={styles.Button2} onPress={handleButtonPress} />
-            <ITapButton id={3} isActive={activeButton === 3} label={'トラック'} style={styles.Button3} onPress={handleButtonPress} />
-            <ITapButton id={4} isActive={activeButton === 4} label={'坂路'} style={styles.Button4} onPress={handleButtonPress} />
-            <ITapButton id={5} isActive={activeButton === 5} label={'プール'} style={styles.Button5} onPress={handleButtonPress} />
-        </View>     
+      <View style={styles.Buttons}>
+        <ITapButton id={1} otherColor={1} isActive={activeButton === 1} label={'牧場'} style={styles.Button1} onPress={handleButtonPress} />
+        <ITapButton id={2} otherColor={2} isActive={activeButton === 2} label={'ロンギ場'} style={styles.Button2} onPress={handleButtonPress} />
+        <ITapButton id={3} otherColor={3} isActive={activeButton === 3} label={'トラック'} style={styles.Button3} onPress={handleButtonPress} />
+        <ITapButton id={4} otherColor={4} isActive={activeButton === 4} label={'坂路'} style={styles.Button4} onPress={handleButtonPress} />
+        <ITapButton id={5} otherColor={5} isActive={activeButton === 5} label={'プール'} style={styles.Button5} onPress={handleButtonPress} />
+      </View>
       {renderScreenBelowButtons()}
     </View>
   );
@@ -54,9 +54,9 @@ const styles = StyleSheet.create({
   container: {
     marginTop: vh(28),
     flexDirection: 'column',
-  
+
   },
-  Buttons:{
+  Buttons: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'flex-end',

@@ -130,7 +130,7 @@ const PoolTap = ({ pasture_name, user_id, user_level, pool }) => {
     
   }
   return (
-    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.IButtonFive}]}>
+    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.headerButtonColor}]}>
       <View style={StableStyles.tapContent}>
         <View style={StableStyles.Bundle}>
           <Image

@@ -236,7 +236,7 @@ const RegisterTable = () => {
         >
           <View style={ButtonStyle.ModalCenter}>
             <Text style={ButtonStyle.saleTxtTitle}>出走登録</Text>
-            <Text style={ButtonStyle.saleTxt}>「登録料 Optかかりますが登録しますか?」</Text>
+            <Text style={ButtonStyle.saleTxt}>登録料 Optかかりますが登録しますか?</Text>
             <View style={ButtonStyle.buttonContainer}>
               <View style={{ margin: 10 }}>
                 <SaleInputButton label="いいえ" onPress={handleNoPress} />
@@ -254,7 +254,7 @@ const RegisterTable = () => {
           transparent={true}
         >
           <View style={ButtonStyle.ModalCenter}>
-            <Text> 「騎手を選んでください。」</Text>
+            <Text> 騎手を選んでください。</Text>
             <View style={ButtonStyle.Dropdown}>
               <DropdownR name={"騎手を選ぶ"} data={data} />
             </View>

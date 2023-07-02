@@ -36,7 +36,7 @@ const StableScreen = ({navigation}) => {
               <View style={Screenstyles.content}>
                   <CustomButtons label="出走登錄" color={1} onPress={() => navigation.navigate('RaceRegistation')}/>
                   <CustomButtons label="施 設" color={1} onPress={() => navigation.navigate('Institution')}/>
-                  <CustomButtons label="競争成績" color={1} onPress={() => navigation.navigate('RaceResults')}/>
+                  <CustomButtons label="競走成績" color={1} onPress={() => navigation.navigate('RaceResults')}/>
               </View>
             </View>
               <StableFooterScreen/>

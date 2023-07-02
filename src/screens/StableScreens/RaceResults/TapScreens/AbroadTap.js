@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView, Text, Image } from 'react-native';
 // Redux
 import { connect } from 'react-redux';
 // Custom import
@@ -8,7 +8,9 @@ import StableStyles from '../../StableStyles';
 const AbroadTap = () => {
     return (
         <ScrollView style={StableStyles.stallContainer}>
-            <View style={StableStyles.abroadTap}>
+            <View
+                style={StableStyles.abroadTap}
+            >
                 <View style={StableStyles.stallGroup}>
                     <Text> 国沢厩舎</Text>
                     <Text> ・通算成績:○戦 ○勝 ○敗</Text>
@@ -38,6 +40,10 @@ const AbroadTap = () => {
                     <Text>     E号(○戦○勝,9000万,八C)</Text>
                 </View>
             </View>
+            <Image
+                style={[StableStyles.RaceLockIcon]}
+                source={require('../../../../assets/images/Lock.png')}
+            />
         </ScrollView>
     )
 }

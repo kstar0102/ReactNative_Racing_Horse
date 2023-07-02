@@ -129,7 +129,7 @@ const SlopTap = ({ pasture_name, user_id, user_level, road }) => {
    
   }
   return (
-    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.IButtonfour}]}>
+    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.tabButtonMiddle}]}>
       <View style={StableStyles.tapContent}>
         <View style={StableStyles.Bundle}>
           <Image

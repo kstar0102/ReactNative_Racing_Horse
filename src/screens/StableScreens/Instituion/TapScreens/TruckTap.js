@@ -129,7 +129,7 @@ const TruckTap = ({ pasture_name, user_id, user_level, truck }) => {
     
   }
   return (
-    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.tabButtonFirst}]}>
+    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.IButtonfour}]}>
       <View style={StableStyles.tapContent}>
         <View style={StableStyles.Bundle}>
           <Image

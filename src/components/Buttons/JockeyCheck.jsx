@@ -12,11 +12,13 @@ const JockeyCheck = ({ label, onPress,disabled, color }) => {
 			style={[
 				styles.button,
 				color == 1 ? styles.buttonColor : 'Style',
+				color == 2 ? styles.buttonTwo : 'Style',
+				color == 3 ? styles.buttonThree : 'Style',
 				disabled && styles.disabled]}
 			onPress={onPress ? onPress : () => alert("Clicked")}
 			disabled={disabled ? disabled : false}
 		>
-			<Text style={[styles.label, disabled && styles.labelDisabled]}>{label ? label : "Button"}</Text>
+			<Text style={[styles.label, disabled && styles.labelDisabled, color == 2 ? styles.labelColor : 'Style', color == 3 ? styles.labelColor : 'Style',]}>{label ? label : "Button"}</Text>
 		</TouchableOpacity>
 	);
 };
@@ -33,11 +35,20 @@ const styles = StyleSheet.create({
 	buttonColor: {
 		backgroundColor: colors.stallButtonColor
 	},
+	buttonTwo:{
+		backgroundColor: '#2d329a'
+	},
+	buttonThree:{
+		backgroundColor: '#dc2448'
+	},
 	label: {
 		color: colors.light.white,
 		fontSize: wp(2.5) + hp(2),
 		fontWeight: 600,
 		textAlign: 'center'
+	},
+	labelColor:{
+		color: colors.white
 	},
 	disabled: {
 		

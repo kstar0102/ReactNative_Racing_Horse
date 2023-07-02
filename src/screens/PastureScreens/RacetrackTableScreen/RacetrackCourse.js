@@ -56,7 +56,7 @@ const RacetrackCourse = ({ thisWeekData, beforeRacePlan, lastRacePlan, nextNextR
   const CONTENT = {
     raceWeekTitle: ['[今週のレース]'],
     nextWeekTitle: ['[来週のレース]'],
-    nextNextWeekTitle: ['[再 来週のレース]'],
+    nextNextWeekTitle: ['[再来週のレース]'],
     threeWeekTitle: ['[先々週のレース]'],
     fourWeekTitle: ['[先週のレース]'],
   };

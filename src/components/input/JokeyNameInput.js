@@ -26,9 +26,9 @@ const styles = StyleSheet.create({
   passwordS: {
     backgroundColor: colors.white,
     borderRadius: 9,
-    // height: 20,
+    height: 40,
     // margin: 12,
-    width: 200,
+    width: 150,
     borderWidth: 1,
     // padding: 8,
   }
