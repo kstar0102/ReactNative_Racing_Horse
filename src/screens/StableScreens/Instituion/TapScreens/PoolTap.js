@@ -83,7 +83,7 @@ const PoolTap = ({ pasture_name, user_id, user_level, pool }) => {
       }
       Alert.alert(
         `プール (Lv.${level})は、${price}ptですが購入しますか`,
-        `[効果] 馬誕生時に「健康+${effect}」`,
+        `[効果] 入厩時に「健康+${effect}」`,
         [
           {
             text: "いいえ",
@@ -110,7 +110,7 @@ const PoolTap = ({ pasture_name, user_id, user_level, pool }) => {
       };
       Alert.alert(
         `プール (Lv.1)は、1000ptですが購入しますか`,
-        "[効果] 馬誕生時に「健康+10」",
+        "[効果] 入厩時に「健康+10」",
         [
           {
             text: "いいえ",

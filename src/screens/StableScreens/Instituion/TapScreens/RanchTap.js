@@ -82,7 +82,7 @@ const RanchTap = ({ pasture_name, user_id, user_level, ranch }) => {
         };
         Alert.alert(
           `ロンギ場 (Lv.${level})は、${price}ptですが購入しますか`,
-          `[効果] 馬誕生時に「気性+${effect}」`,
+          `[効果] 入厩時に「気性+${effect}」`,
           [
             {
               text: "いいえ",
@@ -110,7 +110,7 @@ const RanchTap = ({ pasture_name, user_id, user_level, ranch }) => {
       };
       Alert.alert(
         `ロンギ場 (Lv.1)は、1000ptですが購入しますか`,
-        "[効果] 馬誕生時に「気性+10」",
+        "[効果] 入厩時に「気性+10」",
         [
           {
             text: "いいえ",

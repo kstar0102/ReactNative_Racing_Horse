@@ -82,7 +82,7 @@ const TruckTap = ({ pasture_name, user_id, user_level, truck }) => {
       }
       Alert.alert(
         `トラック (Lv.${level})は、${price}ptですが購入しますか`,
-        `[効果] 馬誕生時に「根性+${effect}」`,
+        `[効果] 入厩時に「根性+${effect}」`,
         [
           {
             text: "いいえ",
@@ -109,7 +109,7 @@ const TruckTap = ({ pasture_name, user_id, user_level, truck }) => {
       };
       Alert.alert(
         `トラック (Lv.1)は、1000ptですが購入しますか`,
-        "[効果] 馬誕生時に「根性+10」",
+        "[効果] 入厩時に「根性+10」",
         [
           {
             text: "いいえ",
