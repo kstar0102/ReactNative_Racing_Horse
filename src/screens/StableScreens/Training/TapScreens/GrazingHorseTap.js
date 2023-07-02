@@ -55,7 +55,7 @@ const handlePress = () => {
       <ScrollView style={RTapScreensStyle.twoContainer}>
           <View  style={RTapScreensStyle.oneTopContent}>
             <View style={RTapScreensStyle.oneTopContentLeft}>
-                <Text style={RTapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
+                <Text style={RTapScreensStyle.shadowTxt}>所有馬一覧</Text>
                 <DropDownR name='A'data={data} onSelect={setSelected} />
             </View>
             <View style={RTapScreensStyle.oneTopContentRight}>

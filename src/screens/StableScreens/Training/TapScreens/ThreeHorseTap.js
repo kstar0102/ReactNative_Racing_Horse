@@ -481,7 +481,7 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
     <ScrollView style={RTapScreensStyle.twoContainer}>
       <View style={RTapScreensStyle.oneTopContent}>
         <View style={RTapScreensStyle.oneTopContentLeft}>
-          <Text style={RTapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
+          <Text style={RTapScreensStyle.shadowTxt}>所有馬一覧</Text>
           <DropDownR name={data[0].name} data={data} onSelect={setSelected} setId={handleSettingId} />
         </View>
         <View style={RTapScreensStyle.oneTopContentRight}>

@@ -17,7 +17,7 @@ const RaceCourse = ({ navigation }) => {
                 <View>
                     <View>
                         <View>
-                            <ReturnButton label="牧 場" color={1} onPress={() => navigation.navigate('StallScreen')} />
+                            <ReturnButton label="厩 舎" color={1} onPress={() => navigation.navigate('StallScreen')} />
                         </View>
                         <View style={Screenstyles.UPRButton} >
                             <ReturnButton label="競馬場" color={1} />
