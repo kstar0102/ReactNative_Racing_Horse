@@ -8,6 +8,11 @@ import DropdownR from '../../../components/Buttons/DropDwonR';
 import { useNavigation } from '@react-navigation/native';
 
 const RegisterTable = () => {
+  const data = [
+    {name: '川谷'},
+    {name: '信士'},
+    {name: '川崎'},
+  ]
   const navigation = useNavigation();
   const [activeBtn, setActiveBin] = useState(1);
   const [modalVisible, setModalVisible] = useState(false);
@@ -251,7 +256,7 @@ const RegisterTable = () => {
           <View style={ButtonStyle.ModalCenter}>
             <Text> 「騎手を選んでください。」</Text>
             <View style={ButtonStyle.Dropdown}>
-              <DropdownR name={"騎手を選ぶ"} />
+              <DropdownR name={"騎手を選ぶ"} data={data} />
             </View>
             <View style={ButtonStyle.buttonContainer}>
               <View style={{ margin: 10 }}>
