@@ -62,12 +62,7 @@ const JocTraining = ({ navigation }) => {
                     </View>
 
                     <Text style={StableStyles.cardBodyTxt}>疲労 <Text style={StableStyles.cardBodyTxt}>O</Text></Text>
-                    <View style={StableStyles.cardBodyAngle}>
-                      <Text style={StableStyles.cardBodyTxtAngle}>△</Text>
-                      <Text style={StableStyles.cardBodyTxtAngle}>△</Text>
-                      <Text style={StableStyles.cardBodyTxtAngle}>△</Text>
-                      <Text style={StableStyles.cardBodyTxtAngle}>▲</Text>
-                    </View>
+                    <Text style={StableStyles.cardBodyTxt}>100-50-80-500</Text>
                   </View>
                   <View style={StableStyles.cardBodyRow}>
                     <Text style={StableStyles.cardBodyTxt}>逃 <Text style={StableStyles.cardTxtRed}> S+</Text></Text>

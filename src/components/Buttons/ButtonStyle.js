@@ -41,6 +41,9 @@ const ButtonStyle = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  ModalCenterTxt:{
+    marginTop: 30
+  },
   inputText:{
     flexDirection: 'row',
     alignItems: 'center'

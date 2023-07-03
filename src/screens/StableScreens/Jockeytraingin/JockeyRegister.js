@@ -1,12 +1,11 @@
-// React Native App Intro Slider using AppIntroSlider
-// https://aboutreact.com/react-native-app-intro-slider/
-// Intro slider with a button in the center
-
 // import React in our code
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { JockeyCheck, JockeyOk } from '../../../components/Buttons';
 import JokeyNameInput from '../../../components/input/JokeyNameInput';
-import { useNavigation } from '@react-navigation/native';
+import ButtonStyle from '../../../components/Buttons/ButtonStyle';
+import { vw } from 'react-native-expo-viewport-units';
+import SaleInputButton from '../../../components/Buttons/SaleInputButton';
 // import all the components we are going to use
 import {
     StyleSheet,
@@ -14,7 +13,9 @@ import {
     Text,
     Image,
     Alert,
-    ImageBackground
+    ImageBackground,
+    Modal,
+    TextInput
 } from 'react-native';
 
 //import AppIntroSlider to use it
@@ -27,6 +28,29 @@ import { ReturnButton } from '../../../components/Buttons';
 
 const JockeyRegister = () => {
     const navigation = useNavigation();
+    const [modalVisible, setModalVisible] = useState(false);
+    const [secondModalVisible, setSecondModalVisible] = useState(false);
+    const [inputText, setInputText] = useState('');
+
+    const handleYesPress = () => {
+        setModalVisible(false);
+        setSecondModalVisible(true);
+    };
+
+    const handleNoPress = () => {
+        setModalVisible(false);
+    };
+
+    const handleSecondModalSubmit = () => {
+        if (inputText !== '') {
+            setSecondModalVisible(false);
+            Alert.alert(`You entered: ${inputText}`);
+        }
+    }
+    const handleSecondNoModalSubmit = () => {
+        setSecondModalVisible(false);
+    };
+
     const handlePress = (value) => {
         Alert.alert(
             `${value}`,
@@ -38,37 +62,20 @@ const JockeyRegister = () => {
                 },
                 {
                     text: "はい",
-                    onPress: () => this.refSlider.goToSlide(2)
-                }
-            ],
-            { cancelable: false },
-        );
-    }
-    // navigation.replace('JocTraining')
-    const handleDonePress = (value) => {
-        Alert.alert(
-            ' ',
-            ' (入力した名前→)〇〇でよろしいでしょうか？ ',
-            [
-                {
-                    text: "いいえ",
-                    style: "cancel"
-                },
-                {
-                    text: "はい",
-                    onPress: () => handleSecondPress()
+                    onPress: () => setModalVisible(true)
                 }
             ],
             { cancelable: false },
         );
     }
 
-    const handleSecondPress = (value) => {
+    const handleSecondPress = () => {
+        setSecondModalVisible(false);
         Alert.alert(
             ' ',
             '鍛えてたくさんレースに勝ってもらいましょう!',
             [
-             
+
                 {
                     text: "閉じる",
                     onPress: () => navigation.replace('JocTraining')
@@ -78,86 +85,34 @@ const JockeyRegister = () => {
         );
     }
 
-
-    const handleNameChange = (value) => {
-    }
     const RenderItem = ({ item }) => {
-
-        if (item.key == 's1') {
-            return (
-                <View
-                    style={{
-                        height: 300,
-                        marginTop: 80,
-                        opacity: 0.9,
-                        backgroundColor: item.backgroundColor,
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}>
-                    <Text style={styles.introTextStyle}>{item.text}</Text>
-                    <View style={styles.introBtnGroupStyle}>
-                        <JockeyOk label={'いいえ'} onPress={() => navigation.goBack()} />
-                        <JockeyOk label={'はい'}  onPress={() => this.refSlider.goToSlide(1)} />
+        return (
+            <View
+                style={{
+                    // flex: 1,
+                    height: 350,
+                    marginTop: 60,
+                    opacity: 0.9,
+                    backgroundColor: item.backgroundColor,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
+                <Text style={styles.introTextStyle}>{item.text}</Text>
+                <View style={styles.introGenderStyle}>
+                    <View style={styles.introGroupStyle}>
+                        <Image style={styles.introImageStyle} source={item.male} />
+                        <JockeyCheck label={'男性'} color={2} onPress={() => handlePress('男性')} />
                     </View>
+
+                    <View style={styles.introGroupStyle}>
+                        <Image style={styles.introImageStyle} source={item.female} />
+                        <JockeyCheck label={'女性'} color={3} onPress={() => handlePress('女性')} />
+                    </View>
+
                 </View>
-            );
-        } else if (item.key == 's2') {
-            return (
-                <View
-                    style={{
-                        // flex: 1,
-                        height: 350,
-                        marginTop: 60,
-                        opacity: 0.9,
-                        backgroundColor: item.backgroundColor,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}>
-                    <Text style={styles.introTextStyle}>{item.text}</Text>
-                    <View style={styles.introGenderStyle}>
-                        <View style={styles.introGroupStyle}>
-                            <Image style={styles.introImageStyle} source={item.male} />
-                            <JockeyCheck label={'男性'} color={2} onPress={() => handlePress('男性')} />
-                        </View>
-
-                        <View style={styles.introGroupStyle}>
-                            <Image style={styles.introImageStyle} source={item.female} />
-                            <JockeyCheck label={'女性'} color={3} onPress={() => handlePress('女性')} />
-                        </View>
-
-                    </View>
-                </View>
-            );
-        } else if (item.key == 's3') {
-            return (
-                <View
-                    style={{
-                        // flex: 1,
-                        height: 300,
-                        marginTop: 80,
-                        opacity: 0.9,
-                        backgroundColor: item.backgroundColor,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}>
-                    <Text style={styles.introTextStyle}>{item.text}</Text>
-
-                    <View style={styles.introInputGroupStyle}>
-                        <JokeyNameInput onChangeText={handleNameChange} />
-                        <Text style={styles.introJokeyNameStyle}>  騎手ですね!</Text>
-                    </View>
-
-                    <View style={styles.introBtnGroupStyle}>
-                        <JockeyOk label={'いいえ'} onPress={() => this.refSlider.goToSlide(1)} />
-                        <JockeyOk label={'はい'} onPress={() => handleDonePress()} />
-                    </View>
-                </View>
-            );
-        }
-
+            </View>
+        );
     };
-
-
     return (
         <>
 
@@ -190,6 +145,61 @@ const JockeyRegister = () => {
 
             </View>
 
+            {/* MODAL */}
+            <View style={ButtonStyle.container}>
+                <Modal
+                    visible={secondModalVisible}
+                    animationType="fade"
+                    transparent={true}
+                >
+                    <View style={ButtonStyle.ModalCenter}>
+                        <Text style={ButtonStyle.saleTxt}>(入力した名前→)〇〇でよろしいでしょうか？</Text>
+                        <View style={ButtonStyle.buttonContainer}>
+                            <View style={{ margin: 10 }}>
+                                <SaleInputButton label="いいえ" onPress={handleNoPress} />
+                            </View>
+                            <View style={{ margin: 10 }}>
+                                <SaleInputButton label="はい" onPress={handleSecondPress} />
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+
+                <Modal
+                    visible={modalVisible}
+                    animationType="fade"
+                    transparent={true}
+                >
+                    <View style={ButtonStyle.ModalCenter}>
+                        <Text style={ButtonStyle.ModalCenterTxt}>   騎手の名前を教えてください。</Text>
+                        <View style={ButtonStyle.inputText}>
+                            <TextInput
+                                style={{
+                                    width: vw(36),
+                                    height: 38,
+                                    borderColor: 'gray',
+                                    borderWidth: 1,
+                                    margin: 10,
+                                    // padding: 10,
+                                    borderRadius: 5
+                                }}
+                                onChangeText={(text) => setInputText(text)}
+                                value={inputText}
+                            />
+                            <Text style={ButtonStyle.Itxt}>騎手ですね!</Text>
+                        </View>
+                        <View style={ButtonStyle.buttonContainer}>
+                            <View style={{ margin: 10 }}>
+                                <SaleInputButton label="いいえ" onPress={handleSecondNoModalSubmit} />
+                            </View>
+                            <View style={{ margin: 10 }}>
+                                <SaleInputButton label="はい" onPress={handleYesPress} />
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+            </View>
+            {/* Modal */}
         </>
     );
 };
@@ -264,11 +274,6 @@ const styles = StyleSheet.create({
 const slides = [
     {
         key: 's1',
-        text: '専属騎手がいません。 雇用契約費用 5000pt が 毎年かかりますが契約しますか?',
-        backgroundColor: '#b3cefb',
-    },
-    {
-        key: 's2',
         text: '男性か女性かを選んでください。',
         male: require('../../../assets/images/People/1.png'),
         female: require('../../../assets/images/People/0.png'),
@@ -276,7 +281,7 @@ const slides = [
         backgroundColor: '#febe29',
     },
     {
-        key: 's3',
+        key: 's2',
         text: '騎手の名前を教えてください。',
         backgroundColor: '#b3cefb',
     }

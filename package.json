@@ -33,6 +33,7 @@
     "react-native-countdown-component": "^2.7.1",
     "react-native-css-vh-vw": "^1.0.5",
     "react-native-dropdown-picker": "^5.4.6",
+    "react-native-effects-view": "^0.4.0",
     "react-native-elements": "^3.4.3",
     "react-native-expo-viewport-units": "^0.0.8",
     "react-native-geolocation-service": "^5.3.1",

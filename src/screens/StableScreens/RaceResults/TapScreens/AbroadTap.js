@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ScrollView, Text, Image } from 'react-native';
 // Redux
 import { connect } from 'react-redux';
+
 // Custom import
 import StableStyles from '../../StableStyles';
 
@@ -10,6 +11,7 @@ const AbroadTap = () => {
         <ScrollView style={StableStyles.stallContainer}>
             <View
                 style={StableStyles.abroadTap}
+
             >
                 <View style={StableStyles.stallGroup}>
                     <Text> 国沢厩舎</Text>
@@ -41,9 +43,15 @@ const AbroadTap = () => {
                 </View>
             </View>
             <Image
+                style={[StableStyles.RaceLockBlur, {opacity: .8}]}
+                source={require('../../../../assets/images/5.png')}
+                blurRadius={Platform.OS === 'ios' ? 8 : 3}
+           />
+            <Image
                 style={[StableStyles.RaceLockIcon]}
                 source={require('../../../../assets/images/Lock.png')}
             />
+             
         </ScrollView>
     )
 }

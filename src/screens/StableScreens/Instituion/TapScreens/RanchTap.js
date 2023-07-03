@@ -81,7 +81,7 @@ const RanchTap = ({ pasture_name, user_id, user_level, ranch }) => {
           "user_level": user_level
         };
         Alert.alert(
-          `ロンギ場 (Lv.${level})は、${price}ptですが購入しますか`,
+          `ロンギ場 (Lv.${level})は、${price}ptですが購入しますか?`,
           `[効果] 入厩時に「気性+${effect}」`,
           [
             {
@@ -109,7 +109,7 @@ const RanchTap = ({ pasture_name, user_id, user_level, ranch }) => {
         "user_level": user_level
       };
       Alert.alert(
-        `ロンギ場 (Lv.1)は、1000ptですが購入しますか`,
+        `ロンギ場 (Lv.1)は、1000ptですが購入しますか?`,
         "[効果] 入厩時に「気性+10」",
         [
           {
@@ -130,7 +130,7 @@ const RanchTap = ({ pasture_name, user_id, user_level, ranch }) => {
     
   }
   return (
-    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.IButtonFive}]}>
+    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.IButtonFive, opacity: 0.9}]}>
       <View style={StableStyles.tapContent}>
         <View style={StableStyles.Bundle}>
           <Image

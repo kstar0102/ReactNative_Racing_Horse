@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { View, ImageBackground} from 'react-native';
+import React, { useState } from 'react';
+import { View, ImageBackground, Alert } from 'react-native';
 // Redux
 import { connect, useDispatch } from 'react-redux';
 import { raceAction } from '../store/actions/racepaln/getApi/racePlanAction';
@@ -9,44 +9,61 @@ import StableFooterScreen from './LayoutScreen/StableFooterScreen';
 import { CustomButtons, ReturnButton } from '../components/Buttons';
 import Screenstyles from '../screens/ScreenStylesheet';
 
-const StableScreen = ({navigation}) => {
+const StableScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const [currentTime, setCurrentTime] = useState(new Date());
-    // GET RACE DATA
-    const handleGetSubmit = () => {
-      dispatch(raceAction(calculateGameDate(currentTime)));
-      navigation.navigate('RaceCourse')
-    }
+  // GET RACE DATA
+  const handleGetSubmit = () => {
+    dispatch(raceAction(calculateGameDate(currentTime)));
+    navigation.navigate('RaceCourse')
+  }
 
+  const handleJockey = () => {
+    Alert.alert(
+      ' ',
+      '専属騎手がいません。 雇用契約費用 5000pt が 毎年かかりますが契約しますか?',
+      [
+        {
+          text: "いいえ",
+          style: "cancel"
+        },
+        {
+          text: "はい",
+          onPress: () => navigation.navigate('JockeyTraingin')
+        }
+      ],
+      { cancelable: false },
+    );
+  }
   return (
     <View style={Screenstyles.container}>
-         
+
       <ImageBackground
         source={require('../assets/images/horse_track/stall.jpg')}
         resizeMode="cover"
         style={Screenstyles.img}>
-        <HeaderScreen/>
-            <ReturnButton label="厩 舎" color={1} onPress={() => navigation.navigate('TopScreen')}/>
-            <View style={Screenstyles.containers}>
-              <View style={Screenstyles.content}>
-                  <CustomButtons label="調 教" color={1} onPress={() => navigation.navigate('Training')}/>
-                  <CustomButtons label="騎手育成"color={1} onPress={() => navigation.navigate('JockeyTraingin')}/>
-                  <CustomButtons label="競馬場"color={1}   onPress={handleGetSubmit}/>
-              </View>
-              <View style={Screenstyles.content}>
-                  <CustomButtons label="出走登錄" color={1} onPress={() => navigation.navigate('RaceRegistation')}/>
-                  <CustomButtons label="施 設" color={1} onPress={() => navigation.navigate('Institution')}/>
-                  <CustomButtons label="競走成績" color={1} onPress={() => navigation.navigate('RaceResults')}/>
-              </View>
-            </View>
-              <StableFooterScreen/>
+        <HeaderScreen />
+        <ReturnButton label="厩 舎" color={1} onPress={() => navigation.navigate('TopScreen')} />
+        <View style={Screenstyles.containers}>
+          <View style={Screenstyles.content}>
+            <CustomButtons label="調 教" color={1} onPress={() => navigation.navigate('Training')} />
+            <CustomButtons label="騎手育成" color={1} onPress={() => handleJockey()} />
+            <CustomButtons label="競馬場" color={1} onPress={handleGetSubmit} />
+          </View>
+          <View style={Screenstyles.content}>
+            <CustomButtons label="出走登錄" color={1} onPress={() => navigation.navigate('RaceRegistation')} />
+            <CustomButtons label="施 設" color={1} onPress={() => navigation.navigate('Institution')} />
+            <CustomButtons label="競走成績" color={1} onPress={() => navigation.navigate('RaceResults')} />
+          </View>
+        </View>
+        <StableFooterScreen />
       </ImageBackground>
     </View>
   );
 };
 
 const mapStateToProps = state => {
-  return{
+  return {
 
   }
 }

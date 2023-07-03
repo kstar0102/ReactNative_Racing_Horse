@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, Text, ScrollView,Alert } from 'react-native';
+import { View, Image, Text, ScrollView, Alert } from 'react-native';
 // Redux
 import { connect, useDispatch } from 'react-redux';
 import { truckBuyAction } from '../../../../store/actions/institution/apiAction/truckBuyAction';
@@ -46,7 +46,7 @@ const TruckTap = ({ pasture_name, user_id, user_level, truck }) => {
         setThreeBorderStyle(0);
         setThreeBlueStyle(1);
         setThreeLockStyle('none');
-      }else if(truck[0].level == 3){
+      } else if (truck[0].level == 3) {
         setThreeBtnStyle('none');
         setTwoBtnStyle('none');
         setTwoTxtStyle('flex');
@@ -81,21 +81,22 @@ const TruckTap = ({ pasture_name, user_id, user_level, truck }) => {
         };
       }
       Alert.alert(
-        `トラック (Lv.${level})は、${price}ptですが購入しますか`,
+        `トラック (Lv.${level})は、${price}ptですが購入しますか?`,
         `[効果] 入厩時に「根性+${effect}」`,
         [
           {
             text: "いいえ",
             style: "cancel"
           },
-          { 
+          {
             text: "はい",
-            onPress:() => dispatch(truckBuyAction(truckData))
+            onPress: () => dispatch(truckBuyAction(truckData))
           }
         ],
-        { cancelable: false,
-          style: {fontSize: 5}
-        
+        {
+          cancelable: false,
+          style: { fontSize: 5 }
+
         },
       );
     } else {
@@ -108,28 +109,29 @@ const TruckTap = ({ pasture_name, user_id, user_level, truck }) => {
         "user_level": user_level
       };
       Alert.alert(
-        `トラック (Lv.1)は、1000ptですが購入しますか`,
+        `トラック (Lv.1)は、1000ptですが購入しますか?`,
         "[効果] 入厩時に「根性+10」",
         [
           {
             text: "いいえ",
             style: "cancel"
           },
-          { 
+          {
             text: "はい",
-            onPress:() => dispatch(truckBuyAction(truckData))
+            onPress: () => dispatch(truckBuyAction(truckData))
           }
         ],
-        { cancelable: false,
-          style: {fontSize: 5}
-        
+        {
+          cancelable: false,
+          style: { fontSize: 5 }
+
         },
       );
     }
-    
+
   }
   return (
-    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.IButtonfour}]}>
+    <ScrollView style={[StableStyles.tapContainer, { backgroundColor: colors.IButtonfour, opacity: 0.9 }]}>
       <View style={StableStyles.tapContent}>
         <View style={StableStyles.Bundle}>
           <Image
@@ -162,7 +164,7 @@ const TruckTap = ({ pasture_name, user_id, user_level, truck }) => {
           <Text style={[StableStyles.tapPay, { display: threeTxtStyle, borderWidth: threeborderStyle }]}>済</Text>
           <BuyTapButton label={'購入する'} onPress={() => handleSubmit(3, 6000, 30)} display={threeBtnStyle} />
           <Image
-            style={[StableStyles.tapIcon,  { display: threeLockStyle }]}
+            style={[StableStyles.tapIcon, { display: threeLockStyle }]}
             source={require('../../../../assets/images/Lock.png')}
           />
         </View>

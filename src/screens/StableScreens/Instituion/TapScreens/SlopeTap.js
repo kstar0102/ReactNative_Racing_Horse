@@ -80,7 +80,7 @@ const SlopTap = ({ pasture_name, user_id, user_level, road }) => {
           "user_level": user_level
         };
         Alert.alert(
-          `坂路 (Lv.${level})は、${price}ptですが購入しますか`,
+          `坂路 (Lv.${level})は、${price}ptですが購入しますか?`,
           `[効果] 入厩時に「瞬発+${effect}」`,
           [
             {
@@ -108,7 +108,7 @@ const SlopTap = ({ pasture_name, user_id, user_level, road }) => {
         "user_level": user_level
       };
       Alert.alert(
-        `坂路 (Lv.1)は、1000ptですが購入しますか`,
+        `坂路 (Lv.1)は、1000ptですが購入しますか?`,
         "[効果] 入厩時に「瞬発+10」",
         [
           {
@@ -129,7 +129,7 @@ const SlopTap = ({ pasture_name, user_id, user_level, road }) => {
    
   }
   return (
-    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.tabButtonMiddle}]}>
+    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.tabButtonMiddle, opacity: 0.9}]}>
       <View style={StableStyles.tapContent}>
         <View style={StableStyles.Bundle}>
           <Image

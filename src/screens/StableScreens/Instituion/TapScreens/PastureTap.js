@@ -92,7 +92,7 @@ const PastureTap = ({ pasture_name, user_id, user_level, pasture }) => {
     }
     Alert.alert(
       ' ',
-      `牧場 (Lv.${level})は、${price}ptですが購入しますか`,
+      `牧場 (Lv.${level})は、${price}ptですが購入しますか?`,
       [
         {
           text: "いいえ",
@@ -110,7 +110,7 @@ const PastureTap = ({ pasture_name, user_id, user_level, pasture }) => {
     );
   }
   return (
-    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.tabButtonEnd}]}>
+    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.tabButtonEnd, opacity: 0.9}]}>
       <View style={[StableStyles.tapContent]}>
         <View style={StableStyles.Bundle}>
           <Image

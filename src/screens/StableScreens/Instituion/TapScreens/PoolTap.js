@@ -82,7 +82,7 @@ const PoolTap = ({ pasture_name, user_id, user_level, pool }) => {
         };
       }
       Alert.alert(
-        `プール (Lv.${level})は、${price}ptですが購入しますか`,
+        `プール (Lv.${level})は、${price}ptですが購入しますか?`,
         `[効果] 入厩時に「健康+${effect}」`,
         [
           {
@@ -109,7 +109,7 @@ const PoolTap = ({ pasture_name, user_id, user_level, pool }) => {
         "user_level": user_level
       };
       Alert.alert(
-        `プール (Lv.1)は、1000ptですが購入しますか`,
+        `プール (Lv.1)は、1000ptですが購入しますか?`,
         "[効果] 入厩時に「健康+10」",
         [
           {
@@ -130,7 +130,7 @@ const PoolTap = ({ pasture_name, user_id, user_level, pool }) => {
     
   }
   return (
-    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.headerButtonColor}]}>
+    <ScrollView style={[StableStyles.tapContainer, {backgroundColor: colors.headerButtonColor, opacity: 0.9}]}>
       <View style={StableStyles.tapContent}>
         <View style={StableStyles.Bundle}>
           <Image

@@ -88,13 +88,6 @@ const StableStyles = StyleSheet.create({
     fontSize: 13,
     fontWeight: 600
   },
-  cardBodyAngle: {
-    flexDirection: 'row'
-  },
-  cardBodyTxtAngle: {
-    marginLeft: -5,
-    transform: [{ rotateZ: '-90deg' }],
-  },
   cardBodyGroundTxt: {
     color: colors.HBrown
   },
@@ -107,7 +100,6 @@ const StableStyles = StyleSheet.create({
   },
   abroadTap: {
     backgroundColor: colors.tapAbroadColor,
-    // color: 'rgba(0, 0, 0, 0.8)'
   },
   rittoTap: {
     backgroundColor: colors.tapRittoColor
@@ -167,6 +159,10 @@ const StableStyles = StyleSheet.create({
     //justifyContent: "center",
     width: vw(30),
     height: vh(20),
+  },
+  RaceLockBlur:{
+    position: 'absolute',
+    height: vh(800),
   },
   tapImage: {
     width: vw(40),

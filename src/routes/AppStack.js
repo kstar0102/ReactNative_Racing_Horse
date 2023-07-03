@@ -1,7 +1,9 @@
 import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 // Screens
 import TopScreen from '../screens/TopScreen';
+import horizontalAnimation from './horizontalAnimation';
 /**
  * Pasture Screen
  */
@@ -31,38 +33,38 @@ import RaceCourse from '../screens/StableScreens/RaceCourse';
 
 
 const Stack = createNativeStackNavigator();
-
+const ModalStack = createStackNavigator();
 const AppStack = () => {
   return (
     <>
-      <Stack.Navigator>
-          <Stack.Screen
+      <ModalStack.Navigator>
+          <ModalStack.Screen
             name={'TopScreen'}
             component={TopScreen}
             options={{ headerShown: false }}
         />
         {/* PASTURE */}
-        <Stack.Screen name={'PastureScreen'} component={PastureScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name={'PastureRegistration'} component={PastureRegistration} options={{ headerShown: false }}/>
-        <Stack.Screen name={'HorseChoiceScreen'} component={HorseChoiceScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name={'UpbringingScreen'} component={UpbringingScreen} options={{ headerShown: false }}/> 
-        <Stack.Screen name={'PastureNameScreen'} component={PastureNameScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name={'HorseNameScreen'} component={HorseNameScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name={'InstitutionScreen'} component={InstitutionScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name={'OfficeScreen'} component={OfficeScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name={'RacetrackScreen'} component={RacetrackScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name={'WorkingHorseScreen'} component={WorkingHorseScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name={'ReservationScreen'} component={ReservationScreen} options={{ headerShown: false }}/>
+        <ModalStack.Screen name={'PastureScreen'} component={PastureScreen} options={ horizontalAnimation }/>
+        <ModalStack.Screen name={'PastureRegistration'} component={PastureRegistration} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'HorseChoiceScreen'} component={HorseChoiceScreen} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'UpbringingScreen'} component={UpbringingScreen} options={horizontalAnimation}/> 
+        <ModalStack.Screen name={'PastureNameScreen'} component={PastureNameScreen} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'HorseNameScreen'} component={HorseNameScreen} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'InstitutionScreen'} component={InstitutionScreen} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'OfficeScreen'} component={OfficeScreen} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'RacetrackScreen'} component={RacetrackScreen} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'WorkingHorseScreen'} component={WorkingHorseScreen} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'ReservationScreen'} component={ReservationScreen} options={horizontalAnimation}/>
         {/* STALBE */}
-        <Stack.Screen name={'StallScreen'} component={StableScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name={'Training'} component={Training} options={{ headerShown: false }}/>
-        <Stack.Screen name={'RaceRegistation'} component={RaceRegistation} options={{ headerShown: false }}/>
-        <Stack.Screen name={'RaceResults'} component={RaceResults} options={{ headerShown: false }}/>
-        <Stack.Screen name={'Institution'} component={Institution} options={{ headerShown: false }}/>
-        <Stack.Screen name={'JockeyTraingin'} component={JockeyTraingin} options={{ headerShown: false }}/>
-        <Stack.Screen name={'JocTraining'} component={JocTraining} options={{ headerShown: false }}/>
-        <Stack.Screen name={'RaceCourse'} component={RaceCourse} options={{ headerShown: false }}/>
-      </Stack.Navigator>
+        <ModalStack.Screen name={'StallScreen'} component={StableScreen} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'Training'} component={Training} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'RaceRegistation'} component={RaceRegistation} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'RaceResults'} component={RaceResults} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'Institution'} component={Institution} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'JockeyTraingin'} component={JockeyTraingin} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'JocTraining'} component={JocTraining} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'RaceCourse'} component={RaceCourse} options={horizontalAnimation}/>
+      </ModalStack.Navigator>
     </>
   );
 };

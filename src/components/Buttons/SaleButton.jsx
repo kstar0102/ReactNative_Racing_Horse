@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {TouchableOpacity, View, Modal, TextInput, Alert, Text } from 'react-native';
 import ButtonStyle from './ButtonStyle';
-import { vh, vw } from 'react-native-expo-viewport-units';
+import { vw } from 'react-native-expo-viewport-units';
 import SaleInputButton from './SaleInputButton';
 
 const SaleButton = ({label ,onPress, disabled}) => {
