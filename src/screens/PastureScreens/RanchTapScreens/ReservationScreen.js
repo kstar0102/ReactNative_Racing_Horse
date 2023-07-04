@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, ImageBackground, Image, Text, ScrollView } from 'react-native';
-import Spinner from 'react-native-loading-spinner-overlay';
 // REDUX
 import { connect, useDispatch } from 'react-redux';
 import { reservationAction } from '../../../store/actions/Pasture/reservationAction';
@@ -23,7 +22,7 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
   const [selected, setSelected] = useState(undefined);
   const [selectedDelete, setSelectedDelete] = useState(undefined);
   const [selectedFodder, setSelectedFodder] = useState(undefined);
-  const [seletedGrazing, setSeletedGrazing] = useState(undefined);
+  const [seletedGrazing, setSeletedGrazing] = useState(' ');
   const [banner, setBanner] = useState(saveData[0]);
   const [grazing, setGrazing] = useState('');
   const [fodder, setFodder] = useState('');
@@ -33,6 +32,7 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
   const [currentTime, setCurrentTime] = useState(new Date());
   const [currentComplate, setCurrentComplate] = useState('none');
   const [currentIncomplete, setCurrentIncomplete] = useState('none');
+  const [nameValue, setNameValue] = useState(' ');
 
   const data = saveData;
   const gameAllDate = calculateGameDate(currentTime);
@@ -41,16 +41,24 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
 
   let horse_ids = [];
   let gameDate = [];
-
+  let food_names = [];
+  let arrayValue = [];
   if (reservationData != '') {
     reservationData.forEach((element, index) => {
       horse_ids.push(element.horse_id);
-      gameDate.push(element.game_date)
+      gameDate.push(element.game_date);
+      food_names.push(element.food_name);
     });
+  }
+  if (horse_ids.includes(banner.id.toString()) && gameDate.includes(gameData)) {
+    for (let index = 0; index < food_names.length; index++) {
+      if(horse_ids[index] == banner.id.toString()){
+        arrayValue.push({ name: food_names[index] }); 
+      }
+    }
   }
 
   useEffect(() => {
-    
     if (reservationData != '') {
       if (horse_ids.includes(banner.id.toString()) && gameDate.includes(gameData)) {
         setCurrentIncomplete('flex');
@@ -59,6 +67,10 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
         setCurrentIncomplete('none');
         setCurrentComplate('flex');
       }
+    }
+    else {
+      setCurrentIncomplete('none');
+      setCurrentComplate('flex');
     }
   }, [gameDate, horse_ids])
 
@@ -77,6 +89,7 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
 
   const handleSettingId = (value) => {
     setBanner(value);
+    setAllData([]);
     if (reservationData != '') {
       if (horse_ids == banner.id && gameDate == gameData) {
         setCurrentIncomplete('flex');
@@ -217,15 +230,23 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
   const grazingData = [
     { name: 'スベシャル', price: '1' },
     { name: '放牧', price: '1' },
-    { name: '芝', price: '1' },
-    { name: 'ダート', price: '1' },
-    { name: 'ウッドチップ', price: '1' },
-    { name: 'プール', price: '1' },
+    { name: '芝(馬なり)', price: '1' },
+    { name: '芝(強め)', price: '3' },
+    { name: '芝(一杯)', price: '5' },
+    { name: 'ダート(馬なり)', price: '1' },
+    { name: 'ダート(強め)', price: '3' },
+    { name: 'ダート(一杯)', price: '5' },
+    { name: 'ウッドチップ(馬なり)', price: '1' },
+    { name: 'ウッドチップ(強め)', price: '3' },
+    { name: 'ウッドチップ(一杯)', price: '5' },
+    { name: 'プール(馬なり)', price: '1' },
+    { name: 'プール(強め)', price: '3' },
+    { name: 'プール(一杯)', price: '5' },
   ];
 
   const fodderData = [
     { name: 'にんじん', price: '1' },
-    { name: 'Sドリンク3', price: '3' },
+    { name: 'Sドリンク', price: '3' },
     { name: 'プロテイン', price: '5' },
     { name: '角砂糖', price: '1' },
     { name: 'チョコ', price: '3' },
@@ -257,9 +278,10 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
     food_order.push(index + 1);
   });
   const handleArraySubmit = () => {
+
     if (horse_ids.includes(banner.id.toString()) && gameDate.includes(gameData)) {
       return alert('Not Found!!')
-    }else{
+    } else {
       if (allData != '') {
         const sandReserve = {
           'horse_id': banner.id,
@@ -272,12 +294,13 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
         }
         dispatch(reservationAction(sandReserve));
         dispatch(reservationValiAction(sandReserve));
-  
+        setAllData([]);
+        //this.forceUpdate();
       } else {
         alert('NOT FOUND');
       }
     }
-
+    // setAllData();
   }
   const handleDelete = (deletes) => {
     setAllData(allData.filter((item, index) => index + 1 !== deletes));
@@ -376,17 +399,17 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
             <View style={Screenstyles.reserveMenuLeft}>
               <Text style={Screenstyles.reserveMenuTitle}>育成メニュー</Text>
               <View style={Screenstyles.reserveMenuGroup}>
-                <MenuDropDown name={' '} data={grazingData} onSelect={setSeletedGrazing} setId={handleGrazingId} />
+                <MenuDropDown name={nameValue} data={grazingData} onSelect={setSeletedGrazing} setId={handleGrazingId} />
                 <ReserveButton label={'予約'} colorNumber={3} onPress={() => handleGrazing(grazing)} />
               </View>
               <Text style={Screenstyles.reserveMenuTitle}>飼葉メニュー</Text>
               <View style={Screenstyles.reserveMenuGroup}>
-                <MenuDropDown name={' '} data={fodderData} onSelect={setSelectedFodder} setId={handleFodderId} />
+                <MenuDropDown name={nameValue} data={fodderData} onSelect={setSelectedFodder} setId={handleFodderId} />
                 <ReserveButton label={'予約'} colorNumber={3} onPress={() => handleFodder(fodder)} />
               </View>
               <Text style={Screenstyles.reserveMenuTitle}>プリセット</Text>
               <View style={Screenstyles.reserveMenuGroup}>
-                <MenuDropDown name={' '} onSelect={setSelected} />
+                <MenuDropDown name={nameValue} onSelect={setSelected} />
                 <ReserveButton label={'予約'} colorNumber={3} />
               </View>
               <PresetRegistrationButton label={'プリセット登録'} />
@@ -404,6 +427,13 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
                   {allData.map((item, index) => (
                     <Text key={index} style={Screenstyles.reserveListtxt}>{index + 1}.  {item.name}</Text>
                   ))}
+                  {
+                    arrayValue.map(
+                      (item, index) => (
+                        <Text key={index} style={Screenstyles.reserveListtxt}>{index + 1}.  {item.name}</Text>
+                      )
+                    )
+                  }
                 </ScrollView>
                 <View style={Screenstyles.reserveButtonGroup}>
                   <ReservationDropDown name={food_order[0]} data={food_order} onSelect={setSelectedDelete} setId={handleDeleteId} />

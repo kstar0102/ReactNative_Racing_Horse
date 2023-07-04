@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   dropdown4BtnTxtStyle: {color: '#444', textAlign: 'left', fontSize: 12},
-  dropdown4DropdownStyle: {backgroundColor: '#EFEFEF',marginTop: -20, fontSize: 12},
-  dropdown4RowStyle: {backgroundColor: '#EFEFEF', height: 30, borderBottomColor: '#C5C5C5'},
+  dropdown4DropdownStyle: {backgroundColor: '#EFEFEF',height: 200,  marginTop: -20, fontSize: 12},
+  dropdown4RowStyle: {backgroundColor: '#EFEFEF', height: 34, borderBottomColor: '#C5C5C5'},
   dropdown4RowTxtStyle: {color: '#444', textAlign: 'left', fontSize: 12},
 });
