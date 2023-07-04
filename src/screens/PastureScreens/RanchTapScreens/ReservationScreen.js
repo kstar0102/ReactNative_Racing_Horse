@@ -257,21 +257,25 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
     food_order.push(index + 1);
   });
   const handleArraySubmit = () => {
-    if (allData != '') {
-      const sandReserve = {
-        'horse_id': banner.id,
-        'pasture_id': pasture_id,
-        'food_name': food_name,
-        'user_id': user_id,
-        'price': food_price,
-        'order': food_order,
-        'game_date': gameData
+    if (horse_ids.includes(banner.id.toString()) && gameDate.includes(gameData)) {
+      return alert('Not Found!!')
+    }else{
+      if (allData != '') {
+        const sandReserve = {
+          'horse_id': banner.id,
+          'pasture_id': pasture_id,
+          'food_name': food_name,
+          'user_id': user_id,
+          'price': food_price,
+          'order': food_order,
+          'game_date': gameData
+        }
+        dispatch(reservationAction(sandReserve));
+        dispatch(reservationValiAction(sandReserve));
+  
+      } else {
+        alert('NOT FOUND');
       }
-      dispatch(reservationAction(sandReserve));
-      dispatch(reservationValiAction(sandReserve));
-
-    } else {
-      alert('NOT FOUND');
     }
 
   }
