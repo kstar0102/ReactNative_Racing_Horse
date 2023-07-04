@@ -18,10 +18,10 @@ import PresetRegistrationButton from '../../../components/Buttons/PresetRegistra
 import { horseColor } from '../../../utils/globals';
 
 const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservationData }) => {
-  if(reservationData == '')
-  {
-    return <Spinner visible={true} />
-  }
+  // if(reservationData == '')
+  // {
+  // return <Spinner visible={true} />
+  // }
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(undefined);
   const [selectedDelete, setSelectedDelete] = useState(undefined);
@@ -44,10 +44,13 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
 
   let horse_ids = [];
   let gameDate = [];
-  reservationData.forEach((element, index) => {
-    horse_ids.push(element.horse_id);
-    gameDate.push(element.game_date)
-  });
+  if (reservationData != '') {
+    reservationData.forEach((element, index) => {
+      horse_ids.push(element.horse_id);
+      gameDate.push(element.game_date)
+    });
+  }
+
 
   useEffect(() => {
     if (reservationData != '') {
@@ -57,7 +60,10 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
       } else {
         setCurrentIncomplete('none');
         setCurrentComplate('flex');
-      } 
+      }
+    }else{
+      setCurrentIncomplete('none');
+      setCurrentComplate('flex');
     }
   }, [gameDate, horse_ids])
 
@@ -83,7 +89,7 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
       } else {
         setCurrentIncomplete('none');
         setCurrentComplate('flex');
-      } 
+      }
     }
 
     if (value.ground == 'ダ') {

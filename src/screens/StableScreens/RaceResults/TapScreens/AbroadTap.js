@@ -45,7 +45,7 @@ const AbroadTap = () => {
             <Image
                 style={[StableStyles.RaceLockBlur]}
                 source={require('../../../../assets/images/6.png')}
-                blurRadius={Platform.OS === 'ios' ? 9 : 2}
+                blurRadius={Platform.OS === 'ios' ? 10 : 4}
            />
             <Image
                 style={[StableStyles.RaceLockIcon]}
