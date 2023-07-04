@@ -162,7 +162,7 @@ const StableStyles = StyleSheet.create({
   },
   RaceLockBlur:{
     position: 'absolute',
-    height: vh(800),
+    height: vh(60),
   },
   tapImage: {
     width: vw(40),

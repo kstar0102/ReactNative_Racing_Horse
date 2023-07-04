@@ -17,15 +17,15 @@ const ReservationDropDown = ({name, data, onSelect, setId}) => {
             }}
             defaultButtonText={name}
             buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem.name;
+              return selectedItem;
             }}
             rowTextForSelection={(item, index) => {
-              return item.name;
+              return item;
             }}
             buttonStyle={styles.dropdown4BtnStyle}
             buttonTextStyle={styles.dropdown4BtnTxtStyle}
             renderDropdownIcon={isOpened => {
-              return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+              return <FontAwesome data={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={16} />;
             }}
             dropdownIconPosition={'right'}
             dropdownStyle={styles.dropdown4DropdownStyle}
@@ -48,11 +48,11 @@ const styles = StyleSheet.create({
 
   viewContainer: { backgroundColor: '#FFF', },
   dropdown4BtnStyle: {
-    width: 50,
+    width: 45,
     height: 30,
     backgroundColor: '#FFF',
   },
-  dropdown4BtnTxtStyle: {color: '#444', textAlign: 'left', fontSize: 6},
+  dropdown4BtnTxtStyle: {color: '#444', textAlign: 'left', fontSize: 12},
   dropdown4DropdownStyle: {backgroundColor: '#EFEFEF',marginTop: -20},
   dropdown4RowStyle: {backgroundColor: '#EFEFEF', height: 30, borderBottomColor: '#C5C5C5'},
   dropdown4RowTxtStyle: {color: '#444', textAlign: 'left', fontSize: 12},

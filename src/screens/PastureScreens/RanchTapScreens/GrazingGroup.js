@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { View, Image, Text, ImageBackground, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 // Redux
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { reservationValiAction } from '../../../store/actions/Pasture/reservationValiAction';
 // Custom Import
+import {calculateGameDate} from '../../LayoutScreen/HeaderScreen';
 import { ImageButton } from '../../../components/Buttons';
 import DetailButton from '../../../components/Buttons/DetailButton';
 import RTapScreensStyle from './RTapScreensStyle';
 
 
-const GrazingGroup = ({ horseId, poolLevel, truckLevel, roadLevel }) => {
+const GrazingGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   // POOL STATE
   const [poolDisplay, setPoolDisplay] = useState('flex');
   const [poolDisabled, setPoolDisabled] = useState(true);
@@ -23,10 +26,18 @@ const GrazingGroup = ({ horseId, poolLevel, truckLevel, roadLevel }) => {
   // SPACEIAL
   const [spaceialDisplay, setSpaceialDisplay] = useState('flex');
   const [spaceialDisabled, setSpaceialDisabled] = useState(true);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
+  const gameAllDate = calculateGameDate(currentTime);
+  const gameData = gameAllDate.toISOString().split('T')[0]
 
   const goToOtherScreen = () => {
     navigation.replace('ReservationScreen');
+    const sandReservationData = {
+      'game_date': gameData,
+      'pasture_id': pasture_id
+    }
+    dispatch(reservationValiAction(sandReservationData));
   };
   useEffect(() => {
     if(poolLevel != ''){
@@ -160,6 +171,7 @@ const GrazingGroup = ({ horseId, poolLevel, truckLevel, roadLevel }) => {
 
 const mapStateToProps = state => {
   return {
+    pasture_id: state.pasture.pastureData.id,
     poolLevel: state.pool.poolBuyData,
     truckLevel: state.truck.truckBuyData,
     roadLevel: state.road.roadBuyData,
