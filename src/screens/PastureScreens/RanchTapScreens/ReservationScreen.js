@@ -4,6 +4,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 // REDUX
 import { connect, useDispatch } from 'react-redux';
 import { reservationAction } from '../../../store/actions/Pasture/reservationAction';
+import { reservationValiAction } from '../../../store/actions/Pasture/reservationValiAction';
 // Custom IMPORT
 import HeaderScreen, { calculateGameDate } from '../../LayoutScreen/HeaderScreen';
 import { ReturnButton } from '../../../components/Buttons';
@@ -18,10 +19,6 @@ import PresetRegistrationButton from '../../../components/Buttons/PresetRegistra
 import { horseColor } from '../../../utils/globals';
 
 const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservationData }) => {
-  // if(reservationData == '')
-  // {
-  // return <Spinner visible={true} />
-  // }
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(undefined);
   const [selectedDelete, setSelectedDelete] = useState(undefined);
@@ -44,6 +41,7 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
 
   let horse_ids = [];
   let gameDate = [];
+
   if (reservationData != '') {
     reservationData.forEach((element, index) => {
       horse_ids.push(element.horse_id);
@@ -51,19 +49,16 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
     });
   }
 
-
   useEffect(() => {
+    
     if (reservationData != '') {
-      if (horse_ids == banner.id && gameDate == gameData) {
+      if (horse_ids.includes(banner.id.toString()) && gameDate.includes(gameData)) {
         setCurrentIncomplete('flex');
         setCurrentComplate('none');
       } else {
         setCurrentIncomplete('none');
         setCurrentComplate('flex');
       }
-    }else{
-      setCurrentIncomplete('none');
-      setCurrentComplate('flex');
     }
   }, [gameDate, horse_ids])
 
@@ -273,6 +268,8 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
         'game_date': gameData
       }
       dispatch(reservationAction(sandReserve));
+      dispatch(reservationValiAction(sandReserve));
+
     } else {
       alert('NOT FOUND');
     }
@@ -421,6 +418,7 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
 
 
 const mapStateToProps = state => {
+
   return {
     saveData: state.horseData.saveData,
     pasture_id: state.pasture.pastureData.id,

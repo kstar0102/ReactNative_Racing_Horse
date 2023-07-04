@@ -368,6 +368,7 @@ const Screenstyles = StyleSheet.create({
     },
     reserveListBlue:{
       color: colors.blue,
+      marginTop: -18,
       textAlign:'center',
     },
     reserveRightList:{
