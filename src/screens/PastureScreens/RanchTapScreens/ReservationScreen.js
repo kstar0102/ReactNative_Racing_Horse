@@ -17,7 +17,7 @@ import ReservationDropDown from '../../../components/Buttons/ReservationDropDown
 import PresetRegistrationButton from '../../../components/Buttons/PresetRegistrationButton';
 import { horseColor } from '../../../utils/globals';
 
-const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservationData }) => {
+const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservationData, poolLevel, truckLevel, roadLevel }) => {
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(undefined);
   const [selectedDelete, setSelectedDelete] = useState(undefined);
@@ -33,6 +33,8 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
   const [currentComplate, setCurrentComplate] = useState('none');
   const [currentIncomplete, setCurrentIncomplete] = useState('none');
   const [nameValue, setNameValue] = useState(' ');
+  const [grazingData, setGrazingData] = useState('');
+
 
   const data = saveData;
   const gameAllDate = calculateGameDate(currentTime);
@@ -52,8 +54,8 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
   }
   if (horse_ids.includes(banner.id.toString()) && gameDate.includes(gameData)) {
     for (let index = 0; index < food_names.length; index++) {
-      if(horse_ids[index] == banner.id.toString()){
-        arrayValue.push({ name: food_names[index] }); 
+      if (horse_ids[index] == banner.id.toString()) {
+        arrayValue.push({ name: food_names[index] });
       }
     }
   }
@@ -225,10 +227,8 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
   const condition = skillRange(banner.condition_b - (-banner.condition_w));
   const distanceValue = distanceRange((banner.distance_max - (-banner.distance_min)) / 2);
   const conditionFace = conditionFaceRange((parseInt(banner.happy)));
-
-
-  const grazingData = [
-    { name: 'スベシャル', price: '1' },
+  
+  let grazingDatas = [
     { name: '放牧', price: '1' },
     { name: '芝(馬なり)', price: '1' },
     { name: '芝(強め)', price: '3' },
@@ -239,10 +239,44 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
     { name: 'ウッドチップ(馬なり)', price: '1' },
     { name: 'ウッドチップ(強め)', price: '3' },
     { name: 'ウッドチップ(一杯)', price: '5' },
-    { name: 'プール(馬なり)', price: '1' },
-    { name: 'プール(強め)', price: '3' },
-    { name: 'プール(一杯)', price: '5' },
-  ];
+  ]
+ 
+  useEffect(() => {
+    setGrazingData(grazingDatas)  
+  
+    if (poolLevel != '') {
+      if (poolLevel.level != 0) {
+        grazingDatas.push(
+          // poolLevel
+          { name: 'プール(馬なり)', price: '1' },
+          { name: 'プール(強め)', price: '3' },
+          { name: 'プール(一杯)', price: '5' },
+        )
+      }
+    }
+    if (truckLevel != '') {
+      if (truckLevel.level != 0) {
+        grazingDatas.push(
+          // truckLevel
+          { name: '併走(馬なり)', price: '1' },
+          { name: '併走(強め)', price: '3' },
+          { name: '併走(一杯)', price: '5' },
+        )
+      }
+    }
+    if (roadLevel != '') {
+      if (truckLevel.level != 0) {
+        grazingDatas.push(
+          // roadLevel
+          { name: '坂路(馬なり)', price: '1' },
+          { name: '坂路(強め)', price: '3' },
+          { name: '坂路(一杯)', price: '5' },
+        )
+      }
+    }
+  }, [poolLevel, truckLevel, roadLevel])
+ // { name: 'スベシャル', price: '1' },
+
 
   const fodderData = [
     { name: 'にんじん', price: '1' },
@@ -457,7 +491,10 @@ const mapStateToProps = state => {
     saveData: state.horseData.saveData,
     pasture_id: state.pasture.pastureData.id,
     user_id: state.user.userData.id,
-    reservationData: state.validationData.reservationData
+    poolLevel: state.pool.poolBuyData,
+    truckLevel: state.truck.truckBuyData,
+    roadLevel: state.road.roadBuyData,
+    reservationData: state.validationData.reservationData,
   };
 };
 export default connect(mapStateToProps)(ReservationScreen);
