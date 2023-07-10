@@ -577,9 +577,9 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
 
           <View style={RTapScreensStyle.ButtonGroup}>
             {activeButton ?
-              <WorkingButton label={`育成`} colorNumber={2} styleId={3} onPress={(() => handleButtonPress(0))} />
+              <WorkingButton label={`育成`} colorNumber={2} styleId={2} onPress={(() => handleButtonPress(0))} />
               :
-              <WorkingButton label={`休憩`} colorNumber={5} styleId={3} onPress={(() => handleButtonPress(1))} />
+              <WorkingButton label={`休憩`} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(1))} />
             }
             <WorkingButton label={`引退`} colorNumber={3} styleId={2} onPress={(() => handleButtonPress(1))} />
           </View>
