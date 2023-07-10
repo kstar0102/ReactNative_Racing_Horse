@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ImageBackground } from 'react-native';
 // Custom IMPORT
 import HeaderScreen from '../LayoutScreen/HeaderScreen';
+import FooterScreen from '../LayoutScreen/FooterScreen';
 import { ReturnButton } from '../../components/Buttons';
 import Screenstyles from '../ScreenStylesheet';
 import OfficeTapScreen from './OfficeTapScreen';
@@ -25,6 +26,7 @@ const OfficeScreen = ({navigation}) => {
               </View>
               <OfficeTapScreen/>
             </View>
+            <FooterScreen/>
       </ImageBackground>
     </View>
   );

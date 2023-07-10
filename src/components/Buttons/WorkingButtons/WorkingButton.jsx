@@ -74,6 +74,7 @@ const WorkingButton = ({ label, onPress, disabled, colorNumber, styleId }) => {
 				colorNumber == 5 ? styles.buttonFive : 'styles.button',
 				styleId == 1 ? styles.buttonStyle : 'styles.button',
 				styleId == 2 ? styles.buttonStyle : 'styles.button',
+				styleId == 3 ? styles.buttonStyleThree : 'styles.button',
 				disabled && styles.disabled]}
 			onPress={onPress ? onPress : () => handlePress()}
 			disabled={disabled ? disabled : false}
@@ -91,8 +92,9 @@ const styles = StyleSheet.create({
 		borderRadius: 6,
 		height: 30,
 		width: 80,
-		paddingVertical: 4,
-		marginTop: 20
+		marginTop: 20,
+		alignItems: "center",
+		justifyContent: "center"
 	},
 	buttonOne: {
 		backgroundColor: colors.tabButtonMiddle
@@ -113,9 +115,14 @@ const styles = StyleSheet.create({
 		color: colors.light.white,
 		fontSize: 18,
 		fontWeight: 700,
-		textAlign: 'center'
+		// textAlign: 'center'
 	},
 	buttonStyle: {
+		marginTop: 5
+	},
+	buttonStyleThree:{
+		height: 30,
+		width: 150,
 		marginTop: 5
 	},
 	disabled: {

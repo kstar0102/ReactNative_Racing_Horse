@@ -6,9 +6,8 @@ import { connect } from 'react-redux';
 // Custom import
 import DropDownR from '../../../../components/Buttons/DropDwonR';
 import RTapScreensStyle from '../../../PastureScreens/RanchTapScreens/RTapScreensStyle';
-import GrazingGroup from '../../../PastureScreens/RanchTapScreens/GrazingGroup';
-import FodderGroup from '../../../PastureScreens/RanchTapScreens/FodderGroup';
-import AvatarTapScreen from '../../../PastureScreens/RanchTapScreens/AvataTapScreen';
+import FGroup from '../GroupTable/FGroup';
+import GGroup from '../GroupTable/GGroup';
 import WorkingButton from '../../../../components/Buttons/WorkingButtons';
 import { SaleButton } from '../../../../components/Buttons';
 import { horseColor } from '../../../../utils/globals';
@@ -51,11 +50,11 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
   useEffect(() => {
     setBanner(twoData[0]);
     setPattern(tiredNumber);
-    if(twoData[0].ground == 'ダ'){
+    if (twoData[0].ground == 'ダ') {
       setGroundColor('#707172');
-    }else if(twoData[0].ground == '芝'){
+    } else if (twoData[0].ground == '芝') {
       setGroundColor('#1BFF00');
-    }else if(twoData[0].ground == '万'){
+    } else if (twoData[0].ground == '万') {
       setGroundColor('red');
     }
   }, [twoData]);
@@ -193,11 +192,11 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
     if (value) {
       setPattern(tiredNumber);
     }
-    if(value.ground == 'ダ'){
+    if (value.ground == 'ダ') {
       setGroundColor('#707172');
-    }else if(value.ground == '芝'){
+    } else if (value.ground == '芝') {
       setGroundColor('#1BFF00');
-    }else if(value.ground == '万'){
+    } else if (value.ground == '万') {
       setGroundColor('red');
     }
   }
@@ -305,10 +304,10 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
     }
     let result = "";
     switch (true) {
-      case (tired >= 0 && tired <= 7):
+      case (tired <= 7):
         result = ' ◎'
         break;
-      case (tired >= 9 && tired <= 12):
+      case (tired >= 8 && tired <= 12):
         result = ' o'
         break;
       case (tired >= 13 && tired <= 14):
@@ -450,11 +449,9 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
   const renderScreenBelowButtons = () => {
     switch (activeButton) {
       case 1:
-        return <AvatarTapScreen />;
-      case 2:
-        return <FodderGroup horseId={banner.id} />;
+        return <FGroup horseId={banner.id} />;
       default:
-        return <GrazingGroup horseId={banner.id}/>;
+        return <GGroup horseId={banner.id} />;
     }
   }
 
@@ -476,12 +473,11 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
     );
   }
 
-
   return (
     <ScrollView style={RTapScreensStyle.twoContainer}>
       <View style={RTapScreensStyle.oneTopContent}>
         <View style={RTapScreensStyle.oneTopContentLeft}>
-          <Text style={RTapScreensStyle.shadowTxt}>所有馬一覧</Text>
+          <Text style={RTapScreensStyle.shadowTxt}>管理馬一覧</Text>
           <DropDownR name={data[0].name} data={data} onSelect={setSelected} setId={handleSettingId} />
         </View>
         <View style={RTapScreensStyle.oneTopContentRight}>
@@ -580,10 +576,12 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
           </View>
 
           <View style={RTapScreensStyle.ButtonGroup}>
-            <WorkingButton label={'飼葉'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(2))} />
-            <WorkingButton label={'入廐'} colorNumber={2} styleId={1} onPress={(handlePress)} />
-
-            <SaleButton label={'売却'} />
+            {activeButton ?
+              <WorkingButton label={`育成 ◄► 休憩`} colorNumber={2} styleId={3} onPress={(() => handleButtonPress(0))} />
+              :
+              <WorkingButton label={`休憩 ◄► 育成`} colorNumber={5} styleId={3} onPress={(() => handleButtonPress(1))} />
+            }
+            <WorkingButton label={`引退`} colorNumber={3} styleId={2} onPress={(() => handleButtonPress(1))} />
           </View>
         </View>
       </View>

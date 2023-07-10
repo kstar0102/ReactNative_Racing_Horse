@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ImageBackground, Alert } from 'react-native';
 // Redux
 import { connect, useDispatch } from 'react-redux';
 import { raceAction } from '../store/actions/racepaln/getApi/racePlanAction';
+import { stableAllGetAction } from '../store/actions/truck/getApi/stableAllGetAction';
 // Custom Import 
 import HeaderScreen, { calculateGameDate } from './LayoutScreen/HeaderScreen';
 import StableFooterScreen from './LayoutScreen/StableFooterScreen';
 import { CustomButtons, ReturnButton } from '../components/Buttons';
 import Screenstyles from '../screens/ScreenStylesheet';
 
-const StableScreen = ({ navigation }) => {
+const StableScreen = ({ navigation, user_id }) => {
   const dispatch = useDispatch();
   const [currentTime, setCurrentTime] = useState(new Date());
+  
+  useEffect(() => {
+    dispatch((stableAllGetAction(user_id)))
+  },[])
+  
   // GET RACE DATA
   const handleGetSubmit = () => {
     dispatch(raceAction(calculateGameDate(currentTime)));
     navigation.navigate('RaceCourse')
   }
+
+
 
   const handleJockey = () => {
     Alert.alert(
@@ -64,7 +72,7 @@ const StableScreen = ({ navigation }) => {
 
 const mapStateToProps = state => {
   return {
-
+    user_id:state.user.userData.id
   }
 }
 export default connect(mapStateToProps)(StableScreen);

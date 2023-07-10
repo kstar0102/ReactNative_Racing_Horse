@@ -1,10 +1,15 @@
 // import React in our code
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { JockeyCheck, JockeyOk } from '../../../components/Buttons';
-import JokeyNameInput from '../../../components/input/JokeyNameInput';
-import ButtonStyle from '../../../components/Buttons/ButtonStyle';
 import { vw } from 'react-native-expo-viewport-units';
+// Redux
+import { connect, useDispatch } from 'react-redux';
+import { JockeyGenderAction } from '../../../store/actions/jockey/JockeyGenderAction';
+import { JockeyNameAction } from '../../../store/actions/jockey/JockeyNameAction';
+import { JockeyRegisterAction } from '../../../store/actions/jockey/JockeyRegisterAction';
+// Custom Import
+import { JockeyCheck } from '../../../components/Buttons';
+import ButtonStyle from '../../../components/Buttons/ButtonStyle';
 import SaleInputButton from '../../../components/Buttons/SaleInputButton';
 // import all the components we are going to use
 import {
@@ -26,27 +31,27 @@ import Screenstyles from '../../ScreenStylesheet';
 import { ReturnButton } from '../../../components/Buttons';
 
 
-const JockeyRegister = () => {
+const JockeyRegister = ({jockeyName,jockeyGender, stable_id, user_id}) => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const [modalVisible, setModalVisible] = useState(false);
     const [secondModalVisible, setSecondModalVisible] = useState(false);
     const [inputText, setInputText] = useState('');
 
-    const handleYesPress = () => {
-        setModalVisible(false);
-        setSecondModalVisible(true);
+    const handleYesPress = (inputValue) => {
+        if (inputValue == '') {
+            return false;
+        } else {
+            dispatch(JockeyNameAction(inputValue));
+            setModalVisible(false);
+            setSecondModalVisible(true);
+        }
     };
 
     const handleNoPress = () => {
         setModalVisible(false);
     };
 
-    const handleSecondModalSubmit = () => {
-        if (inputText !== '') {
-            setSecondModalVisible(false);
-            Alert.alert(`You entered: ${inputText}`);
-        }
-    }
     const handleSecondNoModalSubmit = () => {
         setSecondModalVisible(false);
     };
@@ -62,7 +67,7 @@ const JockeyRegister = () => {
                 },
                 {
                     text: "はい",
-                    onPress: () => setModalVisible(true)
+                    onPress: () => handleSubmitGender(value)
                 }
             ],
             { cancelable: false },
@@ -78,18 +83,34 @@ const JockeyRegister = () => {
 
                 {
                     text: "閉じる",
-                    onPress: () => navigation.replace('JocTraining')
+                    onPress: () => handlesSubmitJockey()
                 }
             ],
             { cancelable: false },
         );
     }
 
+    const handlesSubmitJockey = () => {
+        if(jockeyName != '' && jockeyGender != ''){
+            const sendJockey = {
+                'name': jockeyName,
+                'gender': jockeyGender,
+                'stall_id': stable_id,
+                'user_id': user_id
+            }
+            dispatch(JockeyRegisterAction(sendJockey));
+            navigation.replace('JocTraining')
+        }
+    }
+
+    const handleSubmitGender = (gender) => {
+        dispatch(JockeyGenderAction(gender));
+        setModalVisible(true);
+    }
     const RenderItem = ({ item }) => {
         return (
             <View
                 style={{
-                    // flex: 1,
                     height: 350,
                     marginTop: 60,
                     opacity: 0.9,
@@ -153,10 +174,10 @@ const JockeyRegister = () => {
                     transparent={true}
                 >
                     <View style={ButtonStyle.ModalCenter}>
-                        <Text style={ButtonStyle.saleTxt}>(入力した名前→)〇〇でよろしいでしょうか？</Text>
+                        <Text style={ButtonStyle.saleTxt}>(入力した名前→){inputText}でよろしいでしょうか？</Text>
                         <View style={ButtonStyle.buttonContainer}>
                             <View style={{ margin: 10 }}>
-                                <SaleInputButton label="いいえ" onPress={handleNoPress} />
+                                <SaleInputButton label="いいえ" onPress={handleSecondNoModalSubmit} />
                             </View>
                             <View style={{ margin: 10 }}>
                                 <SaleInputButton label="はい" onPress={handleSecondPress} />
@@ -190,10 +211,10 @@ const JockeyRegister = () => {
                         </View>
                         <View style={ButtonStyle.buttonContainer}>
                             <View style={{ margin: 10 }}>
-                                <SaleInputButton label="いいえ" onPress={handleSecondNoModalSubmit} />
+                                <SaleInputButton label="いいえ" onPress={handleNoPress} />
                             </View>
                             <View style={{ margin: 10 }}>
-                                <SaleInputButton label="はい" onPress={handleYesPress} />
+                                <SaleInputButton label="はい" onPress={() => handleYesPress(inputText)} />
                             </View>
                         </View>
                     </View>
@@ -204,7 +225,16 @@ const JockeyRegister = () => {
     );
 };
 
-export default JockeyRegister;
+const mapStateToProps = state => {
+    return {
+        jockeyName: state.jockeyData.name,
+        jockeyGender: state.jockeyData.gender,
+        stable_id: state.stableMenu.StableSendData[0].stall_id,
+        user_id: state.user.userData.id,
+    }
+}
+
+export default connect(mapStateToProps)(JockeyRegister);
 
 const styles = StyleSheet.create({
     container: {

@@ -50,11 +50,11 @@ const ScreenOne = ({ oneData, arrowState }) => {
   useEffect(() => {
     setBanner(oneData[0]);
     setPattern(tiredNumber);
-    if(oneData[0].ground == 'ダ'){
+    if (oneData[0].ground == 'ダ') {
       setGroundColor('#707172');
-    }else if(oneData[0].ground == '芝'){
+    } else if (oneData[0].ground == '芝') {
       setGroundColor('#1BFF00');
-    }else if(oneData[0].ground == '万'){
+    } else if (oneData[0].ground == '万') {
       setGroundColor('red');
     }
   }, [oneData]);
@@ -192,11 +192,11 @@ const ScreenOne = ({ oneData, arrowState }) => {
     if (value) {
       setPattern(tiredNumber);
     }
-    if(value.ground == 'ダ'){
+    if (value.ground == 'ダ') {
       setGroundColor('#707172');
-    }else if(value.ground == '芝'){
+    } else if (value.ground == '芝') {
       setGroundColor('#1BFF00');
-    }else if(value.ground == '万'){
+    } else if (value.ground == '万') {
       setGroundColor('red');
     }
   }
@@ -303,10 +303,10 @@ const ScreenOne = ({ oneData, arrowState }) => {
     }
     let result = "";
     switch (true) {
-      case (tired >= 0 && tired <= 7):
+      case (tired <= 7):
         result = ' ◎'
         break;
-      case (tired >= 9 && tired <= 12):
+      case (tired >= 8 && tired <= 12):
         result = ' o'
         break;
       case (tired >= 13 && tired <= 14):
@@ -337,8 +337,8 @@ const ScreenOne = ({ oneData, arrowState }) => {
 
   // Health State
   const setPattern = (condition) => {
-     // Disable Injery
-     return;
+    // Disable Injery
+    return;
     let options;
     if (condition <= 10) {
       return false;
@@ -511,7 +511,10 @@ const ScreenOne = ({ oneData, arrowState }) => {
             </View>
 
             <View style={RTapScreensStyle.oneRioghtBodyTxtGroup}>
-              <Text style={RTapScreensStyle.oneRioghtBodyTxtA}>{(!!selected && distanceValue) || distanceValue}距離  <Text style={RTapScreensStyle.oneRioghtBodyTxtValueA}> {(!!selected && selected.quality_leg) || data[0].quality_leg}</Text></Text>
+              <View style={RTapScreensStyle.txtGroup}>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxtA}>{(!!selected && distanceValue) || distanceValue}距離</Text>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxtValueA}> {(!!selected && selected.quality_leg) || data[0].quality_leg}</Text>
+              </View>
               <View style={RTapScreensStyle.oneRightTxt}>
                 <Text style={RTapScreensStyle.oneRioghtBodyTxt}>気性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && condition) || condition}</Text></Text>
                 <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: contitionState }]}>⬆</Text>
@@ -557,7 +560,12 @@ const ScreenOne = ({ oneData, arrowState }) => {
           </View>
 
           <View style={RTapScreensStyle.ButtonGroup}>
-            <WorkingButton label={'飼葉'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(1))} />
+            {activeButton ?
+              <WorkingButton label={'育成'} colorNumber={2} styleId={2} onPress={(() => handleButtonPress(0))} />
+              :
+              <WorkingButton label={'休憩'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(1))} />
+
+            }
             <SaleButton label={'売却'} />
           </View>
         </View>

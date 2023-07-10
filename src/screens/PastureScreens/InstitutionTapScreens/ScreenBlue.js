@@ -81,7 +81,7 @@ const ScreenBlue = ({ pasture_name, user_id, user_level, pool }) => {
         };
       }
       Alert.alert(
-        `プール (Lv.${level})は、${price}ptですが購入しますか`,
+        `プール (Lv.${level})は、${price}ptですが購入しますか?`,
         `[効果] 馬誕生時に「健康+${effect}」`,
         [
           {
@@ -108,7 +108,7 @@ const ScreenBlue = ({ pasture_name, user_id, user_level, pool }) => {
         "user_level": user_level
       };
       Alert.alert(
-        `プール (Lv.1)は、1000ptですが購入しますか`,
+        `プール (Lv.1)は、1000ptですが購入しますか?`,
         "[効果] 馬誕生時に「健康+10」",
         [
           {

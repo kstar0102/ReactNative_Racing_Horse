@@ -35,7 +35,7 @@ const FooterScreen = () => {
 const styles = StyleSheet.create({
   containers: {
     position: 'absolute',
-    bottom: hp(5),
+    bottom: hp(3),
     left: 1,
     right: 1,
     flexDirection: 'row',

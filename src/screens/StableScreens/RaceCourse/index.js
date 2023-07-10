@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ImageBackground } from 'react-native';
 // Custom IMPORT
 import HeaderScreen from '../../LayoutScreen/HeaderScreen';
+import StableFooterScreen from '../../LayoutScreen/StableFooterScreen';
 import { ReturnButton } from '../../../components/Buttons';
 import Screenstyles from '../../ScreenStylesheet';
 import RacetrackCourse from '../../PastureScreens/RacetrackTableScreen/RacetrackCourse';
@@ -27,6 +28,7 @@ const RaceCourse = ({ navigation }) => {
                         <RacetrackCourse/>
                     </View>
                 </View>
+                <StableFooterScreen/>
             </ImageBackground>
         </View>
     );

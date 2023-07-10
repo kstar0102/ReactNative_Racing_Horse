@@ -80,7 +80,7 @@ const ScreenTruck = ({ pasture_name, user_id, user_level, truck }) => {
         };
       }
       Alert.alert(
-        `トラック (Lv.${level})は、${price}ptですが購入しますか`,
+        `トラック (Lv.${level})は、${price}ptですが購入しますか?`,
         `[効果] 馬誕生時に「根性+${effect}」`,
         [
           {
@@ -107,7 +107,7 @@ const ScreenTruck = ({ pasture_name, user_id, user_level, truck }) => {
         "user_level": user_level
       };
       Alert.alert(
-        `トラック (Lv.1)は、1000ptですが購入しますか`,
+        `トラック (Lv.1)は、1000ptですが購入しますか?`,
         "[効果] 馬誕生時に「根性+10」",
         [
           {

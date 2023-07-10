@@ -6,11 +6,11 @@ import { reservationAction } from '../../../store/actions/Pasture/reservationAct
 import { reservationValiAction } from '../../../store/actions/Pasture/reservationValiAction';
 // Custom IMPORT
 import HeaderScreen, { calculateGameDate } from '../../LayoutScreen/HeaderScreen';
-import FooterScreen from '../../LayoutScreen/FooterScreen';
+import StableFooterScreen from '../../LayoutScreen/StableFooterScreen';
 import { ReturnButton } from '../../../components/Buttons';
 import Screenstyles from '../../ScreenStylesheet';
 import DropDownR from '../../../components/Buttons/DropDwonR';
-import RTapScreensStyle from '../RanchTapScreens/RTapScreensStyle';
+import RTapScreensStyle from '../../PastureScreens/RanchTapScreens/RTapScreensStyle';
 
 import MenuDropDown from '../../../components/Buttons/MenuDropDown';
 import ReserveButton from '../../../components/Buttons/ReserveButton';
@@ -18,14 +18,14 @@ import ReservationDropDown from '../../../components/Buttons/ReservationDropDown
 import PresetRegistrationButton from '../../../components/Buttons/PresetRegistrationButton';
 import { horseColor } from '../../../utils/globals';
 
-const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservationData, poolLevel, truckLevel, roadLevel }) => {
+const TrainingReservationScreen = ({ navigation, stableData, user_id, reservationData, poolLevel, truckLevel, roadLevel }) => {
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(undefined);
   const [selectedDelete, setSelectedDelete] = useState(undefined);
   const [selectedFodder, setSelectedFodder] = useState(undefined);
-  const [seletedGrazing, setSeletedGrazing] = useState(' ');
   const [selectedWorking, setSelectedWorking] = useState(undefined);
-  const [banner, setBanner] = useState(saveData[0]);
+  const [seletedGrazing, setSeletedGrazing] = useState(' ');
+  const [banner, setBanner] = useState(stableData[0]);
   const [grazing, setGrazing] = useState('');
   const [fodder, setFodder] = useState('');
   const [working, setWorking] = useState('');
@@ -39,7 +39,7 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
   const [grazingData, setGrazingData] = useState('');
 
 
-  const data = saveData;
+  const data = stableData;
   const gameAllDate = calculateGameDate(currentTime);
   const gameData = gameAllDate.toISOString().split('T')[0];
 
@@ -81,16 +81,16 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
 
 
   useEffect(() => {
-    if (saveData != '') {
-      if (saveData[0].ground === 'ダ') {
+    if (stableData != '') {
+      if (stableData[0].ground === 'ダ') {
         setGroundColor('#707172');
-      } else if (saveData[0].ground === '芝') {
+      } else if (stableData[0].ground === '芝') {
         setGroundColor('#1BFF00');
-      } else if (saveData[0].ground === '万') {
+      } else if (stableData[0].ground === '万') {
         setGroundColor('red');
       }
     }
-  }, [saveData])
+  }, [stableData])
 
   const handleSettingId = (value) => {
     setBanner(value);
@@ -302,6 +302,7 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
     { name: '(例)1歲馬用', price: '5' },
   ];
 
+
   const handleGrazing = (grazing) => {
     if (!grazing) {
       return false;
@@ -323,13 +324,10 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
     setAllData([...allData, working]);
   }
 
-
-
   let food_name = [];
   let food_price = [];
   let food_order = [];
   let food_type = [];
-  // All data Value
   allData.forEach((element, index) => {
     food_name.push(element.name);
     food_price.push(element.price);
@@ -343,7 +341,6 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
     default_order.push(index + 1);
   });
 
-
   const handleArraySubmit = () => {
 
     if (horse_ids.includes(banner.id.toString()) && gameDate.includes(gameData)) {
@@ -352,24 +349,22 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
       if (allData != '') {
         const sandReserve = {
           'horse_id': banner.id,
-          'pasture_id': pasture_id,
+          'stall_id': stableData.stall_id,
           'food_name': food_name,
           'user_id': user_id,
           'price': food_price,
           'order': food_order,
           'food_type': food_type,
-          'place': 'pasture',
+          'place': 'stall',
           'game_date': gameData
         }
         dispatch(reservationAction(sandReserve));
         dispatch(reservationValiAction(sandReserve));
         setAllData([]);
-        //this.forceUpdate();
       } else {
         alert('NOT FOUND');
       }
     }
-    // setAllData();
   }
   const handleDelete = (deletes) => {
     setAllData(allData.filter((item, index) => index + 1 !== deletes));
@@ -377,24 +372,24 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
   return (
     <View style={Screenstyles.container}>
       <ImageBackground
-        source={require('../../../assets/images/1.png')}
+        source={require('../../../assets/images/horse_track/stall.jpg')}
         resizeMode="cover"
         style={Screenstyles.img}>
         <HeaderScreen />
         <View style={Screenstyles.UPContainer}>
           <View style={Screenstyles.UPcontent}>
             <View>
-              <ReturnButton label="牧 場" onPress={() => navigation.navigate('PastureScreen')} />
+              <ReturnButton label="牧 場" color={1} onPress={() => navigation.goBack()} />
             </View>
             <View style={Screenstyles.UPRButton}>
-              <ReturnButton label="育 成" />
+              <ReturnButton label="育 成" color={1} />
             </View>
           </View>
 
           <ScrollView style={RTapScreensStyle.reservationContainer}>
             <View style={RTapScreensStyle.oneTopContent}>
               <View style={RTapScreensStyle.oneTopContentLeft}>
-                <Text style={RTapScreensStyle.oneRightContentTxt}>管理馬一覧</Text>
+                <Text style={RTapScreensStyle.shadowTxt}>管理馬一覧</Text>
                 <DropDownR name={data[0].name} data={data} onSelect={setSelected} setId={handleSettingId} />
               </View>
               <View style={RTapScreensStyle.oneTopContentRight}>
@@ -466,26 +461,26 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
           </ScrollView>
           <View style={Screenstyles.reserveContent}>
             <View style={Screenstyles.reserveMenuLeft}>
-              <Text style={Screenstyles.reserveMenuTitle}>育成メニュー</Text>
+              <Text style={Screenstyles.reserveMenuShowTitle}>育成メニュー</Text>
               <View style={Screenstyles.reserveMenuGroup}>
                 <MenuDropDown name={nameValue} data={grazingData} onSelect={setSeletedGrazing} setId={handleGrazingId} />
                 <ReserveButton label={'予約'} colorNumber={3} onPress={() => handleGrazing(grazing)} />
               </View>
-              <Text style={Screenstyles.reserveMenuTitle}>飼葉メニュー</Text>
+              <Text style={Screenstyles.reserveMenuShowTitle}>飼葉メニュー</Text>
               <View style={Screenstyles.reserveMenuGroup}>
                 <MenuDropDown name={nameValue} data={fodderData} onSelect={setSelectedFodder} setId={handleFodderId} />
                 <ReserveButton label={'予約'} colorNumber={3} onPress={() => handleFodder(fodder)} />
               </View>
-              <Text style={Screenstyles.reserveMenuTitle}>プリセット</Text>
+              <Text style={Screenstyles.reserveMenuShowTitle}>プリセット</Text>
               <View style={Screenstyles.reserveMenuGroup}>
                 <MenuDropDown name={nameValue} data={WorkingData} onSelect={setSelectedWorking} setId={handleWorkingId} />
                 <ReserveButton label={'予約'} colorNumber={3} onPress={() => handleWorking(working)} />
               </View>
-              <PresetRegistrationButton allData={allData} label={'プリセット登録'} />
+              <PresetRegistrationButton label={'プリセット登録'} />
             </View>
             <View style={Screenstyles.reserveRight}>
               <View style={Screenstyles.reserveTxtGroup}>
-                <Text style={Screenstyles.reserveListTitle}>予約一覧</Text>
+                <Text style={Screenstyles.reserveListShowTitle}>予約一覧</Text>
                 <View style={Screenstyles.reserveListConfim}>
                   <Text style={[Screenstyles.reserveListRed, { display: currentComplate }]}>未完了</Text>
                   <Text style={[Screenstyles.reserveListBlue, { display: currentIncomplete }]}>完了</Text>
@@ -510,10 +505,11 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
                   <ReserveButton label={'削除'} colorNumber={4} onPress={() => handleDelete(deletes)} />
                 </View>
               </View>
+
             </View>
           </View>
         </View>
-        <FooterScreen />
+        <StableFooterScreen/>
       </ImageBackground>
     </View>
   );
@@ -521,10 +517,8 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
 
 
 const mapStateToProps = state => {
-
   return {
-    saveData: state.horseData.saveData,
-    pasture_id: state.pasture.pastureData.id,
+    stableData: state.stableMenu.StableSendData,
     user_id: state.user.userData.id,
     poolLevel: state.pool.poolBuyData,
     truckLevel: state.truck.truckBuyData,
@@ -532,4 +526,4 @@ const mapStateToProps = state => {
     reservationData: state.validationData.reservationData,
   };
 };
-export default connect(mapStateToProps)(ReservationScreen);
+export default connect(mapStateToProps)(TrainingReservationScreen);

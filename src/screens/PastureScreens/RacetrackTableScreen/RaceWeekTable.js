@@ -1,38 +1,48 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
-import {
-    widthPercentageToDP as wp,
-    heightPercentageToDP as hp
-  } from 'react-native-responsive-screen';
-  import colors from '../../../containers/colors';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Table, TableWrapper, Row, Col, Rows } from 'react-native-table-component';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useNavigation } from '@react-navigation/native';
+import colors from '../../../containers/colors';
 
- const RaceWeekTable = ({ raceWeekTitle, raceWeekData, raceWeekName}) => {
-  const CONTENT = {
-    raceWeekTitle: raceWeekTitle,
-    raceWeekData: raceWeekData,
-    raceWeekName: raceWeekName,
-    
+const RaceWeekTable = ({ raceWeekTitle, raceWeekData, raceWeekName }) => {
+  const navigation = useNavigation();
+  const elementButton = (raceWeekNames) => (
+    raceWeekNames.map((name, index) => (
+      <View key={index}>
+        <TouchableOpacity onPress={() => handleClick()}>
+          <View style={styles.btn}>
+            <Text style={styles.btnText}>{name}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    ))
+  );
+
+  const handleClick = () => {
+    navigation.navigate('RaceCourseScreen');
   };
+
   return (
     <View style={styles.container}>
       <Table borderStyle={{ borderWidth: 1 }}>
         <Row
-          data={CONTENT.raceWeekTitle}
+          data={raceWeekTitle}
           flexArr={[]}
           style={styles.tableHead}
           textStyle={styles.textHead}
         />
+
         <TableWrapper style={styles.wrapper}>
-        <Col
-            data={CONTENT.raceWeekName}
+          <Col
+            data={elementButton(raceWeekName)}
             style={styles.title}
             heightArr={[23, 23]}
             textStyle={styles.textCol}
           />
           <Rows
-            data={CONTENT.raceWeekData}
-            flexArr={[.3, .3, .2, .4, .5]}
+            data={raceWeekData}
+            flexArr={[0.3, 0.3, 0.2, 0.4, 0.5]}
             style={styles.row}
             textStyle={styles.text}
           />
@@ -46,31 +56,39 @@ export default RaceWeekTable;
 
 const styles = StyleSheet.create({
   container: {
-    // marginTop: 180,
     marginTop: 30,
-    backgroundColor: '#fff' 
-},
-tableHead: { 
-    height: 25,
-    backgroundColor: '#aae0bc' 
-},
-row: { 
+    backgroundColor: '#fff'
+  },
+  tableHead: {
+    backgroundColor: '#aae0bc'
+  },
+  row: {
     height: 23,
-},
-text: { 
+  },
+  text: {
     textAlign: 'center'
-},
-textCol: {
+  },
+  textCol: {
     color: colors.blue,
-    fontWeight: 600,
-    marginLeft: wp(1)
-},
-textHead:{
+    fontWeight: '600',
+    marginLeft: wp('1%')
+  },
+  textHead: {
     textAlign: 'center',
     fontSize: 18,
-    fontWeight: 600
-},
-wrapper: { 
+    fontWeight: '600'
+  },
+  wrapper: {
     flexDirection: 'row'
-},
+  },
+  btn: {
+    width: 58,
+    height: 18,
+    borderRadius: 2
+  },
+  btnText: {
+    color: colors.blue,
+    fontWeight: '600',
+    marginLeft: wp('1%')
+  }
 });

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { vh } from 'react-native-expo-viewport-units'
-
 // REDUX
 import { connect, useDispatch } from 'react-redux';
 import { signAction } from '../../../store/actions/horse/signAction';
@@ -11,19 +10,20 @@ import OneHorseTap from './TapScreens/OneHorseTap';
 import ThreeHorseTap from './TapScreens/ThreeHorseTap';
 import GrazingHorseTap from './TapScreens/GrazingHorseTap';
 
-const TapScreen = ({ saveData }) => {
+const TapScreen = ({ stableData }) => {
   const dispatch = useDispatch();
   const [activeButton, setActiveButton] = useState(1);
 
   const handleButtonPress = (id) => {
     setActiveButton(id);
     dispatch((signAction()))
+    
   };
 
   const renderScreenBelowButtons = () => {
-    const filtereOneData = saveData.filter(data => data.age === '・0歳馬' || data.age === '・1歳馬');
-    const filtereTwoData = saveData.filter(data => data.age === '・2歳馬' || data.age === '・3歳馬');
-    const filtereThreedData = saveData.filter(data => data.age === '・放牧馬');
+    const filtereOneData = stableData.filter(data => data.stall_id == '19' || data.stall_id == '20' || data.stall_id == '21');
+    const filtereTwoData = stableData.filter(data =>  data.stall_id == '22' || data.stall_id == '23' || data.stall_id == '24');
+    const filtereThreedData = stableData.filter(data => data.age >= 25);
 
     switch (activeButton) {
       case 1:
@@ -40,9 +40,9 @@ const TapScreen = ({ saveData }) => {
   return (
     <View style={styles.container}>
       <View style={styles.Buttons}>
-        <RTapButton id={1} isActive={activeButton === 1} label={'0～1歲馬'} onPress={handleButtonPress} />
-        <RTapButton id={2} isActive={activeButton === 2} label={'2～3歲馬'} onPress={handleButtonPress} />
-        <RTapButton id={3} isActive={activeButton === 3} label={'放牧馬'} onPress={handleButtonPress} />
+        <RTapButton id={1} isActive={activeButton === 1} label={'美浦'} onPress={handleButtonPress} />
+        <RTapButton id={2} isActive={activeButton === 2} label={'栗東'} onPress={handleButtonPress} />
+        <RTapButton id={3} isActive={activeButton === 3} label={'海外'} onPress={handleButtonPress} />
       </View>
       {renderScreenBelowButtons()}
     </View>
@@ -52,7 +52,7 @@ const TapScreen = ({ saveData }) => {
 
 const mapStateToProps = state => {
   return {
-    saveData: state.horseData.saveData,
+    stableData: state.stableMenu.StableSendData,
   };
 };
 export default connect(mapStateToProps)(TapScreen);

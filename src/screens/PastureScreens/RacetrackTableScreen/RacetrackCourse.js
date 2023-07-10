@@ -88,6 +88,6 @@ const styles = StyleSheet.create({
   container: {
     marginLeft: 30,
     marginRight: 30,
-    height: 490,
+    height: 465,
   },
 });
