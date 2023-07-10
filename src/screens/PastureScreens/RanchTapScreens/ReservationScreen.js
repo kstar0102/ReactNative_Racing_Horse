@@ -387,7 +387,7 @@ const ReservationScreen = ({ navigation, saveData, pasture_id, user_id, reservat
               <ReturnButton label="牧 場" onPress={() => navigation.navigate('PastureScreen')} />
             </View>
             <View style={Screenstyles.UPRButton}>
-              <ReturnButton label="育 成" />
+              <ReturnButton label="育 成"  onPress={() => navigation.navigate('UpbringingScreen')}/>
             </View>
           </View>
 
