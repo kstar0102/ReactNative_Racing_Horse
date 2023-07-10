@@ -174,7 +174,7 @@ const JockeyRegister = ({jockeyName,jockeyGender, stable_id, user_id}) => {
                     transparent={true}
                 >
                     <View style={ButtonStyle.ModalCenter}>
-                        <Text style={ButtonStyle.saleTxt}>(入力した名前→){inputText}でよろしいでしょうか？</Text>
+                        <Text style={ButtonStyle.saleTxt}>{inputText}でよろしいでしょうか？</Text>
                         <View style={ButtonStyle.buttonContainer}>
                             <View style={{ margin: 10 }}>
                                 <SaleInputButton label="いいえ" onPress={handleSecondNoModalSubmit} />

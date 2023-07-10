@@ -497,6 +497,7 @@ const ReservationScreen = ({
                   <View>
                     <View style={RTapScreensStyle.oneRightTxt}>
                       <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
+                        {" "}
                         疲労
                         <Text style={RTapScreensStyle.oneRioghtBodyTxtTired}>
                           {(!!selected && tired) || tired}
@@ -505,7 +506,7 @@ const ReservationScreen = ({
                       <Text
                         style={[
                           RTapScreensStyle.oneRioghtHeaderTxtGreen,
-                          { color: groundColor },
+                          { color: groundColor,  paddingLeft: 10 },
                         ]}
                       >
                         {(!!selected && selected.ground) || data[0].ground}
