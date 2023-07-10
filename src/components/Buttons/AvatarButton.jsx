@@ -1,9 +1,14 @@
 import React from 'react';
 import {TouchableOpacity, Image, StyleSheet,Alert } from 'react-native';
+// Redux
+import { connect ,useDispatch } from 'react-redux';
+import { stableAction } from '../../store/actions/truck/stableAction';
+// Custom Import
 import colors from '../../containers/colors';
 import { useNavigation } from '@react-navigation/native';
 
-const AvatarButton = ({onPress, disabled, id, name }) =>{
+const AvatarButton = ({onPress, disabled, id, name, stableId, horseId, userId }) =>{
+    const dispatch = useDispatch()
     const navigation = useNavigation();
     let sources = null;
     let nameShow = "";
@@ -64,20 +69,31 @@ const AvatarButton = ({onPress, disabled, id, name }) =>{
               },
               { 
                 text: "はい",
-                onPress:() => navigation.navigate('StallScreen') 
+                onPress:() =>  handleSendClick(stableId, horseId)
               }
             ],
             { cancelable: false }
           );
         }
     }
+
+    const handleSendClick = (stableId, horseId) => {
+        const sendIds = {
+            'stall_id': stableId,
+            'horse_id': horseId,
+            'user_id': userId
+        };
+        dispatch(stableAction(sendIds));
+        navigation.navigate('StallScreen')
+    };
+
     return(
         <TouchableOpacity 
             style={[
                 styles.button, 
                 disabled && styles.disabled
             ]}
-            onPress={onPress ? onPress : () => handlePress()}
+            onPress={onPress ? onPress : () => handlePress(stableId, horseId)}
             disabled={disabled ? disabled : false}
         >
         <Image 
@@ -87,7 +103,14 @@ const AvatarButton = ({onPress, disabled, id, name }) =>{
         </TouchableOpacity>
     )
 }
-export default AvatarButton;
+
+const mapStateToProps = state => {
+    return{
+        userId: state.user.userData.id
+    }
+}
+
+export default connect(mapStateToProps)(AvatarButton);
 
 const styles = StyleSheet.create({
     absoluteView: {

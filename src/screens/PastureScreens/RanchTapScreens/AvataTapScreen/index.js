@@ -7,7 +7,7 @@ import AbroadScreen from './AbroadScreen';
 import Ritto from './RittoScreen';
 import MiuraScreen from './MiuraScreen';
 
-const AvatarTapScreen = () => {
+const AvatarTapScreen = ({horseId}) => {
   const [activeButton, setActiveButton] = useState(1);
 
   const handleButtonPress = (id) => {
@@ -17,13 +17,13 @@ const AvatarTapScreen = () => {
   const renderScreenBelowButtons = () => {
     switch(activeButton) {
       case 1:
-        return <AbroadScreen />;
+        return <AbroadScreen horseId={horseId}/>;
       case 2:
-        return <Ritto />;
+        return <Ritto horseId={horseId}/>;
       case 3:
         return <MiuraScreen />;
       default:
-        return <AbroadScreen />;
+        return <AbroadScreen horseId={horseId} />;
     }
   }
 

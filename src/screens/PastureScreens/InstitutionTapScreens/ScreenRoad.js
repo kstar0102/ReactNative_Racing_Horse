@@ -79,7 +79,7 @@ const ScreenRoad = ({ pasture_name, user_id, user_level, road }) => {
           "user_level": user_level
         };
         Alert.alert(
-          `坂路 (Lv.${level})は、${price}ptですが購入しますか`,
+          `坂路 (Lv.${level})は、${price}ptですが購入しますか?`,
           `[効果] 馬誕生時に「瞬発+${effect}」`,
           [
             {
@@ -107,7 +107,7 @@ const ScreenRoad = ({ pasture_name, user_id, user_level, road }) => {
         "user_level": user_level
       };
       Alert.alert(
-        `坂路 (Lv.1)は、1000ptですが購入しますか`,
+        `坂路 (Lv.1)は、1000ptですが購入しますか?`,
         "[効果] 馬誕生時に「瞬発+10」",
         [
           {

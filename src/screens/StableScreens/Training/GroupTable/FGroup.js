@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { View, Image, Text, ImageBackground, ScrollView } from 'react-native';
-import { ImageButton } from '../../../../components/Buttons';
-import RTapScreensStyle from '../../../PastureScreens/RanchTapScreens/RTapScreensStyle';
-import DetailButton from '../../../../components/Buttons/DetailButton';
 
-const UpFodder = ({horseId}) => {
+import { ImageButton } from '../../../../components/Buttons';
+import DetailButton from '../../../../components/Buttons/DetailButton';
+import RTapScreensStyle from '../../../PastureScreens/RanchTapScreens/RTapScreensStyle';
+
+const FGroup = ({horseId}) => {
     return (
-      <ScrollView style={RTapScreensStyle.fodderContainer}>
+      <ScrollView style={RTapScreensStyle.grazingContainer}>
           <View  style={RTapScreensStyle.oneBottomContent}>
             <ImageBackground  style={RTapScreensStyle.BottomBackground} resizeMode="cover"  source={require('../../../../assets/images/Pasture/background.jpg')}>
                 <Image 
                       style={RTapScreensStyle.TitleImage}
-                      source={require('../../../../assets/images/Fodder/2.png')}
+                      source={require('../../../../assets/images/Fodder/fodder.png')}
                   />
               <View style={RTapScreensStyle.ImageButtonTop}>
                 <View>
-                  <View style={[RTapScreensStyle.absoluteViewC]}>
-                      <Text style={RTapScreensStyle.label}>おにぎり</Text>
+                  <View style={[RTapScreensStyle.absoluteViewF]}>
+                      <Text style={RTapScreensStyle.label}>にんじん</Text>
                   </View>
-                  <ImageButton label={'おにぎり'} source={require('../../../../assets/images/Fodder/race.png')} id={1}/>
-                  <DetailButton label={'調子回復'} id={1} name={'おにぎり'} horseId={horseId}/>
+                  <ImageButton label={'にんじん'} source={require('../../../../assets/images/Fodder/carrot.png')} id={1}/>
+                  <DetailButton label={'調子回復'} id={1} name={'にんじん'} horseId={horseId}/>
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteViewC]}>
@@ -29,7 +30,7 @@ const UpFodder = ({horseId}) => {
                   <DetailButton label={'調子回復'} disabled={false} id={2}  name={'Sドリンク'} horseId={horseId}/>
                 </View>
                 <View>
-                  <View style={[RTapScreensStyle.absoluteViewF]}>
+                  <View style={[RTapScreensStyle.absoluteViewC]}>
                       <Text style={RTapScreensStyle.label}>プロテイン</Text>
                   </View>
                   <ImageButton label={'プロテイン'} source={require('../../../../assets/images/Fodder/protein.png')} id={3}/>
@@ -100,4 +101,4 @@ const UpFodder = ({horseId}) => {
       </ScrollView>
     )
   }
-export default UpFodder;
+export default FGroup;

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Image, Text, Alert, ScrollView } from 'react-native';
 import Toast from 'react-native-root-toast';
 // Redux
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { StableGetAtion } from '../../../store/actions/truck/getApi/stableGetAtion';
 // Custom import
 import RTapScreensStyle from './RTapScreensStyle';
 import DropDownR from '../../../components/Buttons/DropDwonR';
@@ -15,6 +16,7 @@ import { horseColor } from '../../../utils/globals';
 
 
 const ScreenTwo = ({ twoData, arrowState }) => {
+  const dispatch = useDispatch();
   const [arrowStates, setArrowState] = useState(arrowState);
   // ALL REPEAT
   const [happySate, setHappyState] = useState(0);
@@ -51,11 +53,11 @@ const ScreenTwo = ({ twoData, arrowState }) => {
   useEffect(() => {
     setBanner(twoData[0]);
     setPattern(tiredNumber);
-    if(twoData[0].ground == 'ダ'){
+    if (twoData[0].ground == 'ダ') {
       setGroundColor('#707172');
-    }else if(twoData[0].ground == '芝'){
+    } else if (twoData[0].ground == '芝') {
       setGroundColor('#1BFF00');
-    }else if(twoData[0].ground == '万'){
+    } else if (twoData[0].ground == '万') {
       setGroundColor('red');
     }
   }, [twoData]);
@@ -193,11 +195,11 @@ const ScreenTwo = ({ twoData, arrowState }) => {
     if (value) {
       setPattern(tiredNumber);
     }
-    if(value.ground == 'ダ'){
+    if (value.ground == 'ダ') {
       setGroundColor('#707172');
-    }else if(value.ground == '芝'){
+    } else if (value.ground == '芝') {
       setGroundColor('#1BFF00');
-    }else if(value.ground == '万'){
+    } else if (value.ground == '万') {
       setGroundColor('red');
     }
   }
@@ -305,10 +307,10 @@ const ScreenTwo = ({ twoData, arrowState }) => {
     }
     let result = "";
     switch (true) {
-      case (tired >= 0 && tired <= 7):
+      case (tired <= 7):
         result = ' ◎'
         break;
-      case (tired >= 9 && tired <= 12):
+      case (tired >= 8 && tired <= 12):
         result = ' o'
         break;
       case (tired >= 13 && tired <= 14):
@@ -444,17 +446,18 @@ const ScreenTwo = ({ twoData, arrowState }) => {
   }
 
   const handleButtonPress = (id) => {
+    dispatch(StableGetAtion());
     setActiveButton(id);
   };
 
   const renderScreenBelowButtons = () => {
     switch (activeButton) {
       case 1:
-        return <AvatarTapScreen />;
+        return <AvatarTapScreen horseId={banner.id} />;
       case 2:
         return <FodderGroup horseId={banner.id} />;
       default:
-        return <GrazingGroup horseId={banner.id}/>;
+        return <GrazingGroup horseId={banner.id} />;
     }
   }
 
@@ -534,7 +537,10 @@ const ScreenTwo = ({ twoData, arrowState }) => {
             </View>
 
             <View style={RTapScreensStyle.oneRioghtBodyTxtGroup}>
-              <Text style={RTapScreensStyle.oneRioghtBodyTxtA}>{(!!selected && distanceValue) || distanceValue}距離  <Text style={RTapScreensStyle.oneRioghtBodyTxtValueA}> {(!!selected && selected.quality_leg) || data[0].quality_leg}</Text></Text>
+              <View style={RTapScreensStyle.txtGroup}>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxtA}>{(!!selected && distanceValue) || distanceValue}距離</Text>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxtValueA}> {(!!selected && selected.quality_leg) || data[0].quality_leg}</Text>
+              </View>
               <View style={RTapScreensStyle.oneRightTxt}>
                 <Text style={RTapScreensStyle.oneRioghtBodyTxt}>気性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && condition) || condition}</Text></Text>
                 <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: contitionState }]}>⬆</Text>
@@ -580,9 +586,12 @@ const ScreenTwo = ({ twoData, arrowState }) => {
           </View>
 
           <View style={RTapScreensStyle.ButtonGroup}>
-            <WorkingButton label={'飼葉'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(2))} />
+            {activeButton ?
+              <WorkingButton label={'育成'} colorNumber={2} styleId={2} onPress={(() => handleButtonPress(0))} />
+              :
+              <WorkingButton label={'休憩'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(1))} />
+            }
             <WorkingButton label={'入廐'} colorNumber={2} styleId={1} onPress={(handlePress)} />
-
             <SaleButton label={'売却'} />
           </View>
         </View>
@@ -600,6 +609,7 @@ const mapStateToProps = state => {
     poolLevel: state.pool.poolBuyData,
     truckLevel: state.truck.truckBuyData,
     roadLevel: state.road.roadBuyData,
+    stableMenu: state.stableMenu.StableMenuData
   };
 };
 

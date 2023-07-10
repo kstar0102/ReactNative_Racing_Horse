@@ -7,11 +7,11 @@ import { connect } from 'react-redux';
 
 import DropDownR from '../../../../components/Buttons/DropDwonR';
 import RTapScreensStyle from '../../../PastureScreens/RanchTapScreens/RTapScreensStyle';
-import GrazingGroup from '../../../PastureScreens/RanchTapScreens/GrazingGroup';
-import FodderGroup from '../../../PastureScreens/RanchTapScreens/FodderGroup';
+import FGroup from '../GroupTable/FGroup';
+import GGroup from '../GroupTable/GGroup';
 import WorkingButton from '../../../../components/Buttons/WorkingButtons';
-import { SaleButton } from '../../../../components/Buttons';
 import { horseColor } from '../../../../utils/globals';
+import colors from '../../../../containers/colors';
 
 
 const OneHorseTap = ({ oneData, arrowState }) => {
@@ -51,11 +51,11 @@ const OneHorseTap = ({ oneData, arrowState }) => {
   useEffect(() => {
     setBanner(oneData[0]);
     setPattern(tiredNumber);
-    if(oneData[0].ground == 'ダ'){
+    if (oneData[0].ground == 'ダ') {
       setGroundColor('#707172');
-    }else if(oneData[0].ground == '芝'){
+    } else if (oneData[0].ground == '芝') {
       setGroundColor('#1BFF00');
-    }else if(oneData[0].ground == '万'){
+    } else if (oneData[0].ground == '万') {
       setGroundColor('red');
     }
   }, [oneData]);
@@ -193,11 +193,11 @@ const OneHorseTap = ({ oneData, arrowState }) => {
     if (value) {
       setPattern(tiredNumber);
     }
-    if(value.ground == 'ダ'){
+    if (value.ground == 'ダ') {
       setGroundColor('#707172');
-    }else if(value.ground == '芝'){
+    } else if (value.ground == '芝') {
       setGroundColor('#1BFF00');
-    }else if(value.ground == '万'){
+    } else if (value.ground == '万') {
       setGroundColor('red');
     }
   }
@@ -304,10 +304,10 @@ const OneHorseTap = ({ oneData, arrowState }) => {
     }
     let result = "";
     switch (true) {
-      case (tired >= 0 && tired <= 7):
+      case (tired <= 7):
         result = ' ◎'
         break;
-      case (tired >= 9 && tired <= 12):
+      case (tired >= 8 && tired <= 12):
         result = ' o'
         break;
       case (tired >= 13 && tired <= 14):
@@ -338,8 +338,8 @@ const OneHorseTap = ({ oneData, arrowState }) => {
 
   // Health State
   const setPattern = (condition) => {
-     // Disable Injery
-     return;
+    // Disable Injery
+    return;
     let options;
     if (condition <= 10) {
       return false;
@@ -449,17 +449,17 @@ const OneHorseTap = ({ oneData, arrowState }) => {
   const renderScreenBelowButtons = () => {
     switch (activeButton) {
       case 1:
-        return <FodderGroup horseId={banner.id} />;
+        return <FGroup horseId={banner.id} />;
       default:
-        return <GrazingGroup horseId={banner.id} />;
+        return <GGroup horseId={banner.id} />;
     }
   }
 
   return (
-    <ScrollView style={RTapScreensStyle.twoContainer}>
+    <ScrollView style={[RTapScreensStyle.twoContainer, {backgroundColor: colors.ButtonGroup}]}>
       <View style={RTapScreensStyle.oneTopContent}>
         <View style={RTapScreensStyle.oneTopContentLeft}>
-          <Text style={RTapScreensStyle.shadowTxt}>所有馬一覧</Text>
+          <Text style={RTapScreensStyle.shadowTxt}>管理馬一覧</Text>
           <DropDownR name={data[0].name} data={data} onSelect={setSelected} setId={handleSettingId} />
         </View>
         <View style={RTapScreensStyle.oneTopContentRight}>
@@ -558,8 +558,12 @@ const OneHorseTap = ({ oneData, arrowState }) => {
           </View>
 
           <View style={RTapScreensStyle.ButtonGroup}>
-            <WorkingButton label={'飼葉'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(1))} />
-            <SaleButton label={'売却'} />
+            {activeButton ?
+              <WorkingButton label={`育成`} colorNumber={2} styleId={2} onPress={(() => handleButtonPress(0))} />
+              :
+              <WorkingButton label={`休憩`} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(1))} />
+            }
+            <WorkingButton label={`引退`} colorNumber={3} styleId={2} onPress={(() => handleButtonPress(1))} />
           </View>
         </View>
       </View>

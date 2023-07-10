@@ -218,13 +218,9 @@ const SecondHorseLisTapScreen = ({ twoData }) => {
             }
           </View>
           <View style={RTapScreensStyle.ButtonGroup}>
-            <View style={RTapScreensStyle.ButtonGroupOne}>
-              <SaleButton label={'売却'} />
               <WorkingButton label={'入厩'} colorNumber={2} />
-            </View>
             <View style={RTapScreensStyle.ButtonGroupTwo}>
               <WorkingButton label={'引退'} colorNumber={3} />
-              <WorkingButton label={'種付'} colorNumber={4} disabled={true} />
             </View>
           </View>
         </View>

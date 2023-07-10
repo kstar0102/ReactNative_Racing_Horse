@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { View, Image, Text, ImageBackground, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 // Redux
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { reservationValiAction } from '../../../../store/actions/Pasture/reservationValiAction';
 // Custom Import
+import {calculateGameDate} from '../../../LayoutScreen/HeaderScreen';
 import { ImageButton } from '../../../../components/Buttons';
 import DetailButton from '../../../../components/Buttons/DetailButton';
 import RTapScreensStyle from '../../../PastureScreens/RanchTapScreens/RTapScreensStyle';
 
 
-const UpGrazing = ({ horseId, poolLevel, truckLevel, roadLevel }) => {
+const GGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   // POOL STATE
   const [poolDisplay, setPoolDisplay] = useState('flex');
   const [poolDisabled, setPoolDisabled] = useState(true);
@@ -23,10 +26,13 @@ const UpGrazing = ({ horseId, poolLevel, truckLevel, roadLevel }) => {
   // SPACEIAL
   const [spaceialDisplay, setSpaceialDisplay] = useState('flex');
   const [spaceialDisabled, setSpaceialDisabled] = useState(true);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
+  const gameAllDate = calculateGameDate(currentTime);
+  const gameData = gameAllDate.toISOString().split('T')[0]
 
   const goToOtherScreen = () => {
-    navigation.replace('ReservationScreen');
+    navigation.replace('TrainingReservationScreen');
   };
   useEffect(() => {
     if(poolLevel != ''){
@@ -59,12 +65,12 @@ const UpGrazing = ({ horseId, poolLevel, truckLevel, roadLevel }) => {
   }, [poolLevel, truckLevel, roadLevel])
 
   return (
-    <ScrollView style={RTapScreensStyle.fodderContainer}>
+    <ScrollView style={RTapScreensStyle.grazingContainer}>
       <View style={RTapScreensStyle.oneBottomContent}>
         <ImageBackground style={RTapScreensStyle.BottomBackground} resizeMode="cover" source={require('../../../../assets/images/Pasture/background.jpg')}>
           <Image
             style={RTapScreensStyle.TitleImage}
-            source={require('../../../../assets/images/Fodder/1.png')}
+            source={require('../../../../assets/images/Pasture/background_text2.png')}
           />
           <View style={RTapScreensStyle.ImageButtonTop}>
             <View>
@@ -78,75 +84,77 @@ const UpGrazing = ({ horseId, poolLevel, truckLevel, roadLevel }) => {
               <View style={[RTapScreensStyle.absoluteViewF]}>
                 <Text style={RTapScreensStyle.label}>スぺシャル</Text>
               </View>
-              <ImageButton label={'スベシャル'} source={require('../../../../assets/images/Pasture/icon2.png')} id={2} disabled={true} />
-              <DetailButton label={'育成する'} horseId={horseId} name={'スベシャル'} disabled={true} id={11} />
+              <ImageButton label={'スベシャル'} source={require('../../../../assets/images/Pasture/icon9.png')} id={2} disabled={false} />
+              <Image
+                style={[RTapScreensStyle.LongiIcon, { display: spaceialDisplay }]}
+                source={require('../../../../assets/images/Pasture/icon8.png')}
+              />
+              <DetailButton label={'育成する'} horseId={horseId} name={'スベシャル'} disabled={spaceialDisabled} id={11} />
             </View>
             <View>
               <View style={[RTapScreensStyle.absoluteViewT]}>
-                <Text style={RTapScreensStyle.label}>逃げ</Text>
+                <Text style={RTapScreensStyle.label}>放牧</Text>
               </View>
-              <ImageButton label={'逃げ'} source={require('../../../../assets/images/Pasture/icon3.png')} id={3} />
+              <ImageButton label={'放牧'} source={require('../../../../assets/images/Pasture/icon2.png')} id={3} />
               <DetailButton label={'育成する'} horseId={horseId} name={'放牧'} />
             </View>
           </View>
           <View style={RTapScreensStyle.ImageButtonMiddle}>
             <View>
-              <View style={[RTapScreensStyle.absoluteViewT]}>
-                <Text style={RTapScreensStyle.label}>先行</Text>
+              <View style={[RTapScreensStyle.absoluteViewO]}>
+                <Text style={RTapScreensStyle.label}>芝</Text>
               </View>
-              <ImageButton label={'先行'} source={require('../../../../assets/images/Pasture/icon4.png')} id={4} />
+              <ImageButton label={'芝'} source={require('../../../../assets/images/Pasture/icon3.png')} id={4} />
               <DetailButton label={'育成する'} horseId={horseId} name={'芝'} />
             </View>
             <View>
-
-
-              <View style={RTapScreensStyle.absoluteViewT}>
-                <Text style={RTapScreensStyle.label}>差し</Text>
+              <View style={RTapScreensStyle.absoluteView}>
+                <Text style={RTapScreensStyle.label}>ダート</Text>
               </View>
-              <ImageButton label={'差し'} source={require('../../../../assets/images/Pasture/icon5.png')} id={5} />
+              <ImageButton label={'ダート'} source={require('../../../../assets/images/Pasture/icon4.png')} id={5} />
               <DetailButton label={'育成する'} horseId={horseId} name={'ダート'} />
             </View>
             <View>
-              <View style={[RTapScreensStyle.absoluteViewT]}>
-                <Text style={RTapScreensStyle.label}>追い</Text>
+              <View style={[RTapScreensStyle.absoluteViewB]}>
+                <Text style={RTapScreensStyle.label}>ウッドチップ</Text>
               </View>
-              <ImageButton label={'追い'} source={require('../../../../assets/images/Pasture/icon6.png')} id={6} />
+              <ImageButton label={'ウッドチップ'} source={require('../../../../assets/images/Pasture/icon10.png')} id={6} />
               <DetailButton label={'育成する'} horseId={horseId} name={'ウッドチップ'} />
             </View>
           </View>
           <View style={RTapScreensStyle.ImageButtonBottom}>
             <View>
               <View style={RTapScreensStyle.absoluteView}>
-                <Text style={RTapScreensStyle.label}>? ? ?</Text>
+                <Text style={RTapScreensStyle.label}>プール</Text>
               </View>
               <ImageButton label={'プール'} source={require('../../../../assets/images/Pasture/icon7.png')} id={7} />
               <Image
-                style={[RTapScreensStyle.LongiIcon, { display: 'flex' }]}
+                style={[RTapScreensStyle.LongiIcon, { display: poolDisplay }]}
                 source={require('../../../../assets/images/Pasture/icon8.png')}
               />
-              <DetailButton label={'育成する'} disabled={true} horseId={horseId} name={'プール'} />
+              <DetailButton label={'育成する'} disabled={poolDisabled} horseId={horseId} name={'プール'} />
             </View>
             <View>
               <View style={RTapScreensStyle.absoluteViewT}>
-                <Text style={RTapScreensStyle.label}>? ? ?</Text>
+                <Text style={RTapScreensStyle.label}>併走</Text>
               </View>
               <ImageButton label={'併走'} source={require('../../../../assets/images/Pasture/icon5.png')} id={8} disabled={true} />
               <Image
-                style={[RTapScreensStyle.LongiIcon, { display: 'flex' }]}
+                style={[RTapScreensStyle.LongiIcon, { display: truckDisplay }]}
                 source={require('../../../../assets/images/Pasture/icon8.png')}
               />
-              <DetailButton label={'育成する'} disabled={true} horseId={horseId} name={'併走'} />
+              <DetailButton label={'育成する'} disabled={truckDisabled} horseId={horseId} name={'併走'} />
             </View>
             <View>
               <View style={RTapScreensStyle.absoluteViewT}>
-                <Text style={RTapScreensStyle.label}>? ?  ?</Text>
+                <Text style={RTapScreensStyle.label}>坂路</Text>
               </View>
               <ImageButton label={'坂路'} source={require('../../../../assets/images/Pasture/icon6.png')} id={9} disabled={true} />
               <Image
-                style={[RTapScreensStyle.LongiIcon, { display: 'flex' }]}
+                style={[RTapScreensStyle.LongiIcon, { display: roadDisplay }]}
                 source={require('../../../../assets/images/Pasture/icon8.png')}
               />
-              <DetailButton label={'育成する'} disabled={true} horseId={horseId} name={'坂路'} />
+              <DetailButton label={'育成する'} disabled={roadDisabled} horseId={horseId} name={'坂路'} />
             </View>
 
           </View>
@@ -158,9 +166,10 @@ const UpGrazing = ({ horseId, poolLevel, truckLevel, roadLevel }) => {
 
 const mapStateToProps = state => {
   return {
+    pasture_id: state.pasture.pastureData.id,
     poolLevel: state.pool.poolBuyData,
     truckLevel: state.truck.truckBuyData,
     roadLevel: state.road.roadBuyData,
   }
 }
-export default connect(mapStateToProps)(UpGrazing);
+export default connect(mapStateToProps)(GGroup);

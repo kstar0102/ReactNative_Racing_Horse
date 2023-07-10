@@ -19,6 +19,9 @@ import nextRacePlanReducer from './getApi/nextRacePlanReducer';
 import arrowReducer from './Upbring/arrowReducer';
 // Game Time
 import gameTimeRuducer from './gameTime/gameTimeRuducer';
+// Stable DATA
+import stableMenuReducer from './stable/stableMenuReducer';
+import jockeyRegisterReducer from './stable/jockey/jockeyRegisterReducer';
 
 export default combineReducers({
     user: user,
@@ -40,6 +43,9 @@ export default combineReducers({
     // UPBRINGING
     arrow: arrowReducer,
     // GAME TIME
-    currentGameTime: gameTimeRuducer
+    currentGameTime: gameTimeRuducer,
+    // STABLE DATA
+    stableMenu: stableMenuReducer,
+    jockeyData: jockeyRegisterReducer
 
 });

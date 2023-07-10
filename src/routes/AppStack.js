@@ -29,7 +29,11 @@ import Institution from '../screens/StableScreens/Instituion';
 import JockeyTraingin from '../screens/StableScreens/Jockeytraingin';
 import JocTraining from '../screens/StableScreens/Jockeytraingin/JocTraining';
 import RaceCourse from '../screens/StableScreens/RaceCourse';
-// /////////////////////////
+import TrainingReservationScreen from '../screens/StableScreens/Training/TrainingReservationScreen';
+/**
+ * RaceCourse Screen
+ */
+import RaceCourseScreen from '../screens/RaceCourseScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -64,6 +68,10 @@ const AppStack = () => {
         <ModalStack.Screen name={'JockeyTraingin'} component={JockeyTraingin} options={horizontalAnimation}/>
         <ModalStack.Screen name={'JocTraining'} component={JocTraining} options={horizontalAnimation}/>
         <ModalStack.Screen name={'RaceCourse'} component={RaceCourse} options={horizontalAnimation}/>
+        <ModalStack.Screen name={'TrainingReservationScreen'} component={TrainingReservationScreen} options={horizontalAnimation}/>
+      {/* RaceCourse */}
+      <ModalStack.Screen name={'RaceCourseScreen'} component={RaceCourseScreen} options={horizontalAnimation}/>
+
       </ModalStack.Navigator>
     </>
   );

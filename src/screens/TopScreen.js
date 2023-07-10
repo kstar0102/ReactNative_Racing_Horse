@@ -50,7 +50,7 @@ const TopScreen = ({navigation, pastureData, user_id, horseData, pasture_id}) =>
               
               <View style={Screenstyles.content}>
                   <CustomButtons label="牧 場" onPress={() => handlePastureSubmit() }/>
-                  <CustomButtons label="競馬場"/>
+                  <CustomButtons label="競馬場" onPress={() =>  navigation.navigate('RaceCourseScreen')}/>
                   <CustomButtons label="ランキング"/>
               </View>
               <View style={Screenstyles.content}>

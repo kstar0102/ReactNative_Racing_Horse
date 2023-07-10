@@ -301,10 +301,10 @@ const RaceRegistation = ({ saveData, arrowState, navigation }) => {
     }
     let result = "";
     switch (true) {
-      case (tired >= 0 && tired <= 7):
+      case (tired <= 7):
         result = ' ◎'
         break;
-      case (tired >= 9 && tired <= 12):
+      case (tired >= 8 && tired <= 12):
         result = ' o'
         break;
       case (tired >= 13 && tired <= 14):

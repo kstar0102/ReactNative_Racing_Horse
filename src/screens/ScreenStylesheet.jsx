@@ -337,6 +337,17 @@ const Screenstyles = StyleSheet.create({
       textAlign:'center',
       marginRight: 80
     },
+
+    reserveMenuShowTitle:{
+      fontSize: 18,
+      textAlign:'center',
+      marginRight: 80,
+      color: colors.white,
+
+      textShadowColor: 'black',
+      textShadowOffset: { width: 4, height: 4 },
+      textShadowRadius: 5,
+    },
     reserveRight:{
       width: "38%",
       marginRight: 5
@@ -352,6 +363,17 @@ const Screenstyles = StyleSheet.create({
       fontWeight: 600,
       textAlign:'center',
       // marginRight: 80
+    },
+
+    reserveListShowTitle:{
+      fontSize: 25,
+      fontWeight: 600,
+      textAlign:'center',
+      color: colors.white,
+
+      textShadowColor: 'black',
+      textShadowOffset: { width: 4, height: 4 },
+      textShadowRadius: 5,
     },
     reserveListConfim:{
       display:'flex',

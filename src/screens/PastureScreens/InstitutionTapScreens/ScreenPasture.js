@@ -91,7 +91,7 @@ const ScreenPasture = ({ pasture_name, user_id, user_level, pasture }) => {
     }
     Alert.alert(
       ' ',
-      `牧場 (Lv.${level})は、${price}ptですが購入しますか`,
+      `牧場 (Lv.${level})は、${price}ptですが購入しますか?`,
       [
         {
           text: "いいえ",

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ImageBackground } from 'react-native';
 // Custom IMPORT
 import HeaderScreen from '../../LayoutScreen/HeaderScreen';
+import StableFooterScreen from '../../LayoutScreen/StableFooterScreen';
 import { ReturnButton } from '../../../components/Buttons';
 import Screenstyles from '../../ScreenStylesheet';
 import TapScreen from './TapScreen';
@@ -25,6 +26,7 @@ const Training = ({navigation}) => {
               </View>
               <TapScreen/>
             </View>
+            <StableFooterScreen/>
       </ImageBackground>
     </View>
   );

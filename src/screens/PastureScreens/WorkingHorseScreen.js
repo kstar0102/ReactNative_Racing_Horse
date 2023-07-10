@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ImageBackground } from 'react-native';
 // Custom IMPORT
 import HeaderScreen from '../LayoutScreen/HeaderScreen';
+import FooterScreen from '../LayoutScreen/FooterScreen';
 import { ReturnButton } from '../../components/Buttons';
 import Screenstyles from '../ScreenStylesheet';
 import WorkingHorseTapScreen from './WorkingHorseTapScreen';
@@ -25,6 +26,7 @@ const WorkingHorseScreen = ({navigation}) => {
               </View>
               <WorkingHorseTapScreen/>
             </View>
+            <FooterScreen/>
       </ImageBackground>
     </View>
   );
