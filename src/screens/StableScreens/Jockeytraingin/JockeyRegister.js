@@ -31,7 +31,7 @@ import Screenstyles from '../../ScreenStylesheet';
 import { ReturnButton } from '../../../components/Buttons';
 
 
-const JockeyRegister = ({jockeyName,jockeyGender, stable_id, user_id}) => {
+const JockeyRegister = ({jockeyName, jockeyGender, user_id}) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const [modalVisible, setModalVisible] = useState(false);
@@ -95,10 +95,10 @@ const JockeyRegister = ({jockeyName,jockeyGender, stable_id, user_id}) => {
             const sendJockey = {
                 'name': jockeyName,
                 'gender': jockeyGender,
-                'stall_id': stable_id,
                 'user_id': user_id
             }
             dispatch(JockeyRegisterAction(sendJockey));
+            
             navigation.replace('JocTraining')
         }
     }
@@ -229,7 +229,6 @@ const mapStateToProps = state => {
     return {
         jockeyName: state.jockeyData.name,
         jockeyGender: state.jockeyData.gender,
-        stable_id: state.stableMenu.StableSendData[0].stall_id,
         user_id: state.user.userData.id,
     }
 }

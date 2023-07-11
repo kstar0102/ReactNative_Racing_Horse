@@ -1,4 +1,4 @@
-import { SHOW_JOCKEY, LOGIN_USER_DATA } from '../types';
+import { SHOW_JOCKEY } from '../types';
 import axios from 'axios';
 import { API } from '../../../utils/config';
 
@@ -9,26 +9,18 @@ export const fetchData = (data) => {
   }
 };
 
-export const userData = (user) => {
-  return {
-    type: LOGIN_USER_DATA,
-    payload: user,
-  }
-};
-
-export function JockeyRegisterAction(jocKeyData){
+export function GetShowJockeyAction(userId){
   return async (dispatch, getState) => {
     const token = getState().tokenData.tokenData;
-    return await axios.post(API+"storejockey", {
-      data: jocKeyData
+    return await axios.post(API+"showjockey", {
+      data: userId
     },
     {
       headers:{Authorization: token}
     }
     )
       .then(res => {
-        dispatch(userData(res.data.user[0]));
-        dispatch(fetchData(res.data.jockey[0]));
+        dispatch(fetchData(res.data.data[0]));
       })
       .catch(error => {
         throw(error);

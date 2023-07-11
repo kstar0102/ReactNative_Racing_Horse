@@ -41,6 +41,7 @@ const ReservationScreen = ({
   const [fodder, setFodder] = useState("");
   const [working, setWorking] = useState("");
   const [allData, setAllData] = useState([]);
+  const [preeAllData, setPreeAllData] = useState([]);
   const [deletes, setDeletes] = useState("");
   const [groundColor, setGroundColor] = useState("#000");
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -55,7 +56,7 @@ const ReservationScreen = ({
   let horse_ids = [];
   let gameDate = [];
   let food_names = [];
-  let arrayValue = [];
+  let global_usename = [];
   if (reservationData != "") {
     reservationData.forEach((element, index) => {
       horse_ids.push(element.horse_id);
@@ -63,13 +64,32 @@ const ReservationScreen = ({
       food_names.push(element.food_name);
     });
   }
-  if (horse_ids.includes(banner.id.toString()) && gameDate.includes(gameData)) {
-    for (let index = 0; index < food_names.length; index++) {
-      if (horse_ids[index] == banner.id.toString()) {
-        arrayValue.push({ name: food_names[index] });
+
+  const isValue =
+    horse_ids.includes(banner.id.toString()) && gameDate.includes(gameData);
+
+
+  useEffect(() => {
+    let useName = [];
+    let useIsName = [];
+    if (isValue) {
+          reservationData.forEach((item, index) => {
+            useName.push({
+              name: item.food_name,
+              price: item.price,
+              type: item.food_type,
+            });
+          });
+      if (useName != "") {
+        useName.map((item, index) => {
+          if (horse_ids[index] == banner.id.toString()) {
+            useIsName.push(item);
+          }
+        });
       }
+      setPreeAllData(useIsName);
     }
-  }
+  }, [reservationData, banner]);
 
   useEffect(() => {
     if (reservationData != "") {
@@ -345,14 +365,21 @@ const ReservationScreen = ({
     if (!grazing) {
       return false;
     }
-    setAllData([...allData, grazing]);
+    if (horse_ids.includes(banner.id.toString())) {
+      setPreeAllData([...preeAllData, grazing]);
+    } else {
+      setAllData([...allData, grazing]);
+    }
   };
-
   const handleFodder = (fodder) => {
     if (!fodder) {
       return false;
     }
-    setAllData([...allData, fodder]);
+    if (horse_ids.includes(banner.id.toString())) {
+      setPreeAllData([...preeAllData, fodder]);
+    } else {
+      setAllData([...allData, fodder]);
+    }
   };
 
   const handleWorking = (working) => {
@@ -366,6 +393,11 @@ const ReservationScreen = ({
   let food_price = [];
   let food_order = [];
   let food_type = [];
+
+  let food_pree_name = [];
+  let food_pree_price = [];
+  let food_pree_order = [];
+  let food_pree_type = [];
   // All data Value
   allData.forEach((element, index) => {
     food_name.push(element.name);
@@ -374,18 +406,40 @@ const ReservationScreen = ({
     food_order.push(index + 1);
   });
 
+  preeAllData.forEach((element, index) => {
+    food_pree_name.push(element.name);
+    food_pree_price.push(element.price);
+    food_pree_type.push(element.type);
+    food_pree_order.push(index + 1);
+  });
+
   let default_order = [];
   // Array Value
-  arrayValue.forEach((element, index) => {
+  preeAllData.forEach((element, index) => {
     default_order.push(index + 1);
   });
 
   const handleArraySubmit = () => {
-    if (
-      horse_ids.includes(banner.id.toString()) &&
-      gameDate.includes(gameData)
-    ) {
-      return alert("Not Found!!");
+    if (isValue) {
+      if (preeAllData != "") {
+        const sandReserve = {
+          horse_id: banner.id,
+          pasture_id: pasture_id,
+          food_name: food_pree_name,
+          user_id: user_id,
+          price: food_pree_price,
+          order: food_pree_order,
+          food_type: food_pree_type,
+          place: "pasture",
+          game_date: gameData,
+        };
+        dispatch(reservationAction(sandReserve));
+        dispatch(reservationValiAction(sandReserve));
+        setAllData([]);
+        //this.forceUpdate();
+      } else {
+        alert("NOT FOUND First");
+      }
     } else {
       if (allData != "") {
         const sandReserve = {
@@ -404,13 +458,14 @@ const ReservationScreen = ({
         setAllData([]);
         //this.forceUpdate();
       } else {
-        alert("NOT FOUND");
+        alert("NOT FOUND Second");
       }
     }
     // setAllData();
   };
   const handleDelete = (deletes) => {
     setAllData(allData.filter((item, index) => index + 1 !== deletes));
+    setPreeAllData(preeAllData.filter((item, index) => index + 1 !== deletes));
   };
   return (
     <View style={Screenstyles.container}>
@@ -506,7 +561,7 @@ const ReservationScreen = ({
                       <Text
                         style={[
                           RTapScreensStyle.oneRioghtHeaderTxtGreen,
-                          { color: groundColor,  paddingLeft: 10 },
+                          { color: groundColor, paddingLeft: 20 },
                         ]}
                       >
                         {(!!selected && selected.ground) || data[0].ground}
@@ -662,22 +717,24 @@ const ReservationScreen = ({
               </View>
               <View style={Screenstyles.reserveRightList}>
                 <ScrollView style={Screenstyles.reserveList}>
-                  {allData.map((item, index) => (
-                    <Text key={index} style={Screenstyles.reserveListtxt}>
-                      {index + 1}. {item.name}
-                    </Text>
-                  ))}
-                  {arrayValue.map((item, index) => (
-                    <Text key={index} style={Screenstyles.reserveListtxt}>
-                      {index + 1}. {item.name}
-                    </Text>
-                  ))}
+                  {isValue
+                    ? preeAllData.map((item, index) => (
+                        <Text key={index} style={Screenstyles.reserveListtxt}>
+                          {index + 1}. {item.name}
+                        </Text>
+                      ))
+                    : allData.map((item, index) => (
+                        <Text key={index} style={Screenstyles.reserveListtxt}>
+                          {index + 1}. {item.name}
+                        </Text>
+                      ))}
                 </ScrollView>
                 <View style={Screenstyles.reserveButtonGroup}>
                   <ReservationDropDown
-                    name={food_order[0] || default_order[0]}
-                    default_order={default_order}
-                    food_order={food_order}
+                    name={isValue ? default_order[0] : food_order[0]}
+                    // default_order={default_order}
+                    // food_order={food_order}
+                    order={isValue ? default_order : food_order}
                     onSelect={setSelectedDelete}
                     setId={handleDeleteId}
                   />
