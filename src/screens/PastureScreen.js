@@ -1,20 +1,33 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, ImageBackground} from 'react-native';
 // Redux
 import { connect,useDispatch } from 'react-redux';
 import { institutionAction } from '../store/actions/institution/institutionAction';
 import { raceAction } from '../store/actions/racepaln/getApi/racePlanAction';
 import { signAction } from '../store/actions/horse/signAction';
+import { pastureAction } from '../store/actions/Pasture/pastureAction';
 // Custom Import
 import HeaderScreen, { calculateGameDate } from './LayoutScreen/HeaderScreen';
 import FooterScreen from './LayoutScreen/FooterScreen';
 import { CustomButtons, ReturnButton } from '../components/Buttons';
 import Screenstyles from '../screens/ScreenStylesheet';
 
-const PastureScreen = ({navigation, user_id, gameTime}) => {
+const PastureScreen = ({navigation, user_id, pasture_id, gameTime}) => {
   const dispatch = useDispatch();
 
   const [currentTime, setCurrentTime] = useState(new Date());
+
+    // HORSE DATA IMPORT
+    useEffect(() => {
+      if(!pasture_id){
+        return;
+      }
+        const sandIds =  {
+          "user_id": user_id,
+          "pasture_id": pasture_id
+        } 
+        dispatch(pastureAction(sandIds))
+    }, [user_id, pasture_id]);
 
   // POST USER ID
   const handleSubmit = () => {

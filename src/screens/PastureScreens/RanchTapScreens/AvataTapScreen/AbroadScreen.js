@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 // Custom Import
 import AvatarButton from '../../../../components/Buttons/AvatarButton';
 import RTapScreensStyle from '../RTapScreensStyle';
+
 const AbroadScreen = ({stableMenu, horseId}) => {
     if(stableMenu == ''){
         return false

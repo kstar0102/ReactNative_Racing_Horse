@@ -1,46 +1,51 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { FooterButton } from '../../components/Buttons';
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import { useNavigation } from '@react-navigation/native';
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { useNavigation } from "@react-navigation/native";
+import { stableAllGetAction } from "../../store/actions/truck/getApi/stableAllGetAction";
+// Redux
+import { connect, useDispatch } from "react-redux";
+// Custom
+import { FooterButton } from "../../components/Buttons";
 
-const FooterScreen = () => {
+const FooterScreen = ({user_id}) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const handleStall = () => {
+    dispatch(stableAllGetAction(user_id));
+    navigation.navigate("StallScreen");
+  };
+
   return (
     <View style={styles.containers}>
-      <FooterButton
-        label="厩 舎"
-        onPress={() => navigation.navigate('StallScreen')}
-      />
-      <FooterButton
-        label="競馬場"
-      />
-      <FooterButton
-        label="セ リ"
-      />
-      <FooterButton
-        label="ランキング"
-      />
-      <FooterButton
-        label="V I P"
-      />
+      <FooterButton label="厩 舎" onPress={() => handleStall()} />
+      <FooterButton label="競馬場" />
+      <FooterButton label="セ リ" />
+      <FooterButton label="ランキング" />
+      <FooterButton label="V I P" />
     </View>
-  )
-}
-
+  );
+};
 
 const styles = StyleSheet.create({
   containers: {
-    position: 'absolute',
+    position: "absolute",
     bottom: hp(3),
     left: 1,
     right: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around'
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
 });
 
-export default FooterScreen;
+const mapStateToProps = state => {
+  return{
+    user_id: state.user.userData.id,
+  }
+}
+
+export default connect(mapStateToProps)(FooterScreen);

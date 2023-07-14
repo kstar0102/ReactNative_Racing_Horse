@@ -1,31 +1,89 @@
-import React, { useState } from 'react';
-import { TouchableOpacity, Text, StyleSheet, View, Alert, Modal } from "react-native";
+import React, { useState } from "react";
+import {
+  TouchableOpacity,
+  Text,
+  TextInput,
+  StyleSheet,
+  View,
+  Alert,
+  Modal,
+} from "react-native";
+import { vw } from "react-native-expo-viewport-units";
+// Redux
+import { connect, useDispatch } from "react-redux";   
+import { preePastureSetAction } from "../../store/actions/Pasture/preePastureSetAction"; 
 // Customer
-import DropdownR from './DropDwonR';
-import colors from '../../containers/colors';
-import SaleInputButton from './SaleInputButton';
-import ButtonStyle from './ButtonStyle';
+import DropdownR from "./DropDwonR";
+import colors from "../../containers/colors";
+import SaleInputButton from "./SaleInputButton";
+import ButtonStyle from "./ButtonStyle";
 
-
-const PresetRegistrationButton = ({ colorNumber, label, disabled, allData }) => {
+const PresetRegistrationButton = ({
+  colorNumber,
+  label,
+  disabled,
+  allData,
+  user_id,
+  pasture_id
+}) => {
+  const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
   const [secondModalVisible, setSecondModalVisible] = useState(false);
   const [thredModalVisible, setThredModalVisible] = useState(false);
+  const [preeSet, setPreeSet] = useState('');
+  const [selectedPreeSet, setSelectedPreeSet] = useState(" ");
+  const [inputText, setInputText] = useState("");
+
+  const preeSetData = [
+    { name: "プリセット1" },
+    { name: "プリセット2" },
+    { name: "プリセット3" },
+    { name: "プリセット4" },
+    { name: "プリセット5" },
+  ];
+
+  let food_name = [];
+  let food_price = [];
+  let food_order = [];
+  let food_type = [];
+
+  // All data Value
+  allData.forEach((element, index) => {
+    food_name.push(element.name);
+    food_price.push(element.price);
+    food_type.push(element.type);
+    food_order.push(index + 1);
+  });
+ const preset_num = preeSet == '' ?  preeSetData[0].name :  preeSet.name;
+ const handlePreeSetRegister = () => {
+    const sendPreeData = {
+      food_name: food_name,
+      food_type: food_type,
+      price: food_price,
+      order: food_order,
+      place: 'pasture',
+      preset_name: inputText,
+      preset_num: preset_num,
+      user_id: user_id,
+      pasture_id: pasture_id
+    }
+    dispatch(preePastureSetAction(sendPreeData))
+}
 
   const handlePress = () => {
-    if (allData != '') {
+    if (allData != "") {
       Alert.alert(
         " ",
         "「予約一覧」 の予約を登録しますか?",
         [
           {
             text: "いいえ",
-            style: "cancel"
+            style: "cancel",
           },
           {
             text: "はい",
-            onPress: () => setModalVisible(true)
-          }
+            onPress: () => setModalVisible(true),
+          },
         ],
         { cancelable: false }
       );
@@ -36,12 +94,12 @@ const PresetRegistrationButton = ({ colorNumber, label, disabled, allData }) => 
         [
           {
             text: "いいえ",
-            style: "cancel"
+            style: "cancel",
           },
           {
             text: "はい",
-            onPress: () => console.log("Yes pressed")
-          }
+            onPress: () => console.log("Yes pressed"),
+          },
         ],
         { cancelable: false }
       );
@@ -55,16 +113,16 @@ const PresetRegistrationButton = ({ colorNumber, label, disabled, allData }) => 
       [
         {
           text: "いいえ",
-          style: "cancel"
+          style: "cancel",
         },
         {
           text: "はい",
-          onPress: () => console.log("Yes pressed")
-        }
+          onPress: () => handlePreeSetRegister(),
+        },
       ],
       { cancelable: false }
     );
-  }
+  };
   // setModalVisible(true)
   const handleYesPress = () => {
     setSecondModalVisible(true);
@@ -78,32 +136,32 @@ const PresetRegistrationButton = ({ colorNumber, label, disabled, allData }) => 
   const handleSecondModalSubmit = () => {
     setThredModalVisible(true);
     setSecondModalVisible(false);
-  }
+  };
   const handleSecondNoModalSubmit = () => {
     setModalVisible(false);
-
+    setSecondModalVisible(false);
   };
 
   const handleThredModalSubmit = () => {
-    setThredModalVisible(false)
+    setThredModalVisible(false);
     handleEndPress();
-
   };
   const handleThredNoModalSubmit = () => {
     setThredModalVisible(false);
+  };  
+
+  const handlePreeSetData = (value) => {
+    setPreeSet(value);
   }
-
-
-
   return (
     <View>
       <TouchableOpacity
         style={[
           styles.button,
-          colorNumber == 1 ? styles.buttonOne : 'styles.button',
-          colorNumber == 2 ? styles.buttonTwo : 'styles.button',
-          disabled && styles.disabled]}
-
+          colorNumber == 1 ? styles.buttonOne : "styles.button",
+          colorNumber == 2 ? styles.buttonTwo : "styles.button",
+          disabled && styles.disabled,
+        ]}
         onPress={() => handlePress()}
         disabled={disabled ? disabled : false}
       >
@@ -111,17 +169,24 @@ const PresetRegistrationButton = ({ colorNumber, label, disabled, allData }) => 
       </TouchableOpacity>
 
       <View style={ButtonStyle.container}>
-
         {/* One */}
-        <Modal
-          visible={modalVisible}
-          animationType="fade"
-          transparent={true}
-        >
+        <Modal visible={modalVisible} animationType="fade" transparent={true}>
           <View style={ButtonStyle.ModalCenter}>
             <Text> プリセットに名前をつけてください。</Text>
-            <View style={ButtonStyle.Dropdown}>
-              <DropdownR name={"Name"} />
+            <View style={ButtonStyle.inputText}>
+              <TextInput
+                style={{
+                  width: vw(60),
+                  height: 38,
+                  borderColor: "gray",
+                  borderWidth: 1,
+                  margin: 10,
+                  // padding: 10,
+                  borderRadius: 5,
+                }}
+                onChangeText={(text) => setInputText(text)}
+                value={inputText}
+              />
             </View>
             <View style={ButtonStyle.buttonContainer}>
               <View style={{ margin: 10 }}>
@@ -141,13 +206,21 @@ const PresetRegistrationButton = ({ colorNumber, label, disabled, allData }) => 
         >
           <View style={ButtonStyle.ModalCenter}>
             <Text style={ButtonStyle.saleTxtTitle}></Text>
-            <Text style={ButtonStyle.saleTxt}>○○でよろしいですか?</Text>
+            <Text style={ButtonStyle.saleTxt}>
+              {inputText}でよろしいですか?
+            </Text>
             <View style={ButtonStyle.buttonContainer}>
               <View style={{ margin: 10 }}>
-                <SaleInputButton label="いいえ" onPress={handleSecondNoModalSubmit} />
+                <SaleInputButton
+                  label="いいえ"
+                  onPress={handleSecondNoModalSubmit}
+                />
               </View>
               <View style={{ margin: 10 }}>
-                <SaleInputButton label="はい" onPress={handleSecondModalSubmit} />
+                <SaleInputButton
+                  label="はい"
+                  onPress={handleSecondModalSubmit}
+                />
               </View>
             </View>
           </View>
@@ -162,14 +235,25 @@ const PresetRegistrationButton = ({ colorNumber, label, disabled, allData }) => 
           <View style={ButtonStyle.ModalCenter}>
             <Text> どのプリセットに上書きしますか?</Text>
             <View style={ButtonStyle.Dropdown}>
-              <DropdownR name={"プリセット1"} />
+              <DropdownR
+                name={"プリセット1"}
+                data={preeSetData}
+                onSelect={setSelectedPreeSet}
+                setId={handlePreeSetData}
+              />
             </View>
             <View style={ButtonStyle.buttonContainer}>
               <View style={{ margin: 10 }}>
-                <SaleInputButton label="いいえ" onPress={handleThredNoModalSubmit} />
+                <SaleInputButton
+                  label="いいえ"
+                  onPress={handleThredNoModalSubmit}
+                />
               </View>
               <View style={{ margin: 10 }}>
-                <SaleInputButton label="はい" onPress={handleThredModalSubmit} />
+                <SaleInputButton
+                  label="はい"
+                  onPress={handleThredModalSubmit}
+                />
               </View>
             </View>
           </View>
@@ -180,30 +264,37 @@ const PresetRegistrationButton = ({ colorNumber, label, disabled, allData }) => 
   );
 };
 
-export default PresetRegistrationButton;
+const mapStateToProps = state => {
+  return{
+    user_id: state.user.userData.id,
+    pasture_id: state.pasture.pastureData.id,
+  }
+}
+
+export default connect(mapStateToProps)(PresetRegistrationButton);
 
 const styles = StyleSheet.create({
   button: {
     backgroundColor: colors.tabButtonMiddle,
     borderRadius: 6,
     height: 30,
-    width: '80%',
+    width: "80%",
     paddingVertical: 2,
     marginTop: 5,
   },
   buttonOne: {
-    backgroundColor: colors.tabButtonEnd
+    backgroundColor: colors.tabButtonEnd,
   },
   buttonTwo: {
-    backgroundColor: colors.tabButtonMiddle
+    backgroundColor: colors.tabButtonMiddle,
   },
   label: {
     color: colors.light.white,
     fontSize: 18,
     fontWeight: 700,
-    textAlign: 'center'
+    textAlign: "center",
   },
   disabled: {
     opacity: 0.5,
-  }
+  },
 });

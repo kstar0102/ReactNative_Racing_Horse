@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 // Redux
 import { connect, useDispatch } from 'react-redux';
 import { reservationValiAction } from '../../../store/actions/Pasture/reservationValiAction';
+import { preePastureShowAction } from '../../../store/actions/Pasture/preePastureShowAction';
 // Custom Import
 import {calculateGameDate} from '../../LayoutScreen/HeaderScreen';
 import { ImageButton } from '../../../components/Buttons';
@@ -11,7 +12,7 @@ import DetailButton from '../../../components/Buttons/DetailButton';
 import RTapScreensStyle from './RTapScreensStyle';
 
 
-const GrazingGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id }) => {
+const GrazingGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id, user_id }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   // POOL STATE
@@ -36,8 +37,12 @@ const GrazingGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id })
     const sandReservationData = {
       'game_date': gameData,
       'pasture_id': pasture_id
-    }
+    };
+    const sendUserId = {
+      user_id: user_id
+    };
     dispatch(reservationValiAction(sandReservationData));
+    dispatch(preePastureShowAction(sendUserId))
   };
   useEffect(() => {
     if(poolLevel != ''){
@@ -175,6 +180,7 @@ const mapStateToProps = state => {
     poolLevel: state.pool.poolBuyData,
     truckLevel: state.truck.truckBuyData,
     roadLevel: state.road.roadBuyData,
+    user_id: state.user.userData.id,
   }
 }
 export default connect(mapStateToProps)(GrazingGroup);

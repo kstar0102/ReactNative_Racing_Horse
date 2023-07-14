@@ -4,13 +4,13 @@ import { vh } from 'react-native-expo-viewport-units';
 
 // Custom IMPORT
 import { ITapButton } from '../../../components/Buttons';
-import PastureTap from './TapScreens/PastureTap';
+import StallTap from './TapScreens/StallTap';
 import PoolTap from './TapScreens/PoolTap';
 import RanchTap from './TapScreens/RanchTap';
 import SlopeTap from './TapScreens/SlopeTap';
 import TruckTap from './TapScreens/TruckTap';
 
-const TapScreen = () => {
+const TapScreen = ({banner}) => {
   const [activeButton, setActiveButton] = useState(3);
 
   const handleButtonPress = (id) => {
@@ -20,17 +20,17 @@ const TapScreen = () => {
   const renderScreenBelowButtons = () => {
     switch(activeButton) {
       case 3:
-        return <PastureTap />;
+        return <StallTap banner={banner} />;
       case 2:
-        return <RanchTap />;
+        return <RanchTap banner={banner}/>;
       case 1:
-        return <TruckTap />;
+        return <TruckTap banner={banner}/>;
       case 4:
-        return <SlopeTap />;
+        return <SlopeTap banner={banner} />;
       case 5:
-        return <PoolTap />;
+        return <PoolTap banner={banner}/>;
       default:
-        return <PastureTap />;
+        return <StallTap banner={banner}/>;
     }
   }
 

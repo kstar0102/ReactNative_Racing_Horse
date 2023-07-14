@@ -6,19 +6,25 @@ import { raceAction } from "../store/actions/racepaln/getApi/racePlanAction";
 import { stableAllGetAction } from "../store/actions/truck/getApi/stableAllGetAction";
 import { GetShowJockeyAction } from "../store/actions/jockey/GetShowJockeyAction";
 import { signAction } from "../store/actions/horse/signAction";
+import { getInstitutionAction } from "../store/actions/truck/getApi/getInstitutionAction";
+import { InstitutionMenuAction } from "../store/actions/truck/TrainInstitution/InstitutionMenuAction";
 // Custom Import
 import HeaderScreen, { calculateGameDate } from "./LayoutScreen/HeaderScreen";
 import StableFooterScreen from "./LayoutScreen/StableFooterScreen";
 import { CustomButtons, ReturnButton } from "../components/Buttons";
 import Screenstyles from "../screens/ScreenStylesheet";
 
-const StableScreen = ({ navigation, user_id, isjockey }) => {
+const StableScreen = ({ navigation, user_id, isjockey, institutionData }) => {
   const dispatch = useDispatch();
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
+    const sendUesrId = {
+      user_id: user_id,
+    };
     dispatch(stableAllGetAction(user_id));
     dispatch(GetShowJockeyAction(user_id));
+    dispatch(getInstitutionAction(sendUesrId));
   }, []);
 
   // GET RACE DATA
@@ -48,6 +54,15 @@ const StableScreen = ({ navigation, user_id, isjockey }) => {
       navigation.navigate("JockeyTraingin");
       dispatch(signAction());
     }
+  };
+
+  const handleInstitution = () => {
+    const sendInstitutionBasicId = {
+      user_id: user_id,
+      stall_id: institutionData[0].sid
+    };
+    dispatch(InstitutionMenuAction(sendInstitutionBasicId));
+    navigation.navigate("Institution");
   };
 
   return (
@@ -86,7 +101,7 @@ const StableScreen = ({ navigation, user_id, isjockey }) => {
             <CustomButtons
               label="施 設"
               color={1}
-              onPress={() => navigation.navigate("Institution")}
+              onPress={() => handleInstitution()}
             />
             <CustomButtons
               label="競走成績"
@@ -105,6 +120,7 @@ const mapStateToProps = (state) => {
   return {
     user_id: state.user.userData.id,
     isjockey: state.jockeyData.getAllData,
+    institutionData: state.institutionStable.institutionMenuData,
   };
 };
 export default connect(mapStateToProps)(StableScreen);
