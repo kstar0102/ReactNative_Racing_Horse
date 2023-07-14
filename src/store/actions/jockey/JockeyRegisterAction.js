@@ -1,13 +1,20 @@
-import { GENDER_REGISTER } from '../types';
+import { SHOW_JOCKEY, LOGIN_USER_DATA } from '../types';
 import axios from 'axios';
 import { API } from '../../../utils/config';
 
-// export const fetchData = (validationData) => {
-//   return {
-//     type: PASTURE_NAME_DATA,
-//     payload: validationData,
-//   }
-// };
+export const fetchData = (data) => {
+  return {
+    type: SHOW_JOCKEY,
+    payload: data,
+  }
+};
+
+export const userData = (user) => {
+  return {
+    type: LOGIN_USER_DATA,
+    payload: user,
+  }
+};
 
 export function JockeyRegisterAction(jocKeyData){
   return async (dispatch, getState) => {
@@ -20,7 +27,8 @@ export function JockeyRegisterAction(jocKeyData){
     }
     )
       .then(res => {
-        // dispatch(fetchData(validationData))
+        dispatch(userData(res.data.user[0]));
+        dispatch(fetchData(res.data.jockey[0]));
       })
       .catch(error => {
         throw(error);

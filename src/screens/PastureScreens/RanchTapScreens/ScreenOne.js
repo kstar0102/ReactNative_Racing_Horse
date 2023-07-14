@@ -1,24 +1,23 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Image, Text, ScrollView } from 'react-native';
-import Toast from 'react-native-root-toast';
+import React, { useState, useEffect, useCallback } from "react";
+import { View, Image, Text, ScrollView } from "react-native";
+import Toast from "react-native-root-toast";
 // Redux
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 // Custom import
-import RTapScreensStyle from './RTapScreensStyle';
-import DropDownR from '../../../components/Buttons/DropDwonR';
-import GrazingGroup from './GrazingGroup';
-import FodderGroup from './FodderGroup';
-import WorkingButton from '../../../components/Buttons/WorkingButtons/WorkingButton';
-import { SaleButton } from '../../../components/Buttons';
-import { horseColor } from '../../../utils/globals';
-
+import RTapScreensStyle from "./RTapScreensStyle";
+import DropDownR from "../../../components/Buttons/DropDwonR";
+import GrazingGroup from "./GrazingGroup";
+import FodderGroup from "./FodderGroup";
+import WorkingButton from "../../../components/Buttons/WorkingButtons/WorkingButton";
+import { SaleButton } from "../../../components/Buttons";
+import { horseColor } from "../../../utils/globals";
 
 const ScreenOne = ({ oneData, arrowState }) => {
   const [arrowStates, setArrowState] = useState(arrowState);
   // ALL REPEAT
   const [happySate, setHappyState] = useState(0);
   const [tiredState, setTiredState] = useState(0);
-  // スベシャル & 芝 
+  // スベシャル & 芝
   const [speedState, setSpeedState] = useState(0);
   // スベシャル & ダート
   const [strengthState, setStrengthState] = useState(0);
@@ -31,17 +30,17 @@ const ScreenOne = ({ oneData, arrowState }) => {
   // プール
   const [healthState, setHealthState] = useState(0);
   // State
-  const [State, setState] = useState('⬆');
-  const [tiredArror, setArrorState] = useState('⬆');
-  const [colors, setColors] = useState('red');
-  const [tiredArrorColor, setArrorColor] = useState('red');
+  const [State, setState] = useState("⬆");
+  const [tiredArror, setArrorState] = useState("⬆");
+  const [colors, setColors] = useState("red");
+  const [tiredArrorColor, setArrorColor] = useState("red");
 
   // Ground Color
-  const [groundColor, setGroundColor] = useState('#1BFF00');
+  const [groundColor, setGroundColor] = useState("#1BFF00");
 
-  if (oneData == '') {
-    alert('YOUR HORSE NOT FOUND RETURN')
-    return false
+  if (oneData == "") {
+    alert("YOUR HORSE NOT FOUND RETURN");
+    return false;
   }
   const [selected, setSelected] = useState(undefined);
   const [activeButton, setActiveButton] = useState(0);
@@ -50,24 +49,22 @@ const ScreenOne = ({ oneData, arrowState }) => {
   useEffect(() => {
     setBanner(oneData[0]);
     setPattern(tiredNumber);
-    if (oneData[0].ground == 'ダ') {
-      setGroundColor('#707172');
-    } else if (oneData[0].ground == '芝') {
-      setGroundColor('#1BFF00');
-    } else if (oneData[0].ground == '万') {
-      setGroundColor('red');
+    if (oneData[0].ground == "ダ") {
+      setGroundColor("#707172");
+    } else if (oneData[0].ground == "芝") {
+      setGroundColor("#1BFF00");
+    } else if (oneData[0].ground == "万") {
+      setGroundColor("red");
     }
   }, [oneData]);
   const data = oneData;
-
 
   useEffect(() => {
     setArrowState(arrowState);
   }, [arrowState]);
 
   useEffect(() => {
-    if (arrowStates.what == 'スベシャル') {
-
+    if (arrowStates.what == "スベシャル") {
       // ALL REPAET
       setHappyState(1);
       setTiredState(1);
@@ -86,7 +83,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
         setMomentState(0);
         setStaminaState(0);
       }, 2000);
-    } else if (arrowStates.what == '芝') {
+    } else if (arrowStates.what == "芝") {
       setHappyState(1);
       setTiredState(1);
       setSpeedState(1);
@@ -95,7 +92,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
         setTiredState(0);
         setSpeedState(0);
       }, 2000);
-    } else if (arrowStates.what == 'ダート') {
+    } else if (arrowStates.what == "ダート") {
       setHappyState(1);
       setTiredState(1);
       setStrengthState(1);
@@ -104,7 +101,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
         setTiredState(0);
         setStrengthState(0);
       }, 2000);
-    } else if (arrowStates.what == 'ウッドチップ') {
+    } else if (arrowStates.what == "ウッドチップ") {
       setHappyState(1);
       setTiredState(1);
       setContitionState(1);
@@ -113,7 +110,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
         setTiredState(0);
         setContitionState(0);
       }, 2000);
-    } else if (arrowStates.what == 'プール') {
+    } else if (arrowStates.what == "プール") {
       setHappyState(1);
       setTiredState(1);
       setHealthState(1);
@@ -122,7 +119,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
         setTiredState(0);
         setHealthState(0);
       }, 2000);
-    } else if (arrowStates.what == '併走') {
+    } else if (arrowStates.what == "併走") {
       setHappyState(1);
       setTiredState(1);
       setStaminaState(1);
@@ -131,7 +128,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
         setTiredState(0);
         setStaminaState(0);
       }, 2000);
-    } else if (arrowStates.what == '坂路') {
+    } else if (arrowStates.what == "坂路") {
       setHappyState(1);
       setTiredState(1);
       setMomentState(1);
@@ -140,200 +137,201 @@ const ScreenOne = ({ oneData, arrowState }) => {
         setTiredState(0);
         setMomentState(0);
       }, 2000);
-    } else if (arrowStates.what == 'にんじん') {
+    } else if (arrowStates.what == "にんじん") {
       setHappyState(1);
       setTimeout(() => {
         setHappyState(0);
       }, 2000);
-    } else if (arrowStates.what == 'Sドリンク') {
+    } else if (arrowStates.what == "Sドリンク") {
       setHappyState(1);
       setTimeout(() => {
         setHappyState(0);
       }, 2000);
-    } else if (arrowStates.what == 'プロテイン') {
+    } else if (arrowStates.what == "プロテイン") {
       setHappyState(1);
       setTimeout(() => {
         setHappyState(0);
       }, 2000);
-    } else if (arrowStates.what == '角砂糖') {
+    } else if (arrowStates.what == "角砂糖") {
       setTiredState(1);
-      setArrorState('⬇');
-      setArrorColor('blue');
+      setArrorState("⬇");
+      setArrorColor("blue");
       setTimeout(() => {
         setTiredState(0);
       }, 2000);
-    } else if (arrowStates.what == 'チョコ') {
+    } else if (arrowStates.what == "チョコ") {
       setTiredState(1);
-      setArrorState('⬇');
-      setArrorColor('blue');
+      setArrorState("⬇");
+      setArrorColor("blue");
       setTimeout(() => {
         setTiredState(0);
       }, 2000);
-    } else if (arrowStates.what == 'ケーキ') {
+    } else if (arrowStates.what == "ケーキ") {
       setTiredState(1);
-      setArrorState('⬇');
-      setArrorColor('blue');
+      setArrorState("⬇");
+      setArrorColor("blue");
       setTimeout(() => {
         setTiredState(0);
       }, 2000);
     }
     if (banner.direction == 0) {
-      setState('⬇');
-      setColors('blue')
+      setState("⬇");
+      setColors("blue");
     } else if (banner.direction == 1) {
-      setState('⬆');
-      setColors('red')
+      setState("⬆");
+      setColors("red");
     }
   }, [arrowStates]);
-
 
   const handleSettingId = (value) => {
     setBanner(value);
     if (value) {
       setPattern(tiredNumber);
     }
-    if (value.ground == 'ダ') {
-      setGroundColor('#707172');
-    } else if (value.ground == '芝') {
-      setGroundColor('#1BFF00');
-    } else if (value.ground == '万') {
-      setGroundColor('red');
+    if (value.ground == "ダ") {
+      setGroundColor("#707172");
+    } else if (value.ground == "芝") {
+      setGroundColor("#1BFF00");
+    } else if (value.ground == "万") {
+      setGroundColor("red");
     }
-  }
+  };
   // SKILL FILLTER
   const skillRange = (skill) => {
-    if (typeof (skill) !== 'number') {
+    if (typeof skill !== "number") {
       return;
     }
     let result = "";
     switch (true) {
-      case (skill >= 451):
-        result = 'S+';
+      case skill >= 451:
+        result = "S+";
         break;
-      case (skill >= 401 && skill <= 450):
-        result = 'S';
+      case skill >= 401 && skill <= 450:
+        result = "S";
         break;
-      case (skill >= 351 && skill <= 400):
-        result = 'A+';
+      case skill >= 351 && skill <= 400:
+        result = "A+";
         break;
-      case (skill >= 301 && skill <= 350):
-        result = 'A';
+      case skill >= 301 && skill <= 350:
+        result = "A";
         break;
-      case (skill >= 251 && skill <= 300):
-        result = 'B+';
+      case skill >= 251 && skill <= 300:
+        result = "B+";
         break;
-      case (skill >= 201 && skill <= 250):
-        result = 'B';
+      case skill >= 201 && skill <= 250:
+        result = "B";
         break;
-      case (skill >= 151 && skill <= 200):
-        result = 'C+';
+      case skill >= 151 && skill <= 200:
+        result = "C+";
         break;
-      case (skill >= 101 && skill <= 150):
-        result = 'C';
+      case skill >= 101 && skill <= 150:
+        result = "C";
         break;
-      case (skill >= 51 && skill <= 100):
-        result = 'D+';
+      case skill >= 51 && skill <= 100:
+        result = "D+";
         break;
-      case (skill >= 1 && skill <= 50):
-        result = 'D';
+      case skill >= 1 && skill <= 50:
+        result = "D";
         break;
       default:
         return;
     }
     return result;
-  }
+  };
 
   const distanceRange = (distance) => {
-    if (typeof (distance) !== 'number') {
+    if (typeof distance !== "number") {
       return;
     }
     let result = "";
     switch (true) {
-      case (distance >= 1000 && distance <= 1600):
-        result = '短';
+      case distance >= 1000 && distance <= 1600:
+        result = "短";
         break;
-      case (distance >= 1400 && distance <= 2000):
-        result = '短中';
+      case distance >= 1400 && distance <= 2000:
+        result = "短中";
         break;
-      case (distance >= 1800 && distance <= 2400):
-        result = '中';
+      case distance >= 1800 && distance <= 2400:
+        result = "中";
         break;
-      case (distance >= 2200 && distance <= 2800):
-        result = '中長';
+      case distance >= 2200 && distance <= 2800:
+        result = "中長";
         break;
-      case (distance >= 3000 && distance <= 3600):
-        result = '長';
+      case distance >= 3000 && distance <= 3600:
+        result = "長";
         break;
       default:
         return;
     }
     return result;
-  }
+  };
 
   const conditionFaceRange = (conditionFace) => {
-    if (typeof (conditionFace) !== 'number') {
+    if (typeof conditionFace !== "number") {
       return;
     }
     let result = "";
     switch (true) {
-      case (conditionFace >= 7 && conditionFace <= 500):
-        result = require('../../../assets/images/condition/happy.png');
+      case conditionFace >= 7 && conditionFace <= 500:
+        result = require("../../../assets/images/condition/happy.png");
         break;
-      case (conditionFace >= 3 && conditionFace <= 6):
-        result = require('../../../assets/images/condition/middlehappy.png');
+      case conditionFace >= 3 && conditionFace <= 6:
+        result = require("../../../assets/images/condition/middlehappy.png");
         break;
-      case (conditionFace >= -2 && conditionFace <= 2):
-        result = require('../../../assets/images/condition/normel.png');
+      case conditionFace >= -2 && conditionFace <= 2:
+        result = require("../../../assets/images/condition/normel.png");
         break;
-      case (conditionFace >= -6 && conditionFace <= -3):
-        result = require('../../../assets/images/condition/sad.png');
+      case conditionFace >= -6 && conditionFace <= -3:
+        result = require("../../../assets/images/condition/sad.png");
         break;
-      case (conditionFace >= -10 && conditionFace <= -7):
-        result = require('../../../assets/images/condition/bad.png');
+      case conditionFace >= -10 && conditionFace <= -7:
+        result = require("../../../assets/images/condition/bad.png");
         break;
       default:
         return;
     }
     return result;
-  }
+  };
 
   const tiredRange = (tired) => {
-    if (typeof (tired) !== 'number') {
+    if (typeof tired !== "number") {
       return;
     }
     let result = "";
     switch (true) {
-      case (tired <= 7):
-        result = ' ◎'
+      case tired <= 7:
+        result = " ◎";
         break;
-      case (tired >= 8 && tired <= 12):
-        result = ' o'
+      case tired >= 8 && tired <= 12:
+        result = " o";
         break;
-      case (tired >= 13 && tired <= 14):
-        result = ' ▲'
+      case tired >= 13 && tired <= 14:
+        result = " ▲";
         break;
-      case (tired >= 15 && tired <= 17):
-        result = ' △'
+      case tired >= 15 && tired <= 17:
+        result = " △";
         break;
-      case (tired >= 18):
-        result = ' ×'
+      case tired >= 18:
+        result = " ×";
         break;
       default:
         return;
     }
     return result;
-  }
+  };
 
-  const speed = skillRange(banner.speed_b - (-banner.speed_w));
-  const health = skillRange(banner.health_b - (-banner.health_w));
-  const moment = skillRange(banner.moment_b - (-banner.moment_w));
-  const stamina = skillRange(banner.stamina_b - (-banner.stamina_w));
-  const strength = skillRange(banner.strength_b - (-banner.strength_w));
-  const condition = skillRange(banner.condition_b - (-banner.condition_w));
-  const distanceValue = distanceRange((banner.distance_max - (-banner.distance_min)) / 2);
-  const conditionFace = conditionFaceRange((parseInt(banner.happy)));
-  const tired = tiredRange((parseInt(banner.tired)));
-  const tiredNumber = (parseInt(banner.tired));
+  const speed = skillRange(banner.speed_b - -banner.speed_w);
+  const health = skillRange(banner.health_b - -banner.health_w);
+  const moment = skillRange(banner.moment_b - -banner.moment_w);
+  const stamina = skillRange(banner.stamina_b - -banner.stamina_w);
+  const strength = skillRange(banner.strength_b - -banner.strength_w);
+  const condition = skillRange(banner.condition_b - -banner.condition_w);
+  const distanceValue = distanceRange(
+    (banner.distance_max - -banner.distance_min) / 2
+  );
+  const conditionFace = conditionFaceRange(parseInt(banner.happy));
+  const tired = tiredRange(parseInt(banner.tired));
+  const tiredNumber = parseInt(banner.tired);
 
   // Health State
   const setPattern = (condition) => {
@@ -342,55 +340,50 @@ const ScreenOne = ({ oneData, arrowState }) => {
     let options;
     if (condition <= 10) {
       return false;
-    }
-    else if (condition == 11 || condition == 12) {
+    } else if (condition == 11 || condition == 12) {
       options = {
         none: 79,
         D1: 10,
         D2: 5,
         D3: 3,
         D4: 2,
-        D5: 1
+        D5: 1,
       };
-    }
-    else if (condition == 13 || condition == 14) {
+    } else if (condition == 13 || condition == 14) {
       options = {
         none: 64,
         D1: 15,
         D2: 10,
         D3: 5,
         D4: 4,
-        D5: 2
+        D5: 2,
       };
-    }
-    else if (condition == 15 || condition == 16) {
+    } else if (condition == 15 || condition == 16) {
       options = {
         none: 43,
         D1: 20,
         D2: 15,
         D3: 10,
         D4: 8,
-        D5: 4
+        D5: 4,
       };
-    }
-    else if (condition == 17 || condition == 18) {
+    } else if (condition == 17 || condition == 18) {
       options = {
         none: 22,
         D1: 25,
         D2: 20,
         D3: 15,
         D4: 10,
-        D5: 8
+        D5: 8,
       };
-    }
-    else if (condition == 19 || condition == 20) {
+    } else if (condition == 19 || condition == 20) {
       options = {
         none: 0,
         D1: 30,
         D2: 25,
         D3: 20,
         D4: 15,
-        D5: 10
+        D5: 10,
       };
     }
     const randomNumber = Math.floor(Math.random() * 100);
@@ -400,38 +393,41 @@ const ScreenOne = ({ oneData, arrowState }) => {
     for (const [key, value] of Object.entries(options)) {
       sum += value;
       if (randomNumber < sum) {
-        if (key == 'D1') {
-          let toast = Toast.show('疲労が溜まりすぎるとケガ(挫跖 ど)をする', {
+        if (key == "D1") {
+          let toast = Toast.show("疲労が溜まりすぎるとケガ(挫跖 ど)をする", {
             duration: Toast.durations.LONG,
           });
           setTimeout(function hideToast() {
             Toast.hide(toast);
           }, 2000);
-        } else if (key == 'D2') {
-          let toast = Toast.show('疲労が溜まりすぎるとケガ(裂蹄 ど)をする', {
+        } else if (key == "D2") {
+          let toast = Toast.show("疲労が溜まりすぎるとケガ(裂蹄 ど)をする", {
             duration: Toast.durations.LONG,
           });
           setTimeout(function hideToast() {
             Toast.hide(toast);
           }, 2000);
-        } else if (key == 'D3') {
-          let toast = Toast.show('疲労が溜まりすぎるとケガ(屈腱炎 ど)をする', {
+        } else if (key == "D3") {
+          let toast = Toast.show("疲労が溜まりすぎるとケガ(屈腱炎 ど)をする", {
             duration: Toast.durations.LONG,
           });
           setTimeout(function hideToast() {
             Toast.hide(toast);
           }, 2000);
-        } else if (key == 'D4') {
-          let toast = Toast.show('疲労が溜まりすぎるとケガ(骨折 ど)をする', {
+        } else if (key == "D4") {
+          let toast = Toast.show("疲労が溜まりすぎるとケガ(骨折 ど)をする", {
             duration: Toast.durations.LONG,
           });
           setTimeout(function hideToast() {
             Toast.hide(toast);
           }, 2000);
-        } else if (key == 'D5') {
-          let toast = Toast.show(' 疲労が溜まりすぎるとケガ(予後不良 ど)をする', {
-            duration: Toast.durations.LONG,
-          });
+        } else if (key == "D5") {
+          let toast = Toast.show(
+            " 疲労が溜まりすぎるとケガ(予後不良 ど)をする",
+            {
+              duration: Toast.durations.LONG,
+            }
+          );
           setTimeout(function hideToast() {
             Toast.hide(toast);
           }, 2000);
@@ -439,7 +435,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
         break;
       }
     }
-  }
+  };
   // tired
   const handleButtonPress = (id) => {
     setActiveButton(id);
@@ -452,22 +448,40 @@ const ScreenOne = ({ oneData, arrowState }) => {
       default:
         return <GrazingGroup horseId={banner.id} />;
     }
-  }
+  };
 
   return (
     <ScrollView style={RTapScreensStyle.twoContainer}>
       <View style={RTapScreensStyle.oneTopContent}>
         <View style={RTapScreensStyle.oneTopContentLeft}>
           <Text style={RTapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
-          <DropDownR name={data[0].name} data={data} onSelect={setSelected} setId={handleSettingId} />
+          <DropDownR
+            name={data[0].name}
+            data={data}
+            onSelect={setSelected}
+            setId={handleSettingId}
+          />
         </View>
         <View style={RTapScreensStyle.oneTopContentRight}>
           <View style={RTapScreensStyle.oneRioghtHeader}>
-            <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>{(!!selected && selected.name) || data[0].name}</Text>
-            <Text style={RTapScreensStyle.oneRioghtHeaderTxt}><Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>{(!!selected && selected.gender) || data[0].gender}</Text>2</Text>
-            <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.growth) || data[0].growth}</Text>
-            <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.color) || data[0].color}</Text>
-            <Text style={RTapScreensStyle.oneRioghtHeaderTxtLetter}>{(!!selected && selected.class) || 'GIクラス'}</Text>
+            <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>
+              {(!!selected && selected.name) || data[0].name}
+            </Text>
+            <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
+              <Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>
+                {(!!selected && selected.gender) || data[0].gender}
+              </Text>
+              2
+            </Text>
+            <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
+              {(!!selected && selected.growth) || data[0].growth}
+            </Text>
+            <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
+              {(!!selected && selected.color) || data[0].color}
+            </Text>
+            <Text style={RTapScreensStyle.oneRioghtHeaderTxtLetter}>
+              {(!!selected && selected.class) || "GIクラス"}
+            </Text>
           </View>
           <View style={RTapScreensStyle.oneRioghtBody}>
             <View>
@@ -477,54 +491,154 @@ const ScreenOne = ({ oneData, arrowState }) => {
                   style={RTapScreensStyle.conditions}
                   source={conditionFace}
                 />
-                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: happySate, color: colors }]}>{State}</Text>
+                <Text
+                  style={[
+                    RTapScreensStyle.oneRightTxtUp,
+                    { opacity: happySate, color: colors },
+                  ]}
+                >
+                  {State}
+                </Text>
               </View>
               <View style={RTapScreensStyle.oneRightTxt}>
-                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>SP <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && speed) || speed}</Text></Text>
-                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: speedState }]}>⬆</Text>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
+                  SP{" "}
+                  <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>
+                    {(!!selected && speed) || speed}
+                  </Text>
+                </Text>
+                <Text
+                  style={[
+                    RTapScreensStyle.oneRightTxtUp,
+                    { opacity: speedState },
+                  ]}
+                >
+                  ⬆
+                </Text>
               </View>
               <View style={RTapScreensStyle.oneRightTxt}>
-                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>ST <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && strength) || strength}</Text></Text>
-                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: strengthState }]}>⬆</Text>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
+                  ST{" "}
+                  <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>
+                    {(!!selected && strength) || strength}
+                  </Text>
+                </Text>
+                <Text
+                  style={[
+                    RTapScreensStyle.oneRightTxtUp,
+                    { opacity: strengthState },
+                  ]}
+                >
+                  ⬆
+                </Text>
               </View>
             </View>
             <View>
               <View style={RTapScreensStyle.oneRightTxt}>
-                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>疲労
-                  <Text style={RTapScreensStyle.oneRioghtBodyTxtTired}>{(!!selected && tired) || tired}</Text></Text>
-                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: tiredState, color: tiredArrorColor }]}>{tiredArror}</Text>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
+                  疲労
+                  <Text style={RTapScreensStyle.oneRioghtBodyTxtTired}>
+                    {(!!selected && tired) || tired}
+                  </Text>
+                </Text>
+                <Text
+                  style={[
+                    RTapScreensStyle.oneRightTxtUp,
+                    { opacity: tiredState, color: tiredArrorColor },
+                  ]}
+                >
+                  {tiredArror}
+                </Text>
 
-                <Text style={[RTapScreensStyle.oneRioghtHeaderTxtGreen, { color: groundColor }]}>
+                <Text
+                  style={[
+                    RTapScreensStyle.oneRioghtHeaderTxtGreen,
+                    { color: groundColor },
+                  ]}
+                >
                   {(!!selected && selected.ground) || data[0].ground}
                 </Text>
               </View>
 
               <View style={RTapScreensStyle.oneRightTxt}>
-                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>瞬発 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && moment) || moment}</Text></Text>
-                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: momentState }]}>⬆</Text>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
+                  瞬発{" "}
+                  <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>
+                    {(!!selected && moment) || moment}
+                  </Text>
+                </Text>
+                <Text
+                  style={[
+                    RTapScreensStyle.oneRightTxtUp,
+                    { opacity: momentState },
+                  ]}
+                >
+                  ⬆
+                </Text>
               </View>
 
               <View style={RTapScreensStyle.oneRightTxt}>
-                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>根性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && stamina) || stamina}</Text></Text>
-                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: staminaState }]}>⬆</Text>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
+                  根性{" "}
+                  <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>
+                    {(!!selected && stamina) || stamina}
+                  </Text>
+                </Text>
+                <Text
+                  style={[
+                    RTapScreensStyle.oneRightTxtUp,
+                    { opacity: staminaState },
+                  ]}
+                >
+                  ⬆
+                </Text>
               </View>
             </View>
 
             <View style={RTapScreensStyle.oneRioghtBodyTxtGroup}>
               <View style={RTapScreensStyle.txtGroup}>
-                <Text style={RTapScreensStyle.oneRioghtBodyTxtA}>{(!!selected && distanceValue) || distanceValue}距離</Text>
-                <Text style={RTapScreensStyle.oneRioghtBodyTxtValueA}> {(!!selected && selected.quality_leg) || data[0].quality_leg}</Text>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxtA}>
+                  {(!!selected && distanceValue) || distanceValue}距離
+                </Text>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxtValueA}>
+                  {" "}
+                  {(!!selected && selected.quality_leg) || data[0].quality_leg}
+                </Text>
               </View>
               <View style={RTapScreensStyle.oneRightTxt}>
-                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>気性 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && condition) || condition}</Text></Text>
-                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: contitionState }]}>⬆</Text>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
+                  気性{" "}
+                  <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>
+                    {(!!selected && condition) || condition}
+                  </Text>
+                </Text>
+                <Text
+                  style={[
+                    RTapScreensStyle.oneRightTxtUp,
+                    { opacity: contitionState },
+                  ]}
+                >
+                  ⬆
+                </Text>
               </View>
               <View style={RTapScreensStyle.oneRightTxt}>
-                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>健康 <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>{(!!selected && health) || health}</Text></Text>
-                <Text style={[RTapScreensStyle.oneRightTxtUp, { opacity: healthState }]}>⬆</Text>
+                <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
+                  健康{" "}
+                  <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>
+                    {(!!selected && health) || health}
+                  </Text>
+                </Text>
+                <Text
+                  style={[
+                    RTapScreensStyle.oneRightTxtUp,
+                    { opacity: healthState },
+                  ]}
+                >
+                  ⬆
+                </Text>
               </View>
             </View>
-            {(!!selected &&
+            {(!!selected && (
               <>
                 {horseColor.map((colorName, index) => {
                   if (colorName[selected.color]) {
@@ -540,7 +654,7 @@ const ScreenOne = ({ oneData, arrowState }) => {
                   }
                 })}
               </>
-            ) ||
+            )) || (
               <>
                 {horseColor.map((colorName, index) => {
                   if (colorName[data[0].color]) {
@@ -556,17 +670,26 @@ const ScreenOne = ({ oneData, arrowState }) => {
                   }
                 })}
               </>
-            }
+            )}
           </View>
 
           <View style={RTapScreensStyle.ButtonGroup}>
-            {activeButton ?
-              <WorkingButton label={'育成'} colorNumber={2} styleId={2} onPress={(() => handleButtonPress(0))} />
-              :
-              <WorkingButton label={'休憩'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(1))} />
-
-            }
-            <SaleButton label={'売却'} />
+            {activeButton ? (
+              <WorkingButton
+                label={"育成"}
+                colorNumber={2}
+                styleId={2}
+                onPress={() => handleButtonPress(0)}
+              />
+            ) : (
+              <WorkingButton
+                label={"休憩"}
+                colorNumber={5}
+                styleId={2}
+                onPress={() => handleButtonPress(1)}
+              />
+            )}
+            <SaleButton label={"売却"} />
           </View>
         </View>
       </View>
@@ -574,10 +697,10 @@ const ScreenOne = ({ oneData, arrowState }) => {
         {renderScreenBelowButtons()}
       </View>
     </ScrollView>
-  )
-}
+  );
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     arrowState: state.arrow.arrowState,
     poolLevel: state.pool.poolBuyData,
@@ -585,7 +708,5 @@ const mapStateToProps = state => {
     roadLevel: state.road.roadBuyData,
   };
 };
-
-
 
 export default connect(mapStateToProps)(ScreenOne);

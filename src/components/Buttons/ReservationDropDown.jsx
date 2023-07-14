@@ -4,18 +4,18 @@ import { View, StyleSheet } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import SelectDropdown from 'react-native-select-dropdown';
 
-const ReservationDropDown = ({ name, default_order, food_order, onSelect, setId }) => {
+const ReservationDropDown = ({ name, default_order, food_order, onSelect, setId, order }) => {
 
-  let countriesWithFlags = [];
-  if (food_order != '') {
-    food_order.forEach((element, index) => {
-      countriesWithFlags.push(element)
-    });
-  }else if(default_order != '' ){
-    default_order.forEach((element, index) => {
-      countriesWithFlags.push(element)
-    });
-  }
+  let countriesWithFlags = order;
+  // if (food_order != '') {
+  //   food_order.forEach((element, index) => {
+  //     countriesWithFlags.push(element)
+  //   });
+  // }else if(default_order != '' ){
+  //   default_order.forEach((element, index) => {
+  //     countriesWithFlags.push(element)
+  //   });
+  // }
 
   return (
     <>

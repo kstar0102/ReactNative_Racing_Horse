@@ -3,8 +3,9 @@ import { View, Image, Text, ImageBackground, ScrollView } from 'react-native';
 import { ImageButton } from '../../../../components/Buttons';
 import RTapScreensStyle from '../../../PastureScreens/RanchTapScreens/RTapScreensStyle';
 import DetailButton from '../../../../components/Buttons/DetailButton';
+import { connect } from 'react-redux';
 
-const UpFodder = ({horseId}) => {
+const UpFodder = ({horseId, jockeyId}) => {
     return (
       <ScrollView style={RTapScreensStyle.fodderContainer}>
           <View  style={RTapScreensStyle.oneBottomContent}>
@@ -19,21 +20,21 @@ const UpFodder = ({horseId}) => {
                       <Text style={RTapScreensStyle.label}>おにぎり</Text>
                   </View>
                   <ImageButton label={'おにぎり'} source={require('../../../../assets/images/Fodder/race.png')} id={1}/>
-                  <DetailButton label={'調子回復'} id={1} name={'おにぎり'} horseId={horseId}/>
+                  <DetailButton label={'調子回復'} id={1} name={'おにぎり'} horseId={horseId} jockeyId={jockeyId}/>
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteViewC]}>
                       <Text style={RTapScreensStyle.label}>Sドリンク</Text>
                   </View>
                   <ImageButton label={'Sドリンク'} source={require('../../../../assets/images/Fodder/source.png')} id={0}/>
-                  <DetailButton label={'調子回復'} disabled={false} id={2}  name={'Sドリンク'} horseId={horseId}/>
+                  <DetailButton label={'調子回復'} disabled={false} id={2}  name={'Sドリンク'} horseId={horseId} jockeyId={jockeyId}/>
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteViewF]}>
                       <Text style={RTapScreensStyle.label}>プロテイン</Text>
                   </View>
                   <ImageButton label={'プロテイン'} source={require('../../../../assets/images/Fodder/protein.png')} id={3}/>
-                  <DetailButton label={'調子回復'} id={3} name={'プロテイン'} horseId={horseId}/>
+                  <DetailButton label={'調子回復'} id={3} name={'プロテイン'} horseId={horseId} jockeyId={jockeyId}/>
                 </View>
               </View>
               <View style={RTapScreensStyle.ImageButtonMiddle}>
@@ -42,21 +43,21 @@ const UpFodder = ({horseId}) => {
                       <Text style={RTapScreensStyle.label}>角砂糖</Text>
                   </View>
                   <ImageButton label={'角砂糖'} source={require('../../../../assets/images/Fodder/角砂糖2.png')} id={4}/>
-                  <DetailButton label={'疲労回復'} id={4} name={'角砂糖'} horseId={horseId}/>
+                  <DetailButton label={'疲労回復'} id={4} name={'角砂糖'} horseId={horseId} jockeyId={jockeyId}/>
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteView}>
                       <Text style={RTapScreensStyle.label}>チョコ</Text>
                   </View>
                   <ImageButton label={'チョコ'} source={require('../../../../assets/images/Fodder/チョコ.png')} id={5}/>
-                  <DetailButton label={'疲労回復'} id={5} name={'チョコ'} horseId={horseId}/>
+                  <DetailButton label={'疲労回復'} id={5} name={'チョコ'} horseId={horseId} jockeyId={jockeyId}/>
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteView]}>
                       <Text style={RTapScreensStyle.label}>ケーキ</Text>
                   </View>
                   <ImageButton label={'ケーキ'} source={require('../../../../assets/images/Fodder/ケーキ.png')} id={6}/>
-                  <DetailButton label={'疲労回復'} id={6} name={'ケーキ'} horseId={horseId}/>
+                  <DetailButton label={'疲労回復'} id={6} name={'ケーキ'} horseId={horseId} jockeyId={jockeyId}/>
                 </View>
               </View>
               <View style={RTapScreensStyle.ImageButtonBottom}>
@@ -69,7 +70,7 @@ const UpFodder = ({horseId}) => {
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../../../assets/images/Pasture/icon8.png')}
                   />
-                  <DetailButton label={'調子回復'} disabled={true} name={'プール'} horseId={horseId}/>
+                  <DetailButton label={'調子回復'} disabled={true} name={'プール'} horseId={horseId} jockeyId={jockeyId}/>
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteViewT}>
@@ -80,7 +81,7 @@ const UpFodder = ({horseId}) => {
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../../../assets/images/Pasture/icon8.png')}
                   />
-                  <DetailButton label={'調子回復'} disabled={true} name={'併走'} horseId={horseId}/>
+                  <DetailButton label={'調子回復'} disabled={true} name={'併走'} horseId={horseId} jockeyId={jockeyId}/>
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteViewT}>
@@ -91,7 +92,7 @@ const UpFodder = ({horseId}) => {
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../../../assets/images/Pasture/icon8.png')}
                   />
-                  <DetailButton label={'調子回復'} disabled={true} name={'坂路'} horseId={horseId}/>
+                  <DetailButton label={'調子回復'} disabled={true} name={'坂路'} horseId={horseId} jockeyId={jockeyId}/>
                 </View>
                
               </View>
@@ -100,4 +101,10 @@ const UpFodder = ({horseId}) => {
       </ScrollView>
     )
   }
-export default UpFodder;
+
+  const mapStateToProps = state => {
+    return {
+      jockeyId: state.jockeyData.getAllData.id,
+    }
+  }
+export default connect(mapStateToProps)(UpFodder);

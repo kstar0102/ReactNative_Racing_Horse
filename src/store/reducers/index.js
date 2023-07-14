@@ -22,6 +22,15 @@ import gameTimeRuducer from './gameTime/gameTimeRuducer';
 // Stable DATA
 import stableMenuReducer from './stable/stableMenuReducer';
 import jockeyRegisterReducer from './stable/jockey/jockeyRegisterReducer';
+import institutionReducer from './stable/Institution/institutionReducer';
+// Stall Institution
+import stallPoolReducer from './stable/Institution/stallInstitution/stallPoolReducer';
+import stallUpReducer from './stable/Institution/stallInstitution/stallUpReducer';
+import stallLongiFieldReducer from './stable/Institution/stallInstitution/stallLongiFieldReducer';
+import stallRoadReducer from './stable/Institution/stallInstitution/stallroadReducer';
+import stallTruckReduce from './stable/Institution/stallInstitution/stalltruckReducer';
+
+import pasturePreeSetReducer from './preeSet/pasturePreeSetReducer';
 
 export default combineReducers({
     user: user,
@@ -46,6 +55,14 @@ export default combineReducers({
     currentGameTime: gameTimeRuducer,
     // STABLE DATA
     stableMenu: stableMenuReducer,
-    jockeyData: jockeyRegisterReducer
+    jockeyData: jockeyRegisterReducer,
+    institutionStable: institutionReducer,
+    // Stall Institution
+    stallPool: stallPoolReducer,
+    stallRoad: stallRoadReducer,
+    stallTruck: stallTruckReduce,
+    stallRanch: stallLongiFieldReducer,
+    stallUp: stallUpReducer,
+    pastruePreeSetData: pasturePreeSetReducer
 
 });

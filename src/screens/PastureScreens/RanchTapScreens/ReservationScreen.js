@@ -29,6 +29,8 @@ const ReservationScreen = ({
   poolLevel,
   truckLevel,
   roadLevel,
+  preeSetData,
+  preeSetName,
 }) => {
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(undefined);
@@ -41,6 +43,8 @@ const ReservationScreen = ({
   const [fodder, setFodder] = useState("");
   const [working, setWorking] = useState("");
   const [allData, setAllData] = useState([]);
+  const [preeAllData, setPreeAllData] = useState([]);
+  const [preeSetAllData, setPreeSetAllData] = useState([]);
   const [deletes, setDeletes] = useState("");
   const [groundColor, setGroundColor] = useState("#000");
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -52,10 +56,26 @@ const ReservationScreen = ({
   const gameAllDate = calculateGameDate(currentTime);
   const gameData = gameAllDate.toISOString().split("T")[0];
 
+  let nameValues = [];
+  if (preeSetName != "") {
+    preeSetName.map((item, index) => {
+      nameValues.push({ name: item });
+    });
+  }
+
+  let preeData = [];
+  if (preeSetData != "") {
+    preeSetData.map((item, index) => {
+      if (working.name == item.name) {
+        preeData.push(item);
+      }
+    });
+  }
+
   let horse_ids = [];
   let gameDate = [];
   let food_names = [];
-  let arrayValue = [];
+  let global_usename = [];
   if (reservationData != "") {
     reservationData.forEach((element, index) => {
       horse_ids.push(element.horse_id);
@@ -63,13 +83,31 @@ const ReservationScreen = ({
       food_names.push(element.food_name);
     });
   }
-  if (horse_ids.includes(banner.id.toString()) && gameDate.includes(gameData)) {
-    for (let index = 0; index < food_names.length; index++) {
-      if (horse_ids[index] == banner.id.toString()) {
-        arrayValue.push({ name: food_names[index] });
+
+  const isValue =
+    horse_ids.includes(banner.id.toString()) && gameDate.includes(gameData);
+
+  useEffect(() => {
+    let useName = [];
+    let useIsName = [];
+    if (isValue) {
+      reservationData.forEach((item, index) => {
+        useName.push({
+          name: item.food_name,
+          price: item.price,
+          type: item.food_type,
+        });
+      });
+      if (useName != "") {
+        useName.map((item, index) => {
+          if (horse_ids[index] == banner.id.toString()) {
+            useIsName.push(item);
+          }
+        });
       }
+      setPreeAllData(useIsName);
     }
-  }
+  }, [reservationData, banner]);
 
   useEffect(() => {
     if (reservationData != "") {
@@ -104,6 +142,7 @@ const ReservationScreen = ({
   const handleSettingId = (value) => {
     setBanner(value);
     setAllData([]);
+    setPreeSetAllData([]);
     if (reservationData != "") {
       if (horse_ids == banner.id && gameDate == gameData) {
         setCurrentIncomplete("flex");
@@ -273,7 +312,6 @@ const ReservationScreen = ({
   );
   const conditionFace = conditionFaceRange(parseInt(banner.happy));
   const tired = tiredRange(parseInt(banner.tired));
-  const tiredNumber = parseInt(banner.tired);
 
   let grazingDatas = [
     { name: "放牧", price: "1", type: "grazing" },
@@ -331,41 +369,55 @@ const ReservationScreen = ({
     { name: "チョコ", price: "3", type: "fodder" },
     { name: "ケーキ", price: "5", type: "fodder" },
   ];
-
-  const WorkingData = [
-    { name: "(例)鬼調教", price: "1" },
-    { name: "(例)超休養", price: "3" },
-    { name: "例)バランス型", price: "5" },
-    { name: "(例)最強馬育成用", price: "1" },
-    { name: "(例)芝才ンリ一", price: "3" },
-    { name: "(例)1歲馬用", price: "5" },
-  ];
-
   const handleGrazing = (grazing) => {
     if (!grazing) {
       return false;
     }
-    setAllData([...allData, grazing]);
+    if (horse_ids.includes(banner.id.toString())) {
+      setPreeAllData([...preeAllData, grazing]);
+    } else {
+      setAllData([...allData, grazing]);
+    }
   };
-
   const handleFodder = (fodder) => {
     if (!fodder) {
       return false;
     }
-    setAllData([...allData, fodder]);
+    if (horse_ids.includes(banner.id.toString())) {
+      setPreeAllData([...preeAllData, fodder]);
+    } else {
+      setAllData([...allData, fodder]);
+    }
   };
-
-  const handleWorking = (working) => {
-    if (!working) {
+  const handleWorking = (preeData) => {
+    if (!preeData) {
       return false;
     }
-    setAllData([...allData, working]);
+    // setAllData(...allData, preeData);
+    setPreeSetAllData(preeData);
   };
 
   let food_name = [];
   let food_price = [];
   let food_order = [];
   let food_type = [];
+
+  let food_pree_name = [];
+  let food_pree_price = [];
+  let food_pree_order = [];
+  let food_pree_type = [];
+
+  let food_set_name = [];
+  let food_set_price = [];
+  let food_set_order = [];
+  let food_set_type = [];
+
+  preeSetAllData.forEach((element, index) => {
+    food_set_name.push(element.food_name);
+    food_set_price.push(element.price);
+    food_set_type.push(element.food_type);
+    food_set_order.push(element.order);
+  });
   // All data Value
   allData.forEach((element, index) => {
     food_name.push(element.name);
@@ -374,18 +426,39 @@ const ReservationScreen = ({
     food_order.push(index + 1);
   });
 
+  preeAllData.forEach((element, index) => {
+    food_pree_name.push(element.name);
+    food_pree_price.push(element.price);
+    food_pree_type.push(element.type);
+    food_pree_order.push(index + 1);
+  });
+
   let default_order = [];
   // Array Value
-  arrayValue.forEach((element, index) => {
+  preeAllData.forEach((element, index) => {
     default_order.push(index + 1);
   });
 
   const handleArraySubmit = () => {
-    if (
-      horse_ids.includes(banner.id.toString()) &&
-      gameDate.includes(gameData)
-    ) {
-      return alert("Not Found!!");
+    if (isValue) {
+      if (preeAllData != "") {
+        const sandReserve = {
+          horse_id: banner.id,
+          pasture_id: pasture_id,
+          food_name: food_pree_name,
+          user_id: user_id,
+          price: food_pree_price,
+          order: food_pree_order,
+          food_type: food_pree_type,
+          place: "pasture",
+          game_date: gameData,
+        };
+        dispatch(reservationAction(sandReserve));
+        dispatch(reservationValiAction(sandReserve));
+        setAllData([]);
+      } else {
+        alert("NOT FOUND First");
+      }
     } else {
       if (allData != "") {
         const sandReserve = {
@@ -402,16 +475,39 @@ const ReservationScreen = ({
         dispatch(reservationAction(sandReserve));
         dispatch(reservationValiAction(sandReserve));
         setAllData([]);
-        //this.forceUpdate();
+      } else if (preeSetAllData != "") {
+        const sandReserve = {
+          horse_id: banner.id,
+          pasture_id: pasture_id,
+          food_name: food_set_name,
+          user_id: user_id,
+          price: food_set_price,
+          order: food_set_order,
+          food_type: food_set_type,
+          place: "pasture",
+          game_date: gameData,
+        };
+        dispatch(reservationAction(sandReserve));
+        dispatch(reservationValiAction(sandReserve));
+        setPreeSetAllData([]);
       } else {
-        alert("NOT FOUND");
+        alert("NOT FOUND Three");
       }
     }
-    // setAllData();
   };
   const handleDelete = (deletes) => {
     setAllData(allData.filter((item, index) => index + 1 !== deletes));
+    setPreeAllData(preeAllData.filter((item, index) => index + 1 !== deletes));
+    setPreeSetAllData(
+      preeSetAllData.filter((item, index) => index + 1 !== deletes)
+    );
   };
+
+  const order = isValue
+    ? default_order
+    : food_order == ""
+    ? food_set_order
+    : food_order;
   return (
     <View style={Screenstyles.container}>
       <ImageBackground
@@ -506,7 +602,7 @@ const ReservationScreen = ({
                       <Text
                         style={[
                           RTapScreensStyle.oneRioghtHeaderTxtGreen,
-                          { color: groundColor,  paddingLeft: 10 },
+                          { color: groundColor, paddingLeft: 20 },
                         ]}
                       >
                         {(!!selected && selected.ground) || data[0].ground}
@@ -623,19 +719,20 @@ const ReservationScreen = ({
               <View style={Screenstyles.reserveMenuGroup}>
                 <MenuDropDown
                   name={nameValue}
-                  data={WorkingData}
+                  data={nameValues}
                   onSelect={setSelectedWorking}
                   setId={handleWorkingId}
                 />
                 <ReserveButton
                   label={"予約"}
                   colorNumber={3}
-                  onPress={() => handleWorking(working)}
+                  onPress={() => handleWorking(preeData)}
                 />
               </View>
               <PresetRegistrationButton
                 allData={allData}
                 label={"プリセット登録"}
+                onPress={() => handlePreset()}
               />
             </View>
             <View style={Screenstyles.reserveRight}>
@@ -661,23 +758,43 @@ const ReservationScreen = ({
                 </View>
               </View>
               <View style={Screenstyles.reserveRightList}>
+                {/* const order = isValue ? default_order : food_order == "" ?
+                food_set_order : food_order; */}
                 <ScrollView style={Screenstyles.reserveList}>
-                  {allData.map((item, index) => (
-                    <Text key={index} style={Screenstyles.reserveListtxt}>
-                      {index + 1}. {item.name}
-                    </Text>
-                  ))}
-                  {arrayValue.map((item, index) => (
-                    <Text key={index} style={Screenstyles.reserveListtxt}>
-                      {index + 1}. {item.name}
-                    </Text>
-                  ))}
+                  {isValue
+                    ? preeAllData.map((item, index) => (
+                        <Text key={index} style={Screenstyles.reserveListtxt}>
+                          {index + 1}. {item.name}
+                        </Text>
+                      ))
+                    : allData == "" 
+                    ? preeSetAllData.map((item, index) => (
+                        <Text key={index} style={Screenstyles.reserveListtxt}>
+                          {index + 1}. {item.food_name}
+                        </Text>
+                      ))
+                    : preeSetAllData == "" || allData
+                    ? allData.map((item, index) => (
+                        <Text key={index} style={Screenstyles.reserveListtxt}>
+                          {index + 1}. {item.name}
+                        </Text>
+                      ))
+                    : preeSetAllData.map((item, index) => (
+                        <Text key={index} style={Screenstyles.reserveListtxt}>
+                          {index + 1}. {item.food_name}
+                        </Text>
+                      ))}
                 </ScrollView>
                 <View style={Screenstyles.reserveButtonGroup}>
                   <ReservationDropDown
-                    name={food_order[0] || default_order[0]}
-                    default_order={default_order}
-                    food_order={food_order}
+                    name={
+                      isValue
+                        ? default_order[0]
+                        : food_order[0]
+                        ? food_order[0]
+                        : food_set_order[0]
+                    }
+                    order={order}
                     onSelect={setSelectedDelete}
                     setId={handleDeleteId}
                   />
@@ -711,6 +828,8 @@ const mapStateToProps = (state) => {
     truckLevel: state.truck.truckBuyData,
     roadLevel: state.road.roadBuyData,
     reservationData: state.validationData.reservationData,
+    preeSetData: state.pastruePreeSetData.pasturePreeSetData,
+    preeSetName: state.pastruePreeSetData.pastureNamePreeSetData,
   };
 };
 export default connect(mapStateToProps)(ReservationScreen);

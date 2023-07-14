@@ -71,6 +71,7 @@ const StableStyles = StyleSheet.create({
   cardBodyRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'flex-end'
   },
   cardRow: {
     flexDirection: 'row',
@@ -79,13 +80,22 @@ const StableStyles = StyleSheet.create({
   },
   cardAlilityRow: {
     flexDirection: 'row',
-    padding: 2
+    padding: 2,
+    marginTop: 5
   },
   upperAlilityImg: {
     marginLeft: 5
   },
+  cardTxtGroup:{
+    flexDirection: 'row',
+    alignItems: 'flex-end'
+  },
   cardBodyTxt: {
     fontSize: 13,
+    fontWeight: 600
+  },
+  cardBodyTxtSymbol:{
+    fontSize: 18,
     fontWeight: 600
   },
   cardBodyGroundTxt: {
