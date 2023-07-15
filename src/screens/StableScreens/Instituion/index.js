@@ -24,11 +24,7 @@ const Institution = ({
   stallTruck,
 }) => {
   if (
-    institutionData == "" 
-    // ||
-    // stallRanch == undefined ||
-    // stallSlope == undefined ||
-    // stallTruck == undefined
+    institutionData == ""
   ) {
     return <Spinner visible={true} />;
   } else {

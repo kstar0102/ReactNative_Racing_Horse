@@ -56,6 +56,7 @@ const TruckTap = ({ user_id, user_level, stallTruck, banner, institutionData }) 
         setThreeBorderStyle(0);
         setThreeBlueStyle(1);
         setThreeLockStyle("none");
+        setThreeTxtStyle("none");
       } else if (stallTruck[0].level == 3) {
         setThreeBtnStyle("none");
         setTwoBtnStyle("none");
@@ -95,7 +96,7 @@ const TruckTap = ({ user_id, user_level, stallTruck, banner, institutionData }) 
           price: price,
           user_id: user_id,
           level: level,
-          stall_id: banner.sid,
+          stall_id: bannerId,
           user_level: user_level,
         };
       }

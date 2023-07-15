@@ -45,7 +45,7 @@ const RTapScreensStyle = StyleSheet.create({
   },
   twoContainer:{
     flexGrow: 1,
-    height: vh(65)
+    height: vh(60)
   },
   oneRioghtHeader:{
     borderTopRightRadius: 10,

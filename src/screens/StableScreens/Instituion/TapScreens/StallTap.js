@@ -28,6 +28,7 @@ const StallTap = ({ user_id, user_level, banner, institutionData}) => {
 
   const bannerId = banner == 0 ? institutionData[0].sid : banner.sid;
   const bannerLevel = banner == 0 ? institutionData[0].slevel : banner.slevel;
+
   useEffect(() => {
     if (institutionData != "") {
       if (bannerLevel == 1) {
@@ -57,6 +58,7 @@ const StallTap = ({ user_id, user_level, banner, institutionData}) => {
         setThreeBorderStyle(0);
         setThreeBlueStyle(1);
         setThreeLockStyle("none");
+        setThreeTxtStyle("none");
       } else if (bannerLevel == 3) {
         setThreeBtnStyle("none");
         setTwoBtnStyle("none");

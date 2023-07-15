@@ -65,6 +65,10 @@ const StableScreen = ({ navigation, user_id, isjockey, institutionData }) => {
     navigation.navigate("Institution");
   };
 
+  const handleCourseSubmit = () => {
+    dispatch(raceAction(calculateGameDate(currentTime)));
+    navigation.navigate("CourseTables")
+  }
   return (
     <View style={Screenstyles.container}>
       <ImageBackground
@@ -96,7 +100,7 @@ const StableScreen = ({ navigation, user_id, isjockey, institutionData }) => {
             <CustomButtons
               label="出走登錄"
               color={1}
-              onPress={() => navigation.navigate("RaceRegistation")}
+              onPress={handleCourseSubmit}
             />
             <CustomButtons
               label="施 設"

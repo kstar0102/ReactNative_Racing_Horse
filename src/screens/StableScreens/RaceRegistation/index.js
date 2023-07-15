@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { horseColor } from '../../../utils/globals';
 import RegisterTable from './RegisterTable';
 
-const RaceRegistation = ({ saveData, arrowState, navigation }) => {
+const RaceRegistation = ({ stableData, arrowState, navigation }) => {
   const [arrowStates, setArrowState] = useState(arrowState);
   // ALL REPEAT
   const [happySate, setHappyState] = useState(0);
@@ -38,25 +38,25 @@ const RaceRegistation = ({ saveData, arrowState, navigation }) => {
   // Ground Color
   const [groundColor, setGroundColor] = useState('#1BFF00');
 
-  if (saveData == '') {
+  if (stableData == '') {
     alert('YOUR HORSE NOT FOUND RETURN')
     return false
   }
   const [selected, setSelected] = useState(undefined);
-  const [banner, setBanner] = useState(saveData[0]);
+  const [banner, setBanner] = useState(stableData[0]);
 
   useEffect(() => {
-    setBanner(saveData[0]);
+    setBanner(stableData[0]);
     setPattern(tiredNumber);
-    if (saveData[0].ground == 'ダ') {
+    if (stableData[0].ground == 'ダ') {
       setGroundColor('#707172');
-    } else if (saveData[0].ground == '芝') {
+    } else if (stableData[0].ground == '芝') {
       setGroundColor('#1BFF00');
-    } else if (saveData[0].ground == '万') {
+    } else if (stableData[0].ground == '万') {
       setGroundColor('red');
     }
-  }, [saveData]);
-  const data = saveData;
+  }, [stableData]);
+  const data = stableData;
 
 
   useEffect(() => {
@@ -557,7 +557,7 @@ const RaceRegistation = ({ saveData, arrowState, navigation }) => {
 
       </View>
       <View>
-        <RegisterTable />
+        <RegisterTable horseData={banner ? banner : data[0]}/>
       </View>
 
       <StableFooterScreen/>
@@ -567,7 +567,7 @@ const RaceRegistation = ({ saveData, arrowState, navigation }) => {
 
 const mapStateToProps = state => {
   return {
-    saveData: state.horseData.saveData,
+    stableData: state.stableMenu.StableSendData,
     arrowState: state.arrow.arrowState,
   }
 }

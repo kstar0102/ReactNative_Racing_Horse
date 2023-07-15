@@ -10,8 +10,9 @@ import {
 } from "react-native";
 import { vw } from "react-native-expo-viewport-units";
 // Redux
-import { connect, useDispatch } from "react-redux";   
-import { preePastureSetAction } from "../../store/actions/Pasture/preePastureSetAction"; 
+import { connect, useDispatch } from "react-redux";
+import { preePastureSetAction } from "../../store/actions/Pasture/preePastureSetAction";
+import { preeStallSetAction } from "../../store/actions/Pasture/preeStallSetAction";
 // Customer
 import DropdownR from "./DropDwonR";
 import colors from "../../containers/colors";
@@ -23,14 +24,16 @@ const PresetRegistrationButton = ({
   label,
   disabled,
   allData,
+  preeAllData,
   user_id,
-  pasture_id
+  pasture_id,
+  place
 }) => {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
   const [secondModalVisible, setSecondModalVisible] = useState(false);
   const [thredModalVisible, setThredModalVisible] = useState(false);
-  const [preeSet, setPreeSet] = useState('');
+  const [preeSet, setPreeSet] = useState("");
   const [selectedPreeSet, setSelectedPreeSet] = useState(" ");
   const [inputText, setInputText] = useState("");
 
@@ -46,7 +49,6 @@ const PresetRegistrationButton = ({
   let food_price = [];
   let food_order = [];
   let food_type = [];
-
   // All data Value
   allData.forEach((element, index) => {
     food_name.push(element.name);
@@ -54,24 +56,43 @@ const PresetRegistrationButton = ({
     food_type.push(element.type);
     food_order.push(index + 1);
   });
- const preset_num = preeSet == '' ?  preeSetData[0].name :  preeSet.name;
- const handlePreeSetRegister = () => {
-    const sendPreeData = {
-      food_name: food_name,
-      food_type: food_type,
-      price: food_price,
-      order: food_order,
-      place: 'pasture',
-      preset_name: inputText,
-      preset_num: preset_num,
-      user_id: user_id,
-      pasture_id: pasture_id
+
+  const preset_num = preeSet == "" ? preeSetData[0].name : preeSet;
+  const handlePreeSetRegister = () => {
+    if(place == "pasture"){
+      const sendPreePastureData = {
+        food_name: food_name,
+        food_type: food_type,
+        price: food_price,
+        order: food_order,
+        place: place,
+        preset_name: inputText,
+        preset_num: preset_num,
+        user_id: user_id,
+        pasture_id: pasture_id,
+      };
+      dispatch(preePastureSetAction(sendPreePastureData));
+    }else if(place == "stall"){
+      const sendPreeStallData = {
+        food_name: food_name,
+        food_type: food_type,
+        price: food_price,
+        order: food_order,
+        place: place,
+        preset_name: inputText,
+        preset_num: preset_num,
+        user_id: user_id,
+        stall_id: "stall",
+      };
+      dispatch(preeStallSetAction(sendPreeStallData));
     }
-    dispatch(preePastureSetAction(sendPreeData))
-}
+    
+    setInputText('');
+    setPreeSet('');
+  };
 
   const handlePress = () => {
-    if (allData != "") {
+    if (allData != "" || preeAllData != "") {
       Alert.alert(
         " ",
         "「予約一覧」 の予約を登録しますか?",
@@ -90,7 +111,7 @@ const PresetRegistrationButton = ({
     } else {
       Alert.alert(
         " ",
-        "「予約一覧」に予約がありません。",
+        "Not Found Value",
         [
           {
             text: "いいえ",
@@ -109,7 +130,7 @@ const PresetRegistrationButton = ({
   const handleEndPress = () => {
     Alert.alert(
       " ",
-      "プリセット1に上書きしてよろしいですか?",
+      `${preeSet ? preeSet : preeSetData[0].name} に上書きしてよろしいですか?`,
       [
         {
           text: "いいえ",
@@ -124,12 +145,18 @@ const PresetRegistrationButton = ({
     );
   };
   // setModalVisible(true)
-  const handleYesPress = () => {
-    setSecondModalVisible(true);
-    setModalVisible(false);
+  const handleYesPress = (txt) => {
+    if (txt == "") {
+      return false;
+    } else {
+      setSecondModalVisible(true);
+      setModalVisible(false);
+    }
   };
 
   const handleNoPress = () => {
+    setInputText('');
+    setPreeSet('');
     setModalVisible(false);
   };
 
@@ -138,6 +165,8 @@ const PresetRegistrationButton = ({
     setSecondModalVisible(false);
   };
   const handleSecondNoModalSubmit = () => {
+    setInputText('');
+    setPreeSet('');
     setModalVisible(false);
     setSecondModalVisible(false);
   };
@@ -147,12 +176,14 @@ const PresetRegistrationButton = ({
     handleEndPress();
   };
   const handleThredNoModalSubmit = () => {
+    setPreeSet('');
+    setInputText('');
     setThredModalVisible(false);
-  };  
+  };
 
   const handlePreeSetData = (value) => {
-    setPreeSet(value);
-  }
+    setPreeSet(value.name);
+  };
   return (
     <View>
       <TouchableOpacity
@@ -193,11 +224,15 @@ const PresetRegistrationButton = ({
                 <SaleInputButton label="いいえ" onPress={handleNoPress} />
               </View>
               <View style={{ margin: 10 }}>
-                <SaleInputButton label="はい" onPress={handleYesPress} />
+                <SaleInputButton
+                  label="はい"
+                  onPress={() => handleYesPress(inputText)}
+                />
               </View>
             </View>
           </View>
         </Modal>
+
         {/* Two */}
         <Modal
           visible={secondModalVisible}
@@ -264,12 +299,12 @@ const PresetRegistrationButton = ({
   );
 };
 
-const mapStateToProps = state => {
-  return{
+const mapStateToProps = (state) => {
+  return {
     user_id: state.user.userData.id,
     pasture_id: state.pasture.pastureData.id,
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(PresetRegistrationButton);
 

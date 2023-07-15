@@ -1,4 +1,4 @@
-import { GET_THIS_WEEK_RACE_PLAN, GET_BEFOR_WEEK_RACE_PLAN, GET_NEXT_NEXT_WEEK_RACE_PLAN, GET_LAST_WEEK_RACE_PLAN, GET_NEXT_WEEK_RACE_PLAN } from '../../types';
+import { GET_THIS_WEEK_RACE_PLAN, GET_BEFOR_WEEK_RACE_PLAN, GET_NEXT_NEXT_WEEK_RACE_PLAN, GET_LAST_WEEK_RACE_PLAN, GET_NEXT_WEEK_RACE_PLAN, GET_NEXT_NEXT_NEXT_WEEK_RACE_PLAN } from '../../types';
 import axios from 'axios';
 import { API } from '../../../../utils/config';
 
@@ -36,6 +36,12 @@ export const lastRaceData = (data) => {
   }
 };
 
+export const nextNextNextRaceData = (data) => {
+  return {
+    type: GET_NEXT_NEXT_NEXT_WEEK_RACE_PLAN,
+    payload: data,
+  }
+};
 
 export function raceAction(gameTime) {
 
@@ -63,13 +69,17 @@ export function raceAction(gameTime) {
   const next_next_date_month = next_next_date.getMonth() + 1;
   const next_next_week_number = Math.ceil(before_before_date.getDate() / 7);
 
+  const next_next_next_date = new Date(gameTime.getTime() + (21 * 24 * 60 * 60 * 1000));
+  const next_next_next_date_month = next_next_next_date.getMonth() + 1;
+  const next_next_next_week_number = Math.ceil(before_before_date.getDate() / 7);
 
   const timeData = {
     'this_month_week': current_date_month + "-" + week_number,
     'before_month_week': before_date_month + "-" + lastWeekNumber,
     'before_before_month_week': before_before_date_month + "-" + last_last_week_number,
     'next_month_week': next_date_month + "-" + nextWeekNumber,
-    'next_next_month_week': next_next_date_month + "-" + next_next_week_number
+    'next_next_month_week': next_next_date_month + "-" + next_next_week_number,
+    'next_next_next_month_week': next_next_next_date_month + "-" + next_next_next_week_number
   }
 
   return async (dispatch, getState) => {
@@ -89,6 +99,7 @@ export function raceAction(gameTime) {
         dispatch(nextNextRaceData(res.data.next_next_week_data));
         dispatch(nextRaceData(res.data.next_week_data));
         dispatch(lastRaceData(res.data.last_week_data));
+        dispatch(nextNextNextRaceData(res.data.next_next_next_week_data));
       })
       .catch(error => {
         throw (error);

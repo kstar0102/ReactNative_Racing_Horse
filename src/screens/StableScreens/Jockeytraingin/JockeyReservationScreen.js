@@ -12,7 +12,7 @@ import FooterScreen from "../../LayoutScreen/FooterScreen";
 import { ReturnButton } from "../../../components/Buttons";
 import Screenstyles from "../../ScreenStylesheet";
 import DropDownR from "../../../components/Buttons/DropDwonR";
-import RTapScreensStyle from "../RanchTapScreens/RTapScreensStyle";
+import RTapScreensStyle from "../../PastureScreens/RanchTapScreens/RTapScreensStyle";
 
 import MenuDropDown from "../../../components/Buttons/MenuDropDown";
 import ReserveButton from "../../../components/Buttons/ReserveButton";
@@ -20,7 +20,7 @@ import ReservationDropDown from "../../../components/Buttons/ReservationDropDown
 import PresetRegistrationButton from "../../../components/Buttons/PresetRegistrationButton";
 import { horseColor } from "../../../utils/globals";
 
-const ReservationScreen = ({
+const JockeyReservationScreen = ({
   navigation,
   saveData,
   pasture_id,
@@ -75,6 +75,7 @@ const ReservationScreen = ({
   let horse_ids = [];
   let gameDate = [];
   let food_names = [];
+  let global_usename = [];
   if (reservationData != "") {
     reservationData.forEach((element, index) => {
       horse_ids.push(element.horse_id);
@@ -510,7 +511,7 @@ const ReservationScreen = ({
   return (
     <View style={Screenstyles.container}>
       <ImageBackground
-        source={require("../../../assets/images/1.png")}
+        source={require("../../../assets/images/horse_track/stall.jpg")}
         resizeMode="cover"
         style={Screenstyles.img}
       >
@@ -519,14 +520,16 @@ const ReservationScreen = ({
           <View>
             <View>
               <ReturnButton
-                label="牧 場"
-                onPress={() => navigation.navigate("PastureScreen")}
+                label="厩 舎"
+                color={1}
+                onPress={() => navigation.navigate("StallScreen")}
               />
             </View>
             <View style={Screenstyles.UPRButton}>
               <ReturnButton
-                label="育 成"
-                onPress={() => navigation.navigate("UpbringingScreen")}
+                label="騎手育成"
+                color={1}
+                onPress={() => navigation.navigate("JocTraining")}
               />
             </View>
           </View>
@@ -534,9 +537,7 @@ const ReservationScreen = ({
           <ScrollView style={RTapScreensStyle.reservationContainer}>
             <View style={RTapScreensStyle.oneTopContent}>
               <View style={RTapScreensStyle.oneTopContentLeft}>
-                <Text style={RTapScreensStyle.oneRightContentTxt}>
-                  管理馬一覧
-                </Text>
+                <Text style={RTapScreensStyle.shadowTxt}>管理馬一覧</Text>
                 <DropDownR
                   name={data[0].name}
                   data={data}
@@ -686,7 +687,9 @@ const ReservationScreen = ({
           </ScrollView>
           <View style={Screenstyles.reserveContent}>
             <View style={Screenstyles.reserveMenuLeft}>
-              <Text style={Screenstyles.reserveMenuTitle}>育成メニュー</Text>
+              <Text style={Screenstyles.reserveMenuShowTitle}>
+                育成メニュー
+              </Text>
               <View style={Screenstyles.reserveMenuGroup}>
                 <MenuDropDown
                   name={nameValue}
@@ -700,7 +703,9 @@ const ReservationScreen = ({
                   onPress={() => handleGrazing(grazing)}
                 />
               </View>
-              <Text style={Screenstyles.reserveMenuTitle}>飼葉メニュー</Text>
+              <Text style={Screenstyles.reserveMenuShowTitle}>
+                飼葉メニュー
+              </Text>
               <View style={Screenstyles.reserveMenuGroup}>
                 <MenuDropDown
                   name={nameValue}
@@ -714,7 +719,7 @@ const ReservationScreen = ({
                   onPress={() => handleFodder(fodder)}
                 />
               </View>
-              <Text style={Screenstyles.reserveMenuTitle}>プリセット</Text>
+              <Text style={Screenstyles.reserveMenuShowTitle}>プリセット</Text>
               <View style={Screenstyles.reserveMenuGroup}>
                 <MenuDropDown
                   name={nameValue}
@@ -729,16 +734,15 @@ const ReservationScreen = ({
                 />
               </View>
               <PresetRegistrationButton
-                place={'pasture'}
+                place={"jockey"}
                 allData={allData}
-                preeAllData={preeAllData}
                 label={"プリセット登録"}
                 onPress={() => handlePreset()}
               />
             </View>
             <View style={Screenstyles.reserveRight}>
               <View style={Screenstyles.reserveTxtGroup}>
-                <Text style={Screenstyles.reserveListTitle}>予約一覧</Text>
+                <Text style={Screenstyles.reserveListShowTitle}>予約一覧</Text>
                 <View style={Screenstyles.reserveListConfim}>
                   <Text
                     style={[
@@ -759,6 +763,8 @@ const ReservationScreen = ({
                 </View>
               </View>
               <View style={Screenstyles.reserveRightList}>
+                {/* const order = isValue ? default_order : food_order == "" ?
+                food_set_order : food_order; */}
                 <ScrollView style={Screenstyles.reserveList}>
                   {isValue
                     ? preeAllData.map((item, index) => (
@@ -766,7 +772,7 @@ const ReservationScreen = ({
                           {index + 1}. {item.name}
                         </Text>
                       ))
-                    : allData == "" 
+                    : allData == ""
                     ? preeSetAllData.map((item, index) => (
                         <Text key={index} style={Screenstyles.reserveListtxt}>
                           {index + 1}. {item.food_name}
@@ -831,4 +837,4 @@ const mapStateToProps = (state) => {
     preeSetName: state.preeSetData.pastureNamePreeSetData,
   };
 };
-export default connect(mapStateToProps)(ReservationScreen);
+export default connect(mapStateToProps)(JockeyReservationScreen);
