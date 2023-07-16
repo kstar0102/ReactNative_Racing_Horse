@@ -114,7 +114,7 @@ const JocTraining = ({ jockeyData, arrowState }) => {
         setTiredState(0);
         setAddState(0);
       }, 2000);
-    } else if (arrowStates.what == "にんじん") {
+    } else if (arrowStates.what == "おにぎり") {
       setHappyState(1);
       setTimeout(() => {
         setHappyState(0);

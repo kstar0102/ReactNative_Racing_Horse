@@ -3,6 +3,7 @@ import React from 'react';
 import {View, StyleSheet } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import SelectDropdown from 'react-native-select-dropdown';
+import colors from '../../containers/colors';
 
 const DropdownB = ({label, data, onSelect}) => {
   const countriesWithFlags = data;
@@ -52,6 +53,6 @@ const styles = StyleSheet.create({
   },
   dropdown4BtnTxtStyle: {color: '#000', textAlign: 'left'},
   dropdown4DropdownStyle: {backgroundColor: '#EFEFEF', marginTop: -25},
-  dropdown4RowStyle: {  backgroundColor: '#52af54', borderBottomColor: '#000'},
+  dropdown4RowStyle: {  backgroundColor: colors.horsTablePriceColor, borderBottomColor: '#000'},
   dropdown4RowTxtStyle: {color: '#000', textAlign: 'left'},
 });

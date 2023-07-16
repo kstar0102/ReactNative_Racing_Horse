@@ -38,7 +38,11 @@ const Screenstyles = StyleSheet.create({
       //   marginBottom: 30
       // },
     // All Style End
-
+    userPtTxt:{
+      fontSize: hp(2) + wp(2),
+      fontWeight: 700,
+      color: colors.blue
+    },
     // NEW RGISTRATION =======================
     NRcontainer: {
       flexDirection: 'column',
@@ -207,7 +211,8 @@ const Screenstyles = StyleSheet.create({
       padding: 10,
     },
     HCtitle: {
-      
+      flexDirection: 'row',
+      justifyContent: 'space-between'
     },
     HCtitleTxt: {
       fontSize: 22,

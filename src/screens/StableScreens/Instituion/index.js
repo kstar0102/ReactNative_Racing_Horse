@@ -91,7 +91,7 @@ const Institution = ({
                   <View style={StableStyles.cardBody}>
                     <View style={StableStyles.cardRow}>
                       <Text style={StableStyles.cardBodyTxt}>
-                        厩舎Lv.{banner.slevel}
+                        厩舎Lv.{banner ? banner.slevel : institutionData[0].slevel}
                       </Text>
                       <Text style={StableStyles.cardBodyTxt}>
                         ロンギ場 Lv.{stallRanch == undefined ? "0" : stallRanch.level}

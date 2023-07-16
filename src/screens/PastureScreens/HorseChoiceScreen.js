@@ -144,6 +144,7 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
                 <View style={Screenstyles.HContainer}>
                     <View style={Screenstyles.HCtitle}>
                         <Text style={Screenstyles.NRtitleA}>競走馬を購入する</Text>
+                        <Text style={Screenstyles.userPtTxt}>資金 {userPrice}pt</Text>
                     </View>
                     <View style={Screenstyles.DropDwonButton}>
                         <DropDownB label="・0歳馬" data={data} onSelect={setSelected} />
