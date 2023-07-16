@@ -166,22 +166,23 @@ const JocTraining = ({ jockeyData, arrowState }) => {
     if (typeof conditionFace !== "number") {
       return;
     }
+
     let result = "";
     switch (true) {
       case conditionFace >= 7 && conditionFace <= 500:
-        result = require("../../../assets/images/JockeyCondition/106_h_24.png");
+        result = require("../../../assets/images/condition/happy.png");
         break;
       case conditionFace >= 3 && conditionFace <= 6:
-        result = require("../../../assets/images/JockeyCondition/107_h_24.png");
+        result = require("../../../assets/images/condition/middlehappy.png");
         break;
       case conditionFace >= -2 && conditionFace <= 2:
-        result = require("../../../assets/images/JockeyCondition/110_h_24.png");
+        result = require("../../../assets/images/condition/normel.png");
         break;
       case conditionFace >= -6 && conditionFace <= -3:
-        result = require("../../../assets/images/JockeyCondition/116_h_24.png");
+        result = require("../../..//assets/images/condition/sad.png");
         break;
       case conditionFace >= -10 && conditionFace <= -7:
-        result = require("../../../assets/images/JockeyCondition/118_h_24.png");
+        result = require("../../../assets/images/condition/bad.png");
         break;
       default:
         return;

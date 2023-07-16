@@ -87,7 +87,9 @@ const TruckTap = ({ user_id, user_level, stallTruck, banner, institutionData }) 
 
   }, [stallTruck]);
 
+
   const handleSubmit = (level, price, effect) => {
+  
     let truckData = {};
     if (stallTruck != "") {
       if (stallTruck[0].id) {
