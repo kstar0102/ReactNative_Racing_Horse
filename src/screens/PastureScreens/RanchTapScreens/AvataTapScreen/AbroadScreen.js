@@ -31,11 +31,11 @@ const AbroadScreen = ({stableMenu, horseId}) => {
                           <AvatarButton id='2' stableId={stableMenu[1].id} horseId={horseId}  name='堀塚厩舎'/>
                        </View>
                        <View style={RTapScreensStyle.avatarTxt}>
-                          <Text> {stableMenu[1].name}</Text>
-                          <Text>{stableMenu[1].moto}</Text>
-                          <Text>{stableMenu[1].etc}が得意!</Text>
-                          <Text>{stableMenu[1].possable}が使用可能!</Text>
-                          <Text>  預託料: {stableMenu[1].price}/1頭</Text>
+                          <Text> {stableMenu[2].name}</Text>
+                          <Text>{stableMenu[2].moto}</Text>
+                          <Text>{stableMenu[2].etc}が得意!</Text>
+                          <Text>{stableMenu[2].possable}が使用可能!</Text>
+                          <Text>  預託料: {stableMenu[2].price}/1頭</Text>
                       </View>
                   </View>
                   
@@ -44,11 +44,11 @@ const AbroadScreen = ({stableMenu, horseId}) => {
                           <AvatarButton id='3' stableId={stableMenu[2].id} horseId={horseId}  name='木藤厩舎'/>
                        </View>
                        <View style={RTapScreensStyle.avatarTxt}>
-                          <Text> {stableMenu[2].name}</Text>
-                          <Text>{stableMenu[2].moto}</Text>
-                          <Text>{stableMenu[2].etc}が得意!</Text>
-                          <Text>{stableMenu[2].possable}が使用可能!</Text>
-                          <Text>  預託料: {stableMenu[2].price}/1頭</Text>
+                          <Text> {stableMenu[1].name}</Text>
+                          <Text>{stableMenu[1].moto}</Text>
+                          <Text>{stableMenu[1].etc}が得意!</Text>
+                          <Text>{stableMenu[1].possable}が使用可能!</Text>
+                          <Text>  預託料: {stableMenu[1].price}/1頭</Text>
                       </View>
                   </View>
       
