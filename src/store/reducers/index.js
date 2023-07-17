@@ -15,6 +15,7 @@ import lastRacePlanReducer from './getApi/lastRacePlanReducer';
 import beforRacePlanReducer from './getApi/beforRacePlanReducer';
 import nextNextRacePlanReducer from './getApi/nextNextRacePlanReducer';
 import nextRacePlanReducer from './getApi/nextRacePlanReducer';
+import nextNextNextRacePlanReducer from './getApi/nextNextNextRacePlanReducer';
 // Upbringing Reducer
 import arrowReducer from './Upbring/arrowReducer';
 // Game Time
@@ -30,7 +31,8 @@ import stallLongiFieldReducer from './stable/Institution/stallInstitution/stallL
 import stallRoadReducer from './stable/Institution/stallInstitution/stallroadReducer';
 import stallTruckReduce from './stable/Institution/stallInstitution/stalltruckReducer';
 
-import pasturePreeSetReducer from './preeSet/pasturePreeSetReducer';
+import preeSetReducer from './preeSet/preeSetReducer';
+import RaceRegisterRuducer from './ReacRegister/RaceRegisterRuducer';
 
 export default combineReducers({
     user: user,
@@ -49,6 +51,7 @@ export default combineReducers({
     beforRacePlan: beforRacePlanReducer,
     nextNextRacePlan: nextNextRacePlanReducer,
     nextRacePlan: nextRacePlanReducer,
+    nextNextNextRacePlan: nextNextNextRacePlanReducer,
     // UPBRINGING
     arrow: arrowReducer,
     // GAME TIME
@@ -63,6 +66,8 @@ export default combineReducers({
     stallTruck: stallTruckReduce,
     stallRanch: stallLongiFieldReducer,
     stallUp: stallUpReducer,
-    pastruePreeSetData: pasturePreeSetReducer
+    preeSetData: preeSetReducer,
+
+    raceData: RaceRegisterRuducer
 
 });

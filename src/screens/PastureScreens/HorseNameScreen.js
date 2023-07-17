@@ -1,25 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { View, ImageBackground, Text, Image, ScrollView } from 'react-native';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  ImageBackground,
+  Text,
+  Image,
+  ScrollView,
+  Alert,
+} from "react-native";
 
 // Redux
-import { connect, useDispatch } from 'react-redux';
-import { horseAction } from '../../store/actions/horse/horseAction';
-// Custom Import 
-import NRHeaderScreen from '../LayoutScreen/NRHeaderScreen';
-import Screenstyles from '../ScreenStylesheet';
-import BloodlineNameTable from '../../components/table/BloodlineNameTable';
-import { PNameRegister } from '../../components/Buttons';
-import HorseNameInput from '../../components/input/HorseNameInput';
-import { horseColor } from '../../utils/globals';
+import { connect, useDispatch } from "react-redux";
+import { horseAction } from "../../store/actions/horse/horseAction";
+// Custom Import
+import NRHeaderScreen from "../LayoutScreen/NRHeaderScreen";
+import Screenstyles from "../ScreenStylesheet";
+import BloodlineNameTable from "../../components/table/BloodlineNameTable";
+import { PNameRegister } from "../../components/Buttons";
+import HorseNameInput from "../../components/input/HorseNameInput";
+import { horseColor } from "../../utils/globals";
 
 let horseNames = [];
 let inputCount;
 let inputIds = [];
+let displayStyls = [];
 
-const HorseNameScreen = ({ navigation, horseCheckData, user_id, pasture_id, saveData }) => {
+const HorseNameScreen = ({
+  navigation,
+  horseCheckData,
+  user_id,
+  pasture_id,
+  saveData,
+}) => {
   const dispatch = useDispatch();
-  const [horseName, setHorseName] = useState('');
-  const [inputId, setInputId] = useState('');
+  const [horseName, setHorseName] = useState("");
+  const [inputId, setInputId] = useState("");
+  const [genderColor, setGenderColor] = useState("");
+  const [displayStyle, setDisplayStyle] = useState("none");
+  const pattern = /[0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]|[\uD800-\uDFFF]/;
+
   useEffect(() => {
     if (horseCheckData) {
       inputCount = horseCheckData.length;
@@ -29,54 +47,73 @@ const HorseNameScreen = ({ navigation, horseCheckData, user_id, pasture_id, save
   const handleInputChange = (value, id) => {
     setHorseName(value);
     setInputId(id);
-  }
+  };
 
   const handleOnBlur = () => {
     for (let index = 0; index < horseNames.length; index++) {
-      if(horseNames[index] === horseName){
+      if (horseNames[index] === horseName) {
         return false;
       }
-      if(inputIds[index] === inputId){
+      if (inputIds[index] === inputId) {
         horseNames[index] = horseName;
         return false;
-      }               
+      }
     }
-    horseNames.push(horseName);
-    inputIds.push(inputId);
+    if (!pattern.test(horseName)) {
+      horseNames.push(horseName);
+      inputIds.push(inputId);
+    } else {
+      Alert.alert(
+        "「エラー」",
+        "「入力はカタカナでなければなりません。」",
+        [
+          { 
+            text: "はい",
+            onPress:() =>  handleHorseName()
+          }
+        ],
+        { cancelable: false }
+      );
+    }
+  };
+
+  const handleHorseName = () => {
+    setHorseName('');
+    setInputId('');
   }
 
   const handleSubmit = () => {
-    if(horseNames.length !== inputCount){
-      alert('Input Value is not Found');
+    if (horseNames.length !== inputCount) {
+      alert("Input Value is not Found");
       return false;
     } else {
       const CheckData = {
-        'name' : horseNames,
-        'data' : horseCheckData,
-        'user_id' : user_id,
-        'pasture_id' : pasture_id
-      }
+        name: horseNames,
+        data: horseCheckData,
+        user_id: user_id,
+        pasture_id: pasture_id,
+      };
       dispatch(horseAction(CheckData));
     }
-  }
+  };
 
   useEffect(() => {
-    if(saveData != ""){
-      navigation.navigate('PastureScreen');
+    if (saveData != "") {
+      navigation.navigate("PastureScreen");
     }
-    
   }, [saveData]);
 
   return (
     <View style={Screenstyles.container}>
       <ImageBackground
-        source={require('../../assets/images/1.png')}
+        source={require("../../assets/images/1.png")}
         resizeMode="contain"
-        style={Screenstyles.img}>
+        style={Screenstyles.img}
+      >
         <NRHeaderScreen />
         <View style={Screenstyles.HCcontainer}>
           <View style={Screenstyles.NRtitle}>
-            <Text style={Screenstyles.NRtitleA}>馬名を決める</Text>   
+            <Text style={Screenstyles.NRtitleA}>馬名を決める</Text>
             <Text style={Screenstyles.NRtitleB}>
               [注意1] <Text style={Screenstyles.NRSpanT}>卑猥</Text>な名前や
               <Text style={Screenstyles.NRSpanT}>コンプラ違反</Text>のワードは
@@ -96,11 +133,23 @@ const HorseNameScreen = ({ navigation, horseCheckData, user_id, pasture_id, save
                       {horseColor.map((colorName, index) => {
                         if (colorName[item.color]) {
                           return (
-                            <Image
-                              key={`${item.id}${index}`}
-                              style={Screenstyles.HCImage}
-                              source={colorName[item.color]}
-                            />
+                            <View key={`${item.id}${index}`}>
+                              <View style={Screenstyles.titleFlex}>
+                                <Text>{item.age}</Text>
+                                <Text
+                                  style={{
+                                    color:
+                                      item.gender === "牝" ? "red" : "blue",
+                                  }}
+                                >
+                                  {item.gender}
+                                </Text>
+                              </View>
+                              <Image
+                                style={Screenstyles.HCImage}
+                                source={colorName[item.color]}
+                              />
+                            </View>
                           );
                         } else {
                           return null;
@@ -128,30 +177,33 @@ const HorseNameScreen = ({ navigation, horseCheckData, user_id, pasture_id, save
                         onBlurText={handleOnBlur}
                       />
                     </View>
-                    {/* <Text style={Screenstyles.caution}>
-                      ※すでにその名前は<Text style={Screenstyles.NRSpanT}>使用されています</Text>。
-                    </Text> */}
+                    <Text
+                      style={[Screenstyles.caution, { display: displayStyle }]}
+                    >
+                      ※すでにその名前は
+                      <Text style={Screenstyles.NRSpanT}>使用されています</Text>
+                      。
+                    </Text>
                   </View>
                 </View>
               );
             })}
           </ScrollView>
           <View style={Screenstyles.registerButton}>
-            <PNameRegister label={'購入する'} onPress={handleSubmit} />
+            <PNameRegister label={"購入する"} onPress={handleSubmit} />
           </View>
         </View>
-        
       </ImageBackground>
     </View>
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     horseCheckData: state.horseData.CheckData,
     user_id: state.user.userData.id,
     pasture_id: state.pasture.pastureData.id,
-    saveData: state.horseData.saveData
+    saveData: state.horseData.saveData,
   };
 };
 

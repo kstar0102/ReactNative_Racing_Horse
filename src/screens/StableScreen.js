@@ -65,6 +65,15 @@ const StableScreen = ({ navigation, user_id, isjockey, institutionData }) => {
     navigation.navigate("Institution");
   };
 
+  const handleCourseSubmit = () => {
+    dispatch(raceAction(calculateGameDate(currentTime)));
+    navigation.navigate("CourseTables")
+  }
+  const handleTrain = () => {
+    dispatch(signAction());
+    navigation.navigate("Training")
+  }
+ 
   return (
     <View style={Screenstyles.container}>
       <ImageBackground
@@ -83,7 +92,7 @@ const StableScreen = ({ navigation, user_id, isjockey, institutionData }) => {
             <CustomButtons
               label="調 教"
               color={1}
-              onPress={() => navigation.navigate("Training")}
+              onPress={() => handleTrain()}
             />
             <CustomButtons
               label="騎手育成"
@@ -96,7 +105,7 @@ const StableScreen = ({ navigation, user_id, isjockey, institutionData }) => {
             <CustomButtons
               label="出走登錄"
               color={1}
-              onPress={() => navigation.navigate("RaceRegistation")}
+              onPress={handleCourseSubmit}
             />
             <CustomButtons
               label="施 設"

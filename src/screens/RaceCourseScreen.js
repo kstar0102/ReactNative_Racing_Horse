@@ -17,10 +17,7 @@ const RaceCourseScreen = ({ navigation }) => {
                 <View>
                     <View>
                         <View>
-                            <ReturnButton label="厩 舎"  onPress={() => navigation.goBack()} />
-                        </View>
-                        <View style={Screenstyles.UPRButton} >
-                            <ReturnButton label="競馬場" />
+                            <ReturnButton label="競馬場"  onPress={() => navigation.goBack()} />
                         </View>
                     </View>
                     <View style={Screenstyles.UPCourse}>

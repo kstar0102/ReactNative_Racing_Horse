@@ -62,6 +62,7 @@ const SlopTap = ({
         setThreeBorderStyle(0);
         setThreeBlueStyle(1);
         setThreeLockStyle("none");
+        setThreeTxtStyle("none");
       } else if (stallSlope[0].level == 3) {
         setThreeBtnStyle("none");
         setTwoBtnStyle("none");

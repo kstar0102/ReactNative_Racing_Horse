@@ -56,6 +56,7 @@ const TruckTap = ({ user_id, user_level, stallTruck, banner, institutionData }) 
         setThreeBorderStyle(0);
         setThreeBlueStyle(1);
         setThreeLockStyle("none");
+        setThreeTxtStyle("none");
       } else if (stallTruck[0].level == 3) {
         setThreeBtnStyle("none");
         setTwoBtnStyle("none");
@@ -86,22 +87,24 @@ const TruckTap = ({ user_id, user_level, stallTruck, banner, institutionData }) 
 
   }, [stallTruck]);
 
+
   const handleSubmit = (level, price, effect) => {
-    let truckData = {};
-    if (stallTruck != "") {
-      if (stallTruck[0].id) {
+  
+    let truckData  = {};
+    if (stallTruck  != "") {
+      if (stallTruck [0].id) {
         truckData = {
-          truck_id: stallTruck[0].id,
+          truck_id: stallTruck [0].id,
           price: price,
           user_id: user_id,
           level: level,
-          stall_id: banner.sid,
+          stall_id: bannerId,
           user_level: user_level,
         };
       }
       Alert.alert(
-        `トラック (Lv.${level})は、${price}ptですが購入しますか?`,
-        `[効果] 入厩時に「根性+${effect}」`,
+        `プール (Lv.${level})は、${price}ptですが購入しますか?`,
+        `[効果] 馬誕生時に「健康+${effect}」`,
         [
           {
             text: "いいえ",
@@ -112,10 +115,7 @@ const TruckTap = ({ user_id, user_level, stallTruck, banner, institutionData }) 
             onPress: () => dispatch(truckLevelUpAction(truckData)),
           },
         ],
-        {
-          cancelable: false,
-          style: { fontSize: 5 },
-        }
+        { cancelable: false, style: { fontSize: 5 } }
       );
     } else {
       truckData = {
@@ -123,12 +123,12 @@ const TruckTap = ({ user_id, user_level, stallTruck, banner, institutionData }) 
         price: 1000,
         user_id: user_id,
         level: level,
-        stall_id: banner.sid,
+        stall_id: bannerId,
         user_level: user_level,
       };
       Alert.alert(
-        `トラック (Lv.1)は、1000ptですが購入しますか?`,
-        "[効果] 入厩時に「根性+10」",
+        `プール (Lv.1)は、1000ptですが購入しますか?`,
+        "[効果] 馬誕生時に「健康+10」",
         [
           {
             text: "いいえ",
@@ -139,12 +139,11 @@ const TruckTap = ({ user_id, user_level, stallTruck, banner, institutionData }) 
             onPress: () => dispatch(truckLevelUpAction(truckData)),
           },
         ],
-        {
-          cancelable: false,
-          style: { fontSize: 5 },
-        }
+        { cancelable: false, style: { fontSize: 5 } }
       );
     }
+
+
   };
   return (
     <ScrollView

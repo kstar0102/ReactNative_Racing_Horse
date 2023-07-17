@@ -114,7 +114,7 @@ const JocTraining = ({ jockeyData, arrowState }) => {
         setTiredState(0);
         setAddState(0);
       }, 2000);
-    } else if (arrowStates.what == "にんじん") {
+    } else if (arrowStates.what == "おにぎり") {
       setHappyState(1);
       setTimeout(() => {
         setHappyState(0);
@@ -166,22 +166,23 @@ const JocTraining = ({ jockeyData, arrowState }) => {
     if (typeof conditionFace !== "number") {
       return;
     }
+
     let result = "";
     switch (true) {
       case conditionFace >= 7 && conditionFace <= 500:
-        result = require("../../../assets/images/JockeyCondition/106_h_24.png");
+        result = require("../../../assets/images/condition/happy.png");
         break;
       case conditionFace >= 3 && conditionFace <= 6:
-        result = require("../../../assets/images/JockeyCondition/107_h_24.png");
+        result = require("../../../assets/images/condition/middlehappy.png");
         break;
       case conditionFace >= -2 && conditionFace <= 2:
-        result = require("../../../assets/images/JockeyCondition/110_h_24.png");
+        result = require("../../../assets/images/condition/normel.png");
         break;
       case conditionFace >= -6 && conditionFace <= -3:
-        result = require("../../../assets/images/JockeyCondition/116_h_24.png");
+        result = require("../../..//assets/images/condition/sad.png");
         break;
       case conditionFace >= -10 && conditionFace <= -7:
-        result = require("../../../assets/images/JockeyCondition/118_h_24.png");
+        result = require("../../../assets/images/condition/bad.png");
         break;
       default:
         return;
@@ -200,7 +201,7 @@ const JocTraining = ({ jockeyData, arrowState }) => {
         result = " ◎";
         break;
       case tired >= 8 && tired <= 12:
-        result = " o";
+        result = " 〇";
         break;
       case tired >= 13 && tired <= 14:
         result = " ▲";
@@ -470,7 +471,7 @@ const JocTraining = ({ jockeyData, arrowState }) => {
                 onPress={() => handleButtonPress(1)}
               />
             )}
-            <SaleButton label={"引退"} />
+            <WorkingButton label={`引退`} colorNumber={1} styleId={2} />
           </View>
           {renderScreenBelowButtons()}
           {/* SCREEN SHOW END */}

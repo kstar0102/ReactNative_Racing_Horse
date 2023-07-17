@@ -10,7 +10,6 @@ import StableStyles from "../../StableStyles";
 
 const PoolTap = ({ user_id, user_level, stallPool, banner, institutionData }) => {
   const dispatch = useDispatch();
-
   // LV.0
   const [oneborderStyle, setOneBorderStyle] = useState(0);
   const [oneBtnStyle, setOneBtnStyle] = useState("none");
@@ -57,6 +56,7 @@ const PoolTap = ({ user_id, user_level, stallPool, banner, institutionData }) =>
         setThreeBorderStyle(0);
         setThreeBlueStyle(1);
         setThreeLockStyle("none");
+        setThreeTxtStyle("none");
       } else if (stallPool[0].level == 3) {
         setThreeBtnStyle("none");
         setTwoBtnStyle("none");

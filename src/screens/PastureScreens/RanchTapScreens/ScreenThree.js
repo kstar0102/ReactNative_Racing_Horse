@@ -9,6 +9,9 @@ import AvatarTapScreen from './AvataTapScreen';
 import { SaleButton } from '../../../components/Buttons';
 
 const ScreenThree = () => {
+  return(
+    alert('YOUR HORSE NOT FOUND RETURN')
+  )
   const [selected, setSelected] = useState(undefined);
   const [activeButton, setActiveButton] = useState(0);
   const data = [

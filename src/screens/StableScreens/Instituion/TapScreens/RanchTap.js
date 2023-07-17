@@ -11,7 +11,6 @@ import colors from "../../../../containers/colors";
 
 const RanchTap = ({  user_id, user_level, stallRanch, banner, institutionData }) => {
   const dispatch = useDispatch();
-
   // LV.0
   const [oneborderStyle, setOneBorderStyle] = useState(0);
   const [oneBtnStyle, setOneBtnStyle] = useState("none");
@@ -58,6 +57,7 @@ const RanchTap = ({  user_id, user_level, stallRanch, banner, institutionData })
         setThreeBorderStyle(0);
         setThreeBlueStyle(1);
         setThreeLockStyle("none");
+        setThreeTxtStyle("none");
       } else if (stallRanch[0].level == 3) {
         setThreeBtnStyle("none");
         setTwoBtnStyle("none");

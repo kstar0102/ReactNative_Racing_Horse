@@ -5,7 +5,7 @@ import HeaderScreen from '../../LayoutScreen/HeaderScreen';
 import StableFooterScreen from '../../LayoutScreen/StableFooterScreen';
 import { ReturnButton } from '../../../components/Buttons';
 import Screenstyles from '../../ScreenStylesheet';
-import RacetrackCourse from '../../PastureScreens/RacetrackTableScreen/RacetrackCourse';
+import RaceCourses from './RacetrackTable/RaceCourses';
 
 const RaceCourse = ({ navigation }) => {
     return (
@@ -25,7 +25,7 @@ const RaceCourse = ({ navigation }) => {
                         </View>
                     </View>
                     <View style={Screenstyles.UPCourse}>
-                        <RacetrackCourse/>
+                        <RaceCourses/>
                     </View>
                 </View>
                 <StableFooterScreen/>

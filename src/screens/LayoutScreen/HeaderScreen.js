@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const calculateGameDate = (time) => {
   const startCalTime = new Date("2023-06-25");
-  const startTime = new Date("2023-01-01");
+  const startTime = new Date("2023-04-01");
   let currentGameSecond = (time - startCalTime)*14;
   const currentDateMilliseconds = startTime.getTime() + currentGameSecond;
   let currentDate = new Date(currentDateMilliseconds);

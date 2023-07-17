@@ -20,7 +20,6 @@ export const fetchNameData = (reservationNameData) => {
 export function preePastureSetAction(preeSetData) {
   return async (dispatch, getState) => {
     const token = getState().tokenData.tokenData;
-    
     return await axios.post(API+"storepreset",{
       data: preeSetData
     },

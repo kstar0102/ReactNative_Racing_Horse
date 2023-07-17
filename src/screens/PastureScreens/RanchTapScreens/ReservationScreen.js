@@ -75,7 +75,6 @@ const ReservationScreen = ({
   let horse_ids = [];
   let gameDate = [];
   let food_names = [];
-  let global_usename = [];
   if (reservationData != "") {
     reservationData.forEach((element, index) => {
       horse_ids.push(element.horse_id);
@@ -730,7 +729,9 @@ const ReservationScreen = ({
                 />
               </View>
               <PresetRegistrationButton
+                place={'pasture'}
                 allData={allData}
+                preeAllData={preeAllData}
                 label={"プリセット登録"}
                 onPress={() => handlePreset()}
               />
@@ -758,8 +759,6 @@ const ReservationScreen = ({
                 </View>
               </View>
               <View style={Screenstyles.reserveRightList}>
-                {/* const order = isValue ? default_order : food_order == "" ?
-                food_set_order : food_order; */}
                 <ScrollView style={Screenstyles.reserveList}>
                   {isValue
                     ? preeAllData.map((item, index) => (
@@ -828,8 +827,8 @@ const mapStateToProps = (state) => {
     truckLevel: state.truck.truckBuyData,
     roadLevel: state.road.roadBuyData,
     reservationData: state.validationData.reservationData,
-    preeSetData: state.pastruePreeSetData.pasturePreeSetData,
-    preeSetName: state.pastruePreeSetData.pastureNamePreeSetData,
+    preeSetData: state.preeSetData.pasturePreeSetData,
+    preeSetName: state.preeSetData.pastureNamePreeSetData,
   };
 };
 export default connect(mapStateToProps)(ReservationScreen);

@@ -3,7 +3,12 @@ import { ScrollView, StyleSheet } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 // Redux
 import { connect } from 'react-redux';
-
+// IMPORT CUSTOM
+import NextWeekTable from './NextWeekTable';
+import LastLastWeekTable from './LastLastWeekTable';
+import LastWeekTable from './LastWeekTable';
+import ThisRaceWeekTable from './ThisRaceWeekTable';
+import NextNextWeekTable from './NextNextWeekTable';
 
 const RaceCourses = ({ thisWeekData, beforeRacePlan, lastRacePlan, nextNextRacePlan, nextRacePlan }) => {
   if (!thisWeekData || !beforeRacePlan || !lastRacePlan || !nextNextRacePlan || !nextRacePlan) {
@@ -58,7 +63,12 @@ const RaceCourses = ({ thisWeekData, beforeRacePlan, lastRacePlan, nextNextRaceP
 
   return (
     <ScrollView style={styles.container}>
-   </ScrollView>
+      <LastLastWeekTable threeWeekTitle={CONTENT.threeWeekTitle} threeWeekData={beforeRaceWD} threeWeekName={beforeRaceWN} />
+      <LastWeekTable fourWeekTitle={CONTENT.fourWeekTitle} fourWeekData={lastRaceWD} fourWeekName={lastRaceWN} />
+      <ThisRaceWeekTable raceWeekTitle={CONTENT.raceWeekTitle} raceWeekData={thisRaceWD} raceWeekName={thisRaceWN} />
+      <NextWeekTable nextWeekTitle={CONTENT.nextWeekTitle} nextWeekData={nextRaceWD} nextWeekName={nextRaceWN} />
+      <NextNextWeekTable nextNextWeekTitle={CONTENT.nextNextWeekTitle} nextNextWeekData={nextNextRaceWD} nextNextWeekName={nextNextRaceWN} />
+    </ScrollView>
   );
 };
 
@@ -78,6 +88,6 @@ const styles = StyleSheet.create({
   container: {
     marginLeft: 30,
     marginRight: 30,
-    height: 490,
+    height: 465,
   },
 });
