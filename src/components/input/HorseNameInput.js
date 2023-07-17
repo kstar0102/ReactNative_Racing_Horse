@@ -6,7 +6,13 @@ import colors from '../../containers/colors';
 const HorseNameInput = ({onChangeText, onBlurText, id}) => {
   const handleInputChange = (inputValue) => {
     onChangeText(inputValue, id);
-   };
+    // console.log('================inputValue====================');
+    // console.log(inputValue);
+    // console.log('===============inputValue========id=============');
+    // console.log(id); 
+    // console.log('===============inputValue========id=============');
+  
+  };
    
   return (
     <TextInput

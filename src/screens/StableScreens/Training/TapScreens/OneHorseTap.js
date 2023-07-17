@@ -699,7 +699,6 @@ const OneHorseTap = ({ oneData, arrowState }) => {
               label={`引退`}
               colorNumber={3}
               styleId={2}
-              onPress={() => handleButtonPress(1)}
             />
           </View>
         </View>

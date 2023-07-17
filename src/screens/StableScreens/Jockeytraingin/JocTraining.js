@@ -201,7 +201,7 @@ const JocTraining = ({ jockeyData, arrowState }) => {
         result = " ◎";
         break;
       case tired >= 8 && tired <= 12:
-        result = " o";
+        result = " 〇";
         break;
       case tired >= 13 && tired <= 14:
         result = " ▲";
@@ -471,7 +471,7 @@ const JocTraining = ({ jockeyData, arrowState }) => {
                 onPress={() => handleButtonPress(1)}
               />
             )}
-            <SaleButton label={"引退"} />
+            <WorkingButton label={`引退`} colorNumber={1} styleId={2} />
           </View>
           {renderScreenBelowButtons()}
           {/* SCREEN SHOW END */}

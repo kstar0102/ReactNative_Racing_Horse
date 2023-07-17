@@ -42,6 +42,7 @@ const RegisterTable = ({
   const [quality, setQuality] = useState();
   const [selected, setSelected] = useState(undefined);
   const [massValue, setMassValue] = useState("");
+  const [msgValue, setMsgValue] = useState("逃げ");
 
   // Quality State
   const [escape, setEscape] = useState([]);
@@ -104,55 +105,48 @@ const RegisterTable = ({
       let updatedDestination = [];
       let updatedAdditional = [];
       let checkButton = 0;
-  
+
       reaceReigsterData.forEach((item, index) => {
         if (item.quality_leg === "逃") {
           updatedEscape.push("flex");
           updatedDestination.push("none");
           updatedDifference.push("none");
           updatedAdditional.push("none");
-      
         } else if (item.quality_leg === "先") {
           updatedDestination.push("flex");
           updatedEscape.push("none");
           updatedDifference.push("none");
           updatedAdditional.push("none");
-
         } else if (item.quality_leg === "差") {
           updatedDifference.push("flex");
           updatedEscape.push("none");
           updatedDestination.push("none");
           updatedAdditional.push("none");
-    
         } else if (item.quality_leg === "追") {
           updatedAdditional.push("flex");
           updatedEscape.push("none");
           updatedDestination.push("none");
           updatedDifference.push("none");
-         
         }
-        if(horseData.id == item.horse_id){
+        if (horseData.id == item.horse_id) {
           checkButton = 1;
-        }else{
+        } else {
           checkButton = 0;
         }
       });
-     
+
       setFreeButton(checkButton);
       setEscape(updatedEscape);
       setDifference(updatedDifference);
       setDestination(updatedDestination);
       setAdditional(updatedAdditional);
-
     } else {
       setEscape(["none"]);
       setDestination(["none"]);
       setDifference(["none"]);
       setAdditional(["none"]);
-     
     }
   }, [reaceReigsterData, horseData]);
-  
 
   const qualityData = [
     { name: "逃" },
@@ -167,17 +161,25 @@ const RegisterTable = ({
   };
   const handleQualityId = (value) => {
     setQuality(value);
+    if (value.name == "逃") {
+      setMsgValue("逃げ");
+    } else if (value.name == "先") {
+      setMsgValue("先行");
+    } else if (value.name == "差") {
+      setMsgValue("差し");
+    } else if (value.name == "追") {
+      setMsgValue("追い");
+    }
   };
-
   const jockey_id = banner == undefined ? jockeysData[0].id : banner.id;
   const jockey_name = banner == undefined ? jockeysData[0].name : banner.name;
   const quality_name =
     quality == undefined ? qualityData[0].name : quality.name;
 
-    // if(horseData.age
-    // }
+  // if(horseData.age
+  // }
 
-  const age = horseData.age.split("")[1]
+  const age = horseData.age.split("")[1];
 
   const handleSendData = () => {
     const sendAllData = {
@@ -197,19 +199,25 @@ const RegisterTable = ({
       last_play: "",
     };
     dispatch(RaceRegisterSaveAction(sendAllData));
+    setQuality(undefined);
   };
 
   const handleClick = (value) => {
     setModalVisible(true);
     setActiveBin(value);
   };
-  const handleBackClick = () =>{
+  const handleBackClick = () => {
     const sendBackData = {
       race_id: raceFieldData.id,
       user_id: userData.id,
-    }
+    };
     dispatch(RaceRegisterBackSaveAction(sendBackData));
-  }
+  };
+
+  const handleCencal = () => {
+    setQuality(undefined);
+    setBanner(undefined);
+  };
 
   const handleAlert = () => {
     Alert.alert(
@@ -220,7 +228,7 @@ const RegisterTable = ({
       [
         {
           text: "いいえ",
-          style: "cancel",
+          onPress: () => handleCencal(),
         },
         {
           text: "はい",
@@ -235,13 +243,11 @@ const RegisterTable = ({
   const handleQualityAlert = () => {
     Alert.alert(
       " ",
-      `${
-        quality == undefined ? qualityData[0].name : quality.name
-      } でよろしいですか?`,
+      `${quality == undefined ? "逃げ" : msgValue} でよろしいですか?`,
       [
         {
           text: "いいえ",
-          style: "cancel",
+          onPress: () => handleCencal(),
         },
         {
           text: "はい",
@@ -260,6 +266,8 @@ const RegisterTable = ({
 
   const handleNoPress = () => {
     setModalVisible(false);
+    setQuality(undefined);
+    setBanner(undefined);
   };
 
   const handleSecondModalSubmit = () => {
@@ -268,6 +276,8 @@ const RegisterTable = ({
   };
   const handleSecondNoModalSubmit = () => {
     setSecondModalVisible(false);
+    setQuality(undefined);
+    setBanner(undefined);
   };
 
   const handleThreeModalSubmit = () => {
@@ -276,6 +286,8 @@ const RegisterTable = ({
   };
   const handleThreeNoModalSubmit = () => {
     setThreeModalVisible(false);
+    setQuality(undefined);
+    setBanner(undefined);
   };
 
   let prices = [];
@@ -290,12 +302,10 @@ const RegisterTable = ({
     jockeyNames.push({ name: item.name, id: item.id });
   });
 
-
-
   return (
     <>
       <ScrollView style={styles.container}>
-        <View style={styles.TableHeader}>
+        <View style={styles.TableHeader}>    
           <Text style={styles.white}>
             {raceFieldData.name} ({raceFieldData.type} ・{" "}
             {raceFieldData.age_limit}・定量)
@@ -317,7 +327,10 @@ const RegisterTable = ({
                 reaceReigsterData.map((item, index) => {
                   return (
                     <View key={index} style={styles.txtBorder}>
-                      <Text style={styles.white}>{item.horse_name} ({item.horse_gender}{item.horse_age})</Text>
+                      <Text style={styles.white}>
+                        {item.horse_name} ({item.horse_gender}
+                        {item.horse_age})
+                      </Text>
                       <Text style={styles.white}>馬主:{item.user_name}</Text>
                     </View>
                   );
@@ -341,7 +354,7 @@ const RegisterTable = ({
                 return (
                   <View key={index} style={styles.txtBorderM}>
                     <Text style={styles.white}>
-                      {item.mass}Kg/ {item.jockey_name}
+                      {item.mass}kg/ {item.jockey_name}
                     </Text>
                     <View style={styles.stateBar}>
                       <View style={styles.statesBorder}>
@@ -352,19 +365,28 @@ const RegisterTable = ({
                       </View>
                       <View style={styles.statesBorder}>
                         <Image
-                          style={[styles.states, { display: destination[index] }]}
+                          style={[
+                            styles.states,
+                            { display: destination[index] },
+                          ]}
                           source={require("../../../assets/images/qIcon.png")}
                         />
                       </View>
                       <View style={styles.statesBorder}>
                         <Image
-                          style={[styles.states, { display: difference[index] }]}
+                          style={[
+                            styles.states,
+                            { display: difference[index] },
+                          ]}
                           source={require("../../../assets/images/qIcon.png")}
                         />
                       </View>
                       <View style={styles.statesBorder}>
                         <Image
-                          style={[styles.states, { display: additional[index] }]}
+                          style={[
+                            styles.states,
+                            { display: additional[index] },
+                          ]}
                           source={require("../../../assets/images/qIcon.png")}
                         />
                       </View>
@@ -374,9 +396,7 @@ const RegisterTable = ({
               })
             ) : (
               <View style={styles.txtBorderM}>
-                <Text style={styles.white}>
-                  Kg/ {"Konya"}
-                </Text>
+                <Text style={styles.white}>kg/ {"Konya"}</Text>
                 <View style={styles.stateBar}>
                   <View style={styles.statesBorder}>
                     {/* <Text style={[styles.states, { display: "flex" }]}> */}

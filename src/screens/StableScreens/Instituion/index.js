@@ -33,9 +33,7 @@ const Institution = ({
     const [banner, setBanner] = useState(0);
 
     const data = institutionData;
-
-    // const bannerLevel = banner == 0 ? institutionData[0].slevel : banner.slevel;
-
+    
     const handleSettingId = (value) => {
       setBanner(value);
 
@@ -107,7 +105,6 @@ const Institution = ({
                       <Text style={StableStyles.cardBodyTxt}>
                         プール Lv.{stallPool == undefined ? "0" : stallPool.level}
                       </Text>
-                      {/* <Text style={StableStyles.cardBodyTxt}>ロンギ場 Lv.{banner.slevel}</Text> */}
                     </View>
                   </View>
                 </View>

@@ -31,6 +31,10 @@ import JocTraining from '../screens/StableScreens/Jockeytraingin/JocTraining';
 import RaceCourse from '../screens/StableScreens/RaceCourse';
 import TrainingReservationScreen from '../screens/StableScreens/Training/TrainingReservationScreen';
 import JockeyReservationScreen from '../screens/StableScreens/Jockeytraingin/JockeyReservationScreen';
+// STALL RACE COURSE SCREEN
+import StableRaceCourse from '../screens/StableScreens/RaceCourse/StableRaceCourse';
+// PASTURE RACE COURSE SCREEN
+import PastureRaceCourseScreen from '../screens/PastureScreens/RacetrackTableScreen/PastureRaceCourseScreen';
 /**
  * RaceCourse Screen
  */
@@ -75,6 +79,8 @@ const AppStack = () => {
       {/* RaceCourse */}
       <ModalStack.Screen name={'RaceCourseScreen'} component={RaceCourseScreen} options={horizontalAnimation}/>
       <ModalStack.Screen name={'CourseTables'} component={CourseTables} options={horizontalAnimation}/>
+      <ModalStack.Screen name={'StableRaceCourse'} component={StableRaceCourse} options={horizontalAnimation}/>
+      <ModalStack.Screen name={'PastureRaceCourseScreen'} component={PastureRaceCourseScreen} options={horizontalAnimation}/>
 
       </ModalStack.Navigator>
     </>

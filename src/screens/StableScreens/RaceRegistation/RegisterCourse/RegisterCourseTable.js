@@ -86,7 +86,6 @@ const RacetrackCourse = ({ nextNextNextRacePlan, nextNextRacePlan, nextRacePlan 
         raceWeekData={nextNextNextRaceWD}
         raceWeekName={nextNextNextRaceWN}
         raceId = {nextNextNextRaceId}
-
       />
     </ScrollView>
   );

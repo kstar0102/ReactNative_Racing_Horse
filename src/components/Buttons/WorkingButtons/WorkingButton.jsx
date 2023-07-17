@@ -30,7 +30,7 @@ const WorkingButton = ({ label, onPress, disabled, colorNumber, styleId }) => {
 		} else {
 			Alert.alert(
 				"引退",
-				"セリに登録して売却しますか?",
+				"セリに登録して引退しますか?",
 				[
 					{
 						text: "いいえ",
@@ -48,8 +48,8 @@ const WorkingButton = ({ label, onPress, disabled, colorNumber, styleId }) => {
 	}
 	const handleInputButton = () => {
 		Alert.alert(
-			"・提示価格",
-			"この価格でセリに登録しますか?",
+			" ",
+			"本当に引退させていいですか?",
 			[
 				{
 					text: "いいえ",

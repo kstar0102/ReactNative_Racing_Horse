@@ -13,6 +13,7 @@ import { SaleButton } from "../../../../components/Buttons";
 import { horseColor } from "../../../../utils/globals";
 
 const ThreeHorseTap = ({ twoData, arrowState }) => {
+  
   const [arrowStates, setArrowState] = useState(arrowState);
   // ALL REPEAT
   const [happySate, setHappyState] = useState(0);
@@ -712,7 +713,6 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
               label={`引退`}
               colorNumber={3}
               styleId={2}
-              onPress={() => handleButtonPress(1)}
             />
           </View>
         </View>

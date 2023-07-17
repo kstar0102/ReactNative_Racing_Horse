@@ -75,7 +75,6 @@ const JockeyReservationScreen = ({
   let horse_ids = [];
   let gameDate = [];
   let food_names = [];
-  let global_usename = [];
   if (reservationData != "") {
     reservationData.forEach((element, index) => {
       horse_ids.push(element.horse_id);

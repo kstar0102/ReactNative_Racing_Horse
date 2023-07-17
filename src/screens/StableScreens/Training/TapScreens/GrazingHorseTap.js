@@ -10,6 +10,10 @@ import WorkingButton from "../../../../components/Buttons/WorkingButtons";
 import { SaleButton } from "../../../../components/Buttons";
 
 const GrazingHorseTap = () => {
+  return(
+    alert("YOUR HORSE NOT FOUND RETURN")
+    // return false;
+  );
   const [selected, setSelected] = useState(undefined);
   const [activeButton, setActiveButton] = useState(0);
   const data = [
@@ -230,7 +234,6 @@ const GrazingHorseTap = () => {
               label={`引退`}
               colorNumber={3}
               styleId={2}
-              onPress={() => handleButtonPress(1)}
             />
           </View>
         </View>

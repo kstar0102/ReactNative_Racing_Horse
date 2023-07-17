@@ -1,13 +1,12 @@
 import React from 'react';
-import { View, ImageBackground } from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
 // Custom IMPORT
 import HeaderScreen from '../../LayoutScreen/HeaderScreen';
 import StableFooterScreen from '../../LayoutScreen/StableFooterScreen';
 import { ReturnButton } from '../../../components/Buttons';
 import Screenstyles from '../../ScreenStylesheet';
-import RaceCourses from './RacetrackTable/RaceCourses';
 
-const RaceCourse = ({ navigation }) => {
+const StableRaceCourse = ({ navigation }) => {
     return (
         <View style={Screenstyles.container}>
             <ImageBackground
@@ -25,7 +24,7 @@ const RaceCourse = ({ navigation }) => {
                         </View>
                     </View>
                     <View style={Screenstyles.UPCourse}>
-                        <RaceCourses/>
+                        <Text>STALL RACE COURSE</Text>
                     </View>
                 </View>
                 <StableFooterScreen/>
@@ -34,4 +33,4 @@ const RaceCourse = ({ navigation }) => {
     );
 };
 
-export default RaceCourse;
+export default StableRaceCourse;

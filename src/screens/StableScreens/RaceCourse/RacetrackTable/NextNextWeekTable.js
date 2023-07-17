@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Table, TableWrapper, Row, Col, Rows } from 'react-native-table-component';
 import { useNavigation } from '@react-navigation/native';
-import TableStyles from '../../StableScreens/RaceCourse/RacetrackTable/TableStyles';
+import TableStyles from './TableStyles';
 
-const RaceWeekTable = ({ nextNextWeekTitle, nextNextWeekData, nextNextWeekName }) => {
+const NextNextWeekTable = ({ nextNextWeekTitle, nextNextWeekData, nextNextWeekName }) => {
   const navigation = useNavigation();
   const elementButton = (nextNextWeekNames) => (
     nextNextWeekNames.map((name, index) => (
@@ -19,7 +19,7 @@ const RaceWeekTable = ({ nextNextWeekTitle, nextNextWeekData, nextNextWeekName }
   );
 
   const handleClick = () => {
-    navigation.navigate('PastureRaceCourseScreen');
+    navigation.navigate('StableRaceCourse');
   };
 
   return (
@@ -51,4 +51,4 @@ const RaceWeekTable = ({ nextNextWeekTitle, nextNextWeekData, nextNextWeekName }
   );
 };
 
-export default RaceWeekTable;
+export default NextNextWeekTable;

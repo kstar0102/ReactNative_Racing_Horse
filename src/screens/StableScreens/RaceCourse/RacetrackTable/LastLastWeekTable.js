@@ -1,13 +1,23 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Table, TableWrapper, Row, Col, Rows } from 'react-native-table-component';
-import { useNavigation } from '@react-navigation/native';
-import TableStyles from '../../StableScreens/RaceCourse/RacetrackTable/TableStyles';
+import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import {
+  Table,
+  TableWrapper,
+  Row,
+  Col,
+  Rows,
+} from "react-native-table-component";
+import { useNavigation } from "@react-navigation/native";
+import TableStyles from "./TableStyles";
 
-const RaceWeekTable = ({ nextNextWeekTitle, nextNextWeekData, nextNextWeekName }) => {
+const LastLastWeekTable = ({
+  threeWeekTitle,
+  threeWeekData,
+  threeWeekName,
+}) => {
   const navigation = useNavigation();
-  const elementButton = (nextNextWeekNames) => (
-    nextNextWeekNames.map((name, index) => (
+  const elementButton = (threeWeekNames) =>
+    threeWeekNames.map((name, index) => (
       <View key={index}>
         <TouchableOpacity onPress={() => handleClick()}>
           <View style={TableStyles.btn}>
@@ -15,18 +25,17 @@ const RaceWeekTable = ({ nextNextWeekTitle, nextNextWeekData, nextNextWeekName }
           </View>
         </TouchableOpacity>
       </View>
-    ))
-  );
+    ));
 
   const handleClick = () => {
-    navigation.navigate('PastureRaceCourseScreen');
+    navigation.navigate("StableRaceCourse");
   };
 
   return (
     <View style={TableStyles.container}>
       <Table borderStyle={{ borderWidth: 1 }}>
         <Row
-          data={nextNextWeekTitle}
+          data={threeWeekTitle}
           flexArr={[]}
           style={TableStyles.tableHead}
           textStyle={TableStyles.textHead}
@@ -34,13 +43,13 @@ const RaceWeekTable = ({ nextNextWeekTitle, nextNextWeekData, nextNextWeekName }
 
         <TableWrapper style={TableStyles.wrapper}>
           <Col
-            data={elementButton(nextNextWeekName)}
+            data={elementButton(threeWeekName)}
             style={TableStyles.title}
             heightArr={[23, 23]}
             textStyle={TableStyles.textCol}
           />
           <Rows
-            data={nextNextWeekData}
+            data={threeWeekData}
             flexArr={[0.3, 0.3, 0.2, 0.4, 0.5]}
             style={TableStyles.row}
             textStyle={TableStyles.text}
@@ -51,4 +60,4 @@ const RaceWeekTable = ({ nextNextWeekTitle, nextNextWeekData, nextNextWeekName }
   );
 };
 
-export default RaceWeekTable;
+export default LastLastWeekTable;

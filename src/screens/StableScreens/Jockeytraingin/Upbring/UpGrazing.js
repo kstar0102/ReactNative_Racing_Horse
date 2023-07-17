@@ -115,11 +115,15 @@ const UpGrazing = ({
                 id={2}
                 disabled={true}
               />
+              <Image
+                style={[RTapScreensStyle.LongiIcon, { display: "flex" }]}
+                source={require("../../../../assets/images/Pasture/icon8.png")}
+              />
               <DetailButton
                 label={"育成する"}
                 jockeyId={jockeyId}
                 name={"スベシャル"}
-                disabled={false}
+                disabled={true}
                 id={11}
               />
             </View>

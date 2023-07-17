@@ -197,6 +197,10 @@ const Screenstyles = StyleSheet.create({
       marginRight: -20
     },
     // HORSE CHOICE STYLE=======================
+    titleFlex:{
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+    },
     ScrollView:{
       height: hp(45),
     },
