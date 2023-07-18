@@ -15,9 +15,7 @@ import HorseNameInput from "../../components/input/HorseNameInput";
 import { horseColor } from "../../utils/globals";
 
 let horseNames = [];
-let inputCount;
 let inputIds = [];
-let displayStyls = [];
 
 const HorseNameScreen = ({
   navigation,
@@ -31,19 +29,45 @@ const HorseNameScreen = ({
   const dispatch = useDispatch();
   const [horseName, setHorseName] = useState("");
   const [inputId, setInputId] = useState("");
-  const [genderColor, setGenderColor] = useState("");
   const [displayStyle, setDisplayStyle] = useState([]);
   const [valiHorseName, setValiHorseName] = useState([]);
   const [illegalHorseName, setIllegalHorseName] = useState([]);
   const [illegalStyleHorseName, setIllegalStyleHorseName] = useState([]);
   const [successHorseName, setSuccessHorseName] = useState([]);
+  const [breedingGender, setBreedingGender] = useState([]);
+  const [breedingAge, setBreedingAge] = useState([]);
+  const [breedingColor, setBreedingColor] = useState([]);
+  const [breedData, setBreedData] = useState("");
   const pattern =
     /[\d\s!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]|[a-zA-Z]|[^\u30A0-\u30FF\uFF66-\uFF9F]+$/;
 
+    
   useEffect(() => {
-    if (horseCheckData) {
-      inputCount = horseCheckData.length;
-    }
+    const minAge = 5;
+    const maxAge = 10;
+    
+    // Generate the random array of horse ages
+    const horseAges = Array.from({length: horseCheckData.length}, () => {
+      return Math.floor(Math.random() * (maxAge - minAge + 1)) + minAge;
+    });
+
+    let breedingHorses = [];
+    let breedGender = [];
+    let breedAge = [];
+    let breedColor = [];
+    horseCheckData.map((data, index)=>{
+      if(data.age == "・繁殖馬"){
+        breedingHorses[index] = (data)
+        breedGender[index] = ("牝");
+        breedAge[index] = (horseAges[index]);
+        breedColor[index] = ("red");
+      }
+    })
+    
+    setBreedingGender(breedGender);
+    setBreedingColor(breedColor);
+    setBreedingAge(breedAge);
+    setBreedData(breedingHorses);
   }, [horseCheckData]);
 
   // HORSE VALIDATION USE EFFECT
@@ -203,13 +227,13 @@ const HorseNameScreen = ({
                                 <Text
                                   style={{
                                     color:
-                                      item.gender === "牝" ? "red" : "blue",
+                                    item.age == "・繁殖馬" ? breedingColor[index] : item.gender === "牝" ? "red" : "blue",
                                       fontSize: 15
                                   }}
                                 >
-                                  {item.gender}
+                                  {item.age == "・繁殖馬" ? breedingGender[index] : item.gender}
                                 </Text>
-                                <Text style={{fontSize: 15}}> {item.age.split("")[1]}</Text>
+                                <Text style={{fontSize: 15}}> {item.age == "・繁殖馬" ? breedingAge[index] : item.age.split("")[1]}</Text>
                               </View>
                               <Image
                                 style={Screenstyles.HCImage}
