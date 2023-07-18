@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  ImageBackground,
-  Text,
-  Image,
-  ScrollView,
-  Alert,
-} from "react-native";
+import { View, ImageBackground, Text, Image, ScrollView } from "react-native";
 
 // Redux
 import { connect, useDispatch } from "react-redux";
 import { horseAction } from "../../store/actions/horse/horseAction";
+import { horseNameValiAction } from "../../store/actions/horse/horseNameValiAction";
+import { horseNameIllegalAction } from "../../store/actions/horse/horseNameIllegalAction";
 // Custom Import
 import NRHeaderScreen from "../LayoutScreen/NRHeaderScreen";
 import Screenstyles from "../ScreenStylesheet";
@@ -30,19 +25,80 @@ const HorseNameScreen = ({
   user_id,
   pasture_id,
   saveData,
+  horseValidationName,
+  horseIllegalName,
 }) => {
   const dispatch = useDispatch();
   const [horseName, setHorseName] = useState("");
   const [inputId, setInputId] = useState("");
   const [genderColor, setGenderColor] = useState("");
-  const [displayStyle, setDisplayStyle] = useState("none");
-  const pattern = /[0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]|[\uD800-\uDFFF]/;
+  const [displayStyle, setDisplayStyle] = useState([]);
+  const [valiHorseName, setValiHorseName] = useState([]);
+  const [illegalHorseName, setIllegalHorseName] = useState([]);
+  const [illegalStyleHorseName, setIllegalStyleHorseName] = useState([]);
+  const [successHorseName, setSuccessHorseName] = useState([]);
+  const pattern =
+    /[\d\s!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]|[a-zA-Z]|[^\u30A0-\u30FF\uFF66-\uFF9F]+$/;
 
   useEffect(() => {
     if (horseCheckData) {
       inputCount = horseCheckData.length;
     }
   }, [horseCheckData]);
+
+  // HORSE VALIDATION USE EFFECT
+  useEffect(() => {
+    setValiHorseName([]);
+    let horseValiStyle = [];
+    let illegalHorseNames = [];
+    // START VALUE
+    for (let index = 0; index < horseCheckData.length; index++) {
+      const element = horseCheckData[index];
+      if (element !== undefined && element !== "") {
+        horseValiStyle[index] = "none";
+      }
+    }
+    //==========yyy
+    for (let index = 0; index < horseValidationName.length; index++) {
+      const item = horseValidationName[index];
+      if (item === "success") {
+        illegalHorseNames.push(item);
+        horseValiStyle[index] = "none";
+      } else {
+        horseValiStyle[index] = "flex";
+      }
+    }
+
+    setValiHorseName(horseValiStyle);
+    setIllegalHorseName(illegalHorseNames);
+  }, [horseValidationName, horseCheckData]);
+
+  // ILLEGAL STYLE USEEFFECT
+  useEffect(() => {
+    setIllegalStyleHorseName([]);
+    let horseIllegalStyle = [];
+    let successDispacharray = [];
+    for (let index = 0; index < horseCheckData.length; index++) {
+      const element = horseCheckData[index];
+      if (element !== undefined && element !== "") {
+        horseIllegalStyle[index] = "none";
+      }
+    }
+
+    //==========xxx
+    for (let index = 0; index < horseIllegalName.length; index++) {
+      const item = horseIllegalName[index];
+      if (item === "success") {
+        horseIllegalStyle[index] = "none";
+        successDispacharray.push(item);
+      } else {
+        horseIllegalStyle[index] = "flex";
+      }
+    }
+    setIllegalStyleHorseName(horseIllegalStyle);
+    setSuccessHorseName(successDispacharray);
+  }, [horseIllegalName, horseCheckData]);
+
 
   const handleInputChange = (value, id) => {
     setHorseName(value);
@@ -59,34 +115,43 @@ const HorseNameScreen = ({
         return false;
       }
     }
-    if (!pattern.test(horseName)) {
-      horseNames.push(horseName);
-      inputIds.push(inputId);
-    } else {
-      Alert.alert(
-        "「エラー」",
-        "「入力はカタカナでなければなりません。」",
-        [
-          { 
-            text: "はい",
-            onPress:() =>  handleHorseName()
-          }
-        ],
-        { cancelable: false }
-      );
-    }
+    horseNames.push(horseName);
+    inputIds.push(inputId);
   };
 
-  const handleHorseName = () => {
-    setHorseName('');
-    setInputId('');
-  }
-
   const handleSubmit = () => {
-    if (horseNames.length !== inputCount) {
-      alert("Input Value is not Found");
-      return false;
-    } else {
+    setDisplayStyle([]);
+    let updatedvaliname = [];
+    let valiHorseNames = [];
+    // ===============HORSE NAMES VALIDATION KATAKANA
+    horseNames.map((item, index) => {
+      if (!pattern.test(item)) {
+        valiHorseNames.push(item);
+        updatedvaliname.push("none");
+      } else {
+        updatedvaliname.push("flex");
+      }
+    });
+    setDisplayStyle(updatedvaliname);
+
+    //===================SAME AS NAME -> VALIDATION 
+    if (horseNames.length == valiHorseNames.length) {
+      const sendName = {
+        name: valiHorseNames,
+      };
+      dispatch(horseNameValiAction(sendName));
+    }
+
+    //==================ILLEGAHORSENAME NO -> ILLEGAL
+    if (illegalHorseName.length == horseNames.length) {
+      const sendillegalName = {
+        name: valiHorseNames,
+      };
+      dispatch(horseNameIllegalAction(sendillegalName));
+    }
+
+    // ====================ALL SUCCESS -> DISPATCH
+    if (successHorseName.length == horseCheckData.length) {
       const CheckData = {
         name: horseNames,
         data: horseCheckData,
@@ -135,15 +200,16 @@ const HorseNameScreen = ({
                           return (
                             <View key={`${item.id}${index}`}>
                               <View style={Screenstyles.titleFlex}>
-                                <Text>{item.age}</Text>
                                 <Text
                                   style={{
                                     color:
                                       item.gender === "牝" ? "red" : "blue",
+                                      fontSize: 15
                                   }}
                                 >
                                   {item.gender}
                                 </Text>
+                                <Text style={{fontSize: 15}}> {item.age.split("")[1]}</Text>
                               </View>
                               <Image
                                 style={Screenstyles.HCImage}
@@ -178,11 +244,36 @@ const HorseNameScreen = ({
                       />
                     </View>
                     <Text
-                      style={[Screenstyles.caution, { display: displayStyle }]}
+                      style={[
+                        Screenstyles.caution,
+                        { display: displayStyle[index] },
+                      ]}
+                    >
+                      {displayStyle[index] == "flex"
+                        ? `日本語のカタカナを入力する必要があります`
+                        : "名前を入力してください。"}{" "}
+                    </Text>
+
+                    <Text
+                      style={[
+                        Screenstyles.caution,
+                        { display: valiHorseName[index] },
+                      ]}
                     >
                       ※すでにその名前は
                       <Text style={Screenstyles.NRSpanT}>使用されています</Text>
                       。
+                    </Text>
+
+                    <Text
+                      style={[
+                        Screenstyles.caution,
+                        { display: illegalStyleHorseName[index] },
+                      ]}
+                    >
+                      <Text style={Screenstyles.NRSpanT}>
+                        違法な単語は入力できません。
+                      </Text>
                     </Text>
                   </View>
                 </View>
@@ -204,6 +295,8 @@ const mapStateToProps = (state) => {
     user_id: state.user.userData.id,
     pasture_id: state.pasture.pastureData.id,
     saveData: state.horseData.saveData,
+    horseValidationName: state.horseNameValid.horseNameValid,
+    horseIllegalName: state.horseNameValid.horseNameIllegal,
   };
 };
 

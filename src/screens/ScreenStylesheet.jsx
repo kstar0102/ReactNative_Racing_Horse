@@ -199,7 +199,7 @@ const Screenstyles = StyleSheet.create({
     // HORSE CHOICE STYLE=======================
     titleFlex:{
       flexDirection: 'row',
-      justifyContent: 'space-between'
+      // justifyContent: 'space-between'
     },
     ScrollView:{
       height: hp(45),
