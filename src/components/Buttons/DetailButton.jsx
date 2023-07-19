@@ -421,7 +421,7 @@ const DetailButton = ({
             />
           </View>
         }
-        contentStyle={{ backgroundColor: "rgba(0,0,0,0)", bottom: 90 }}
+        contentStyle={{ backgroundColor: "rgba(0,0,0,0)", bottom: 90, height: "100%" }}
         //(Must) This is the view displayed in the tooltip
         placement="bottom"
         //(Must) top, bottom, left, right, auto.
