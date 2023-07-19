@@ -8,7 +8,7 @@ const HorseTable = ({name, price}) => {
   const CONTENT = {
     initialState: ['成長', '馬場', '距離'],
     initialValue: ['?', '?', '?'],
-    name: name+"の仔",
+    name: name,
     price:[price+"pt"],
     ability: [
       ['SP', 'ST', '瞬発', '根性', '気性', '健康'],
@@ -17,7 +17,7 @@ const HorseTable = ({name, price}) => {
       ['?', '?', '?', '?', '?', '?'],
     ],
   };
-  const convertedData = convertToHalf(CONTENT.name);
+  const convertedData = convertToHalf(CONTENT.name)+"の仔";
   return (
     <View style={styles.container}>
       <Table borderStyle={{ borderWidth: 1 }}>
