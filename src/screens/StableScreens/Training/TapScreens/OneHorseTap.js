@@ -337,7 +337,6 @@ const OneHorseTap = ({ oneData, arrowState }) => {
   // Health State
   const setPattern = (condition) => {
     // Disable Injery
-    return;
     let options;
     if (condition <= 10) {
       return false;
@@ -445,9 +444,9 @@ const OneHorseTap = ({ oneData, arrowState }) => {
   const renderScreenBelowButtons = () => {
     switch (activeButton) {
       case 1:
-        return <FGroup horseId={banner.id} />;
+        return <FGroup horseId={banner.id}/>;
       default:
-        return <GGroup horseId={banner.id} />;
+        return <GGroup horseId={banner.id} horseAge={banner.age.split("")[1]} horseGrow={banner.growth} />;
     }
   };
 

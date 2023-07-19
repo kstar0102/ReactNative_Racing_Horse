@@ -28,6 +28,7 @@ export function stallLevelUpAction(stallData) {
       headers:{Authorization: token}
     })
     .then(res => {
+     
       if(!res.data.message){
         dispatch(stallUpData(res.data.data));
         dispatch(userData(res.data.user[0]));

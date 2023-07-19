@@ -342,7 +342,6 @@ const ScreenTwo = ({ twoData, arrowState }) => {
   // Health State
   const setPattern = (condition) => {
     // Disable Injery
-    return;
     let options;
     if (condition <= 10) {
       return false;
@@ -450,14 +449,15 @@ const ScreenTwo = ({ twoData, arrowState }) => {
     setActiveButton(id);
   };
 
+
   const renderScreenBelowButtons = () => {
     switch (activeButton) {
       case 1:
         return <AvatarTapScreen horseId={banner.id} />;
       case 2:
-        return <FodderGroup horseId={banner.id} />;
+        return <FodderGroup horseId={banner.id}/>;
       default:
-        return <GrazingGroup horseId={banner.id} />;
+        return <GrazingGroup horseId={banner.id} horseAge={banner.age.split("")[1]} horseGrow={banner.growth} />;
     }
   }
 
@@ -589,7 +589,7 @@ const ScreenTwo = ({ twoData, arrowState }) => {
             {activeButton ?
               <WorkingButton label={'育成'} colorNumber={2} styleId={2} onPress={(() => handleButtonPress(0))} />
               :
-              <WorkingButton label={'休憩'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(1))} />
+              <WorkingButton label={'休憩'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(2))} />
             }
             <WorkingButton label={'入廐'} colorNumber={2} styleId={1} onPress={(handlePress)} />
             <SaleButton label={'売却'} />

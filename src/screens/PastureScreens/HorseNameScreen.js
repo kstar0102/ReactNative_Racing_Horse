@@ -41,33 +41,35 @@ const HorseNameScreen = ({
   const pattern =
     /[\d\s!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]|[a-zA-Z]|[^\u30A0-\u30FF\uFF66-\uFF9F]+$/;
 
-    
   useEffect(() => {
     const minAge = 5;
     const maxAge = 10;
-    
-    // Generate the random array of horse ages
-    const horseAges = Array.from({length: horseCheckData.length}, () => {
-      return Math.floor(Math.random() * (maxAge - minAge + 1)) + minAge;
-    });
 
-    let breedingHorses = [];
-    let breedGender = [];
-    let breedAge = [];
-    let breedColor = [];
-    horseCheckData.map((data, index)=>{
-      if(data.age == "・繁殖馬"){
-        breedingHorses[index] = (data)
-        breedGender[index] = ("牝");
-        breedAge[index] = (horseAges[index]);
-        breedColor[index] = ("red");
-      }
-    })
-    
-    setBreedingGender(breedGender);
-    setBreedingColor(breedColor);
-    setBreedingAge(breedAge);
-    setBreedData(breedingHorses);
+    if (horseCheckData) {
+      // Generate the random array of horse ages
+      const horseAges = Array.from({ length: horseCheckData.length }, () => {
+        return Math.floor(Math.random() * (maxAge - minAge + 1)) + minAge;
+      });
+
+      const breedingHorses = [];
+      let breedGender;
+      const breedAge = [];
+      let breedColor;
+
+      horseCheckData.forEach((data, index) => {
+        if (data.age === "・繁殖馬") {
+          breedingHorses[index] = data;
+          breedGender = "牝";
+          breedAge[index] = horseAges[index];
+          breedColor = "red";
+        }
+      });
+
+      setBreedingGender(breedGender);
+      setBreedingColor(breedColor);
+      setBreedingAge(breedAge);
+      setBreedData(breedingHorses);
+    }
   }, [horseCheckData]);
 
   // HORSE VALIDATION USE EFFECT
@@ -123,7 +125,6 @@ const HorseNameScreen = ({
     setSuccessHorseName(successDispacharray);
   }, [horseIllegalName, horseCheckData]);
 
-
   const handleInputChange = (value, id) => {
     setHorseName(value);
     setInputId(id);
@@ -145,37 +146,28 @@ const HorseNameScreen = ({
 
   const handleSubmit = () => {
     setDisplayStyle([]);
-    let updatedvaliname = [];
-    let valiHorseNames = [];
+
+    const updatedHorseNames = [];
+    const valiHorseNames = [];
+
     // ===============HORSE NAMES VALIDATION KATAKANA
-    horseNames.map((item, index) => {
+    horseNames.forEach((item, index) => {
       if (!pattern.test(item)) {
         valiHorseNames.push(item);
-        updatedvaliname.push("none");
+        updatedHorseNames.push("none");
       } else {
-        updatedvaliname.push("flex");
+        updatedHorseNames.push("flex");
       }
     });
-    setDisplayStyle(updatedvaliname);
 
-    //===================SAME AS NAME -> VALIDATION 
-    if (horseNames.length == valiHorseNames.length) {
-      const sendName = {
-        name: valiHorseNames,
-      };
-      dispatch(horseNameValiAction(sendName));
-    }
+    setDisplayStyle(updatedHorseNames);
 
-    //==================ILLEGAHORSENAME NO -> ILLEGAL
-    if (illegalHorseName.length == horseNames.length) {
-      const sendillegalName = {
-        name: valiHorseNames,
-      };
-      dispatch(horseNameIllegalAction(sendillegalName));
-    }
-
-    // ====================ALL SUCCESS -> DISPATCH
-    if (successHorseName.length == horseCheckData.length) {
+    if (
+      !updatedHorseNames.includes("flex") &&
+      horseNames.length === valiHorseNames.length &&
+      illegalHorseName.length === horseNames.length &&
+      successHorseName.length === horseCheckData.length
+    ) {
       const CheckData = {
         name: horseNames,
         data: horseCheckData,
@@ -183,14 +175,28 @@ const HorseNameScreen = ({
         pasture_id: pasture_id,
       };
       dispatch(horseAction(CheckData));
+
+      navigation.navigate("PastureScreen");
+    } else {
+      //===================SAME AS NAME -> VALIDATION
+      if (horseNames.length === valiHorseNames.length) {
+        const sendName = {
+          name: valiHorseNames,
+        };
+        dispatch(horseNameValiAction(sendName));
+        console.log("one");
+      }
+
+      //==================ILLEGAL HORSENAME NO -> ILLEGAL
+      if (illegalHorseName.length === horseNames.length) {
+        const sendillegalName = {
+          name: valiHorseNames,
+        };
+        dispatch(horseNameIllegalAction(sendillegalName));
+        console.log("two");
+      }
     }
   };
-
-  useEffect(() => {
-    if (saveData != "") {
-      navigation.navigate("PastureScreen");
-    }
-  }, [saveData]);
 
   return (
     <View style={Screenstyles.container}>
@@ -214,9 +220,9 @@ const HorseNameScreen = ({
             </Text>
           </View>
           <ScrollView style={Screenstyles.ScrollView}>
-            {horseCheckData.map((item, index) => {
+            {horseCheckData.map((item, i) => {
               return (
-                <View key={index} style={Screenstyles.horseNameCard}>
+                <View key={i} style={Screenstyles.horseNameCard}>
                   <View style={Screenstyles.horseCardContent}>
                     <View style={Screenstyles.horseCardLeft}>
                       {horseColor.map((colorName, index) => {
@@ -227,13 +233,24 @@ const HorseNameScreen = ({
                                 <Text
                                   style={{
                                     color:
-                                    item.age == "・繁殖馬" ? breedingColor[index] : item.gender === "牝" ? "red" : "blue",
-                                      fontSize: 15
+                                      item.age == "・繁殖馬"
+                                        ? breedingColor
+                                        : item.gender === "牝"
+                                        ? "red"
+                                        : "blue",
+                                    fontSize: 15,
                                   }}
                                 >
-                                  {item.age == "・繁殖馬" ? breedingGender[index] : item.gender}
+                                  {item.age == "・繁殖馬"
+                                    ? breedingGender
+                                    : item.gender}
                                 </Text>
-                                <Text style={{fontSize: 15}}> {item.age == "・繁殖馬" ? breedingAge[index] : item.age.split("")[1]}</Text>
+                                <Text style={{ fontSize: 15 }}>
+                                  {" "}
+                                  {item.age == "・繁殖馬"
+                                    ? breedingAge[i]
+                                    : item.age.split("")[1]}
+                                </Text>
                               </View>
                               <Image
                                 style={Screenstyles.HCImage}
@@ -270,10 +287,10 @@ const HorseNameScreen = ({
                     <Text
                       style={[
                         Screenstyles.caution,
-                        { display: displayStyle[index] },
+                        { display: displayStyle[i] },
                       ]}
                     >
-                      {displayStyle[index] == "flex"
+                      {displayStyle[i] == "flex"
                         ? `日本語のカタカナを入力する必要があります`
                         : "名前を入力してください。"}{" "}
                     </Text>
@@ -281,7 +298,7 @@ const HorseNameScreen = ({
                     <Text
                       style={[
                         Screenstyles.caution,
-                        { display: valiHorseName[index] },
+                        { display: valiHorseName[i] },
                       ]}
                     >
                       ※すでにその名前は
@@ -292,7 +309,7 @@ const HorseNameScreen = ({
                     <Text
                       style={[
                         Screenstyles.caution,
-                        { display: illegalStyleHorseName[index] },
+                        { display: illegalStyleHorseName[i] },
                       ]}
                     >
                       <Text style={Screenstyles.NRSpanT}>

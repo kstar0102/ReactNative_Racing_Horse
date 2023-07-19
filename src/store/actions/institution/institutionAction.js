@@ -44,6 +44,7 @@ export function institutionAction(institutionData) {
                 headers: { Authorization: token }
             })
             .then(res => {
+
                 dispatch(poolData(res.data.pool));
                 dispatch(longiFieldData(res.data.ranch));
                 dispatch(roadData(res.data.slope));

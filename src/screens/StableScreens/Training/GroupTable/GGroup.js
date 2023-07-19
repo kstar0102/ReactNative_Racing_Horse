@@ -11,7 +11,16 @@ import { ImageButton } from "../../../../components/Buttons";
 import DetailButton from "../../../../components/Buttons/DetailButton";
 import RTapScreensStyle from "../../../PastureScreens/RanchTapScreens/RTapScreensStyle";
 
-const GGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id, user_id }) => {
+const GGroup = ({
+  horseId,
+  poolLevel,
+  truckLevel,
+  roadLevel,
+  pasture_id,
+  user_id,
+  horseAge,
+  horseGrow,
+}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   // POOL STATE
@@ -30,7 +39,6 @@ const GGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id, user_id
 
   const gameAllDate = calculateGameDate(currentTime);
   const gameData = gameAllDate.toISOString().split("T")[0];
-
   const goToOtherScreen = () => {
     navigation.replace("TrainingReservationScreen");
     const sandReservationData = {
@@ -39,7 +47,7 @@ const GGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id, user_id
     };
     const sendUserId = {
       user_id: user_id,
-      place: "stall"
+      place: "stall",
     };
     dispatch(reservationStallValiAction(sandReservationData));
     dispatch(preeStallShowAction(sendUserId));
@@ -118,6 +126,8 @@ const GGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id, user_id
               <DetailButton
                 label={"育成する"}
                 horseId={horseId}
+                horseAge={horseAge}
+                horseGrow={horseGrow}
                 name={"スベシャル"}
                 disabled={spaceialDisabled}
                 id={11}
@@ -135,6 +145,8 @@ const GGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id, user_id
               <DetailButton
                 label={"育成する"}
                 horseId={horseId}
+                horseAge={horseAge}
+                horseGrow={horseGrow}
                 name={"放牧"}
               />
             </View>
@@ -149,7 +161,13 @@ const GGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id, user_id
                 source={require("../../../../assets/images/Pasture/icon3.png")}
                 id={4}
               />
-              <DetailButton label={"育成する"} horseId={horseId} name={"芝"} />
+              <DetailButton
+                label={"育成する"}
+                horseId={horseId}
+                horseAge={horseAge}
+                horseGrow={horseGrow}
+                name={"芝"}
+              />
             </View>
             <View>
               <View style={RTapScreensStyle.absoluteView}>
@@ -163,6 +181,8 @@ const GGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id, user_id
               <DetailButton
                 label={"育成する"}
                 horseId={horseId}
+                 horseAge={horseAge}
+                horseGrow={horseGrow}
                 name={"ダート"}
               />
             </View>
@@ -178,6 +198,8 @@ const GGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id, user_id
               <DetailButton
                 label={"育成する"}
                 horseId={horseId}
+                 horseAge={horseAge}
+                horseGrow={horseGrow}
                 name={"ウッドチップ"}
               />
             </View>
@@ -200,6 +222,8 @@ const GGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id, user_id
                 label={"育成する"}
                 disabled={poolDisabled}
                 horseId={horseId}
+                 horseAge={horseAge}
+                horseGrow={horseGrow}
                 name={"プール"}
               />
             </View>
@@ -221,6 +245,8 @@ const GGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id, user_id
                 label={"育成する"}
                 disabled={truckDisabled}
                 horseId={horseId}
+                 horseAge={horseAge}
+                horseGrow={horseGrow}
                 name={"併走"}
               />
             </View>
@@ -242,6 +268,8 @@ const GGroup = ({ horseId, poolLevel, truckLevel, roadLevel, pasture_id, user_id
                 label={"育成する"}
                 disabled={roadDisabled}
                 horseId={horseId}
+                 horseAge={horseAge}
+                horseGrow={horseGrow}
                 name={"坂路"}
               />
             </View>

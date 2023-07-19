@@ -291,11 +291,13 @@ const RegisterTable = ({
   };
 
   let prices = [];
+
   {
     prizeData.map((data, index) => {
       prices.push(data.money);
     });
   }
+  let slicePrices = (prices.slice(0, 5));
 
   let jockeyNames = [];
   jockeysData.map((item, index) => {
@@ -305,7 +307,7 @@ const RegisterTable = ({
   return (
     <>
       <ScrollView style={styles.container}>
-        <View style={styles.TableHeader}>    
+        <View style={styles.TableHeader}>
           <Text style={styles.white}>
             {raceFieldData.name} ({raceFieldData.type} ・{" "}
             {raceFieldData.age_limit}・定量)
@@ -314,7 +316,7 @@ const RegisterTable = ({
             {raceFieldData.place} ・ {raceFieldData.ground}
             {raceFieldData.distance} ・天気予報 ({raceFieldData.weather})
           </Text>
-          <Text style={styles.white}>賞金(pt):{prices.join("・")}</Text>
+          <Text style={styles.white}>賞金(pt):{slicePrices.join("・")}</Text>
         </View>
         <View style={styles.TableBody}>
           {/* ! */}

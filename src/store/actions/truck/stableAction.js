@@ -17,7 +17,6 @@ export const userData = (user) => {
 };
 
 export function stableAction(stableData) {
-    
     return async (dispatch, getState) => {
         const token = getState().tokenData.tokenData;
 

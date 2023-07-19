@@ -450,9 +450,10 @@ const ReservationScreen = ({
           order: food_pree_order,
           food_type: food_pree_type,
           place: "pasture",
+          stall_id: "stall",
           game_date: gameData,
         };
-        dispatch(reservationAction(sandReserve));
+        dispatch(reservationAction("===="));
         dispatch(reservationValiAction(sandReserve));
         setAllData([]);
       } else {
@@ -469,8 +470,9 @@ const ReservationScreen = ({
           order: food_order,
           food_type: food_type,
           place: "pasture",
+          stall_id: "stall",
           game_date: gameData,
-        };
+        };  
         dispatch(reservationAction(sandReserve));
         dispatch(reservationValiAction(sandReserve));
         setAllData([]);
@@ -484,6 +486,7 @@ const ReservationScreen = ({
           order: food_set_order,
           food_type: food_set_type,
           place: "pasture",
+          stall_id: "stall",
           game_date: gameData,
         };
         dispatch(reservationAction(sandReserve));
@@ -729,7 +732,7 @@ const ReservationScreen = ({
                 />
               </View>
               <PresetRegistrationButton
-                place={'pasture'}
+                place={"pasture"}
                 allData={allData}
                 preeAllData={preeAllData}
                 label={"プリセット登録"}
@@ -761,24 +764,24 @@ const ReservationScreen = ({
               <View style={Screenstyles.reserveRightList}>
                 <ScrollView style={Screenstyles.reserveList}>
                   {isValue
-                    ? preeAllData.map((item, index) => (
+                    ? preeAllData.slice(0, 50).map((item, index) => (
                         <Text key={index} style={Screenstyles.reserveListtxt}>
                           {index + 1}. {item.name}
                         </Text>
                       ))
-                    : allData == "" 
-                    ? preeSetAllData.map((item, index) => (
+                    : allData == ""
+                    ? preeSetAllData.slice(0, 50).map((item, index) => (
                         <Text key={index} style={Screenstyles.reserveListtxt}>
                           {index + 1}. {item.food_name}
                         </Text>
                       ))
                     : preeSetAllData == "" || allData
-                    ? allData.map((item, index) => (
+                    ? allData.slice(0, 50).map((item, index) => (
                         <Text key={index} style={Screenstyles.reserveListtxt}>
                           {index + 1}. {item.name}
                         </Text>
                       ))
-                    : preeSetAllData.map((item, index) => (
+                    : preeSetAllData.slice(0, 50).map((item, index) => (
                         <Text key={index} style={Screenstyles.reserveListtxt}>
                           {index + 1}. {item.food_name}
                         </Text>
@@ -793,7 +796,7 @@ const ReservationScreen = ({
                         ? food_order[0]
                         : food_set_order[0]
                     }
-                    order={order}
+                    order={order.slice(0, 50)}
                     onSelect={setSelectedDelete}
                     setId={handleDeleteId}
                   />

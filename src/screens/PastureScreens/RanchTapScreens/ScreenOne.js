@@ -336,7 +336,6 @@ const ScreenOne = ({ oneData, arrowState }) => {
   // Health State
   const setPattern = (condition) => {
     // Disable Injery
-    return;
     let options;
     if (condition <= 10) {
       return false;
@@ -444,9 +443,9 @@ const ScreenOne = ({ oneData, arrowState }) => {
   const renderScreenBelowButtons = () => {
     switch (activeButton) {
       case 1:
-        return <FodderGroup horseId={banner.id} />;
+        return <FodderGroup horseId={banner.id}/>;
       default:
-        return <GrazingGroup horseId={banner.id} />;
+        return <GrazingGroup horseId={banner.id}  horseAge={banner.age.split("")[1]} horseGrow={banner.growth}/>;
     }
   };
 

@@ -27,7 +27,14 @@ const StallTap = ({ user_id, user_level, banner, institutionData}) => {
   const [threeBtnStyle, setThreeBtnStyle] = useState("none");
 
   const bannerId = banner == 0 ? institutionData[0].sid : banner.sid;
-  const bannerLevel = banner == 0 ? institutionData[0].slevel : banner.slevel;
+  const bannerLevel = banner == 0 ?  institutionData[0].slevel : banner.slevel;
+ 
+  let isLevel;
+  if(banner){
+    isLevel = banner.slevel
+  }else if(institutionData[0].slevel){
+    isLevel = institutionData[0].slevel
+  };
 
   useEffect(() => {
     if (institutionData != "") {
@@ -88,7 +95,7 @@ const StallTap = ({ user_id, user_level, banner, institutionData}) => {
     }
   }, [institutionData, bannerLevel]);
 
-  const handleSubmit = (level, price) => {
+  const handleSubmit = (level, price, effect) => {
     let stallData = {};
     if (banner != "") {
       if (banner.sid) {
@@ -110,8 +117,8 @@ const StallTap = ({ user_id, user_level, banner, institutionData}) => {
       };
     }
     Alert.alert(
-      " ",
       `牧場 (Lv.${level})は、${price}ptですが購入しますか?`,
+      `[効果] 他の施設を ${effect}つ建設可能`,
       [
         {
           text: "いいえ",
@@ -179,7 +186,7 @@ const StallTap = ({ user_id, user_level, banner, institutionData}) => {
           </Text>
           <BuyTapButton
             label={"購入する"}
-            onPress={() => handleSubmit(2, 2000)}
+            onPress={() => handleSubmit(2, 2000, 2)}
             display={twoBtnStyle}
           />
           <Image
@@ -211,7 +218,7 @@ const StallTap = ({ user_id, user_level, banner, institutionData}) => {
           </Text>
           <BuyTapButton
             label={"購入する"}
-            onPress={() => handleSubmit(3, 5000)}
+            onPress={() => handleSubmit(3, 5000, 4)}
             display={threeBtnStyle}
           />
           <Image

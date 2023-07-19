@@ -18,8 +18,11 @@ const DetailButton = ({
   id,
   name,
   horseId,
+  horseAge,
+  horseGrow,
   user_id,
   jockeyId,
+  flag,
 }) => {
   const dispatch = useDispatch();
   const [toolTipVisible, setToolTipVisible] = useState(false);
@@ -38,6 +41,8 @@ const DetailButton = ({
       const ptValue = value;
       const upSend = {
         horse_id: horseId,
+        age: horseAge,
+        grow: horseGrow,
         pt: ptValue,
         what: name,
         user_id: user_id,
@@ -56,7 +61,7 @@ const DetailButton = ({
         what: name,
         user_id: user_id,
       };
-	  dispatch(JockeyFoodAction(upFoodJockeySend));
+      dispatch(JockeyFoodAction(upFoodJockeySend));
     } else {
       const upFoodSend = {
         horse_id: horseId,
@@ -86,7 +91,7 @@ const DetailButton = ({
             <ModalButton
               count={"1pt"}
               id={id}
-              onPress={() => handleFoodSubmit(1, "jockey")}
+              onPress={() => handleFoodSubmit(1, flag)}
             />
           </View>
         }
@@ -124,7 +129,7 @@ const DetailButton = ({
             <ModalButton
               count={"3pt"}
               id={id}
-              onPress={() => handleFoodSubmit(3, "jockey")}
+              onPress={() => handleFoodSubmit(3, flag)}
             />
           </View>
         }
@@ -162,7 +167,7 @@ const DetailButton = ({
             <ModalButton
               count={"5pt"}
               id={id}
-              onPress={() => handleFoodSubmit(5, "jockey")}
+              onPress={() => handleFoodSubmit(5, flag)}
             />
           </View>
         }
@@ -200,7 +205,7 @@ const DetailButton = ({
             <ModalButton
               count={"2pt"}
               id={id}
-              onPress={() => handleFoodSubmit(2, "jockey")}
+              onPress={() => handleFoodSubmit(2, flag)}
             />
           </View>
         }
@@ -238,7 +243,7 @@ const DetailButton = ({
             <ModalButton
               count={"4pt"}
               id={id}
-              onPress={() => handleFoodSubmit(4, "jockey")}
+              onPress={() => handleFoodSubmit(4, flag)}
             />
           </View>
         }
@@ -276,7 +281,7 @@ const DetailButton = ({
             <ModalButton
               count={"6pt"}
               id={id}
-              onPress={() => handleFoodSubmit(6, "jockey")}
+              onPress={() => handleFoodSubmit(6, flag)}
             />
           </View>
         }
@@ -314,7 +319,7 @@ const DetailButton = ({
             <ModalButton
               count={"100pt"}
               id={id}
-              onPress={() => handleSubmit(100, "jockey")}
+              onPress={() => handleSubmit(100, flag)}
             />
           </View>
         }
@@ -353,17 +358,17 @@ const DetailButton = ({
             <ModalButton
               label={"馬なり"}
               count={"2pt"}
-              onPress={() => handleSubmit(2, "jockey")}
+              onPress={() => handleSubmit(2, flag)}
             />
             <ModalButton
               label={"強め"}
               count={"4pt"}
-              onPress={() => handleSubmit(4, "jockey")}
+              onPress={() => handleSubmit(4, flag)}
             />
             <ModalButton
               label={"一杯"}
               count={"6pt"}
-              onPress={() => handleSubmit(6, "jockey")}
+              onPress={() => handleSubmit(6, flag)}
             />
           </View>
         }
@@ -463,6 +468,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    marginTop: -20,
+    height: "100%"
   },
 });
 
