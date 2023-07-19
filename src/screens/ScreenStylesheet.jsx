@@ -21,22 +21,20 @@ const Screenstyles = StyleSheet.create({
       },
       content: {
         flexDirection: 'column',
-        // justifyContent: 'center'
         marginTop: hp(20) 
       },
       // BackGround Image Style
       container:{
         backgroundColor: colors.backgroudColor,
         height: SCREEN_HEIGHT + hp(9)
+      
       },
+
       img: {
           backgroundColor: colors.backgroudColor,
-          height: SCREEN_HEIGHT + hp(1),
+          height: SCREEN_HEIGHT + hp(2),
           width:  SCREEN_WIDTH ,
       },
-      // footerTap:{
-      //   marginBottom: 30
-      // },
     // All Style End
     userPtTxt:{
       fontSize: hp(2) + wp(2),
@@ -199,7 +197,7 @@ const Screenstyles = StyleSheet.create({
     // HORSE CHOICE STYLE=======================
     titleFlex:{
       flexDirection: 'row',
-      justifyContent: 'space-between'
+      // justifyContent: 'space-between'
     },
     ScrollView:{
       height: hp(45),

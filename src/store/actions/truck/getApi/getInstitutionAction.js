@@ -1,4 +1,4 @@
-import { INSTITUTION_MENU_DATA } from '../../types';
+import { INSTITUTION_MENU_DATA, INSTITUTION_MENU_STALL_ID } from '../../types';
 import axios from 'axios';
 import { API } from '../../../../utils/config';
 
@@ -8,6 +8,7 @@ export const institutionData = (data) => {
         payload: data,
     }
 };
+
 
 export function getInstitutionAction(userId) {
     return async (dispatch, getState) => {

@@ -34,6 +34,9 @@ import stallTruckReduce from './stable/Institution/stallInstitution/stalltruckRe
 import preeSetReducer from './preeSet/preeSetReducer';
 import RaceRegisterRuducer from './ReacRegister/RaceRegisterRuducer';
 
+// HORSE NAME VALIDATION
+import horseNameValidationReducer from './horseNameValidationReducer';
+
 export default combineReducers({
     user: user,
     validationData: validationData,
@@ -68,6 +71,7 @@ export default combineReducers({
     stallUp: stallUpReducer,
     preeSetData: preeSetReducer,
 
-    raceData: RaceRegisterRuducer
+    raceData: RaceRegisterRuducer,
+    horseNameValid: horseNameValidationReducer
 
 });

@@ -30,7 +30,7 @@ const WorkingButton = ({ label, onPress, disabled, colorNumber, styleId }) => {
 		} else {
 			Alert.alert(
 				"引退",
-				"セリに登録して引退しますか?",
+				"引退しますか?",
 				[
 					{
 						text: "いいえ",

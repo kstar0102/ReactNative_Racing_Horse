@@ -16,25 +16,25 @@ const FGroup = ({horseId}) => {
                   />
               <View style={RTapScreensStyle.ImageButtonTop}>
                 <View>
-                  <View style={[RTapScreensStyle.absoluteViewF]}>
+                  <View style={[RTapScreensStyle.absoluteViewA]}>
                       <Text style={RTapScreensStyle.label}>にんじん</Text>
                   </View>
                   <ImageButton label={'にんじん'} source={require('../../../../assets/images/Fodder/carrot.png')} id={1}/>
-                  <DetailButton label={'調子回復'} id={1} name={'にんじん'} horseId={horseId}/>
+                  <DetailButton label={'調子回復'} id={1} name={'にんじん'} horseId={horseId}  flag={"upbring"}/>
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteViewC]}>
                       <Text style={RTapScreensStyle.label}>Sドリンク</Text>
                   </View>
                   <ImageButton label={'Sドリンク'} source={require('../../../../assets/images/Fodder/source.png')} id={0}/>
-                  <DetailButton label={'調子回復'} disabled={false} id={2}  name={'Sドリンク'} horseId={horseId}/>
+                  <DetailButton label={'調子回復'} disabled={false} id={2}  name={'Sドリンク'} horseId={horseId} flag={"upbring"}/>
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteViewC]}>
                       <Text style={RTapScreensStyle.label}>プロテイン</Text>
                   </View>
                   <ImageButton label={'プロテイン'} source={require('../../../../assets/images/Fodder/protein.png')} id={3}/>
-                  <DetailButton label={'調子回復'} id={3} name={'プロテイン'} horseId={horseId}/>
+                  <DetailButton label={'調子回復'} id={3} name={'プロテイン'} horseId={horseId}  flag={"upbring"}/>
                 </View>
               </View>
               <View style={RTapScreensStyle.ImageButtonMiddle}>
@@ -43,21 +43,21 @@ const FGroup = ({horseId}) => {
                       <Text style={RTapScreensStyle.label}>角砂糖</Text>
                   </View>
                   <ImageButton label={'角砂糖'} source={require('../../../../assets/images/Fodder/角砂糖2.png')} id={4}/>
-                  <DetailButton label={'疲労回復'} id={4} name={'角砂糖'} horseId={horseId}/>
+                  <DetailButton label={'疲労回復'} id={4} name={'角砂糖'} horseId={horseId}  flag={"upbring"}/>
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteView}>
                       <Text style={RTapScreensStyle.label}>チョコ</Text>
                   </View>
                   <ImageButton label={'チョコ'} source={require('../../../../assets/images/Fodder/チョコ.png')} id={5}/>
-                  <DetailButton label={'疲労回復'} id={5} name={'チョコ'} horseId={horseId}/>
+                  <DetailButton label={'疲労回復'} id={5} name={'チョコ'} horseId={horseId}  flag={"upbring"}/>
                 </View>
                 <View>
                   <View style={[RTapScreensStyle.absoluteView]}>
                       <Text style={RTapScreensStyle.label}>ケーキ</Text>
                   </View>
                   <ImageButton label={'ケーキ'} source={require('../../../../assets/images/Fodder/ケーキ.png')} id={6}/>
-                  <DetailButton label={'疲労回復'} id={6} name={'ケーキ'} horseId={horseId}/>
+                  <DetailButton label={'疲労回復'} id={6} name={'ケーキ'} horseId={horseId}  flag={"upbring"}/>
                 </View>
               </View>
               <View style={RTapScreensStyle.ImageButtonBottom}>
@@ -70,7 +70,7 @@ const FGroup = ({horseId}) => {
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../../../assets/images/Pasture/icon8.png')}
                   />
-                  <DetailButton label={'調子回復'} disabled={true} name={'プール'} horseId={horseId}/>
+                  <DetailButton label={'調子回復'} disabled={true} name={'プール'} horseId={horseId}  flag={"upbring"}/>
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteViewT}>
@@ -81,7 +81,7 @@ const FGroup = ({horseId}) => {
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../../../assets/images/Pasture/icon8.png')}
                   />
-                  <DetailButton label={'調子回復'} disabled={true} name={'併走'} horseId={horseId}/>
+                  <DetailButton label={'調子回復'} disabled={true} name={'併走'} horseId={horseId}  flag={"upbring"}/>
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteViewT}>
@@ -92,7 +92,7 @@ const FGroup = ({horseId}) => {
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../../../assets/images/Pasture/icon8.png')}
                   />
-                  <DetailButton label={'調子回復'} disabled={true} name={'坂路'} horseId={horseId}/>
+                  <DetailButton label={'調子回復'} disabled={true} name={'坂路'} horseId={horseId}  flag={"upbring"}/>
                 </View>
                
               </View>

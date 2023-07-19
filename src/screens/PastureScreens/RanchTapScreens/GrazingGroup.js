@@ -13,6 +13,8 @@ import RTapScreensStyle from "./RTapScreensStyle";
 
 const GrazingGroup = ({
   horseId,
+  horseAge,
+  horseGrow,
   poolLevel,
   truckLevel,
   roadLevel,
@@ -125,6 +127,8 @@ const GrazingGroup = ({
               <DetailButton
                 label={"育成する"}
                 horseId={horseId}
+                horseAge={horseAge}
+                horseGrow={horseGrow}
                 name={"スベシャル"}
                 disabled={spaceialDisabled}
                 id={11}
@@ -142,6 +146,8 @@ const GrazingGroup = ({
               <DetailButton
                 label={"育成する"}
                 horseId={horseId}
+                horseAge={horseAge}
+                horseGrow={horseGrow}
                 name={"放牧"}
               />
             </View>
@@ -156,7 +162,7 @@ const GrazingGroup = ({
                 source={require("../../../assets/images/Pasture/icon3.png")}
                 id={4}
               />
-              <DetailButton label={"育成する"} horseId={horseId} name={"芝"} />
+              <DetailButton label={"育成する"} horseId={horseId} horseAge={horseAge} horseGrow={horseGrow} name={"芝"} />
             </View>
             <View>
               <View style={RTapScreensStyle.absoluteView}>
@@ -170,6 +176,8 @@ const GrazingGroup = ({
               <DetailButton
                 label={"育成する"}
                 horseId={horseId}
+                horseAge={horseAge}
+                horseGrow={horseGrow}
                 name={"ダート"}
               />
             </View>
@@ -185,6 +193,8 @@ const GrazingGroup = ({
               <DetailButton
                 label={"育成する"}
                 horseId={horseId}
+                horseAge={horseAge}
+                horseGrow={horseGrow}
                 name={"ウッドチップ"}
               />
             </View>
@@ -207,6 +217,8 @@ const GrazingGroup = ({
                 label={"育成する"}
                 disabled={poolDisabled}
                 horseId={horseId}
+                horseAge={horseAge}
+                horseGrow={horseGrow}
                 name={"プール"}
               />
             </View>
@@ -228,6 +240,8 @@ const GrazingGroup = ({
                 label={"育成する"}
                 disabled={truckDisabled}
                 horseId={horseId}
+                horseAge={horseAge}
+                horseGrow={horseGrow}
                 name={"併走"}
               />
             </View>
@@ -249,6 +263,8 @@ const GrazingGroup = ({
                 label={"育成する"}
                 disabled={roadDisabled}
                 horseId={horseId}
+                horseAge={horseAge}
+                horseGrow={horseGrow}
                 name={"坂路"}
               />
             </View>

@@ -2,12 +2,13 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Table,TableWrapper ,Col ,Row ,Rows } from 'react-native-table-component';
 import colors from '../../containers/colors';
+import { convertToHalf } from '../../utils/validationText';
 
 const HorseTable = ({name, price}) => {
   const CONTENT = {
     initialState: ['成長', '馬場', '距離'],
     initialValue: ['?', '?', '?'],
-    name: [name+"の仔"],
+    name: name+"の仔",
     price:[price+"pt"],
     ability: [
       ['SP', 'ST', '瞬発', '根性', '気性', '健康'],
@@ -16,12 +17,13 @@ const HorseTable = ({name, price}) => {
       ['?', '?', '?', '?', '?', '?'],
     ],
   };
+  const convertedData = convertToHalf(CONTENT.name);
   return (
     <View style={styles.container}>
       <Table borderStyle={{ borderWidth: 1 }}>
         <TableWrapper style={styles.wrapper}>
           <Col
-            data={CONTENT.name}
+            data={[convertedData]}
             style={styles.name}
             textStyle={textStyle}
           />
@@ -38,7 +40,6 @@ const HorseTable = ({name, price}) => {
             data={CONTENT.price}
             style={styles.price}
             textStyle={textStyle}
-
           />
            <Row
             data={CONTENT.initialValue}

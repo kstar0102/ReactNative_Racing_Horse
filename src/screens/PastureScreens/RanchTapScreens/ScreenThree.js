@@ -135,7 +135,7 @@ const ScreenThree = () => {
             {activeButton ?
               <WorkingButton label={'育成'} colorNumber={2} styleId={2} onPress={(() => handleButtonPress(0))} />
               :
-              <WorkingButton label={'休憩'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(1))} />
+              <WorkingButton label={'休憩'} colorNumber={5} styleId={2} onPress={(() => handleButtonPress(2))} />
             }
             <WorkingButton label={'入廐'} colorNumber={2} styleId={1} onPress={(handlePress)} />
             <SaleButton label={'売却'} />

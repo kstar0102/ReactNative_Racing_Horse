@@ -92,7 +92,7 @@ const PresetRegistrationButton = ({
   };
 
   const handlePress = () => {
-    if (allData != "" || preeAllData != "") {
+    if (allData != "") {
       Alert.alert(
         " ",
         "「予約一覧」 の予約を登録しますか?",

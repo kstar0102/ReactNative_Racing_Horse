@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,  Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Table, TableWrapper, Row, Col, Rows } from 'react-native-table-component';
 import { useNavigation } from '@react-navigation/native';
 // Redux

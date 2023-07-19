@@ -260,6 +260,12 @@ const RTapScreensStyle = StyleSheet.create({
     top: -10,
     zIndex: 1,
   },
+  absoluteViewA:{
+    position: 'absolute',
+    left: 24,
+    top: -10,
+    zIndex: 1,
+  },
   absoluteViewB:{
     position: 'absolute',
     left: 5,

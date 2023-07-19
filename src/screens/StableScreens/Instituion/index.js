@@ -32,8 +32,8 @@ const Institution = ({
     const [selected, setSelected] = useState(undefined);
     const [banner, setBanner] = useState(0);
 
+
     const data = institutionData;
-    
     const handleSettingId = (value) => {
       setBanner(value);
 
@@ -121,6 +121,7 @@ const Institution = ({
 };
 
 const mapStateToProps = (state) => {
+
   return {
     level: state.user.userData.level,
     institutionData: state.institutionStable.institutionMenuData,
