@@ -38,6 +38,9 @@ const HorseNameScreen = ({
   const [breedingAge, setBreedingAge] = useState([]);
   const [breedingColor, setBreedingColor] = useState([]);
   const [breedData, setBreedData] = useState("");
+  
+  let illegalCheck = [];
+
   const pattern =
     /[\d\s!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]|[a-zA-Z]|[^\u30A0-\u30FF\uFF66-\uFF9F]+$/;
 
@@ -112,15 +115,19 @@ const HorseNameScreen = ({
     }
 
     //==========xxx
+    let icheck = [];
     for (let index = 0; index < horseIllegalName.length; index++) {
       const item = horseIllegalName[index];
       if (item === "success") {
         horseIllegalStyle[index] = "none";
         successDispacharray.push(item);
       } else {
+        icheck.push("no");
         horseIllegalStyle[index] = "flex";
       }
     }
+
+    illegalCheck = icheck;
     setIllegalStyleHorseName(horseIllegalStyle);
     setSuccessHorseName(successDispacharray);
   }, [horseIllegalName, horseCheckData]);
@@ -184,16 +191,14 @@ const HorseNameScreen = ({
           name: valiHorseNames,
         };
         dispatch(horseNameValiAction(sendName));
-        console.log("one");
       }
 
       //==================ILLEGAL HORSENAME NO -> ILLEGAL
-      if (illegalHorseName.length === horseNames.length) {
+      if (illegalCheck != []) {
         const sendillegalName = {
           name: valiHorseNames,
         };
         dispatch(horseNameIllegalAction(sendillegalName));
-        console.log("two");
       }
     }
   };
