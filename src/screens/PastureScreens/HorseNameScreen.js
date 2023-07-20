@@ -20,6 +20,7 @@ let inputIds = [];
 const HorseNameScreen = ({
   navigation,
   horseCheckData,
+  horseCheckAge,
   user_id,
   pasture_id,
   horseValidationName,
@@ -46,6 +47,7 @@ const HorseNameScreen = ({
   useEffect(() => {
     const minAge = 5;
     const maxAge = 10;
+
 
     if (horseCheckData) {
       // Generate the random array of horse ages
@@ -294,7 +296,7 @@ const HorseNameScreen = ({
                                 <Text style={{ fontSize: 15 }}>
                                   {" "}
                                   {item.age == "・繁殖馬"
-                                    ? breedingAge[i]
+                                    ? horseCheckAge[i]
                                     : item.age.split("")[1]}
                                 </Text>
                               </View>
@@ -337,6 +339,7 @@ const HorseNameScreen = ({
 const mapStateToProps = (state) => {
   return {
     horseCheckData: state.horseData.CheckData,
+    horseCheckAge: state.horseData.checkAge,
     user_id: state.user.userData.id,
     pasture_id: state.pasture.pastureData.id,
     horseValidationName: state.horseNameValid.horseNameValid,

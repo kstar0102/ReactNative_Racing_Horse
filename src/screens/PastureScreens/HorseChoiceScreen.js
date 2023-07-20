@@ -198,7 +198,7 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
       alert("ポイントが足りません。");
       return false;
     } else {
-      dispatch(horseCheckAction(horseDataId));
+      dispatch(horseCheckAction(horseDataId, breedingAge));
       navigation.navigate("HorseNameScreen");
     }
   };
