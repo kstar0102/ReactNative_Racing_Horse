@@ -10,13 +10,13 @@ import { convertToHalf } from '../../utils/validationText';
 
 const BloodLineTable = ({ father_sys, father_f_sys, father_m_sys, mother_sys, mother_f_sys, mohter_m_sys }) => {
   const CONTENT = {
-    father_sys: [convertToHalf(father_sys)],
-    father_f_sys: [convertToHalf(father_f_sys)],
-    father_m_sys: [convertToHalf(father_m_sys)],
+    father_sys: [father_sys],
+    father_f_sys: [father_f_sys],
+    father_m_sys: [father_m_sys],
 
-    mother_sys: [convertToHalf(mother_sys)],
-    mother_f_sys: [convertToHalf(mother_f_sys)],
-    mohter_m_sys: [convertToHalf(mohter_m_sys)]
+    mother_sys: [mother_sys],
+    mother_f_sys: [mother_f_sys],
+    mohter_m_sys: [mohter_m_sys]
   };
   return (
     <View style={styles.container}>
@@ -97,10 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.TableMoterColor,
   },
   colTextSize: {
-    fontSize: hp(1.5) + wp(.8), textAlign: 'center'
-  },
-  colTextSize: {
     fontSize: hp(1) + wp(.5), textAlign: 'center'
-  }
+  },
 
 });

@@ -9,7 +9,7 @@ import {
 
 const BloodlineNameTable = ({father_sys, father_f_sys, father_m_sys, mother_sys, mother_f_sys, mother_m_sys}) => {
   const CONTENT = {
-    father_sys: ['ミスタープロスペクター'],
+    father_sys: [father_sys],
     father_f_sys: [father_f_sys],
     father_m_sys: [father_m_sys],
 
