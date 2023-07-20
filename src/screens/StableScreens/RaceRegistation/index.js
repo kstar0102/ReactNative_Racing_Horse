@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Image, Text, ImageBackground } from "react-native";
+import Toast from "react-native-root-toast";
 
 import DropDownR from "../../../components/Buttons/DropDwonR";
 import RTapScreensStyle from "../../PastureScreens/RanchTapScreens/RTapScreensStyle";
@@ -392,28 +393,28 @@ const RaceRegistation = ({ stableData, arrowState, navigation }) => {
       sum += value;
       if (randomNumber < sum) {
         if (key == "D1") {
-          let toast = Toast.show("疲労が溜まりすぎるとケガ(挫跖 ど)をする", {
+          let toast = Toast.show("疲労が溜まると故障してしまいます。", {
             duration: Toast.durations.LONG,
           });
           setTimeout(function hideToast() {
             Toast.hide(toast);
           }, 2000);
         } else if (key == "D2") {
-          let toast = Toast.show("疲労が溜まりすぎるとケガ(裂蹄 ど)をする", {
+          let toast = Toast.show("疲労が溜まると故障してしまいます。", {
             duration: Toast.durations.LONG,
           });
           setTimeout(function hideToast() {
             Toast.hide(toast);
           }, 2000);
         } else if (key == "D3") {
-          let toast = Toast.show("疲労が溜まりすぎるとケガ(屈腱炎 ど)をする", {
+          let toast = Toast.show("疲労が溜まると故障してしまいます。", {
             duration: Toast.durations.LONG,
           });
           setTimeout(function hideToast() {
             Toast.hide(toast);
           }, 2000);
         } else if (key == "D4") {
-          let toast = Toast.show("疲労が溜まりすぎるとケガ(骨折 ど)をする", {
+          let toast = Toast.show("疲労が溜まると故障してしまいます。", {
             duration: Toast.durations.LONG,
           });
           setTimeout(function hideToast() {
@@ -421,7 +422,7 @@ const RaceRegistation = ({ stableData, arrowState, navigation }) => {
           }, 2000);
         } else if (key == "D5") {
           let toast = Toast.show(
-            " 疲労が溜まりすぎるとケガ(予後不良 ど)をする",
+            " 疲労が溜まると故障してしまいます。",
             {
               duration: Toast.durations.LONG,
             }

@@ -40,7 +40,7 @@ const RanchTap = ({  user_id, user_level, stallRanch, banner, institutionData })
         setTwoBorderStyle(0);
         setThreeBtnStyle('none');
         setThreeLockStyle('flex');
-        setThreeBlueStyle(1);
+        setThreeBlueStyle(0);
 
         setOneBorderStyle(8);
         setTwoBlueStyle(1);
@@ -81,7 +81,7 @@ const RanchTap = ({  user_id, user_level, stallRanch, banner, institutionData })
       setOneBorderStyle(0);
       setThreeBorderStyle(0);
       setThreeTxtStyle("none");
-      setThreeBlueStyle(1);
+      setThreeBlueStyle(0);
       setThreeLockStyle("flex");
       setThreeBtnStyle("none");
     }

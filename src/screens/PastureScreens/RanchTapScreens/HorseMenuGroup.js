@@ -76,7 +76,7 @@ const HorseMenuGroup = ({ oneData, arrowState }) => {
       setStrengthState(1);
       setMomentState(1);
       setStaminaState(1);
-      // ===========
+      // ========-===
 
       setTimeout(() => {
         setHappyState(0);
@@ -399,35 +399,35 @@ const HorseMenuGroup = ({ oneData, arrowState }) => {
       sum += value;
       if (randomNumber < sum) {
         if (key == 'D1') {
-          let toast = Toast.show('疲労が溜まりすぎるとケガ(挫跖 ど)をする', {
+          let toast = Toast.show('疲労が溜まると故障してしまいます。', {
             duration: Toast.durations.LONG,
           });
           setTimeout(function hideToast() {
             Toast.hide(toast);
           }, 2000);
         } else if (key == 'D2') {
-          let toast = Toast.show('疲労が溜まりすぎるとケガ(裂蹄 ど)をする', {
+          let toast = Toast.show('疲労が溜まると故障してしまいます。', {
             duration: Toast.durations.LONG,
           });
           setTimeout(function hideToast() {
             Toast.hide(toast);
           }, 2000);
         } else if (key == 'D3') {
-          let toast = Toast.show('疲労が溜まりすぎるとケガ(屈腱炎 ど)をする', {
+          let toast = Toast.show('疲労が溜まると故障してしまいます。', {
             duration: Toast.durations.LONG,
           });
           setTimeout(function hideToast() {
             Toast.hide(toast);
           }, 2000);
         } else if (key == 'D4') {
-          let toast = Toast.show('疲労が溜まりすぎるとケガ(骨折 ど)をする', {
+          let toast = Toast.show('疲労が溜まると故障してしまいます。', {
             duration: Toast.durations.LONG,
           });
           setTimeout(function hideToast() {
             Toast.hide(toast);
           }, 2000);
         } else if (key == 'D5') {
-          let toast = Toast.show(' 疲労が溜まりすぎるとケガ(予後不良 ど)をする', {
+          let toast = Toast.show('疲労が溜まると故障してしまいます。', {
             duration: Toast.durations.LONG,
           });
           setTimeout(function hideToast() {

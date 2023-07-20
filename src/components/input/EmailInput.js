@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   passwordS: {
     backgroundColor: colors.white,
     borderRadius: 9,
-    height: 30,
+    height: 15,
     margin: 12,
     width: 310,
     borderWidth: 1,

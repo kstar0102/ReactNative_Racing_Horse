@@ -29,6 +29,7 @@ const DetailButton = ({
 
   const handleSubmit = (value, flag) => {
     if (flag == "jockey") {
+    
       const ptValue = value;
       const upSendJockey = {
         jockey_id: jockeyId,

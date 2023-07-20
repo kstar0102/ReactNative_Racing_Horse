@@ -36,6 +36,7 @@ import RaceRegisterRuducer from './ReacRegister/RaceRegisterRuducer';
 
 // HORSE NAME VALIDATION
 import horseNameValidationReducer from './horseNameValidationReducer';
+import showHorseGrowReducer from './horse/showHorseGrowReducer';
 
 export default combineReducers({
     user: user,
@@ -72,6 +73,6 @@ export default combineReducers({
     preeSetData: preeSetReducer,
 
     raceData: RaceRegisterRuducer,
-    horseNameValid: horseNameValidationReducer
-
+    horseNameValid: horseNameValidationReducer,
+    showGrowData: showHorseGrowReducer,
 });

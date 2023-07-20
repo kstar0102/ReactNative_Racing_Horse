@@ -23,7 +23,7 @@ const HorseTable = ({name, price}) => {
       <Table borderStyle={{ borderWidth: 1 }}>
         <TableWrapper style={styles.wrapper}>
           <Col
-            data={[convertedData]}
+            data={[CONTENT.name]}
             style={styles.name}
             textStyle={textStyle}
           />
@@ -113,6 +113,6 @@ const styles = StyleSheet.create({
 });
 
 const textStyle = {
-  fontSize: 15,
+  fontSize: 13,
   textAlign: 'center',
 };

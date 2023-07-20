@@ -2,9 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import { View, Image, Text, ScrollView } from "react-native";
 import Toast from "react-native-root-toast";
 // Redux
-import { connect } from "react-redux";
-// Custom import
+import { connect, useDispatch } from "react-redux";
+import { showHorseGrow } from "../../../../store/actions/horse/showHorseGrow";
 
+// Custom import
 import DropDownR from "../../../../components/Buttons/DropDwonR";
 import RTapScreensStyle from "../../../PastureScreens/RanchTapScreens/RTapScreensStyle";
 import FGroup from "../GroupTable/FGroup";
@@ -13,7 +14,8 @@ import WorkingButton from "../../../../components/Buttons/WorkingButtons";
 import { horseColor } from "../../../../utils/globals";
 import colors from "../../../../containers/colors";
 
-const OneHorseTap = ({ oneData, arrowState }) => {
+const OneHorseTap = ({ oneData, arrowState, showGrowstate }) => {
+  const dispatch = useDispatch();
   const [arrowStates, setArrowState] = useState(arrowState);
   // ALL REPEAT
   const [happySate, setHappyState] = useState(0);
@@ -35,6 +37,14 @@ const OneHorseTap = ({ oneData, arrowState }) => {
   const [tiredArror, setArrorState] = useState("⬆");
   const [colors, setColors] = useState("red");
   const [tiredArrorColor, setArrorColor] = useState("red");
+
+  // SHOW GROW STATE
+  const [speedMax, setSpeedMax] = useState("");
+  const [strengthMax, setStrengthMax] = useState("");
+  const [staminaMax, setStaminaMax] = useState("");
+  const [momentMax, setMomentMax] = useState("");
+  const [conditionMax, setConditionMax] = useState("");
+  const [healthMax, setHealthMax] = useState("");
 
   // Ground Color
   const [groundColor, setGroundColor] = useState("#1BFF00");
@@ -58,11 +68,59 @@ const OneHorseTap = ({ oneData, arrowState }) => {
       setGroundColor("red");
     }
   }, [oneData]);
+
   const data = oneData;
 
   useEffect(() => {
     setArrowState(arrowState);
   }, [arrowState]);
+  useEffect(() => {
+    if (showGrowstate != undefined) {
+      if (showGrowstate.type == "早熟") {
+        setSpeedMax(50);
+        setStrengthMax(50);
+        setStaminaMax(10);
+        setMomentMax(50);
+        setConditionMax(50);
+        setHealthMax(500);
+      } else if (showGrowstate.type == "早め") {
+        setSpeedMax(100);
+        setStrengthMax(100);
+        setStaminaMax(10);
+        setMomentMax(80);
+        setConditionMax(100);
+        setHealthMax(99);
+      } else if (showGrowstate.type == "普通") {
+        setSpeedMax(150);
+        setStrengthMax(150);
+        setStaminaMax(10);
+        setMomentMax(80);
+        setConditionMax(150);
+        setHealthMax(99);
+      } else if (showGrowstate.type == "持続") {
+        setSpeedMax(170);
+        setStrengthMax(170);
+        setStaminaMax(10);
+        setMomentMax(80);
+        setConditionMax(170);
+        setHealthMax(99);
+      } else if (showGrowstate.type == "遅め") {
+        setSpeedMax(170);
+        setStrengthMax(200);
+        setStaminaMax(10);
+        setMomentMax(80);
+        setConditionMax(185);
+        setHealthMax(99);
+      } else if (showGrowstate.type == "晩成") {
+        setSpeedMax(170);
+        setStrengthMax(170);
+        setStaminaMax(10);
+        setMomentMax(80);
+        setConditionMax(170);
+        setHealthMax(99);
+      }
+    }
+  }, [showGrowstate]);
 
   useEffect(() => {
     if (arrowStates.what == "スベシャル") {
@@ -87,16 +145,30 @@ const OneHorseTap = ({ oneData, arrowState }) => {
     } else if (arrowStates.what == "芝") {
       setHappyState(1);
       setTiredState(1);
-      setSpeedState(1);
+      if (showGrowstate != undefined) {
+        if (speedMax == showGrowstate.speed_b) {
+          setSpeedState(0);
+        } else {
+          setSpeedState(1);
+        }
+      }
       setTimeout(() => {
         setHappyState(0);
         setTiredState(0);
         setSpeedState(0);
       }, 2000);
+
+      // if(speedMax)
     } else if (arrowStates.what == "ダート") {
       setHappyState(1);
       setTiredState(1);
-      setStrengthState(1);
+      if (showGrowstate != undefined) {
+        if (strengthMax == showGrowstate.strength_b) {
+          setStrengthState(0);
+        } else {
+          setStrengthState(1);
+        }
+      }
       setTimeout(() => {
         setHappyState(0);
         setTiredState(0);
@@ -105,7 +177,13 @@ const OneHorseTap = ({ oneData, arrowState }) => {
     } else if (arrowStates.what == "ウッドチップ") {
       setHappyState(1);
       setTiredState(1);
-      setContitionState(1);
+      if (showGrowstate != undefined) {
+        if (conditionMax == showGrowstate.condition_b) {
+          setContitionState(0);
+        } else {
+          setContitionState(1);
+        }
+      }
       setTimeout(() => {
         setHappyState(0);
         setTiredState(0);
@@ -114,7 +192,13 @@ const OneHorseTap = ({ oneData, arrowState }) => {
     } else if (arrowStates.what == "プール") {
       setHappyState(1);
       setTiredState(1);
-      setHealthState(1);
+      if (showGrowstate != undefined) {
+        if (healthMax == showGrowstate.health_b) {
+          setHealthState(0);
+        } else {
+          setHealthState(1);
+        }
+      }
       setTimeout(() => {
         setHappyState(0);
         setTiredState(0);
@@ -123,7 +207,13 @@ const OneHorseTap = ({ oneData, arrowState }) => {
     } else if (arrowStates.what == "併走") {
       setHappyState(1);
       setTiredState(1);
-      setStaminaState(1);
+      if (showGrowstate != undefined) {
+        if (staminaMax == showGrowstate.stamina_b) {
+          setStaminaState(0);
+        } else {
+          setStaminaState(1);
+        }
+      }
       setTimeout(() => {
         setHappyState(0);
         setTiredState(0);
@@ -132,7 +222,13 @@ const OneHorseTap = ({ oneData, arrowState }) => {
     } else if (arrowStates.what == "坂路") {
       setHappyState(1);
       setTiredState(1);
-      setMomentState(1);
+      if (showGrowstate != undefined) {
+        if (momentMax == showGrowstate.moment_b) {
+          setMomentState(0);
+        } else {
+          setMomentState(1);
+        }
+      }
       setTimeout(() => {
         setHappyState(0);
         setTiredState(0);
@@ -186,6 +282,11 @@ const OneHorseTap = ({ oneData, arrowState }) => {
 
   const handleSettingId = (value) => {
     setBanner(value);
+    const sandIds = {
+      horse_id: value.id,
+    };
+    dispatch(showHorseGrow(sandIds));
+
     if (value) {
       setPattern(tiredNumber);
     }
@@ -336,11 +437,11 @@ const OneHorseTap = ({ oneData, arrowState }) => {
 
   // Health State
   const setPattern = (condition) => {
-    // Disable Injery
+    // Disable Injury
     let options;
     if (condition <= 10) {
       return false;
-    } else if (condition == 11 || condition == 12) {
+    } else if (condition === 11 || condition === 12) {
       options = {
         none: 79,
         D1: 10,
@@ -349,7 +450,7 @@ const OneHorseTap = ({ oneData, arrowState }) => {
         D4: 2,
         D5: 1,
       };
-    } else if (condition == 13 || condition == 14) {
+    } else if (condition === 13 || condition === 14) {
       options = {
         none: 64,
         D1: 15,
@@ -358,7 +459,7 @@ const OneHorseTap = ({ oneData, arrowState }) => {
         D4: 4,
         D5: 2,
       };
-    } else if (condition == 15 || condition == 16) {
+    } else if (condition === 15 || condition === 16) {
       options = {
         none: 43,
         D1: 20,
@@ -367,7 +468,7 @@ const OneHorseTap = ({ oneData, arrowState }) => {
         D4: 8,
         D5: 4,
       };
-    } else if (condition == 17 || condition == 18) {
+    } else if (condition === 17 || condition === 18) {
       options = {
         none: 22,
         D1: 25,
@@ -376,7 +477,7 @@ const OneHorseTap = ({ oneData, arrowState }) => {
         D4: 10,
         D5: 8,
       };
-    } else if (condition == 19 || condition == 20) {
+    } else if (condition === 19 || condition === 20) {
       options = {
         none: 0,
         D1: 30,
@@ -386,6 +487,7 @@ const OneHorseTap = ({ oneData, arrowState }) => {
         D5: 10,
       };
     }
+
     const randomNumber = Math.floor(Math.random() * 100);
 
     // Iterate over the options until we reach the chosen value
@@ -393,48 +495,38 @@ const OneHorseTap = ({ oneData, arrowState }) => {
     for (const [key, value] of Object.entries(options)) {
       sum += value;
       if (randomNumber < sum) {
-        if (key == "D1") {
-          let toast = Toast.show("疲労が溜まりすぎるとケガ(挫跖 ど)をする", {
-            duration: Toast.durations.LONG,
-          });
-          setTimeout(function hideToast() {
-            Toast.hide(toast);
-          }, 2000);
-        } else if (key == "D2") {
-          let toast = Toast.show("疲労が溜まりすぎるとケガ(裂蹄 ど)をする", {
-            duration: Toast.durations.LONG,
-          });
-          setTimeout(function hideToast() {
-            Toast.hide(toast);
-          }, 2000);
-        } else if (key == "D3") {
-          let toast = Toast.show("疲労が溜まりすぎるとケガ(屈腱炎 ど)をする", {
-            duration: Toast.durations.LONG,
-          });
-          setTimeout(function hideToast() {
-            Toast.hide(toast);
-          }, 2000);
-        } else if (key == "D4") {
-          let toast = Toast.show("疲労が溜まりすぎるとケガ(骨折 ど)をする", {
-            duration: Toast.durations.LONG,
-          });
-          setTimeout(function hideToast() {
-            Toast.hide(toast);
-          }, 2000);
-        } else if (key == "D5") {
-          let toast = Toast.show(
-            " 疲労が溜まりすぎるとケガ(予後不良 ど)をする",
-            {
-              duration: Toast.durations.LONG,
-            }
-          );
-          setTimeout(function hideToast() {
-            Toast.hide(toast);
-          }, 2000);
-        }
+        displayToastMessage(key);
         break;
       }
     }
+  };
+
+  const displayToastMessage = (key) => {
+    let message = "";
+    switch (key) {
+      case "D1":
+        message = "疲労が溜まると故障してしまいます。";
+        break;
+      case "D2":
+        message = "疲労が溜まると故障してしまいます。";
+        break;
+      case "D3":
+        message = "疲労が溜まると故障してしまいます。";
+        break;
+      case "D4":
+        message = "疲労が溜まると故障してしまいます。";
+        break;
+      case "D5":
+        message = "疲労が溜まると故障してしまいます。";
+        break;
+    }
+
+    let toast = Toast.show(message, {
+      duration: Toast.durations.LONG,
+    });
+    setTimeout(function hideToast() {
+      Toast.hide(toast);
+    }, 2000);
   };
   // tired
   const handleButtonPress = (id) => {
@@ -444,9 +536,15 @@ const OneHorseTap = ({ oneData, arrowState }) => {
   const renderScreenBelowButtons = () => {
     switch (activeButton) {
       case 1:
-        return <FGroup horseId={banner.id}/>;
+        return <FGroup horseId={banner.id} />;
       default:
-        return <GGroup horseId={banner.id} horseAge={banner.age.split("")[1]} horseGrow={banner.growth} />;
+        return (
+          <GGroup
+            horseId={banner.id}
+            horseAge={banner.age.split("")[1]}
+            horseGrow={banner.growth}
+          />
+        );
     }
   };
 
@@ -688,17 +786,13 @@ const OneHorseTap = ({ oneData, arrowState }) => {
               />
             ) : (
               <WorkingButton
-                label={`休憩`}
+                label={`飼葉`}
                 colorNumber={5}
                 styleId={2}
                 onPress={() => handleButtonPress(1)}
               />
             )}
-            <WorkingButton
-              label={`引退`}
-              colorNumber={3}
-              styleId={2}
-            />
+            <WorkingButton label={`引退`} colorNumber={3} styleId={2} />
           </View>
         </View>
       </View>
@@ -712,6 +806,7 @@ const OneHorseTap = ({ oneData, arrowState }) => {
 const mapStateToProps = (state) => {
   return {
     arrowState: state.arrow.arrowState,
+    showGrowstate: state.showGrowData.allGrowData[0],
   };
 };
 

@@ -39,7 +39,7 @@ const PoolTap = ({ user_id, user_level, stallPool, banner, institutionData }) =>
         setTwoBorderStyle(0);
         setThreeBtnStyle("none");
         setThreeLockStyle("flex");
-        setThreeBlueStyle(1);
+        setThreeBlueStyle(0);
 
         setOneBorderStyle(8);
         setTwoBlueStyle(1);
@@ -52,7 +52,7 @@ const PoolTap = ({ user_id, user_level, stallPool, banner, institutionData }) =>
 
         setOneBorderStyle(8);
         setTwoBorderStyle(8);
-        setTwoBlueStyle(1);
+        setTwoBlueStyle(0);
         setThreeBorderStyle(0);
         setThreeBlueStyle(1);
         setThreeLockStyle("none");
@@ -79,12 +79,15 @@ const PoolTap = ({ user_id, user_level, stallPool, banner, institutionData }) =>
       setOneTxtStyle("none");
       setOneBorderStyle(0);
       setThreeBorderStyle(0);
+      setTwoBlueStyle(0);
       setThreeTxtStyle("none");
-      setThreeBlueStyle(1);
+      setThreeBlueStyle(0);
       setThreeLockStyle("flex");
       setThreeBtnStyle("none");
     }
   }, [stallPool]);
+
+
 
   const handleSubmit = (level, price, effect) => {
     let poolData = {};

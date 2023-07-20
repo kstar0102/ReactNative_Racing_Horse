@@ -139,6 +139,7 @@ const UpGrazing = ({
               <DetailButton
                 label={"育成する"}
                 jockeyId={jockeyId}
+                flag={"jockey"}
                 name={"逃げ"}
                 id={12}
               />
@@ -157,6 +158,7 @@ const UpGrazing = ({
               <DetailButton
                 label={"育成する"}
                 jockeyId={jockeyId}
+                flag={"jockey"}
                 name={"先行"}
                 id={12}
               />
@@ -173,6 +175,7 @@ const UpGrazing = ({
               <DetailButton
                 label={"育成する"}
                 jockeyId={jockeyId}
+                flag={"jockey"}
                 name={"差し"}
                 id={12}
               />
@@ -189,6 +192,7 @@ const UpGrazing = ({
               <DetailButton
                 label={"育成する"}
                 jockeyId={jockeyId}
+                flag={"jockey"}
                 name={"追い"}
                 id={12}
               />
@@ -212,6 +216,7 @@ const UpGrazing = ({
                 label={"育成する"}
                 disabled={true}
                 jockeyId={jockeyId}
+                flag={"jockey"}
                 name={"プール"}
                 id={12}
               />
@@ -234,6 +239,7 @@ const UpGrazing = ({
                 label={"育成する"}
                 disabled={true}
                 jockeyId={jockeyId}
+                flag={"jockey"}
                 name={"併走"}
                 id={12}
               />
@@ -256,6 +262,7 @@ const UpGrazing = ({
                 label={"育成する"}
                 disabled={true}
                 jockeyId={jockeyId}
+                flag={"jockey"}
                 name={"坂路"}
                 id={12}
               />

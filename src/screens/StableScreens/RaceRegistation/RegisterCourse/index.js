@@ -21,7 +21,7 @@ const CourseTables = ({ navigation }) => {
                             <ReturnButton label="厩 舎" color={1} onPress={() => navigation.navigate('StallScreen')} />
                         </View>
                         <View style={Screenstyles.UPRButton} >
-                            <ReturnButton label="競馬場" color={1} />
+                            <ReturnButton label="出走登録" color={1} />
                         </View>
                     </View>
                     <View style={Screenstyles.UPCourse}>

@@ -20,9 +20,9 @@ let inputIds = [];
 const HorseNameScreen = ({
   navigation,
   horseCheckData,
+  horseCheckAge,
   user_id,
   pasture_id,
-  saveData,
   horseValidationName,
   horseIllegalName,
 }) => {
@@ -47,6 +47,7 @@ const HorseNameScreen = ({
   useEffect(() => {
     const minAge = 5;
     const maxAge = 10;
+
 
     if (horseCheckData) {
       // Generate the random array of horse ages
@@ -228,6 +229,48 @@ const HorseNameScreen = ({
             {horseCheckData.map((item, i) => {
               return (
                 <View key={i} style={Screenstyles.horseNameCard}>
+                  <View style={Screenstyles.TName}>
+                    <Text style={Screenstyles.Title}>・馬名</Text>
+                    <View style={Screenstyles.TNameInput}>
+                      <HorseNameInput
+                        id={item.id}
+                        onChangeText={handleInputChange}
+                        onBlurText={handleOnBlur}
+                      />
+                    </View>
+                    <Text
+                      style={[
+                        Screenstyles.caution,
+                        { display: displayStyle[i] },
+                      ]}
+                    >
+                      {displayStyle[i] == "flex"
+                        ? `カタカナで入力してください。`
+                        : " "}{" "}
+                    </Text>
+
+                    <Text
+                      style={[
+                        Screenstyles.caution,
+                        { display: valiHorseName[i] },
+                      ]}
+                    >
+                      ※すでにその名前は
+                      <Text style={Screenstyles.NRSpanT}>使用されています</Text>
+                      。
+                    </Text>
+
+                    <Text
+                      style={[
+                        Screenstyles.caution,
+                        { display: illegalStyleHorseName[i] },
+                      ]}
+                    >
+                      <Text style={Screenstyles.NRSpanT}>
+                        違法な単語は入力できません。
+                      </Text>
+                    </Text>
+                  </View>
                   <View style={Screenstyles.horseCardContent}>
                     <View style={Screenstyles.horseCardLeft}>
                       {horseColor.map((colorName, index) => {
@@ -253,7 +296,7 @@ const HorseNameScreen = ({
                                 <Text style={{ fontSize: 15 }}>
                                   {" "}
                                   {item.age == "・繁殖馬"
-                                    ? breedingAge[i]
+                                    ? horseCheckAge[i]
                                     : item.age.split("")[1]}
                                 </Text>
                               </View>
@@ -280,54 +323,12 @@ const HorseNameScreen = ({
                     </View>
                   </View>
 
-                  <View style={Screenstyles.TName}>
-                    <Text style={Screenstyles.Title}>・馬名</Text>
-                    <View style={Screenstyles.TNameInput}>
-                      <HorseNameInput
-                        id={item.id}
-                        onChangeText={handleInputChange}
-                        onBlurText={handleOnBlur}
-                      />
-                    </View>
-                    <Text
-                      style={[
-                        Screenstyles.caution,
-                        { display: displayStyle[i] },
-                      ]}
-                    >
-                      {displayStyle[i] == "flex"
-                        ? `日本語のカタカナを入力する必要があります`
-                        : "名前を入力してください。"}{" "}
-                    </Text>
-
-                    <Text
-                      style={[
-                        Screenstyles.caution,
-                        { display: valiHorseName[i] },
-                      ]}
-                    >
-                      ※すでにその名前は
-                      <Text style={Screenstyles.NRSpanT}>使用されています</Text>
-                      。
-                    </Text>
-
-                    <Text
-                      style={[
-                        Screenstyles.caution,
-                        { display: illegalStyleHorseName[i] },
-                      ]}
-                    >
-                      <Text style={Screenstyles.NRSpanT}>
-                        違法な単語は入力できません。
-                      </Text>
-                    </Text>
-                  </View>
                 </View>
               );
             })}
           </ScrollView>
           <View style={Screenstyles.registerButton}>
-            <PNameRegister label={"購入する"} onPress={handleSubmit} />
+            <PNameRegister label={"決        定"} onPress={handleSubmit} />
           </View>
         </View>
       </ImageBackground>
@@ -338,9 +339,9 @@ const HorseNameScreen = ({
 const mapStateToProps = (state) => {
   return {
     horseCheckData: state.horseData.CheckData,
+    horseCheckAge: state.horseData.checkAge,
     user_id: state.user.userData.id,
     pasture_id: state.pasture.pastureData.id,
-    saveData: state.horseData.saveData,
     horseValidationName: state.horseNameValid.horseNameValid,
     horseIllegalName: state.horseNameValid.horseNameIllegal,
   };

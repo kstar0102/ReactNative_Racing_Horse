@@ -181,7 +181,7 @@ const GGroup = ({
               <DetailButton
                 label={"育成する"}
                 horseId={horseId}
-                 horseAge={horseAge}
+                horseAge={horseAge}
                 horseGrow={horseGrow}
                 name={"ダート"}
               />
@@ -198,7 +198,7 @@ const GGroup = ({
               <DetailButton
                 label={"育成する"}
                 horseId={horseId}
-                 horseAge={horseAge}
+                horseAge={horseAge}
                 horseGrow={horseGrow}
                 name={"ウッドチップ"}
               />
@@ -222,7 +222,7 @@ const GGroup = ({
                 label={"育成する"}
                 disabled={poolDisabled}
                 horseId={horseId}
-                 horseAge={horseAge}
+                horseAge={horseAge}
                 horseGrow={horseGrow}
                 name={"プール"}
               />
@@ -245,7 +245,7 @@ const GGroup = ({
                 label={"育成する"}
                 disabled={truckDisabled}
                 horseId={horseId}
-                 horseAge={horseAge}
+                horseAge={horseAge}
                 horseGrow={horseGrow}
                 name={"併走"}
               />
@@ -268,7 +268,7 @@ const GGroup = ({
                 label={"育成する"}
                 disabled={roadDisabled}
                 horseId={horseId}
-                 horseAge={horseAge}
+                horseAge={horseAge}
                 horseGrow={horseGrow}
                 name={"坂路"}
               />

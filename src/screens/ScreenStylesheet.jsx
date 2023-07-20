@@ -6,7 +6,6 @@ import {
 import colors from '../containers/colors';
 import { vh, vw } from 'react-native-expo-viewport-units';
 
-
 // TopScreen Style
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -197,6 +196,7 @@ const Screenstyles = StyleSheet.create({
     // HORSE CHOICE STYLE=======================
     titleFlex:{
       flexDirection: 'row',
+      marginLeft: 20
       // justifyContent: 'space-between'
     },
     ScrollView:{
@@ -316,6 +316,7 @@ const Screenstyles = StyleSheet.create({
     },
     caution:{
       fontSize: 13,
+      marginTop: -13
     },
     registerButton:{
       // marginLeft: 20
@@ -386,8 +387,6 @@ const Screenstyles = StyleSheet.create({
       display:'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
-      // fontSize: 25,
-      // fontWeight: 600,
       textAlign:'center',
     },
     reserveListRed:{
