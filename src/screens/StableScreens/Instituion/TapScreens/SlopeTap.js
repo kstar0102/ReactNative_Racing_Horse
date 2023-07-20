@@ -45,7 +45,7 @@ const SlopTap = ({
         setTwoBorderStyle(0);
         setThreeBtnStyle("none");
         setThreeLockStyle("flex");
-        setThreeBlueStyle(1);
+        setThreeBlueStyle(0);
 
         setOneBorderStyle(8);
         setTwoBlueStyle(1);
@@ -86,7 +86,7 @@ const SlopTap = ({
       setOneBorderStyle(0);
       setThreeBorderStyle(0);
       setThreeTxtStyle("none");
-      setThreeBlueStyle(1);
+      setThreeBlueStyle(0);
       setThreeLockStyle("flex");
       setThreeBtnStyle("none");
     }

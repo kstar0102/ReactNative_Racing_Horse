@@ -389,6 +389,7 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
     }
     const randomNumber = Math.floor(Math.random() * 100);
 
+    return;
     // Iterate over the options until we reach the chosen value
     let sum = 0;
     for (const [key, value] of Object.entries(options)) {
@@ -449,24 +450,6 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
       default:
         return <GGroup horseId={banner.id} horseAge={banner.age.split("")[1]} horseGrow={banner.growth}/>;
     }
-  };
-
-  const handlePress = () => {
-    Alert.alert(
-      "入厩",
-      "入厩させますか?",
-      [
-        {
-          text: "いいえ",
-          style: "cancel",
-        },
-        {
-          text: "はい",
-          onPress: () => handleButtonPress(1),
-        },
-      ],
-      { cancelable: false }
-    );
   };
 
   return (
@@ -702,7 +685,7 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
               />
             ) : (
               <WorkingButton
-                label={`休憩`}
+                label={`飼葉`}
                 colorNumber={5}
                 styleId={2}
                 onPress={() => handleButtonPress(1)}

@@ -316,6 +316,7 @@ const Screenstyles = StyleSheet.create({
     },
     caution:{
       fontSize: 13,
+      marginTop: -13
     },
     registerButton:{
       // marginLeft: 20

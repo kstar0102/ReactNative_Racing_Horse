@@ -1,4 +1,4 @@
-import { LOGIN_USER_DATA, ARROW_POSITION_STATE, HORSE_SAVE_DATA } from '../types';
+import { LOGIN_USER_DATA, ARROW_POSITION_STATE, HORSE_SAVE_DATA, STABLE_MENU_DATA } from '../types';
 import axios from 'axios';
 import { API } from '../../../utils/config';
 
@@ -13,6 +13,13 @@ export const horseData = (horseData) => {
   return {
     type: HORSE_SAVE_DATA,
     payload: horseData,
+  }
+};
+
+export const stableHorseData = (stalbehorseData) => {
+  return {
+    type: STABLE_MENU_DATA,
+    payload: stalbehorseData,
   }
 };
 
@@ -38,6 +45,7 @@ export function upbringingAction(upbrginData) {
       dispatch(userData(res.data.data[0]));
       dispatch(arrowData(upbrginData));
       dispatch(horseData(res.data.horse));
+      dispatch(stableHorseData(res.data.horse));
     })
     .catch(error => {
       throw(error);

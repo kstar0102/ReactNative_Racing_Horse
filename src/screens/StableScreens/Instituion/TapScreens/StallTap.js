@@ -29,13 +29,6 @@ const StallTap = ({ user_id, user_level, banner, institutionData}) => {
   const bannerId = banner == 0 ? institutionData[0].sid : banner.sid;
   const bannerLevel = banner == 0 ?  institutionData[0].slevel : banner.slevel;
  
-  let isLevel;
-  if(banner){
-    isLevel = banner.slevel
-  }else if(institutionData[0].slevel){
-    isLevel = institutionData[0].slevel
-  };
-
   useEffect(() => {
     if (institutionData != "") {
       if (bannerLevel == 1) {
@@ -48,8 +41,7 @@ const StallTap = ({ user_id, user_level, banner, institutionData}) => {
         setTwoBorderStyle(0);
         setThreeBtnStyle("none");
         setThreeLockStyle("flex");
-        setThreeBlueStyle(1);
-
+        setThreeBlueStyle(0);
         setOneBorderStyle(8);
         setTwoBlueStyle(1);
       } else if (bannerLevel == 2) {
@@ -89,7 +81,7 @@ const StallTap = ({ user_id, user_level, banner, institutionData}) => {
       setOneBorderStyle(0);
       setThreeBorderStyle(0);
       setThreeTxtStyle("none");
-      setThreeBlueStyle(1);
+      setThreeBlueStyle(0);
       setThreeLockStyle("flex");
       setThreeBtnStyle("none");
     }
@@ -173,7 +165,7 @@ const StallTap = ({ user_id, user_level, banner, institutionData}) => {
                   : 0
                 : Platform.OS === "ios"
                 ? 8
-                : 3
+                : 8
             }
           />
           <Text
@@ -205,7 +197,7 @@ const StallTap = ({ user_id, user_level, banner, institutionData}) => {
                   : 0
                 : Platform.OS === "ios"
                 ? 8
-                : 3
+                : 8
             }
           />
           <Text

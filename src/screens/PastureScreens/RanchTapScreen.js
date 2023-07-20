@@ -23,7 +23,7 @@ const RanchTapScreen = ({ saveData }) => {
   const renderScreenBelowButtons = () => {
     const filtereOneData = saveData.filter(data => data.age === '・0歳馬' || data.age === '・1歳馬');
     const filtereTwoData = saveData.filter(data => data.age === '・2歳馬' || data.age === '・3歳馬');
-    const filtereThreedData = saveData.filter(data => data.age === '・放牧馬');
+    const filtereThreedData = saveData.filter(data => data.age === '・繁殖馬');
 
     switch (activeButton) {
       case 1:

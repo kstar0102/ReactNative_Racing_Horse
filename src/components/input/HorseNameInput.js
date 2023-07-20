@@ -14,6 +14,7 @@ const HorseNameInput = ({onChangeText, onBlurText, id}) => {
       onBlur={onBlurText}
       onChangeText={handleInputChange}  
       style={styles.passwordS}
+      placeholder='名前を入力してください。'
       maxLength={9}
     />
   ); 
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
   passwordS: {
     backgroundColor: colors.white,
     borderRadius: 9,
-    height: 30,
+    height: 18,
     margin: 12,
     width: 335,
     borderWidth: 1,
