@@ -72,16 +72,16 @@ export default BloodLineTable;
 
 const styles = StyleSheet.create({
   container: {
-    width: 180,
+    width: 220,
   },
   GFather: {
     height: 30,
-    width: 90,
+    width: 110,
     backgroundColor: colors.TableFathercolor,
   },
   GMother: {
     height: 30,
-    width: 90,
+    width: 110,
     backgroundColor: colors.TableMoterColor,
   },
 
@@ -98,6 +98,9 @@ const styles = StyleSheet.create({
   },
   colTextSize: {
     fontSize: hp(1.5) + wp(.8), textAlign: 'center'
+  },
+  colTextSize: {
+    fontSize: hp(1) + wp(.5), textAlign: 'center'
   }
 
 });

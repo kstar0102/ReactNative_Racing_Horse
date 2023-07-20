@@ -44,6 +44,15 @@ const HorseNameScreen = ({
   const pattern =
     /[\d\s!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]|[a-zA-Z]|[^\u30A0-\u30FF\uFF66-\uFF9F]+$/;
 
+    const hasDuplicates = (array) => {
+      for (let i = 0; i < array.length; i++) {
+        if (array.indexOf(array[i]) !== i) {
+          return true;
+        }
+      }
+      return false;
+    }
+
   useEffect(() => {
     const minAge = 5;
     const maxAge = 10;
@@ -193,6 +202,10 @@ const HorseNameScreen = ({
         dispatch(horseNameValiAction(sendName));
       }
 
+      // else if(hasDuplicates(horseNames) == "true"){
+      //   alert("重複した名前");
+      // }
+
       //==================ILLEGAL HORSENAME NO -> ILLEGAL
       if (illegalCheck != []) {
         const sendillegalName = {
@@ -327,7 +340,7 @@ const HorseNameScreen = ({
             })}
           </ScrollView>
           <View style={Screenstyles.registerButton}>
-            <PNameRegister label={"決               定"} onPress={handleSubmit} />
+            <PNameRegister label={"決        定"} onPress={handleSubmit} />
           </View>
         </View>
       </ImageBackground>

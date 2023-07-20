@@ -513,19 +513,19 @@ const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
       let message = "";
       switch (key) {
         case "D1":
-          message = "疲労が溜まりすぎるとケガ(挫跖 ど)をする";
+          message = "疲労が溜まると故障してしまいます。";
           break;
         case "D2":
-          message = "疲労が溜まりすぎるとケガ(裂蹄 ど)をする";
+          message = "疲労が溜まると故障してしまいます。";
           break;
         case "D3":
-          message = "疲労が溜まりすぎるとケガ(屈腱炎 ど)をする";
+          message = "疲労が溜まると故障してしまいます。";
           break;
         case "D4":
-          message = "疲労が溜まりすぎるとケガ(骨折 ど)をする";
+          message = "疲労が溜まると故障してしまいます。";
           break;
         case "D5":
-          message = "疲労が溜まりすぎるとケガ(予後不良 ど)をする";
+          message = "疲労が溜まると故障してしまいます。";
           break;
       }
     

@@ -20,11 +20,11 @@ const PNameRegister = ({ label, onPress, disabled }) => {
 
 const styles = StyleSheet.create({
 	button: {
-        backgroundColor: colors.loginButtonColor,
+        backgroundColor: colors.butonBackgroud,
         borderRadius: 8,
         borderColor: colors.black,
         borderWidth: 1.5,
-        width: 350,
+        width: 175,
         height: 60,
         marginTop: 40,
         paddingVertical: 12,
