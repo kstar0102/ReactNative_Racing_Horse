@@ -6,6 +6,9 @@ import WorkingButton from '../../../../components/Buttons/WorkingButtons/Working
 import { SaleButton } from '../../../../components/Buttons';
 
 const GrazingHorseTapScreen = () => {
+  return(
+    alert("Not Found Found")
+  );
   const [selected, setSelected] = useState(undefined);
   const [banner, setBanner] = useState('');
 

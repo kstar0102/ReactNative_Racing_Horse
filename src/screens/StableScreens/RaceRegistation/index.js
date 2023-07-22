@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Image, Text, ImageBackground } from "react-native";
 import Toast from "react-native-root-toast";
+import Spinner from "react-native-loading-spinner-overlay";
 
 import DropDownR from "../../../components/Buttons/DropDwonR";
 import RTapScreensStyle from "../../PastureScreens/RanchTapScreens/RTapScreensStyle";
@@ -13,13 +14,12 @@ import { horseColor } from "../../../utils/globals";
 import RegisterTable from "./RegisterTable";
 
 const RaceRegistation = ({ stableData }) => {
+  if (stableData == "" || stableData == undefined) {
+    alert("YOUR HORSE NOT FOUND RETURN");
+    return <Spinner visible={true} />;
+  }
   // Ground Color
   const [groundColor, setGroundColor] = useState("#1BFF00");
-
-  if (stableData == "") {
-    alert("YOUR HORSE NOT FOUND RETURN");
-    return false;
-  }
   const [selected, setSelected] = useState(undefined);
   const [banner, setBanner] = useState(stableData[0]);
 
@@ -347,7 +347,6 @@ const RaceRegistation = ({ stableData }) => {
                       {(!!selected && speed) || speed}
                     </Text>
                   </Text>
-
                 </View>
                 <View style={RTapScreensStyle.oneRightTxt}>
                   <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
@@ -384,7 +383,6 @@ const RaceRegistation = ({ stableData }) => {
                       {(!!selected && moment) || moment}
                     </Text>
                   </Text>
-
                 </View>
 
                 <View style={RTapScreensStyle.oneRightTxt}>

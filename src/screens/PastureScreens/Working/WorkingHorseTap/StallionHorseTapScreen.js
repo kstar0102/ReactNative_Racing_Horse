@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { View, Image, Text, ScrollView } from 'react-native';
+import { View, Image, Text, ScrollView, Alert } from 'react-native';
 import DropDownR from '../../../../components/Buttons/DropDwonR';
 import RTapScreensStyle from '../../RanchTapScreens/RTapScreensStyle';
 import { SaleButton } from '../../../../components/Buttons';
 import WorkingButton from '../../../../components/Buttons/WorkingButtons';
 
 const StallionHorseTapScreen = () => {
+  return(
+    alert("Not Found Found")
+  );
   const [selected, setSelected] = useState(undefined);
   const data = [
     { name: 'A', id: 1, sp: 'S', st: 'D+', fatigue: 'O', instantaneous: 'A', guts: 'C', temper: 'B', health: 'A', Hair: '白毛', class: 'GIクラス' },

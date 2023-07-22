@@ -6,6 +6,9 @@ import WorkingButton from '../../../../components/Buttons/WorkingButtons';
 import { SaleButton } from '../../../../components/Buttons';
 
 const BroodmareHorseTapScreen = () => {
+  return(
+    alert("Not Found Found")
+  );
   const [selected, setSelected] = useState(undefined);
   const data = [
     { name: 'A', id: 1, sp: 'S', st: 'D+', fatigue: 'O', instantaneous: 'A', guts: 'C', temper: 'B', health: 'A', Hair: '白毛', class: 'GIクラス' },
