@@ -7,14 +7,13 @@ import { InstitutionMenuAction } from "../../../store/actions/truck/TrainInstitu
 // Custom IMPORT
 import HeaderScreen from "../../LayoutScreen/HeaderScreen";
 import StableFooterScreen from "../../LayoutScreen/StableFooterScreen";
-import { ReturnButton } from "../../../components/Buttons";
+import ReturnButtonScreen from "../../../components/someScreen/ReturnButtonScreen";
 import Screenstyles from "../../ScreenStylesheet";
 import TapScreen from "./TapScreen";
 import DropDwonI from "../../../components/Buttons/DropDwonI";
 import StableStyles from "../StableStyles";
 
 const Institution = ({
-  navigation,
   level,
   institutionData,
   user_id,
@@ -53,18 +52,7 @@ const Institution = ({
         >
           <HeaderScreen />
           <View style={Screenstyles.footerTap}>
-            <View>
-              <View>
-                <ReturnButton
-                  label="厩 舎"
-                  color={1}
-                  onPress={() => navigation.navigate("StallScreen")}
-                />
-              </View>
-              <View style={Screenstyles.UPRButton}>
-                <ReturnButton label="施 設" color={1} />
-              </View>
-            </View>
+            <ReturnButtonScreen BigPlace={"厩 舎"} screenName={"施 設"} nviUrl={"StallScreen"} colorNumber={1}/>
             {/* SCREEN SHOW */}
             <View style={StableStyles.institutionContainer}>
               <View style={StableStyles.upperContent}>

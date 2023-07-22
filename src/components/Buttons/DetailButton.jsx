@@ -7,6 +7,7 @@ import { upbringingFoodAction } from "../../store/actions/Pasture/upbringingFood
 import { JockeyGrazingAction } from "../../store/actions/jockey/JockeyGrazingAction";
 import { JockeyFoodAction } from "../../store/actions/jockey/JockeyFoodAction";
 // container
+import { calculateGameDate } from "../../screens/LayoutScreen/HeaderScreen";
 import colors from "../../containers/colors";
 import ModalButton from "./ModalButton";
 import Tooltip from "react-native-walkthrough-tooltip";
@@ -26,6 +27,10 @@ const DetailButton = ({
 }) => {
   const dispatch = useDispatch();
   const [toolTipVisible, setToolTipVisible] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const gameAllDate = calculateGameDate(currentTime);
+  const gameDate = gameAllDate.toISOString().split("T")[0];
+
 
   const handleSubmit = (value, flag) => {
     if (flag == "jockey") {
@@ -35,6 +40,7 @@ const DetailButton = ({
         jockey_id: jockeyId,
         pt: ptValue,
         what: name,
+        gameDate: gameDate,
         user_id: user_id,
       };
       dispatch(JockeyGrazingAction(upSendJockey));
@@ -46,6 +52,7 @@ const DetailButton = ({
         grow: horseGrow,
         pt: ptValue,
         what: name,
+        gameDate: gameDate,
         user_id: user_id,
       };
 
@@ -60,6 +67,7 @@ const DetailButton = ({
         jockey_id: jockeyId,
         pt: foodPtValue,
         what: name,
+        gameDate: gameDate,
         user_id: user_id,
       };
       dispatch(JockeyFoodAction(upFoodJockeySend));
@@ -68,6 +76,7 @@ const DetailButton = ({
         horse_id: horseId,
         pt: foodPtValue,
         what: name,
+        gameDate: gameDate,
         user_id: user_id,
       };
       dispatch(upbringingFoodAction(upFoodSend));

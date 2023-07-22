@@ -1,47 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { View, Image, Text, ImageBackground } from "react-native";
 import Toast from "react-native-root-toast";
+import Spinner from "react-native-loading-spinner-overlay";
 
 import DropDownR from "../../../components/Buttons/DropDwonR";
 import RTapScreensStyle from "../../PastureScreens/RanchTapScreens/RTapScreensStyle";
 import Screenstyles from "../../ScreenStylesheet";
 import HeaderScreen from "../../LayoutScreen/HeaderScreen";
 import StableFooterScreen from "../../LayoutScreen/StableFooterScreen";
-import { ReturnButton } from "../../../components/Buttons";
+import ReturnButtonScreen from "../../../components/someScreen/ReturnButtonScreen";
 import { connect } from "react-redux";
 import { horseColor } from "../../../utils/globals";
 import RegisterTable from "./RegisterTable";
 
-const RaceRegistation = ({ stableData, arrowState, navigation }) => {
-  const [arrowStates, setArrowState] = useState(arrowState);
-  // ALL REPEAT
-  const [happySate, setHappyState] = useState(0);
-  const [tiredState, setTiredState] = useState(0);
-  // スベシャル & 芝
-  const [speedState, setSpeedState] = useState(0);
-  // スベシャル & ダート
-  const [strengthState, setStrengthState] = useState(0);
-  // スベシャル & 坂路
-  const [momentState, setMomentState] = useState(0);
-  // スベシャル & 併走
-  const [staminaState, setStaminaState] = useState(0);
-  // ウッドチップ
-  const [contitionState, setContitionState] = useState(0);
-  // プール
-  const [healthState, setHealthState] = useState(0);
-  // State
-  const [State, setState] = useState("⬆");
-  const [tiredArror, setArrorState] = useState("⬆");
-  const [colors, setColors] = useState("red");
-  const [tiredArrorColor, setArrorColor] = useState("red");
-
+const RaceRegistation = ({ stableData }) => {
+  if (stableData == "" || stableData == undefined) {
+    alert("YOUR HORSE NOT FOUND RETURN");
+    return <Spinner visible={true} />;
+  }
   // Ground Color
   const [groundColor, setGroundColor] = useState("#1BFF00");
-
-  if (stableData == "") {
-    alert("YOUR HORSE NOT FOUND RETURN");
-    return false;
-  }
   const [selected, setSelected] = useState(undefined);
   const [banner, setBanner] = useState(stableData[0]);
 
@@ -57,130 +35,6 @@ const RaceRegistation = ({ stableData, arrowState, navigation }) => {
     }
   }, [stableData]);
   const data = stableData;
-
-  useEffect(() => {
-    setArrowState(arrowState);
-  }, [arrowState]);
-
-  useEffect(() => {
-    if (arrowStates.what == "スベシャル") {
-      // ALL REPAET
-      setHappyState(1);
-      setTiredState(1);
-      // ===========
-      setSpeedState(1);
-      setStrengthState(1);
-      setMomentState(1);
-      setStaminaState(1);
-      // ===========
-
-      setTimeout(() => {
-        setHappyState(0);
-        setTiredState(0);
-        setSpeedState(0);
-        setStrengthState(0);
-        setMomentState(0);
-        setStaminaState(0);
-      }, 2000);
-    } else if (arrowStates.what == "芝") {
-      setHappyState(1);
-      setTiredState(1);
-      setSpeedState(1);
-      setTimeout(() => {
-        setHappyState(0);
-        setTiredState(0);
-        setSpeedState(0);
-      }, 2000);
-    } else if (arrowStates.what == "ダート") {
-      setHappyState(1);
-      setTiredState(1);
-      setStrengthState(1);
-      setTimeout(() => {
-        setHappyState(0);
-        setTiredState(0);
-        setStrengthState(0);
-      }, 2000);
-    } else if (arrowStates.what == "ウッドチップ") {
-      setHappyState(1);
-      setTiredState(1);
-      setContitionState(1);
-      setTimeout(() => {
-        setHappyState(0);
-        setTiredState(0);
-        setContitionState(0);
-      }, 2000);
-    } else if (arrowStates.what == "プール") {
-      setHappyState(1);
-      setTiredState(1);
-      setHealthState(1);
-      setTimeout(() => {
-        setHappyState(0);
-        setTiredState(0);
-        setHealthState(0);
-      }, 2000);
-    } else if (arrowStates.what == "併走") {
-      setHappyState(1);
-      setTiredState(1);
-      setStaminaState(1);
-      setTimeout(() => {
-        setHappyState(0);
-        setTiredState(0);
-        setStaminaState(0);
-      }, 2000);
-    } else if (arrowStates.what == "坂路") {
-      setHappyState(1);
-      setTiredState(1);
-      setMomentState(1);
-      setTimeout(() => {
-        setHappyState(0);
-        setTiredState(0);
-        setMomentState(0);
-      }, 2000);
-    } else if (arrowStates.what == "にんじん") {
-      setHappyState(1);
-      setTimeout(() => {
-        setHappyState(0);
-      }, 2000);
-    } else if (arrowStates.what == "Sドリンク") {
-      setHappyState(1);
-      setTimeout(() => {
-        setHappyState(0);
-      }, 2000);
-    } else if (arrowStates.what == "プロテイン") {
-      setHappyState(1);
-      setTimeout(() => {
-        setHappyState(0);
-      }, 2000);
-    } else if (arrowStates.what == "角砂糖") {
-      setTiredState(1);
-      setArrorState("⬇");
-      setArrorColor("blue");
-      setTimeout(() => {
-        setTiredState(0);
-      }, 2000);
-    } else if (arrowStates.what == "チョコ") {
-      setTiredState(1);
-      setArrorState("⬇");
-      setArrorColor("blue");
-      setTimeout(() => {
-        setTiredState(0);
-      }, 2000);
-    } else if (arrowStates.what == "ケーキ") {
-      setTiredState(1);
-      setArrorState("⬇");
-      setArrorColor("blue");
-      setTimeout(() => {
-        setTiredState(0);
-      }, 2000);
-    }
-    if (banner.direction == 0) {
-      setState("⬇");
-      setColors("blue");
-    } else if (banner.direction == 1) {
-      setState("⬆");
-      setColors("red");
-    }
-  }, [arrowStates]);
 
   const handleSettingId = (value) => {
     setBanner(value);
@@ -375,7 +229,7 @@ const RaceRegistation = ({ stableData, arrowState, navigation }) => {
         D4: 10,
         D5: 8,
       };
-    } else if (condition == 19 || condition == 20) {
+    } else if (condition == 19 || condition >= 20) {
       options = {
         none: 0,
         D1: 30,
@@ -421,12 +275,9 @@ const RaceRegistation = ({ stableData, arrowState, navigation }) => {
             Toast.hide(toast);
           }, 2000);
         } else if (key == "D5") {
-          let toast = Toast.show(
-            " 疲労が溜まると故障してしまいます。",
-            {
-              duration: Toast.durations.LONG,
-            }
-          );
+          let toast = Toast.show(" 疲労が溜まると故障してしまいます。", {
+            duration: Toast.durations.LONG,
+          });
           setTimeout(function hideToast() {
             Toast.hide(toast);
           }, 2000);
@@ -442,18 +293,12 @@ const RaceRegistation = ({ stableData, arrowState, navigation }) => {
       style={Screenstyles.img}
     >
       <HeaderScreen />
-      <View style={Screenstyles.UPcontent}>
-        <View>
-          <ReturnButton
-            label="厩 舎"
-            color={1}
-            onPress={() => navigation.navigate("StallScreen")}
-          />
-        </View>
-        <View style={Screenstyles.UPRButton}>
-          <ReturnButton label="出走登録" color={1} />
-        </View>
-      </View>
+      <ReturnButtonScreen
+        BigPlace={"厩 舎"}
+        screenName={"出走登録"}
+        colorNumber={1}
+        nviUrl={"StallScreen"}
+      />
       <View style={RTapScreensStyle.RaceRegistationContainer}>
         <View style={RTapScreensStyle.oneTopContent}>
           <View style={RTapScreensStyle.oneTopContentLeft}>
@@ -494,14 +339,6 @@ const RaceRegistation = ({ stableData, arrowState, navigation }) => {
                     style={RTapScreensStyle.conditions}
                     source={conditionFace}
                   />
-                  <Text
-                    style={[
-                      RTapScreensStyle.oneRightTxtUp,
-                      { opacity: happySate, color: colors },
-                    ]}
-                  >
-                    {State}
-                  </Text>
                 </View>
                 <View style={RTapScreensStyle.oneRightTxt}>
                   <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
@@ -510,14 +347,6 @@ const RaceRegistation = ({ stableData, arrowState, navigation }) => {
                       {(!!selected && speed) || speed}
                     </Text>
                   </Text>
-                  <Text
-                    style={[
-                      RTapScreensStyle.oneRightTxtUp,
-                      { opacity: speedState },
-                    ]}
-                  >
-                    ⬆
-                  </Text>
                 </View>
                 <View style={RTapScreensStyle.oneRightTxt}>
                   <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
@@ -525,14 +354,6 @@ const RaceRegistation = ({ stableData, arrowState, navigation }) => {
                     <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>
                       {(!!selected && strength) || strength}
                     </Text>
-                  </Text>
-                  <Text
-                    style={[
-                      RTapScreensStyle.oneRightTxtUp,
-                      { opacity: strengthState },
-                    ]}
-                  >
-                    ⬆
                   </Text>
                 </View>
               </View>
@@ -543,14 +364,6 @@ const RaceRegistation = ({ stableData, arrowState, navigation }) => {
                     <Text style={RTapScreensStyle.oneRioghtBodyTxtTired}>
                       {(!!selected && tired) || tired}
                     </Text>
-                  </Text>
-                  <Text
-                    style={[
-                      RTapScreensStyle.oneRightTxtUp,
-                      { opacity: tiredState, color: tiredArrorColor },
-                    ]}
-                  >
-                    {tiredArror}
                   </Text>
 
                   <Text
@@ -570,14 +383,6 @@ const RaceRegistation = ({ stableData, arrowState, navigation }) => {
                       {(!!selected && moment) || moment}
                     </Text>
                   </Text>
-                  <Text
-                    style={[
-                      RTapScreensStyle.oneRightTxtUp,
-                      { opacity: momentState },
-                    ]}
-                  >
-                    ⬆
-                  </Text>
                 </View>
 
                 <View style={RTapScreensStyle.oneRightTxt}>
@@ -586,14 +391,6 @@ const RaceRegistation = ({ stableData, arrowState, navigation }) => {
                     <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>
                       {(!!selected && stamina) || stamina}
                     </Text>
-                  </Text>
-                  <Text
-                    style={[
-                      RTapScreensStyle.oneRightTxtUp,
-                      { opacity: staminaState },
-                    ]}
-                  >
-                    ⬆
                   </Text>
                 </View>
               </View>
@@ -614,14 +411,6 @@ const RaceRegistation = ({ stableData, arrowState, navigation }) => {
                       {(!!selected && condition) || condition}
                     </Text>
                   </Text>
-                  <Text
-                    style={[
-                      RTapScreensStyle.oneRightTxtUp,
-                      { opacity: contitionState },
-                    ]}
-                  >
-                    ⬆
-                  </Text>
                 </View>
                 <View style={RTapScreensStyle.oneRightTxt}>
                   <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
@@ -629,14 +418,6 @@ const RaceRegistation = ({ stableData, arrowState, navigation }) => {
                     <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>
                       {(!!selected && health) || health}
                     </Text>
-                  </Text>
-                  <Text
-                    style={[
-                      RTapScreensStyle.oneRightTxtUp,
-                      { opacity: healthState },
-                    ]}
-                  >
-                    ⬆
                   </Text>
                 </View>
               </View>

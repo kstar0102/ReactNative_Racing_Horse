@@ -30,12 +30,12 @@ export const raceRegisterData = (data) => {
   };
 };
 
-export const userData = (user) => {
-  return {
-    type: LOGIN_USER_DATA,
-    payload: user,
-  };
-};
+// export const userData = (user) => {
+//   return {
+//     type: LOGIN_USER_DATA,
+//     payload: user,
+//   };
+// };
 
 export function RaceRegisterBackSaveAction(backSaveData) {
   return async (dispatch, getState) => {
@@ -52,7 +52,7 @@ export function RaceRegisterBackSaveAction(backSaveData) {
       )
       .then((res) => {
         dispatch(raceRegisterData(res.data.race_register_data));
-        dispatch(userData(res.data.user));
+        // dispatch(userData(res.data.user));
       })
       .catch((error) => {
         throw error;

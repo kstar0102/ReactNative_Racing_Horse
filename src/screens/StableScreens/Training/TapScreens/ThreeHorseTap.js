@@ -337,8 +337,9 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
 
   // Health State
   const setPattern = (condition) => {
-    // Disable Injery
+    // Disable Injury
     let options;
+  
     if (condition <= 10) {
       return false;
     } else if (condition == 11 || condition == 12) {
@@ -377,7 +378,7 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
         D4: 10,
         D5: 8,
       };
-    } else if (condition == 19 || condition == 20) {
+    } else if (condition == 19 || condition >= 20) {
       options = {
         none: 0,
         D1: 30,
@@ -386,59 +387,28 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
         D4: 15,
         D5: 10,
       };
+    } else {
+      return false; // Return false for invalid conditions
     }
+  
     const randomNumber = Math.floor(Math.random() * 100);
-
-    return;
+  
     // Iterate over the options until we reach the chosen value
     let sum = 0;
-    for (const [key, value] of Object.entries(options)) {
+    for (const [key, value] of Object.entries(options || {})) {
       sum += value;
-      if (randomNumber < sum) {
-        if (key == "D1") {
-          let toast = Toast.show("疲労が溜まると故障してしまいます。", {
-            duration: Toast.durations.LONG,
-          });
-          setTimeout(function hideToast() {
-            Toast.hide(toast);
-          }, 2000);
-        } else if (key == "D2") {
-          let toast = Toast.show("疲労が溜まると故障してしまいます。", {
-            duration: Toast.durations.LONG,
-          });
-          setTimeout(function hideToast() {
-            Toast.hide(toast);
-          }, 2000);
-        } else if (key == "D3") {
-          let toast = Toast.show("疲労が溜まると故障してしまいます。", {
-            duration: Toast.durations.LONG,
-          });
-          setTimeout(function hideToast() {
-            Toast.hide(toast);
-          }, 2000);
-        } else if (key == "D4") {
-          let toast = Toast.show("疲労が溜まると故障してしまいます。", {
-            duration: Toast.durations.LONG,
-          });
-          setTimeout(function hideToast() {
-            Toast.hide(toast);
-          }, 2000);
-        } else if (key == "D5") {
-          let toast = Toast.show(
-            "疲労が溜まると故障してしまいます。",
-            {
-              duration: Toast.durations.LONG,
-            }
-          );
-          setTimeout(function hideToast() {
-            Toast.hide(toast);
-          }, 2000);
-        }
+      if (randomNumber < sum && key.startsWith("D")) {
+        let toast = Toast.show("疲労が溜まると故障してしまいます。", {
+          duration: Toast.durations.LONG,
+        });
+        setTimeout(function hideToast() {
+          Toast.hide(toast);
+        }, 2000);
         break;
       }
     }
   };
-
+  
   const handleButtonPress = (id) => {
     setActiveButton(id);
   };

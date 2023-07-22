@@ -13,10 +13,10 @@ import PastureNameScreen from '../screens/PastureScreens/PastureNameScreen';
 import HorseChoiceScreen from '../screens/PastureScreens/HorseChoiceScreen';
 import HorseNameScreen from '../screens/PastureScreens/HorseNameScreen';
 import UpbringingScreen from '../screens/PastureScreens/UpbringingScreen';
-import InstitutionScreen from '../screens/PastureScreens/InstitutionScreen';
-import OfficeScreen from '../screens/PastureScreens/OfficeScreen';
-import RacetrackScreen from '../screens/PastureScreens/RacetrackScreen';
-import WorkingHorseScreen from '../screens/PastureScreens/WorkingHorseScreen';
+import InstitutionScreen from '../screens/PastureScreens/Institution/InstitutionScreen';
+import OfficeScreen from '../screens/PastureScreens/Office/OfficeScreen';
+import RacetrackScreen from '../screens/PastureScreens/RaceTrack/RacetrackScreen';
+import WorkingHorseScreen from '../screens/PastureScreens/Working/WorkingHorseScreen';
 import ReservationScreen from '../screens/PastureScreens/RanchTapScreens/ReservationScreen';
 /**
  * Stall SCreen
@@ -34,7 +34,7 @@ import JockeyReservationScreen from '../screens/StableScreens/Jockeytraingin/Joc
 // STALL RACE COURSE SCREEN
 import StableRaceCourse from '../screens/StableScreens/RaceCourse/StableRaceCourse';
 // PASTURE RACE COURSE SCREEN
-import PastureRaceCourseScreen from '../screens/PastureScreens/RacetrackTableScreen/PastureRaceCourseScreen';
+import PastureRaceCourseScreen from '../screens/PastureScreens/RaceTrack/RacetrackTableScreen/PastureRaceCourseScreen';
 /**
  * RaceCourse Screen
  */

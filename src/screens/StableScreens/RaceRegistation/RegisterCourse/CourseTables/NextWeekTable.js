@@ -1,17 +1,29 @@
-import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Table, TableWrapper, Row, Col, Rows } from 'react-native-table-component';
-import { useNavigation } from '@react-navigation/native';
+import React from "react";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
+import {
+  Table,
+  TableWrapper,
+  Row,
+  Col,
+  Rows,
+} from "react-native-table-component";
+import { useNavigation } from "@react-navigation/native";
 // Redux
-import { connect, useDispatch } from 'react-redux';
-import { ReacRegisterAction } from '../../../../../store/actions/ReacRegister/ReacRegisterAction';
+import { connect, useDispatch } from "react-redux";
+import { ReacRegisterAction } from "../../../../../store/actions/ReacRegister/ReacRegisterAction";
 // Custom
-import TableStyles from '../../../RaceCourse/RacetrackTable/TableStyles';
+import TableStyles from "../../../RaceCourse/RacetrackTable/TableStyles";
 
-const NextWeekTable = ({ nextWeekTitle, nextWeekData, nextWeekName, nextId }) => {
+const NextWeekTable = ({
+  nextWeekTitle,
+  nextWeekData,
+  nextWeekName,
+  nextId,
+  jockeysData,
+}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const elementButton = (nextWeekNames) => (
+  const elementButton = (nextWeekNames) =>
     nextWeekNames.map((name, index) => (
       <View key={index}>
         <TouchableOpacity onPress={() => handleClick(nextId[index])}>
@@ -20,12 +32,10 @@ const NextWeekTable = ({ nextWeekTitle, nextWeekData, nextWeekName, nextId }) =>
           </View>
         </TouchableOpacity>
       </View>
-    ))
-  );
-
+    ));
   const handleClick = (value) => {
-    dispatch(ReacRegisterAction(value)) 
-    navigation.navigate('RaceRegistation');
+    navigation.navigate("RaceRegistation");
+    dispatch(ReacRegisterAction(value));
   };
 
   return (
@@ -57,10 +67,10 @@ const NextWeekTable = ({ nextWeekTitle, nextWeekData, nextWeekName, nextId }) =>
   );
 };
 
-const mapStateToProps = () => {
-  return{
-
-  }
-}
+const mapStateToProps = (state) => {
+  return {
+    jockeysData: state.raceData.jockeysData,
+  };
+};
 
 export default connect(mapStateToProps)(NextWeekTable);

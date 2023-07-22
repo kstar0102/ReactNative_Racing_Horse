@@ -14,7 +14,6 @@ import { SaleButton } from "../../../components/Buttons";
 import { horseColor } from "../../../utils/globals";
 
 const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
-  
   const dispatch = useDispatch();
   const [arrowStates, setArrowState] = useState(arrowState);
   // ALL REPEAT
@@ -58,12 +57,14 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
   const [activeButton, setActiveButton] = useState(0);
   const [banner, setBanner] = useState(oneData[0]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const sandIds = {
       horse_id: banner.id,
     };
     dispatch(showHorseGrow(sandIds));
-  },[oneData])
+  }, [oneData]);
+
+
 
   useEffect(() => {
     setBanner(oneData[0]);
@@ -154,8 +155,8 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
     } else if (arrowStates.what == "芝") {
       setHappyState(1);
       setTiredState(1);
-      if(showGrowstate != undefined){
-        if (speedMax == showGrowstate.speed_b) {
+      if (showGrowstate != undefined) {
+        if (speedMax <= showGrowstate.speed_b) {
           setSpeedState(0);
         } else {
           setSpeedState(1);
@@ -171,8 +172,8 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
     } else if (arrowStates.what == "ダート") {
       setHappyState(1);
       setTiredState(1);
-      if(showGrowstate != undefined){
-        if (strengthMax == showGrowstate.strength_b) {
+      if (showGrowstate != undefined) {
+        if (strengthMax <= showGrowstate.strength_b) {
           setStrengthState(0);
         } else {
           setStrengthState(1);
@@ -186,8 +187,8 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
     } else if (arrowStates.what == "ウッドチップ") {
       setHappyState(1);
       setTiredState(1);
-      if(showGrowstate != undefined){
-        if (conditionMax == showGrowstate.condition_b) {
+      if (showGrowstate != undefined) {
+        if (conditionMax <= showGrowstate.condition_b) {
           setContitionState(0);
         } else {
           setContitionState(1);
@@ -201,8 +202,8 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
     } else if (arrowStates.what == "プール") {
       setHappyState(1);
       setTiredState(1);
-      if(showGrowstate != undefined){
-        if (healthMax == showGrowstate.health_b) {
+      if (showGrowstate != undefined) {
+        if (healthMax <= showGrowstate.health_b) {
           setHealthState(0);
         } else {
           setHealthState(1);
@@ -216,8 +217,8 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
     } else if (arrowStates.what == "併走") {
       setHappyState(1);
       setTiredState(1);
-      if(showGrowstate != undefined){
-        if (staminaMax == showGrowstate.stamina_b) {
+      if (showGrowstate != undefined) {
+        if (staminaMax <= showGrowstate.stamina_b) {
           setStaminaState(0);
         } else {
           setStaminaState(1);
@@ -231,8 +232,8 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
     } else if (arrowStates.what == "坂路") {
       setHappyState(1);
       setTiredState(1);
-      if(showGrowstate != undefined){
-        if (momentMax == showGrowstate.moment_b) {
+      if (showGrowstate != undefined) {
+        if (momentMax <= showGrowstate.moment_b) {
           setMomentState(0);
         } else {
           setMomentState(1);
@@ -443,14 +444,14 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
   const tired = tiredRange(parseInt(banner.tired));
   const tiredNumber = parseInt(banner.tired);
 
-
   // Health state
-  const setPattern = (condition) => {
+  const setPattern = (tCondition) => {
     // Disable Injury
     let options;
-    if (condition <= 10) {
+    // return;
+    if (tCondition <= 10) {
       return false;
-    } else if (condition === 11 || condition === 12) {
+    } else if (tCondition === 11 || tCondition === 12) {
       options = {
         none: 79,
         D1: 10,
@@ -459,7 +460,7 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
         D4: 2,
         D5: 1,
       };
-    } else if (condition === 13 || condition === 14) {
+    } else if (tCondition === 13 || tCondition === 14) {
       options = {
         none: 64,
         D1: 15,
@@ -468,7 +469,7 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
         D4: 4,
         D5: 2,
       };
-    } else if (condition === 15 || condition === 16) {
+    } else if (tCondition === 15 || tCondition === 16) {
       options = {
         none: 43,
         D1: 20,
@@ -477,7 +478,7 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
         D4: 8,
         D5: 4,
       };
-    } else if (condition === 17 || condition === 18) {
+    } else if (tCondition === 17 || tCondition === 18) {
       options = {
         none: 22,
         D1: 25,
@@ -486,7 +487,7 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
         D4: 10,
         D5: 8,
       };
-    } else if (condition === 19 || condition === 20) {
+    } else if (tCondition === 19 || tCondition >= 20) {
       options = {
         none: 0,
         D1: 30,
@@ -511,6 +512,7 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
   };
 
   const displayToastMessage = (key) => {
+    
     let message = "";
     switch (key) {
       case "D1":
@@ -529,7 +531,7 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
         message = "疲労が溜まると故障してしまいます。";
         break;
     }
-  
+
     let toast = Toast.show(message, {
       duration: Toast.durations.LONG,
     });

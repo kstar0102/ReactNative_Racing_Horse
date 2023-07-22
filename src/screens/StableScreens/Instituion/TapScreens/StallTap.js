@@ -8,7 +8,7 @@ import { BuyTapButton } from "../../../../components/Buttons";
 import StableStyles from "../../StableStyles";
 import colors from "../../../../containers/colors";
 
-const StallTap = ({ user_id, user_level, banner, institutionData}) => {
+const StallTap = ({ user_id, user_level, banner, institutionData, stallLevel}) => {
   const dispatch = useDispatch();
   // LV.0
   const [oneborderStyle, setOneBorderStyle] = useState(0);
@@ -27,7 +27,7 @@ const StallTap = ({ user_id, user_level, banner, institutionData}) => {
   const [threeBtnStyle, setThreeBtnStyle] = useState("none");
 
   const bannerId = banner == 0 ? institutionData[0].sid : banner.sid;
-  const bannerLevel = banner == 0 ?  institutionData[0].slevel : banner.slevel;
+  const bannerLevel = stallLevel == '' ?  institutionData[0].slevel :  stallLevel[0].level;
  
   useEffect(() => {
     if (institutionData != "") {
@@ -228,6 +228,7 @@ const mapStateToProps = (state) => {
     user_id: state.user.userData.id,
     user_level: state.user.userData.level,
     institutionData: state.institutionStable.institutionMenuData,
+    stallLevel:  state.stallUp.stallLevelUpData
   };
 };
 export default connect(mapStateToProps)(StallTap);

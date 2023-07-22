@@ -53,6 +53,11 @@ const GrazingGroup = ({
     dispatch(reservationValiAction(sandReservationData));
     dispatch(preePastureShowAction(sendUserId));
   };
+
+  const goScreen = () => {
+
+  };
+
   useEffect(() => {
     if (poolLevel != "") {
       if (poolLevel.level != 0) {
@@ -144,11 +149,8 @@ const GrazingGroup = ({
                 id={3}
               />
               <DetailButton
-                label={"育成する"}
-                horseId={horseId}
-                horseAge={horseAge}
-                horseGrow={horseGrow}
                 name={"放牧"}
+                onPress={goScreen}
               />
             </View>
           </View>

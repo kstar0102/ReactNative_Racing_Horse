@@ -1,35 +1,34 @@
-import React from 'react';
-import { View, ImageBackground } from 'react-native';
+import React from "react";
+import { View, ImageBackground } from "react-native";
 // Custom IMPORT
-import HeaderScreen from '../../LayoutScreen/HeaderScreen';
-import StableFooterScreen from '../../LayoutScreen/StableFooterScreen';
-import { ReturnButton } from '../../../components/Buttons';
-import Screenstyles from '../../ScreenStylesheet';
-import TapScreen from './TapScreen';
+import HeaderScreen from "../../LayoutScreen/HeaderScreen";
+import StableFooterScreen from "../../LayoutScreen/StableFooterScreen";
+import ReturnButtonScreen from "../../../components/someScreen/ReturnButtonScreen";
+import Screenstyles from "../../ScreenStylesheet";
+import TapScreen from "./TapScreen";
 
-const Training = ({navigation}) => {
+const Training = () => {
   return (
-    <View style={Screenstyles.container}>      
+    <View style={Screenstyles.container}>
       <ImageBackground
-        source={require('../../../assets/images/horse_track/stall.jpg')}
+        source={require("../../../assets/images/horse_track/stall.jpg")}
         resizeMode="cover"
-        style={Screenstyles.img}>
-        <HeaderScreen/>
-            <View>
-              <View>
-                <View>
-                  <ReturnButton label="厩 舎" color={1} onPress={() => navigation.navigate('StallScreen')}/>
-                </View>
-                <View style={Screenstyles.UPRButton}>
-                    <ReturnButton label="調 教" color={1}/>
-                </View>
-              </View>
-              <TapScreen/>
-            </View>
-            <StableFooterScreen/>
+        style={Screenstyles.img}
+      >
+        <HeaderScreen />
+        <View>
+          <ReturnButtonScreen
+            BigPlace={"厩 舎"}
+            screenName={"調 教"}
+            nviUrl={"StallScreen"}
+            colorNumber={1}
+          />
+          <TapScreen />
+        </View>
+        <StableFooterScreen />
       </ImageBackground>
     </View>
   );
 };
-  
+
 export default Training;

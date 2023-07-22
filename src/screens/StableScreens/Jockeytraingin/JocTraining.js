@@ -8,6 +8,7 @@ import { JockeyRegisterAction } from "../../../store/actions/jockey/JockeyRegist
 // Custom IMPORT
 import HeaderScreen from "../../LayoutScreen/HeaderScreen";
 import StableFooterScreen from "../../LayoutScreen/StableFooterScreen";
+import ReturnButtonScreen from "../../../components/someScreen/ReturnButtonScreen";
 import { ReturnButton, SaleButton } from "../../../components/Buttons";
 import Screenstyles from "../../ScreenStylesheet";
 import StableStyles from "../StableStyles";
@@ -15,6 +16,7 @@ import RTapScreensStyle from "../../PastureScreens/RanchTapScreens/RTapScreensSt
 import WorkingButton from "../../../components/Buttons/WorkingButtons";
 import UpGrazing from "./Upbring/UpGrazing";
 import UpFodder from "./Upbring/UpFodder";
+import Ccolors from "../../../containers/colors";
 
 const JocTraining = ({ jockeyData, arrowState }) => {
   if (jockeyData == undefined) {
@@ -276,19 +278,8 @@ const JocTraining = ({ jockeyData, arrowState }) => {
         style={Screenstyles.img}
       >
         <HeaderScreen />
-        <View style={Screenstyles.UPContainer}>
-          <View style={Screenstyles.UPcontent}>
-            <View>
-              <ReturnButton
-                label="厩 舎"
-                color={1}
-                onPress={() => navigation.navigate("StallScreen")}
-              />
-            </View>
-            <View style={Screenstyles.UPRButton}>
-              <ReturnButton label="騎手育成" color={1} />
-            </View>
-          </View>
+        <View>
+          <ReturnButtonScreen BigPlace={"厩 舎"} screenName={"騎手育成"} nviUrl={"StallScreen"} colorNumber={1}/>
           {/* SCREEN SHOW */}
           <View style={StableStyles.institutionContainer}>
             <View style={StableStyles.upperContent}>
@@ -306,19 +297,19 @@ const JocTraining = ({ jockeyData, arrowState }) => {
                 )}
               </View>
               <View style={StableStyles.upperRight}>
-                <View style={StableStyles.cardJokeyHeader}>
+                <View style={[StableStyles.cardJokeyHeader, { backgroundColor: jockeyData.gender == "女性" ? Ccolors.lightPingk : Ccolors.cardHeader,}]}>
                   <Text style={StableStyles.cardHeaderTxt}>
                     {jockeyData.name}
                   </Text>
                   <Text style={StableStyles.cardHeaderTxt}>
-                    男{jockeyData.age}歳
+                    {jockeyData.gender}{jockeyData.age}歳
                   </Text>
                   <Text style={StableStyles.cardHeaderTxt}>
                     賞金 {jockeyData.prize}
                   </Text>
                 </View>
 
-                <View style={StableStyles.cardBody}>
+                <View style={[StableStyles.cardBody, {backgroundColor: jockeyData.gender == "女性" ?  Ccolors.lightPingk : Ccolors.cardBody}]}>
                   <View style={StableStyles.cardBodyRow}>
                     <View style={StableStyles.cardBodyRow}>
                       <Text style={StableStyles.cardBodyTxt}>調子</Text>
