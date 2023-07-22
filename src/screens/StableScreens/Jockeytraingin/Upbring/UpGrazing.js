@@ -46,7 +46,7 @@ const UpGrazing = ({
     };
     const sendUserId = {
       user_id: user_id,
-      place: "jockey"
+      place: "jockey",
     };
     dispatch(reservationValiAction(sandReservationData));
     dispatch(preePastureShowAction(sendUserId));
@@ -103,7 +103,15 @@ const UpGrazing = ({
                 source={require("../../../../assets/images/Pasture/icon1.png")}
                 id={1}
               />
-              <DetailButton label={"育成する"} onPress={goToOtherScreen} />
+              <Image
+                style={[RTapScreensStyle.LongiIcon, { display: "flex" }]}
+                source={require("../../../../assets/images/Pasture/icon8.png")}
+              />
+              <DetailButton
+                label={"育成する"}
+                onPress={goToOtherScreen}
+                disabled={true}
+              />
             </View>
             <View>
               <View style={[RTapScreensStyle.absoluteViewF]}>

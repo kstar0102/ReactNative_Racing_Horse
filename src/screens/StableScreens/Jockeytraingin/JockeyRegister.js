@@ -45,13 +45,15 @@ const JockeyRegister = ({ jockeyName, jockeyGender, user_id }) => {
         jockey_name: inputValue,
       };
       dispatch(JockeyNameAction(sendName));
+      setSecondModalVisible(true);
+      setModalVisible(false);
     } 
   };
 
   useEffect(() => {
     if (jockeyName === "" || jockeyName.trim() === "") {
       setSecondModalVisible(false);
-      setModalVisible(true);
+      setModalVisible(false);
     } else {
       setSecondModalVisible(true);
       setModalVisible(false);
@@ -102,12 +104,11 @@ const JockeyRegister = ({ jockeyName, jockeyGender, user_id }) => {
   const handlesSubmitJockey = () => {
     if (jockeyName != "" && jockeyGender != "") {
       const sendJockey = {
-        name: jockeyName.jockey_name,
+        name: jockeyName,
         gender: jockeyGender,
         user_id: user_id,
       };
       dispatch(JockeyRegisterAction(sendJockey));
-
       navigation.replace("JocTraining");
     }
   };

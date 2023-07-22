@@ -138,8 +138,9 @@ const FodderGroup = ({ horseId}) => {
                 style={RTapScreensStyle.LongiIcon}
                 source={require("../../../assets/images/Pasture/icon8.png")}
               />
+              {/* 調子回復 */}
               <DetailButton
-                label={"調子回復"}
+                label={"????"}
                 disabled={true}
                 name={"プール"}
                 horseId={horseId}
@@ -160,8 +161,9 @@ const FodderGroup = ({ horseId}) => {
                 style={RTapScreensStyle.LongiIcon}
                 source={require("../../../assets/images/Pasture/icon8.png")}
               />
+              {/* 調子回復 */}
               <DetailButton
-                label={"調子回復"}
+                label={"????"}
                 disabled={true}
                 name={"併走"}
                 horseId={horseId}
@@ -182,8 +184,9 @@ const FodderGroup = ({ horseId}) => {
                 style={RTapScreensStyle.LongiIcon}
                 source={require("../../../assets/images/Pasture/icon8.png")}
               />
+              {/* 調子回復 */}
               <DetailButton
-                label={"調子回復"}
+                label={"????"}
                 disabled={true}
                 name={"坂路"}
                 horseId={horseId}

@@ -32,6 +32,7 @@ const JockeyReservationScreen = ({
   preeSetData,
   preeSetName,
 }) => {
+  
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(undefined);
   const [selectedDelete, setSelectedDelete] = useState(undefined);
@@ -550,7 +551,7 @@ const JockeyReservationScreen = ({
                     {(!!selected && selected.name) || data[0].name}
                   </Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
-                    <Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>
+                    <Text style={{ color: (!!selected && selected.gender == "牡") || data[0].gender == "牡" ? "blue" : '#FF006B'}}>
                       {(!!selected && selected.gender) || data[0].gender}
                     </Text>
                     2
@@ -684,6 +685,7 @@ const JockeyReservationScreen = ({
               </View>
             </View>
           </ScrollView>
+
           <View style={Screenstyles.reserveContent}>
             <View style={Screenstyles.reserveMenuLeft}>
               <Text style={Screenstyles.reserveMenuShowTitle}>
@@ -762,8 +764,6 @@ const JockeyReservationScreen = ({
                 </View>
               </View>
               <View style={Screenstyles.reserveRightList}>
-                {/* const order = isValue ? default_order : food_order == "" ?
-                food_set_order : food_order; */}
                 <ScrollView style={Screenstyles.reserveList}>
                   {isValue
                     ? preeAllData.map((item, index) => (

@@ -33,7 +33,7 @@ const TapScreen = ({ stableData }) => {
       case 3:
         return <GrazingHorseTap threeData={filtereThreedData} />;
       default:
-        // return <oneHorseTap oneData={filtereOneData} />;
+        return <OneHorseTap oneData={filtereOneData} />;
     }
   }
 

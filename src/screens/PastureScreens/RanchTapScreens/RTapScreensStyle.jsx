@@ -241,7 +241,7 @@ const RTapScreensStyle = StyleSheet.create({
   LongiIcon:{
     width: vw(26),
     height: vh(6.7),
-    opacity: .9,
+    opacity: 1,
     left: -3,
     position: 'absolute',
   },

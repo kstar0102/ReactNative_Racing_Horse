@@ -137,7 +137,7 @@ const FirstHorseTapScreen = ({ oneData }) => {
         <View style={RTapScreensStyle.oneTopContentRight}>
           <View style={RTapScreensStyle.oneRioghtHeader}>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>{(!!selected && selected.name) || data[0].name}</Text>
-            <Text style={RTapScreensStyle.oneRioghtHeaderTxt}><Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>{(!!selected && selected.gender) || data[0].gender}</Text>2</Text>
+            <Text style={RTapScreensStyle.oneRioghtHeaderTxt}><Text style={{ color: (!!selected && selected.gender == "牡") || data[0].gender == "牡" ? "blue" : '#FF006B'}}>{(!!selected && selected.gender) || data[0].gender}</Text>2</Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.growth) || data[0].growth}</Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>{(!!selected && selected.color) || data[0].color}</Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxtLetter}>{(!!selected && selected.class) || 'GIクラス'}</Text>

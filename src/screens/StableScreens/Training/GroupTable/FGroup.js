@@ -70,7 +70,7 @@ const FGroup = ({horseId}) => {
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../../../assets/images/Pasture/icon8.png')}
                   />
-                  <DetailButton label={'調子回復'} disabled={true} name={'プール'} horseId={horseId}  flag={"upbring"}/>
+                  <DetailButton label={'????'} disabled={true} name={'プール'} horseId={horseId}  flag={"upbring"}/>
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteViewT}>
@@ -81,7 +81,7 @@ const FGroup = ({horseId}) => {
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../../../assets/images/Pasture/icon8.png')}
                   />
-                  <DetailButton label={'調子回復'} disabled={true} name={'併走'} horseId={horseId}  flag={"upbring"}/>
+                  <DetailButton label={'????'} disabled={true} name={'併走'} horseId={horseId}  flag={"upbring"}/>
                 </View>
                 <View>
                   <View style={RTapScreensStyle.absoluteViewT}>
@@ -92,7 +92,7 @@ const FGroup = ({horseId}) => {
                     style={RTapScreensStyle.LongiIcon}
                     source={require('../../../../assets/images/Pasture/icon8.png')}
                   />
-                  <DetailButton label={'調子回復'} disabled={true} name={'坂路'} horseId={horseId}  flag={"upbring"}/>
+                  <DetailButton label={'????'} disabled={true} name={'坂路'} horseId={horseId}  flag={"upbring"}/>
                 </View>
                
               </View>

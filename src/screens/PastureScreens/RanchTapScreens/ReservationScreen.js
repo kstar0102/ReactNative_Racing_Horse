@@ -552,7 +552,7 @@ const ReservationScreen = ({
                     {(!!selected && selected.name) || data[0].name}
                   </Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
-                    <Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>
+                    <Text style={{ color: (!!selected && selected.gender == "牡") || data[0].gender == "牡" ? "blue" : '#FF006B'}}>
                       {(!!selected && selected.gender) || data[0].gender}
                     </Text>
                     2
