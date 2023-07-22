@@ -2,7 +2,8 @@ import * as React from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 
-const CheckButton = ({ checkState, id, checkingstate, price }) => {
+const CheckButton = ({ checkState, id, checkingstate, price, age }) => {
+
   const [checked, setChecked] = React.useState(checkingstate);
 
   React.useEffect(() => {
@@ -11,7 +12,7 @@ const CheckButton = ({ checkState, id, checkingstate, price }) => {
   
   const handleCheckChange = (value) => {
     setChecked(value);
-    checkState(value, id, price);
+    checkState(value, id, price, age);
   };
 
   return (

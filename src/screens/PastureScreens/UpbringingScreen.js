@@ -3,11 +3,11 @@ import { View, ImageBackground } from 'react-native';
 // Custom IMPORT
 import HeaderScreen from '../LayoutScreen/HeaderScreen';
 import FooterScreen from '../LayoutScreen/FooterScreen';
-import { ReturnButton } from '../../components/Buttons';
+import ReturnButtonScreen from '../../components/someScreen/ReturnButtonScreen';
 import Screenstyles from '../ScreenStylesheet';
 import RanchTapScreen from './RanchTapScreen';
 
-const UpbringingScreen = ({navigation}) => {
+const UpbringingScreen = () => {
   return (
     <View style={Screenstyles.container}>      
       <ImageBackground
@@ -16,14 +16,7 @@ const UpbringingScreen = ({navigation}) => {
         style={Screenstyles.img}>
         <HeaderScreen/>
             <View style={Screenstyles.UPContainer}>
-              <View style={Screenstyles.UPcontent}>
-                <View>
-                  <ReturnButton label="牧 場" onPress={() => navigation.navigate('PastureScreen')}/>
-                </View>
-                <View style={Screenstyles.UPRButton}>
-                    <ReturnButton label="育 成"/>
-                </View>
-              </View>
+              <ReturnButtonScreen BigPlace={"牧 場"} screenName={"育 成"} nviUrl={"PastureScreen"}/>
               <RanchTapScreen/>
             </View>
             <FooterScreen/>

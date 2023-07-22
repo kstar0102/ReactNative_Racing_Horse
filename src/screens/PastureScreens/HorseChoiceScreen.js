@@ -28,6 +28,7 @@ import Screenstyles from "../ScreenStylesheet";
 // Array value
 let horses = [];
 let prices = [];
+let ages = []
 let horsecheckornot = [
   false,
   false,
@@ -138,14 +139,16 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
   }, []);
 
   // Value and id, price array push
-  const handleCheck = (value, id, price) => {
+  const handleCheck = (value, id, price, age) => {
     if (value == true) {
       horses.push(id);
       prices.push(price);
+      ages.push(age);
       horsecheckornot[id] = true;
     } else {
       removeId(id);
       removePrice(price);
+      removeAge(age);
       horsecheckornot[id] = false;
     }
     return value;
@@ -168,13 +171,23 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
     }
   };
 
+  const removeAge = (age) => {
+    for (let i = 0; i < age.length; i++) {
+      if (ages[i] == age) {
+        ages.splice(i, 1);
+      }
+    }
+  };
+
+
+
   // Click Buybutton
   const handleSubmit = () => {
     const horseDataId = horseData.filter((data) => horses.includes(data.id));
     const priceByRange = {};
     horseDataId.forEach((horse) => {
+      
       const { price } = horse;
-
       if (price <= 100) {
         if (!priceByRange["1"]) priceByRange["1"] = 0;
         priceByRange["1"] += price;
@@ -187,7 +200,7 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
       }
     });
     let totalPrice = 0;
-
+    
     for (let key in priceByRange) {
       totalPrice += priceByRange[key];
     }
@@ -198,7 +211,7 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
       alert("ポイントが足りません。");
       return false;
     } else {
-      dispatch(horseCheckAction(horseDataId, breedingAge));
+      dispatch(horseCheckAction(horseDataId, ages));
       navigation.navigate("HorseNameScreen");
     }
   };
@@ -233,6 +246,7 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
                       checkState={handleCheck}
                       id={data.id}
                       price={data.price}
+                      age={data.age == "・繁殖馬" ? breedingAge[innerIndex] : data.age.split('')[1]}
                       checkingstate={horsecheckornot[innerIndex + checkflag * 5]}
                     />
                     <View style={Screenstyles.horseCardContent}>

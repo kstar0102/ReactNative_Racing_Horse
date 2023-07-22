@@ -1,12 +1,12 @@
 
-import { INSTITUTION_MENU_DATA, LOGIN_USER_DATA } from '../../../types';
+import { STALL_LEVELUP_DATA, LOGIN_USER_DATA } from '../../../types';
 import axios from 'axios';
 import { API } from '../../../../../utils/config';
 import Toast from 'react-native-root-toast';
 
 export const stallUpData = (stall) => {
   return {
-    type: INSTITUTION_MENU_DATA,
+    type: STALL_LEVELUP_DATA,
     payload: stall,
   }
 };
@@ -28,8 +28,7 @@ export function stallLevelUpAction(stallData) {
       headers:{Authorization: token}
     })
     .then(res => {
-     
-      if(!res.data.message){
+        if(!res.data.message){
         dispatch(stallUpData(res.data.data));
         dispatch(userData(res.data.user[0]));
       }else{

@@ -58,7 +58,7 @@ const PastureScreen = ({navigation, user_id, pasture_id, gameTime}) => {
         resizeMode="cover"
         style={Screenstyles.img}>
         <HeaderScreen/>
-            <ReturnButton label="牧  場"/>
+            <ReturnButton label="牧  場" onPress={() => navigation.goBack()}/>
             <View style={Screenstyles.containers}>
               <View style={Screenstyles.content}>
                   <CustomButtons label="育 成" onPress={() => gotoUpBringScreen()}/>

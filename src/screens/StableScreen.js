@@ -7,6 +7,7 @@ import { stableAllGetAction } from "../store/actions/truck/getApi/stableAllGetAc
 import { GetShowJockeyAction } from "../store/actions/jockey/GetShowJockeyAction";
 import { signAction } from "../store/actions/horse/signAction";
 import { getInstitutionAction } from "../store/actions/truck/getApi/getInstitutionAction";
+import { getStallStateAction } from "../store/actions/truck/getStallStateAction";
 import { InstitutionMenuAction } from "../store/actions/truck/TrainInstitution/InstitutionMenuAction";
 // Custom Import
 import HeaderScreen, { calculateGameDate } from "./LayoutScreen/HeaderScreen";
@@ -22,10 +23,15 @@ const StableScreen = ({ navigation, user_id, isjockey, institutionData }) => {
     const sendUesrId = {
       user_id: user_id,
     };
+    const sendData = {
+      user_id: user_id,
+      stall_id: 19
+    };
     dispatch(stableAllGetAction(user_id));
     dispatch(GetShowJockeyAction(user_id));
     dispatch(getInstitutionAction(sendUesrId));
-  }, []);
+    dispatch(getStallStateAction(sendData));
+  }, [user_id]);
 
   // GET RACE DATA
   const handleGetSubmit = () => {
@@ -59,7 +65,7 @@ const StableScreen = ({ navigation, user_id, isjockey, institutionData }) => {
   const handleInstitution = () => {
     const sendInstitutionBasicId = {
       user_id: user_id,
-      stall_id: institutionData[0].sid
+      stall_id: institutionData[0].id
     };
     dispatch(InstitutionMenuAction(sendInstitutionBasicId));
     navigation.navigate("Institution");

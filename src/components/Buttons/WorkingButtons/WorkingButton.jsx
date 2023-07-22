@@ -103,13 +103,13 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.tabButtonEnd
 	},
 	buttonThree: {
-		backgroundColor: '#94b7fe'
+		backgroundColor: colors.lightPurple
 	},
 	buttonFour: {
 		backgroundColor: colors.IButtonfour
 	},
 	buttonFive: {
-		backgroundColor: '#fecdfe'
+		backgroundColor: colors.lightPingk
 	},
 	label: {
 		color: colors.light.white,

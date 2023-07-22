@@ -155,7 +155,7 @@ const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
       setHappyState(1);
       setTiredState(1);
       if (showGrowstate != undefined) {
-        if (speedMax == showGrowstate.speed_b) {
+        if (speedMax <= showGrowstate.speed_b) {
           setSpeedState(0);
         } else {
           setSpeedState(1);
@@ -172,7 +172,7 @@ const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
       setHappyState(1);
       setTiredState(1);
       if (showGrowstate != undefined) {
-        if (strengthMax == showGrowstate.strength_b) {
+        if (strengthMax <= showGrowstate.strength_b) {
           setStrengthState(0);
         } else {
           setStrengthState(1);
@@ -187,7 +187,7 @@ const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
       setHappyState(1);
       setTiredState(1);
       if (showGrowstate != undefined) {
-        if (conditionMax == showGrowstate.condition_b) {
+        if (conditionMax <= showGrowstate.condition_b) {
           setContitionState(0);
         } else {
           setContitionState(1);
@@ -202,7 +202,7 @@ const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
       setHappyState(1);
       setTiredState(1);
       if (showGrowstate != undefined) {
-        if (healthMax == showGrowstate.health_b) {
+        if (healthMax <= showGrowstate.health_b) {
           setHealthState(0);
         } else {
           setHealthState(1);
@@ -217,7 +217,7 @@ const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
       setHappyState(1);
       setTiredState(1);
       if (showGrowstate != undefined) {
-        if (staminaMax == showGrowstate.stamina_b) {
+        if (staminaMax <= showGrowstate.stamina_b) {
           setStaminaState(0);
         } else {
           setStaminaState(1);
@@ -232,7 +232,7 @@ const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
       setHappyState(1);
       setTiredState(1);
       if (showGrowstate != undefined) {
-        if (momentMax == showGrowstate.moment_b) {
+        if (momentMax <= showGrowstate.moment_b) {
           setMomentState(0);
         } else {
           setMomentState(1);
@@ -443,99 +443,99 @@ const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
   const conditionFace = conditionFaceRange(parseInt(banner.happy));
   const tired = tiredRange(parseInt(banner.tired));
   const tiredNumber = parseInt(banner.tired);
-    // Health state
-    const setPattern = (condition) => {
-      // Disable Injury
-      let options;
-      if (condition <= 10) {
-        return false;
-      } else if (condition === 11 || condition === 12) {
-        options = {
-          none: 79,
-          D1: 10,
-          D2: 5,
-          D3: 3,
-          D4: 2,
-          D5: 1,
-        };
-      } else if (condition === 13 || condition === 14) {
-        options = {
-          none: 64,
-          D1: 15,
-          D2: 10,
-          D3: 5,
-          D4: 4,
-          D5: 2,
-        };
-      } else if (condition === 15 || condition === 16) {
-        options = {
-          none: 43,
-          D1: 20,
-          D2: 15,
-          D3: 10,
-          D4: 8,
-          D5: 4,
-        };
-      } else if (condition === 17 || condition === 18) {
-        options = {
-          none: 22,
-          D1: 25,
-          D2: 20,
-          D3: 15,
-          D4: 10,
-          D5: 8,
-        };
-      } else if (condition === 19 || condition === 20) {
-        options = {
-          none: 0,
-          D1: 30,
-          D2: 25,
-          D3: 20,
-          D4: 15,
-          D5: 10,
-        };
+  // Health state
+  const setPattern = (condition) => {
+    // Disable Injury
+    let options;
+    if (condition <= 10) {
+      return false;
+    } else if (condition === 11 || condition === 12) {
+      options = {
+        none: 79,
+        D1: 10,
+        D2: 5,
+        D3: 3,
+        D4: 2,
+        D5: 1,
+      };
+    } else if (condition === 13 || condition === 14) {
+      options = {
+        none: 64,
+        D1: 15,
+        D2: 10,
+        D3: 5,
+        D4: 4,
+        D5: 2,
+      };
+    } else if (condition === 15 || condition === 16) {
+      options = {
+        none: 43,
+        D1: 20,
+        D2: 15,
+        D3: 10,
+        D4: 8,
+        D5: 4,
+      };
+    } else if (condition === 17 || condition === 18) {
+      options = {
+        none: 22,
+        D1: 25,
+        D2: 20,
+        D3: 15,
+        D4: 10,
+        D5: 8,
+      };
+    } else if (condition === 19 || condition >= 20) {
+      options = {
+        none: 0,
+        D1: 30,
+        D2: 25,
+        D3: 20,
+        D4: 15,
+        D5: 10,
+      };
+    }
+
+    const randomNumber = Math.floor(Math.random() * 100);
+
+    // Iterate over the options until we reach the chosen value
+    let sum = 0;
+    for (const [key, value] of Object.entries(options)) {
+      sum += value;
+      if (randomNumber < sum) {
+        displayToastMessage(key);
+        break;
       }
-  
-      const randomNumber = Math.floor(Math.random() * 100);
-  
-      // Iterate over the options until we reach the chosen value
-      let sum = 0;
-      for (const [key, value] of Object.entries(options)) {
-        sum += value;
-        if (randomNumber < sum) {
-          displayToastMessage(key);
-          break;
-        }
-      }
-    };
-  
-    const displayToastMessage = (key) => {
-      let message = "";
-      switch (key) {
-        case "D1":
-          message = "疲労が溜まると故障してしまいます。";
-          break;
-        case "D2":
-          message = "疲労が溜まると故障してしまいます。";
-          break;
-        case "D3":
-          message = "疲労が溜まると故障してしまいます。";
-          break;
-        case "D4":
-          message = "疲労が溜まると故障してしまいます。";
-          break;
-        case "D5":
-          message = "疲労が溜まると故障してしまいます。";
-          break;
-      }
-    
-      let toast = Toast.show(message, {
-        duration: Toast.durations.LONG,
-      });
-      setTimeout(function hideToast() {
-        Toast.hide(toast);
-      }, 2000);
-    };
+    }
+  };
+
+  const displayToastMessage = (key) => {
+    let message = "";
+    switch (key) {
+      case "D1":
+        message = "疲労が溜まると故障してしまいます。";
+        break;
+      case "D2":
+        message = "疲労が溜まると故障してしまいます。";
+        break;
+      case "D3":
+        message = "疲労が溜まると故障してしまいます。";
+        break;
+      case "D4":
+        message = "疲労が溜まると故障してしまいます。";
+        break;
+      case "D5":
+        message = "疲労が溜まると故障してしまいます。";
+        break;
+    }
+
+    let toast = Toast.show(message, {
+      duration: Toast.durations.LONG,
+    });
+    setTimeout(function hideToast() {
+      Toast.hide(toast);
+    }, 2000);
+  };
 
   const handleButtonPress = (id) => {
     dispatch(StableGetAtion());

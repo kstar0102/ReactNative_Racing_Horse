@@ -1,5 +1,5 @@
 // import React in our code
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { vw } from "react-native-expo-viewport-units";
 // Redux
@@ -26,9 +26,9 @@ import {
 //import AppIntroSlider to use it
 import HeaderScreen from "../../LayoutScreen/HeaderScreen";
 import StableFooterScreen from "../../LayoutScreen/StableFooterScreen";
+import ReturnButtonScreen from "../../../components/someScreen/ReturnButtonScreen";
 import AppIntroSlider from "react-native-app-intro-slider";
 import Screenstyles from "../../ScreenStylesheet";
-import { ReturnButton } from "../../../components/Buttons";
 
 const JockeyRegister = ({ jockeyName, jockeyGender, user_id }) => {
   const navigation = useNavigation();
@@ -38,14 +38,26 @@ const JockeyRegister = ({ jockeyName, jockeyGender, user_id }) => {
   const [inputText, setInputText] = useState("");
 
   const handleYesPress = (inputValue) => {
-    if (inputValue == "") {
+    if (inputValue === "") {
       return false;
     } else {
-      dispatch(JockeyNameAction(inputValue));
-      setModalVisible(false);
-      setSecondModalVisible(true);
-    }
+      const sendName = {
+        jockey_name: inputValue,
+      };
+      dispatch(JockeyNameAction(sendName));
+    } 
   };
+
+  useEffect(() => {
+    if (jockeyName === "" || jockeyName.trim() === "") {
+      setSecondModalVisible(false);
+      setModalVisible(true);
+    } else {
+      setSecondModalVisible(true);
+      setModalVisible(false);
+    }
+  },[jockeyName]);
+
   const handleNoPress = () => {
     setModalVisible(false);
   };
@@ -90,7 +102,7 @@ const JockeyRegister = ({ jockeyName, jockeyGender, user_id }) => {
   const handlesSubmitJockey = () => {
     if (jockeyName != "" && jockeyGender != "") {
       const sendJockey = {
-        name: jockeyName,
+        name: jockeyName.jockey_name,
         gender: jockeyGender,
         user_id: user_id,
       };
@@ -106,7 +118,8 @@ const JockeyRegister = ({ jockeyName, jockeyGender, user_id }) => {
   };
 
   const handleTextChange = (text) => {
-    const pattern = /[0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]|[\uD800-\uDFFF]/;
+    const pattern =
+      /[0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>、。ー\/?¿~±×÷•°`´₹£€¥©®¡]|[\uD800-\uDFFF]/;
     if (!pattern.test(text)) {
       setInputText(text);
     } else {
@@ -157,17 +170,14 @@ const JockeyRegister = ({ jockeyName, jockeyGender, user_id }) => {
           style={Screenstyles.img}
         >
           <HeaderScreen />
+
           <View style={styles.buttonGroup}>
-            <View>
-              <ReturnButton
-                label="厩 舎"
-                color={1}
-                onPress={() => navigation.navigate("StallScreen")}
-              />
-            </View>
-            <View style={Screenstyles.UPRButton}>
-              <ReturnButton label="騎手育成" color={1} />
-            </View>
+            <ReturnButtonScreen
+              BigPlace={"厩 舎"}
+              screenName={"騎手育成"}
+              nviUrl={"StallScreen"}
+              colorNumber={1}
+            />
           </View>
           <AppIntroSlider
             data={slides}
@@ -194,7 +204,7 @@ const JockeyRegister = ({ jockeyName, jockeyGender, user_id }) => {
         >
           <View style={ButtonStyle.ModalCenter}>
             <Text style={ButtonStyle.saleTxt}>
-              「{inputText}」でよろしいでしょうか？
+              「{jockeyName}」でよろしいでしょうか？
             </Text>
             <View style={ButtonStyle.buttonContainer}>
               <View style={{ margin: 10 }}>

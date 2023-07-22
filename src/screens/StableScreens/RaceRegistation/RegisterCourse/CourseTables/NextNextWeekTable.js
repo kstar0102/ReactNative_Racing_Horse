@@ -1,17 +1,29 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Table, TableWrapper, Row, Col, Rows } from 'react-native-table-component';
-import { useNavigation } from '@react-navigation/native';
+import React from "react";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
+import {
+  Table,
+  TableWrapper,
+  Row,
+  Col,
+  Rows,
+} from "react-native-table-component";
+import { useNavigation } from "@react-navigation/native";
 // Redux
-import { connect, useDispatch } from 'react-redux';
-import { ReacRegisterAction } from '../../../../../store/actions/ReacRegister/ReacRegisterAction';
+import { connect, useDispatch } from "react-redux";
+import { ReacRegisterAction } from "../../../../../store/actions/ReacRegister/ReacRegisterAction";
 // Custom
-import TableStyles from '../../../RaceCourse/RacetrackTable/TableStyles';
+import TableStyles from "../../../RaceCourse/RacetrackTable/TableStyles";
 
-const NextNextWeekTable = ({ nextNextWeekTitle, nextNextWeekData, nextNextWeekName, nextNextId }) => {
+const NextNextWeekTable = ({
+  nextNextWeekTitle,
+  nextNextWeekData,
+  nextNextWeekName,
+  nextNextId,
+  jockeysData,
+}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const elementButton = (nextNextWeekNames) => (
+  const elementButton = (nextNextWeekNames) =>
     nextNextWeekNames.map((name, index) => (
       <View key={index}>
         <TouchableOpacity onPress={() => handleClick(nextNextId[index])}>
@@ -20,12 +32,11 @@ const NextNextWeekTable = ({ nextNextWeekTitle, nextNextWeekData, nextNextWeekNa
           </View>
         </TouchableOpacity>
       </View>
-    ))
-  );
+    ));
 
   const handleClick = (value) => {
-    dispatch(ReacRegisterAction(value)) 
-    navigation.navigate('RaceRegistation');
+    navigation.navigate("RaceRegistation");
+    dispatch(ReacRegisterAction(value));
   };
 
   return (
@@ -57,9 +68,9 @@ const NextNextWeekTable = ({ nextNextWeekTitle, nextNextWeekData, nextNextWeekNa
   );
 };
 
-const mapStateToProps = state => {
-  return{
-
-  }
-}
+const mapStateToProps = (state) => {
+  return {
+    jockeysData: state.raceData.jockeysData,
+  };
+};
 export default connect(mapStateToProps)(NextNextWeekTable);

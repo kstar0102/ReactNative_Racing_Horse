@@ -155,7 +155,7 @@ const ScreenThree = ({ threeData, arrowState, showGrowstate }) => {
       setHappyState(1);
       setTiredState(1);
       if (showGrowstate != undefined) {
-        if (speedMax == showGrowstate.speed_b) {
+        if (speedMax <= showGrowstate.speed_b) {
           setSpeedState(0);
         } else {
           setSpeedState(1);
@@ -172,7 +172,7 @@ const ScreenThree = ({ threeData, arrowState, showGrowstate }) => {
       setHappyState(1);
       setTiredState(1);
       if (showGrowstate != undefined) {
-        if (strengthMax == showGrowstate.strength_b) {
+        if (strengthMax <= showGrowstate.strength_b) {
           setStrengthState(0);
         } else {
           setStrengthState(1);
@@ -187,7 +187,7 @@ const ScreenThree = ({ threeData, arrowState, showGrowstate }) => {
       setHappyState(1);
       setTiredState(1);
       if (showGrowstate != undefined) {
-        if (conditionMax == showGrowstate.condition_b) {
+        if (conditionMax <= showGrowstate.condition_b) {
           setContitionState(0);
         } else {
           setContitionState(1);
@@ -202,7 +202,7 @@ const ScreenThree = ({ threeData, arrowState, showGrowstate }) => {
       setHappyState(1);
       setTiredState(1);
       if (showGrowstate != undefined) {
-        if (healthMax == showGrowstate.health_b) {
+        if (healthMax <= showGrowstate.health_b) {
           setHealthState(0);
         } else {
           setHealthState(1);
@@ -217,7 +217,7 @@ const ScreenThree = ({ threeData, arrowState, showGrowstate }) => {
       setHappyState(1);
       setTiredState(1);
       if (showGrowstate != undefined) {
-        if (staminaMax == showGrowstate.stamina_b) {
+        if (staminaMax <= showGrowstate.stamina_b) {
           setStaminaState(0);
         } else {
           setStaminaState(1);
@@ -232,7 +232,7 @@ const ScreenThree = ({ threeData, arrowState, showGrowstate }) => {
       setHappyState(1);
       setTiredState(1);
       if (showGrowstate != undefined) {
-        if (momentMax == showGrowstate.moment_b) {
+        if (momentMax <= showGrowstate.moment_b) {
           setMomentState(0);
         } else {
           setMomentState(1);
@@ -486,7 +486,7 @@ const ScreenThree = ({ threeData, arrowState, showGrowstate }) => {
         D4: 10,
         D5: 8,
       };
-    } else if (condition === 19 || condition === 20) {
+    } else if (condition === 19 || condition >= 20) {
       options = {
         none: 0,
         D1: 30,
@@ -514,19 +514,19 @@ const ScreenThree = ({ threeData, arrowState, showGrowstate }) => {
     let message = "";
     switch (key) {
       case "D1":
-        message = "疲労が溜まりすぎるとケガ(挫跖 ど)をする";
+        message = "疲労が溜まると故障してしまいます。";
         break;
       case "D2":
-        message = "疲労が溜まりすぎるとケガ(裂蹄 ど)をする";
+        message = "疲労が溜まると故障してしまいます。";
         break;
       case "D3":
-        message = "疲労が溜まりすぎるとケガ(屈腱炎 ど)をする";
+        message = "疲労が溜まると故障してしまいます。";
         break;
       case "D4":
-        message = "疲労が溜まりすぎるとケガ(骨折 ど)をする";
+        message = "疲労が溜まると故障してしまいます。";
         break;
       case "D5":
-        message = "疲労が溜まりすぎるとケガ(予後不良 ど)をする";
+        message = "疲労が溜まると故障してしまいます。";
         break;
     }
 

@@ -38,16 +38,15 @@ const HorseNameScreen = ({
   const [breedingAge, setBreedingAge] = useState([]);
   const [breedingColor, setBreedingColor] = useState([]);
   const [breedData, setBreedData] = useState("");
-  
+
   let illegalCheck = [];
 
   const pattern =
-    /[\d\s!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]|[a-zA-Z]|[^\u30A0-\u30FF\uFF66-\uFF9F]+$/;
+    /^([^0-9a-zA-Z\s!@#$%^&*¿~±×÷•°`´₹£€¥©®¡()_+\-=\[\]{};':"\\|,.<>\/?`~｀＠＃＄％＾＆＊（）ー＋＝￥「｛」｝；：’＼｜、＜＞／？｀～]|[^\u30A0-\u30FF\uFF66-\uFF9F]*)$/;
 
   useEffect(() => {
     const minAge = 5;
     const maxAge = 10;
-
 
     if (horseCheckData) {
       // Generate the random array of horse ages
@@ -76,7 +75,7 @@ const HorseNameScreen = ({
     }
   }, [horseCheckData]);
 
-  // HORSE VALIDATION USE EFFECT
+  // HORSE VALIDATION USEEFFECT
   useEffect(() => {
     setValiHorseName([]);
     let horseValiStyle = [];
@@ -101,7 +100,7 @@ const HorseNameScreen = ({
 
     setValiHorseName(horseValiStyle);
     setIllegalHorseName(illegalHorseNames);
-  }, [horseValidationName, horseCheckData]);
+  }, [horseValidationName,  horseCheckData]);
 
   // ILLEGAL STYLE USEEFFECT
   useEffect(() => {
@@ -141,7 +140,7 @@ const HorseNameScreen = ({
   const handleOnBlur = () => {
     for (let index = 0; index < horseNames.length; index++) {
       if (horseNames[index] === horseName) {
-        return false;
+      //  return false;
       }
       if (inputIds[index] === inputId) {
         horseNames[index] = horseName;
@@ -158,6 +157,12 @@ const HorseNameScreen = ({
     const updatedHorseNames = [];
     const valiHorseNames = [];
 
+    const hasDuplicates = horseNames.length !== new Set(horseNames).size;
+    if(hasDuplicates)
+    {
+      alert("重複する名前を入力しました。");
+      return false;
+    }
     // ===============HORSE NAMES VALIDATION KATAKANA
     horseNames.forEach((item, index) => {
       if (!pattern.test(item)) {
@@ -172,9 +177,8 @@ const HorseNameScreen = ({
 
     if (
       !updatedHorseNames.includes("flex") &&
-      horseNames.length === valiHorseNames.length &&
-      illegalHorseName.length === horseNames.length &&
-      successHorseName.length === horseCheckData.length
+      !valiHorseName.includes('flex') &&
+      !illegalStyleHorseName.includes('flex')
     ) {
       const CheckData = {
         name: horseNames,
@@ -189,16 +193,18 @@ const HorseNameScreen = ({
       //===================SAME AS NAME -> VALIDATION
       if (horseNames.length === valiHorseNames.length) {
         const sendName = {
-          name: valiHorseNames,
+          name: horseNames,
         };
+       
         dispatch(horseNameValiAction(sendName));
       }
 
       //==================ILLEGAL HORSENAME NO -> ILLEGAL
-      if (illegalCheck != []) {
+      else if (valiHorseName.length === horseNames.length && !valiHorseName.includes("flex")) {
         const sendillegalName = {
-          name: valiHorseNames,
+          name: horseNames,
         };
+        console.log(sendillegalName);
         dispatch(horseNameIllegalAction(sendillegalName));
       }
     }
@@ -245,7 +251,7 @@ const HorseNameScreen = ({
                       ]}
                     >
                       {displayStyle[i] == "flex"
-                        ? `カタカナで入力してください。`
+                        ? `馬名は「１文字」、「空欄」、「同じ馬名」禁止！`
                         : " "}{" "}
                     </Text>
 
@@ -295,9 +301,7 @@ const HorseNameScreen = ({
                                 </Text>
                                 <Text style={{ fontSize: 15 }}>
                                   {" "}
-                                  {item.age == "・繁殖馬"
-                                    ? horseCheckAge[i]
-                                    : item.age.split("")[1]}
+                                  {horseCheckAge[i]}
                                 </Text>
                               </View>
                               <Image
@@ -322,7 +326,6 @@ const HorseNameScreen = ({
                       />
                     </View>
                   </View>
-
                 </View>
               );
             })}
@@ -337,6 +340,7 @@ const HorseNameScreen = ({
 };
 
 const mapStateToProps = (state) => {
+  console.log(state.horseNameValid.horseNameIllegal);
   return {
     horseCheckData: state.horseData.CheckData,
     horseCheckAge: state.horseData.checkAge,

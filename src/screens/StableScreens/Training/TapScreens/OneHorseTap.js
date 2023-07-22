@@ -477,7 +477,7 @@ const OneHorseTap = ({ oneData, arrowState, showGrowstate }) => {
         D4: 10,
         D5: 8,
       };
-    } else if (condition === 19 || condition === 20) {
+    } else if (condition === 19 || condition >= 20) {
       options = {
         none: 0,
         D1: 30,

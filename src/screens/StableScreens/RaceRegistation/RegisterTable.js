@@ -27,9 +27,9 @@ const RegisterTable = ({
   reaceReigsterData,
 }) => {
   if (raceFieldData == "" || prizeData == "" || jockeysData == "") {
+    // NOT FOUND JOCKEYSDATA
     return false;
   }
-
   // horseData
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -180,6 +180,26 @@ const RegisterTable = ({
   // }
 
   const age = horseData.age.split("")[1];
+  const horseGender = horseData.gender;
+  const raceFieldAge = raceFieldData.age_limit.split("")[0];
+  const raceFieldGender = raceFieldData.age_limit.split("・")[1];
+
+  let gender;
+  if (raceFieldGender === undefined) {
+    gender = "";
+  } else {
+    gender = raceFieldGender.split("")[0];
+  }
+
+  let convertedToFullWidth = "";
+  for (let i = 0; i < age.length; i++) {
+    let charCode = age.charCodeAt(i);
+    if (charCode >= 48 && charCode <= 57) {
+      convertedToFullWidth += String.fromCharCode(charCode + 65248);
+    } else {
+      convertedToFullWidth += age.charAt(i);
+    }
+  }
 
   const handleSendData = () => {
     const sendAllData = {
@@ -203,8 +223,49 @@ const RegisterTable = ({
   };
 
   const handleClick = (value) => {
-    setModalVisible(true);
-    setActiveBin(value);
+    if (raceFieldAge === convertedToFullWidth) {
+      setModalVisible(true);
+      setActiveBin(value);
+      if (gender != "") {
+        if (horseGender === gender) {
+          setModalVisible(true);
+          setActiveBin(value);
+        } else {
+          setModalVisible(false);
+          Alert.alert(
+            " ",
+            "性別は同じではありません。",
+            [
+              {
+                text: "いいえ",
+                style: "cancel",
+              },
+              {
+                text: "はい",
+                onPress: () => console.log("Yes"),
+              },
+            ],
+            { cancelable: false }
+          );
+        }
+      }
+    } else {
+      Alert.alert(
+        " ",
+        "馬の年齢は同じではありません。",
+        [
+          {
+            text: "いいえ",
+            style: "cancel",
+          },
+          {
+            text: "はい",
+            onPress: () => console.log("Yes"),
+          },
+        ],
+        { cancelable: false }
+      );
+    }
   };
   const handleBackClick = () => {
     const sendBackData = {
@@ -297,7 +358,7 @@ const RegisterTable = ({
       prices.push(data.money);
     });
   }
-  let slicePrices = (prices.slice(0, 5));
+  let slicePrices = prices.slice(0, 5);
 
   let jockeyNames = [];
   jockeysData.map((item, index) => {

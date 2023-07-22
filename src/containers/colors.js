@@ -50,7 +50,9 @@ const colors = {
 	tapRittoColor: '#a0e5b9',
 	tapAbroadColor: '#988be4',
 	cardHeader: '#3c82f9',
-	cardBody: '#8fb6f9'
+	cardBody: '#8fb6f9',
+	lightPingk: '#fecdfe',
+	lightPurple: '#94b7fe'
 };
 
 export default colors;
