@@ -20,7 +20,7 @@ export function reservationStallValiAction(reservationData) {
       headers:{Authorization: token}
     })
     .then(res => {
-      dispatch(fetchData(res.data.data))
+      dispatch(fetchData(res.data.data));
     })
     .catch(error => {
       throw(error);
