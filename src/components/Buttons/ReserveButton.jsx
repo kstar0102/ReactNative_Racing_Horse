@@ -99,11 +99,11 @@ const styles = StyleSheet.create({
   },
   buttonFour:{
     backgroundColor: colors.butonBackgroud,
-    width: 50,
+    width: 42,
   },
   buttonFive:{
     backgroundColor: colors.tabButtonMiddle,
-    width: 50,
+    width: 42,
   },
 	label: {
 		color: colors.light.white,
