@@ -297,7 +297,7 @@ const JocTraining = ({ jockeyData, arrowState }) => {
                 )}
               </View>
               <View style={StableStyles.upperRight}>
-                <View style={[StableStyles.cardJokeyHeader, { backgroundColor: jockeyData.gender == "女性" ? Ccolors.lightPingk : Ccolors.cardHeader,}]}>
+                <View style={[StableStyles.cardJokeyHeader, { backgroundColor: jockeyData.gender == "女性" ? "#ff8af1" : Ccolors.cardHeader,}]}>
                   <Text style={StableStyles.cardHeaderTxt}>
                     {jockeyData.name}
                   </Text>

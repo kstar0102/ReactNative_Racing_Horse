@@ -812,7 +812,7 @@ const OneHorseTap = ({ oneData, arrowState, showGrowstate }) => {
                 onPress={() => handleButtonPress(1)}
               />
             )}
-            <WorkingButton label={`引退`} colorNumber={3} styleId={2} />
+            <WorkingButton label={`引退`} colorNumber={1} styleId={2} />
           </View>
         </View>
       </View>

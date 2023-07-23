@@ -54,9 +54,7 @@ const GrazingGroup = ({
     dispatch(preePastureShowAction(sendUserId));
   };
 
-  const goScreen = () => {
-
-  };
+  const goScreen = () => {};
 
   useEffect(() => {
     if (poolLevel != "") {
@@ -149,6 +147,7 @@ const GrazingGroup = ({
                 id={3}
               />
               <DetailButton
+                label={"放牧する"}
                 name={"放牧"}
                 onPress={goScreen}
               />
@@ -164,7 +163,13 @@ const GrazingGroup = ({
                 source={require("../../../assets/images/Pasture/icon3.png")}
                 id={4}
               />
-              <DetailButton label={"育成する"} horseId={horseId} horseAge={horseAge} horseGrow={horseGrow} name={"芝"} />
+              <DetailButton
+                label={"育成する"}
+                horseId={horseId}
+                horseAge={horseAge}
+                horseGrow={horseGrow}
+                name={"芝"}
+              />
             </View>
             <View>
               <View style={RTapScreensStyle.absoluteView}>

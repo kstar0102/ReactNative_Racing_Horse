@@ -416,7 +416,7 @@ const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
         result = " ◎";
         break;
       case tired >= 8 && tired <= 12:
-        result = " o";
+        result = " 〇";
         break;
       case tired >= 13 && tired <= 14:
         result = " ▲";

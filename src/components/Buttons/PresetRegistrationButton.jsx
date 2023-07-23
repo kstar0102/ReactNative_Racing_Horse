@@ -111,7 +111,7 @@ const PresetRegistrationButton = ({
     } else {
       Alert.alert(
         " ",
-        "Not Found Value",
+        "予約が１つもありません。",
         [
           {
             text: "いいえ",
