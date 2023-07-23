@@ -12,7 +12,7 @@ import FGroup from "../GroupTable/FGroup";
 import GGroup from "../GroupTable/GGroup";
 import WorkingButton from "../../../../components/Buttons/WorkingButtons";
 import { horseColor } from "../../../../utils/globals";
-import colors from "../../../../containers/colors";
+import Ccolors from "../../../../containers/colors";
 
 const OneHorseTap = ({ oneData, arrowState, showGrowstate }) => {
   const dispatch = useDispatch();
@@ -567,14 +567,34 @@ const OneHorseTap = ({ oneData, arrowState, showGrowstate }) => {
         </View>
         <View style={RTapScreensStyle.oneTopContentRight}>
           <View style={RTapScreensStyle.oneRioghtHeader}>
-            <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>
+            <Text
+              style={[
+                RTapScreensStyle.oneRioghtHeaderTxtA,
+                {
+                  color:
+                    (!!selected && selected.gender == "牝") ||
+                    data[0].gender == "牝"
+                      ? Ccolors.genderColorF
+                      : Ccolors.genderColorM,
+                },
+              ]}
+            >
               {(!!selected && selected.name) || data[0].name}
             </Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
-              <Text style={{ color: (!!selected && selected.gender == "牡") || data[0].gender == "牡" ? "blue" : '#FF006B'}}>
+              <Text
+                style={{
+                  color:
+                    (!!selected && selected.gender == "牝") ||
+                    data[0].gender == "牝"
+                      ? Ccolors.genderColorF
+                      : Ccolors.genderColorM,
+                }}
+              >
                 {(!!selected && selected.gender) || data[0].gender}
               </Text>
-              2
+              {(!!selected && selected.age.split("")[1]) ||
+                data[0].age.split("")[1]}
             </Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
               {(!!selected && selected.growth) || data[0].growth}

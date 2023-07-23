@@ -12,6 +12,7 @@ import ReturnButtonScreen from "../../../components/someScreen/ReturnButtonScree
 import { connect } from "react-redux";
 import { horseColor } from "../../../utils/globals";
 import RegisterTable from "./RegisterTable";
+import Ccolors from "../../../containers/colors";
 
 const RaceRegistation = ({ stableData }) => {
   if (stableData == "" || stableData == undefined) {
@@ -312,15 +313,15 @@ const RaceRegistation = ({ stableData }) => {
           </View>
           <View style={RTapScreensStyle.oneTopContentRight}>
             <View style={RTapScreensStyle.oneRioghtHeader}>
-              <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>
-                {(!!selected && selected.name) || data[0].name}
+            <Text style={[RTapScreensStyle.oneRioghtHeaderTxtA, {color: (!!selected && selected.gender == "牝") || data[0].gender == "牝" ? Ccolors.genderColorF : Ccolors.genderColorM}]}>
+              {(!!selected && selected.name) || data[0].name}
+            </Text>
+            <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
+              <Text style={{ color: (!!selected && selected.gender == "牝") || data[0].gender == "牝" ? Ccolors.genderColorF : Ccolors.genderColorM}}>
+                {(!!selected && selected.gender) || data[0].gender}
               </Text>
-              <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
-                <Text style={{ color: (!!selected && selected.gender == "牡") || data[0].gender == "牡" ? "blue" : '#FF006B'}}>
-                  {(!!selected && selected.gender) || data[0].gender}
-                </Text>
-                2
-              </Text>
+              {(!!selected && selected.age.split('')[1]) || data[0].age.split('')[1]}
+            </Text>
               <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
                 {(!!selected && selected.growth) || data[0].growth}
               </Text>

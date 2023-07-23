@@ -580,7 +580,7 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
               <Text style={{ color: (!!selected && selected.gender == "牝") || data[0].gender == "牝" ? Ccolors.genderColorF : Ccolors.genderColorM}}>
                 {(!!selected && selected.gender) || data[0].gender}
               </Text>
-              2
+              {(!!selected && selected.age.split('')[1]) || data[0].age.split('')[1]}
             </Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
               {(!!selected && selected.growth) || data[0].growth}

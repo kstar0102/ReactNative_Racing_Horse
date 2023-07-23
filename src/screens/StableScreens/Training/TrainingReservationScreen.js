@@ -19,6 +19,7 @@ import ReserveButton from "../../../components/Buttons/ReserveButton";
 import ReservationDropDown from "../../../components/Buttons/ReservationDropDown";
 import PresetRegistrationButton from "../../../components/Buttons/PresetRegistrationButton";
 import { horseColor } from "../../../utils/globals";
+import Ccolors from "../../../containers/colors";
 
 const TrainingReservationScreen = ({
   navigation,
@@ -68,8 +69,6 @@ const TrainingReservationScreen = ({
   const gameData = gameAllDate.toISOString().split("T")[0];
 
   // define end
-
-
 
   //==================Do not touch this part start=====================================
   const skillRange = (skill) => {
@@ -220,18 +219,21 @@ const TrainingReservationScreen = ({
   }, [saveData]);
   //========================Do not touch this part end =================================
 
-
   let nameValues = [];
 
-  presetCategories = ["プリセット1", "プリセット2", "プリセット3", "プリセット4", "プリセット5"
-  ]
-
+  presetCategories = [
+    "プリセット1",
+    "プリセット2",
+    "プリセット3",
+    "プリセット4",
+    "プリセット5",
+  ];
 
   presetCategories.map((item, index) => {
     nameValues.push({ name: item });
   });
 
-  let preeData = [];  
+  let preeData = [];
 
   let horse_ids = [];
   let gameDate = [];
@@ -244,13 +246,11 @@ const TrainingReservationScreen = ({
     });
   }
 
-  const isValue =
-    horse_ids.includes(banner.id.toString());
+  const isValue = horse_ids.includes(banner.id.toString());
 
   useEffect(() => {
     let useName = [];
     if (isValue) {
-      
       reservationData.forEach((item, index) => {
         if (horse_ids[index] == banner.id.toString()) {
           useName.push({
@@ -266,9 +266,7 @@ const TrainingReservationScreen = ({
 
   useEffect(() => {
     if (reservationData != "") {
-      if (
-        horse_ids.includes(banner.id.toString()) && displayData != []
-      ) {
+      if (horse_ids.includes(banner.id.toString()) && displayData != []) {
         setCurrentIncomplete("flex");
         setCurrentComplate("none");
       } else {
@@ -320,8 +318,6 @@ const TrainingReservationScreen = ({
     setDeletes(value);
   };
 
-
-
   let grazingDatas = [
     { name: "放牧", price: "1", type: "grazing" },
     { name: "芝(馬なり)", price: "1", type: "grazing" },
@@ -345,7 +341,7 @@ const TrainingReservationScreen = ({
   ];
 
   //judge dropdown statement
-  //effect check start !!! 
+  //effect check start !!!
   useEffect(() => {
     setGrazingData(grazingDatas);
 
@@ -388,7 +384,7 @@ const TrainingReservationScreen = ({
     }
     let tmpData = [...displayData];
     let num = deletes;
-    if(deletes == ""){
+    if (deletes == "") {
       num = displayData.length + 1;
     }
     tmpData.splice(num - 1, 0, grazing);
@@ -408,8 +404,8 @@ const TrainingReservationScreen = ({
     }
     let tmpData = [...displayData];
     let num = deletes;
-    if(deletes == ""){
-      num = displayData.length+1;
+    if (deletes == "") {
+      num = displayData.length + 1;
     }
     tmpData.splice(num - 1, 0, fodder);
     setDisplayData(tmpData);
@@ -421,18 +417,18 @@ const TrainingReservationScreen = ({
     }
     let newArray = [];
 
-      preeSetData.map((item, index) => {
-        if (item.preset_num == preeData) {
-          newArray.push({
-            name: item.food_name,
-            price: item.price,
-            type: item.food_type,
-          });
-        }
-      });
+    preeSetData.map((item, index) => {
+      if (item.preset_num == preeData) {
+        newArray.push({
+          name: item.food_name,
+          price: item.price,
+          type: item.food_type,
+        });
+      }
+    });
     setDisplayData(newArray);
   };
-/// I don't know what is this
+  /// I don't know what is this
   let food_name = [];
   let food_price = [];
   let food_order = [];
@@ -507,8 +503,8 @@ const TrainingReservationScreen = ({
   const order = isValue
     ? default_order
     : food_order == ""
-      ? food_set_order
-      : food_order;
+    ? food_set_order
+    : food_order;
   return (
     <View style={Screenstyles.container}>
       <ImageBackground
@@ -523,7 +519,7 @@ const TrainingReservationScreen = ({
               <ReturnButton
                 label="厩 舎"
                 color={1}
-                onPress={() =>  navigation.navigate("StallScreen")}
+                onPress={() => navigation.navigate("StallScreen")}
               />
             </View>
             <View style={Screenstyles.UPRButton}>
@@ -538,9 +534,7 @@ const TrainingReservationScreen = ({
           <ScrollView style={RTapScreensStyle.reservationContainer}>
             <View style={RTapScreensStyle.oneTopContent}>
               <View style={RTapScreensStyle.oneTopContentLeft}>
-                <Text style={RTapScreensStyle.shadowTxt}>
-                  管理馬一覧
-                </Text>
+                <Text style={RTapScreensStyle.shadowTxt}>管理馬一覧</Text>
                 <DropDownR
                   name={data[0].name}
                   data={data}
@@ -550,14 +544,34 @@ const TrainingReservationScreen = ({
               </View>
               <View style={RTapScreensStyle.oneTopContentRight}>
                 <View style={RTapScreensStyle.oneRioghtHeader}>
-                  <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>
+                  <Text
+                    style={[
+                      RTapScreensStyle.oneRioghtHeaderTxtA,
+                      {
+                        color:
+                          (!!selected && selected.gender == "牝") ||
+                          data[0].gender == "牝"
+                            ? Ccolors.genderColorF
+                            : Ccolors.genderColorM,
+                      },
+                    ]}
+                  >
                     {(!!selected && selected.name) || data[0].name}
                   </Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
-                    <Text style={RTapScreensStyle.oneRioghtHeaderTxtPink}>
+                    <Text
+                      style={{
+                        color:
+                          (!!selected && selected.gender == "牝") ||
+                          data[0].gender == "牝"
+                            ? Ccolors.genderColorF
+                            : Ccolors.genderColorM,
+                      }}
+                    >
                       {(!!selected && selected.gender) || data[0].gender}
                     </Text>
-                    2
+                    {(!!selected && selected.age.split("")[1]) ||
+                      data[0].age.split("")[1]}
                   </Text>
                   <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
                     {(!!selected && selected.growth) || data[0].growth}
@@ -668,29 +682,31 @@ const TrainingReservationScreen = ({
                       })}
                     </>
                   )) || (
-                      <>
-                        {horseColor.map((colorName, index) => {
-                          if (colorName[data[0].color]) {
-                            return (
-                              <Image
-                                key={`${index}`}
-                                style={RTapScreensStyle.HorseAvatar}
-                                source={colorName[data[0].color]}
-                              />
-                            );
-                          } else {
-                            return null;
-                          }
-                        })}
-                      </>
-                    )}
+                    <>
+                      {horseColor.map((colorName, index) => {
+                        if (colorName[data[0].color]) {
+                          return (
+                            <Image
+                              key={`${index}`}
+                              style={RTapScreensStyle.HorseAvatar}
+                              source={colorName[data[0].color]}
+                            />
+                          );
+                        } else {
+                          return null;
+                        }
+                      })}
+                    </>
+                  )}
                 </View>
               </View>
             </View>
           </ScrollView>
           <View style={Screenstyles.reserveContent}>
             <View style={Screenstyles.reserveMenuLeft}>
-              <Text style={Screenstyles.reserveMenuShowTitle}>育成メニュー</Text>
+              <Text style={Screenstyles.reserveMenuShowTitle}>
+                育成メニュー
+              </Text>
               <View style={Screenstyles.reserveMenuGroup}>
                 <MenuDropDown
                   name={nameValue}
@@ -704,7 +720,9 @@ const TrainingReservationScreen = ({
                   onPress={() => handleGrazing(grazing)}
                 />
               </View>
-              <Text style={Screenstyles.reserveMenuShowTitle}>飼葉メニュー</Text>
+              <Text style={Screenstyles.reserveMenuShowTitle}>
+                飼葉メニュー
+              </Text>
               <View style={Screenstyles.reserveMenuGroup}>
                 <MenuDropDown
                   name={nameValue}
@@ -764,13 +782,11 @@ const TrainingReservationScreen = ({
               </View>
               <View style={Screenstyles.reserveRightList}>
                 <ScrollView style={Screenstyles.reserveList}>
-                  {
-                    displayData.map((item, index) => (
-                      <Text key={index} style={Screenstyles.reserveListtxt}>
-                        {index + 1}. {item.name}
-                      </Text>
-                    ))
-                  }
+                  {displayData.map((item, index) => (
+                    <Text key={index} style={Screenstyles.reserveListtxt}>
+                      {index + 1}. {item.name}
+                    </Text>
+                  ))}
                 </ScrollView>
                 <View style={Screenstyles.reserveButtonGroup}>
                   <ReservationDropDown
@@ -778,8 +794,8 @@ const TrainingReservationScreen = ({
                       isValue
                         ? default_order[0]
                         : food_order[0]
-                          ? food_order[0]
-                          : food_set_order[0]
+                        ? food_order[0]
+                        : food_set_order[0]
                     }
                     order={orderData}
                     onSelect={setSelectedDelete}
