@@ -55,7 +55,7 @@ const colors = {
 	lightPurple: '#94b7fe',
 
 	genderColorF: "#FF006B",
-	genderColorM: "#3471eb"
+	genderColorM: "#3449eb"
 };
 
 export default colors;
