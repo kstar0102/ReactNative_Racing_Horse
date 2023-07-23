@@ -592,7 +592,7 @@ const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
         </View>
         <View style={RTapScreensStyle.oneTopContentRight}>
           <View style={RTapScreensStyle.oneRioghtHeader}>
-            <Text style={RTapScreensStyle.oneRioghtHeaderTxtA}>
+            <Text style={[RTapScreensStyle.oneRioghtHeaderTxtA, {color:(!!selected && selected.gender == "牝") || data[0].gender == "牝" ? Ccolors.genderColorF : Ccolors.genderColorM }]}>
               {(!!selected && selected.name) || data[0].name}
             </Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
