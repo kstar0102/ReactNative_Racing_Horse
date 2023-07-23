@@ -509,7 +509,7 @@ const ReservationScreen = ({
   return (
     <View style={Screenstyles.container}>
       <ImageBackground
-        source={require("../../../assets/images/1.png")}
+        source={require("../../../assets/images/re.jpg")}
         resizeMode="cover"
         style={Screenstyles.img}
       >

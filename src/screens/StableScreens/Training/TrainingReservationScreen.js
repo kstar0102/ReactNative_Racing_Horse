@@ -8,7 +8,7 @@ import { reservationValiAction } from "../../../store/actions/Pasture/reservatio
 import HeaderScreen, {
   calculateGameDate,
 } from "../../LayoutScreen/HeaderScreen";
-import FooterScreen from "../../LayoutScreen/FooterScreen";
+import StableFooterScreen from "../../LayoutScreen/StableFooterScreen";
 import { ReturnButton } from "../../../components/Buttons";
 import Screenstyles from "../../ScreenStylesheet";
 import DropDownR from "../../../components/Buttons/DropDwonR";
@@ -506,9 +506,9 @@ const TrainingReservationScreen = ({
     ? food_set_order
     : food_order;
   return (
-    <View style={Screenstyles.container}>
+    <View style={[Screenstyles.container]}>
       <ImageBackground
-        source={require("../../../assets/images/horse_track/stall.jpg")}
+        source={require("../../../assets/images/re.jpg")}
         resizeMode="cover"
         style={Screenstyles.img}
       >
@@ -816,7 +816,7 @@ const TrainingReservationScreen = ({
             </View>
           </View>
         </View>
-        <FooterScreen />
+        <StableFooterScreen />
       </ImageBackground>
     </View>
   );

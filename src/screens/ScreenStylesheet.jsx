@@ -351,7 +351,7 @@ const Screenstyles = StyleSheet.create({
       textAlign:'center',
       marginRight: 80,
       color: colors.white,
-
+      
       textShadowColor: 'black',
       textShadowOffset: { width: 4, height: 4 },
       textShadowRadius: 5,
@@ -383,6 +383,8 @@ const Screenstyles = StyleSheet.create({
       textShadowOffset: { width: 4, height: 4 },
       textShadowRadius: 5,
     },
+
+
     reserveListConfim:{
       display:'flex',
       flexDirection: 'column',
