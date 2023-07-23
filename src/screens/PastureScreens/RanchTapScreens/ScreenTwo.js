@@ -14,6 +14,8 @@ import AvatarTapScreen from "./AvataTapScreen";
 import WorkingButton from "../../../components/Buttons/WorkingButtons/WorkingButton";
 import { SaleButton } from "../../../components/Buttons";
 import { horseColor } from "../../../utils/globals";
+import Ccolors from "../../../containers/colors";
+
 
 const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
   const dispatch = useDispatch();
@@ -576,7 +578,6 @@ const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
       { cancelable: false }
     );
   };
-
   return (
     <ScrollView style={RTapScreensStyle.twoContainer}>
       <View style={RTapScreensStyle.oneTopContent}>
@@ -595,7 +596,7 @@ const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
               {(!!selected && selected.name) || data[0].name}
             </Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
-              <Text style={{ color: (!!selected && selected.gender == "牡") || data[0].gender == "牡" ? "blue" : '#FF006B'}}>
+              <Text style={{ color: (!!selected && selected.gender == "牝") || data[0].gender == "牝" ? Ccolors.genderColorF : Ccolors.genderColorM}}>
                 {(!!selected && selected.gender) || data[0].gender}
               </Text>
               2

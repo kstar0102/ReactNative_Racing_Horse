@@ -52,7 +52,10 @@ const colors = {
 	cardHeader: '#3c82f9',
 	cardBody: '#8fb6f9',
 	lightPingk: '#fecdfe',
-	lightPurple: '#94b7fe'
+	lightPurple: '#94b7fe',
+
+	genderColorF: "#FF006B",
+	genderColorM: "#3471eb"
 };
 
 export default colors;
