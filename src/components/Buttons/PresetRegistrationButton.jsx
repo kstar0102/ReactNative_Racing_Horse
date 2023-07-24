@@ -25,6 +25,7 @@ const PresetRegistrationButton = ({
   disabled,
   allData,
   preeAllData,
+  preNameGroup,
   user_id,
   pasture_id,
   place
@@ -59,6 +60,14 @@ const PresetRegistrationButton = ({
 
   const preset_num = preeSet == "" ? preeSetData[0].name : preeSet;
   const handlePreeSetRegister = () => {
+    let input_pre = "";
+    if(preeSetData.some((element) => element.name === preset_num)){
+      input_pre = preset_num;
+    }
+    else{
+      let targetIndex = preNameGroup.findIndex((element) => element.name === preset_num);
+      input_pre = preeSetData[targetIndex].name;
+    }
     if(place == "pasture"){
       const sendPreePastureData = {
         food_name: food_name,
@@ -67,7 +76,7 @@ const PresetRegistrationButton = ({
         order: food_order,
         place: place,
         preset_name: inputText,
-        preset_num: preset_num,
+        preset_num: input_pre,
         user_id: user_id,
         pasture_id: pasture_id,
       };
@@ -80,7 +89,7 @@ const PresetRegistrationButton = ({
         order: food_order,
         place: place,
         preset_name: inputText,
-        preset_num: preset_num,
+        preset_num: input_pre,
         user_id: user_id,
         stall_id: "stall",
       };
@@ -271,8 +280,8 @@ const PresetRegistrationButton = ({
             <Text> どのプリセットに上書きしますか?</Text>
             <View style={ButtonStyle.Dropdown}>
               <DropdownR
-                name={"プリセット1"}
-                data={preeSetData}
+                name={"選択してください。"}
+                data={preNameGroup}
                 onSelect={setSelectedPreeSet}
                 setId={handlePreeSetData}
               />

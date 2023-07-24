@@ -31,10 +31,22 @@ const Institution = ({
     const [selected, setSelected] = useState(undefined);
     const [banner, setBanner] = useState(0);
 
+    
 
     const data = institutionData;
+
+    useEffect(()=>{
+      const sendStallId = {
+        user_id: user_id,
+        stall_id: data[0].sid,
+      };
+      disabled(InstitutionMenuAction(sendStallId));
+    }, [user_id]);
+
+
     const handleSettingId = (value) => {
       setBanner(value);
+
 
       const sendStallId = {
         user_id: user_id,
@@ -42,7 +54,8 @@ const Institution = ({
       };
       disabled(InstitutionMenuAction(sendStallId));
     };
-    
+
+
     return (
       <View style={Screenstyles.container}>
         <ImageBackground
@@ -117,7 +130,7 @@ const mapStateToProps = (state) => {
     stallPool: state.stallPool.poolLevelUpData[0],
     stallRanch: state.stallRanch.ranchLevelUpData[0],
     stallSlope: state.stallRoad.roadLevelUpData[0],
-    stallTruck: state.stallTruck.truckLevelUpData[0],
+    stallTruck: state.stallTruck.truckLevelUpData[0]
   };
 };
 
