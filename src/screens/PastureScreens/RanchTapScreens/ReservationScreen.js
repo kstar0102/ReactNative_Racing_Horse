@@ -223,7 +223,7 @@ const ReservationScreen = ({
 
   let nameValues = [];
 
-  presetCategories = [
+  let presetCategories = [
     "プリセット1",
     "プリセット2",
     "プリセット3",
@@ -231,9 +231,12 @@ const ReservationScreen = ({
     "プリセット5",
   ];
 
-  presetCategories.map((item, index) => {
-    nameValues.push({ name: item });
-  });
+  if(preeSetName){
+    preeSetName.map((item, index) => {
+      nameValues.push({ name: item });
+    });
+  }
+  
 
   let preeData = [];
 
@@ -418,14 +421,27 @@ const ReservationScreen = ({
       return false;
     }
     let newArray = [];
+    
     preeSetData.map((item, index) => {
-      if (item.preset_num == preeData) {
-        newArray.push({
-          name: item.food_name,
-          price: item.price,
-          type: item.food_type,
-        });
+      if(presetCategories.includes(preeData)){
+        if (item.preset_num == preeData) {
+          newArray.push({
+            name: item.food_name,
+            price: item.price,
+            type: item.food_type,
+          });
+        }
       }
+      else{
+        if (item.name == preeData) {
+          newArray.push({
+            name: item.food_name,
+            price: item.price,
+            type: item.food_type,
+          });
+        }
+      }
+      
     });
     setDisplayData(newArray);
   };
@@ -751,6 +767,7 @@ const ReservationScreen = ({
                 place={"pasture"}
                 allData={displayData}
                 preeAllData={preeAllData}
+                preNameGroup={nameValues}
                 label={"プリセット登録"}
                 onPress={() => handlePreset()}
               />
