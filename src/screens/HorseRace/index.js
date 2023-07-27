@@ -249,19 +249,23 @@ const styles = StyleSheet.create({
     marginVertical: -10,
   },
   button: {
-    width: "100%",
+    width: "20%",
     backgroundColor: "blue",
     padding: 10,
     borderRadius: 5,
     marginTop: 20,
+    marginLeft: 20
   },
   buttonGroup:{
-    flexDirection: "row"
+    flexDirection: "row",
+    justifyContent: "center",
+    
   },
   buttonText: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+    textAlign: "center"
   },
   winnerText: {
     width: "100%",
