@@ -456,9 +456,9 @@ const Screenstyles = StyleSheet.create({
     },
     still:{
       // position: 'absolute',
-      width: 90,
-      height: 90,
-      top: 20,
+      width: 60,
+      height: 60,
+      top: 50,
     }
   });
 

@@ -27,16 +27,16 @@ export const horseSource = [
 ]
 
 export const stillSource = [
-  {1: require("../assets/horseImageData/still/20.png")},
-  {2: require("../assets/horseImageData/still/18.png")},
-  {3: require("../assets/horseImageData/still/16.png")},
-  {4: require("../assets/horseImageData/still/14.png")},
-  {5: require("../assets/horseImageData/still/12.png")},
-  {6: require("../assets/horseImageData/still/10.png")},
-  {7: require("../assets/horseImageData/still/8.png")},
-  {8: require("../assets/horseImageData/still/6.png")},
-  {9: require("../assets/horseImageData/still/4.png")},
-  {10: require("../assets/horseImageData/still/2.png")},
+  {1: require("../assets/horseImageData/still/2.png")},
+  {2: require("../assets/horseImageData/still/4.png")},
+  {3: require("../assets/horseImageData/still/6.png")},
+  {4: require("../assets/horseImageData/still/8.png")},
+  {5: require("../assets/horseImageData/still/10.png")},
+  {6: require("../assets/horseImageData/still/12.png")},
+  {7: require("../assets/horseImageData/still/14.png")},
+  {8: require("../assets/horseImageData/still/16.png")},
+  {9: require("../assets/horseImageData/still/18.png")},
+  {10: require("../assets/horseImageData/still/20.png")},
 ]
 
 export const numberSource = [
