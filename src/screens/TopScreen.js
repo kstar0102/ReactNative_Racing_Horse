@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ImageBackground } from 'react-native';
 // Redux
 import { connect, useDispatch } from 'react-redux';
 import { pastureAction } from '../store/actions/Pasture/pastureAction';
+import { raceAction } from "../store/actions/racepaln/getApi/racePlanAction";
 // Custom IMPORT
+import { calculateGameDate } from "./LayoutScreen/HeaderScreen";
 import { CustomButtons } from '../components/Buttons';
 import HeaderScreen from './LayoutScreen/HeaderScreen'
 import Screenstyles from '../screens/ScreenStylesheet';
 
 const TopScreen = ({navigation, pastureData, user_id, horseData, pasture_id}) => {
   const dispatch =  useDispatch();
+  const [currentTime, setCurrentTime] = useState(new Date());
   // HANDLE SUBMIT PASUTE NEXT NAVIGATION
   const handlePastureSubmit = () => {
       if(pastureData == '' && horseData == '' ){
@@ -39,6 +42,11 @@ const TopScreen = ({navigation, pastureData, user_id, horseData, pasture_id}) =>
     navigation.navigate('StallScreen')
   }
 
+  const handleRaceCourse = () => {
+    dispatch(raceAction(calculateGameDate(currentTime)));
+    navigation.navigate('RaceCourseScreen')
+  };
+  
   return (
     <View style={Screenstyles.container}>      
       <ImageBackground
@@ -49,8 +57,8 @@ const TopScreen = ({navigation, pastureData, user_id, horseData, pasture_id}) =>
             <View style={Screenstyles.containers}>
               
               <View style={Screenstyles.content}>
-                  <CustomButtons label="牧 場" onPress={() => handlePastureSubmit() }/>
-                  <CustomButtons label="競馬場" onPress={() =>  navigation.navigate('RaceCourseScreen')}/>
+                  <CustomButtons label="牧 場" onPress={() => handlePastureSubmit()}/>
+                  <CustomButtons label="競馬場" onPress={() =>  handleRaceCourse()}/>
                   <CustomButtons label="ランキング"/>
               </View>
               <View style={Screenstyles.content}>

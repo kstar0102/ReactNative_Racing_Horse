@@ -420,6 +420,45 @@ const Screenstyles = StyleSheet.create({
       display: 'flex',
       flexDirection: 'row',
       marginTop: 5
+    },
+    // =============HORSE RACE STYLE=============
+    RaceCourseContainer:{
+      // marginTop: 10,
+      width: SCREEN_WIDTH,
+      height: SCREEN_HEIGHT,
+    },
+    RaceCoursecontent:{
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+    },
+    horseSize:{
+      // width: 20
+    },
+
+      background:{
+      position: 'absolute',
+      width: 1450,
+      height: 400,
+      top: 0,
+      opacity: 0.8,
+      transform: [
+        {
+          translateX: 0,
+        }
+      ],      
+    },
+    stillGroup:{
+      // padding: 30
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      marginRight: 150
+    },
+    still:{
+      // position: 'absolute',
+      width: 90,
+      height: 90,
+      top: 20,
     }
   });
 

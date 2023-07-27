@@ -12,3 +12,42 @@ export const horseColor = [
     {黑鹿毛: require('../assets/images/horse/24.png')},
     {鹿毛: require('../assets/images/horse/21.png')}
 ]
+
+export const horseSource = [
+  {1: require("../assets/horseImageData/1wakuL.gif")},
+  {2: require("../assets/horseImageData/2wakuL.gif")},
+  {3: require("../assets/horseImageData/3wakuL.gif")},
+  {4: require("../assets/horseImageData/4wakuL.gif")},
+  {5: require("../assets/horseImageData/5wakuL.gif")},
+  {6: require("../assets/horseImageData/6wakuL.gif")},
+  {7: require("../assets/horseImageData/7wakuL.gif")},
+  {8: require("../assets/horseImageData/8wakuL.gif")},
+  {9: require("../assets/horseImageData/9wakuL.gif")},
+  {10: require("../assets/horseImageData/10wakuL.gif")},
+]
+
+export const stillSource = [
+  {1: require("../assets/horseImageData/still/20.png")},
+  {2: require("../assets/horseImageData/still/18.png")},
+  {3: require("../assets/horseImageData/still/16.png")},
+  {4: require("../assets/horseImageData/still/14.png")},
+  {5: require("../assets/horseImageData/still/12.png")},
+  {6: require("../assets/horseImageData/still/10.png")},
+  {7: require("../assets/horseImageData/still/8.png")},
+  {8: require("../assets/horseImageData/still/6.png")},
+  {9: require("../assets/horseImageData/still/4.png")},
+  {10: require("../assets/horseImageData/still/2.png")},
+]
+
+export const numberSource = [
+  {1: require("../assets/horseImageData/Number/1.png")},
+  {2: require("../assets/horseImageData/Number/2.png")},
+  {3: require("../assets/horseImageData/Number/3.png")},
+  {4: require("../assets/horseImageData/Number/4.png")},
+  {5: require("../assets/horseImageData/Number/5.png")},
+  {6: require("../assets/horseImageData/Number/6.png")},
+  {7: require("../assets/horseImageData/Number/7.png")},
+  {8: require("../assets/horseImageData/Number/8.png")},
+  {9: require("../assets/horseImageData/Number/9.png")},
+  {10: require("../assets/horseImageData/Number/10.png")},
+]

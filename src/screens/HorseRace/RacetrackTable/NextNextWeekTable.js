@@ -10,22 +10,21 @@ import {
 import { useNavigation } from "@react-navigation/native";
 // Redux
 import { connect, useDispatch } from "react-redux";
-import { ReacRegisterAction } from "../../../../store/actions/ReacRegister/ReacRegisterAction";
+import { ReacRegisterAction } from "../../../store/actions/ReacRegister/ReacRegisterAction";
+import TableStyles from "../../StableScreens/RaceCourse/RacetrackTable/TableStyles";
 
-import TableStyles from "./TableStyles";
-
-const LastLastWeekTable = ({
-  threeWeekTitle,
-  threeWeekData,
-  threeWeekName,
-  raceId
+const NextNextWeekTable = ({
+  nextNextWeekTitle,
+  nextNextWeekData,
+  nextNextWeekName,
+  raceId,
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const elementButton = (threeWeekNames) =>
-    threeWeekNames.map((name, index) => (
+  const elementButton = (nextNextWeekNames) =>
+    nextNextWeekNames.map((name, index) => (
       <View key={index}>
-        <TouchableOpacity onPress={() => handleClick(raceId(index))}>
+        <TouchableOpacity onPress={() => handleClick(raceId[index])}>
           <View style={TableStyles.btn}>
             <Text style={TableStyles.btnText}>{name}</Text>
           </View>
@@ -35,14 +34,14 @@ const LastLastWeekTable = ({
 
   const handleClick = (value) => {
     dispatch(ReacRegisterAction(value));
-    navigation.navigate("StableRaceCourse");
+    navigation.navigate("RaceList");
   };
 
   return (
     <View style={TableStyles.container}>
       <Table borderStyle={{ borderWidth: 1 }}>
         <Row
-          data={threeWeekTitle}
+          data={nextNextWeekTitle}
           flexArr={[]}
           style={TableStyles.tableHead}
           textStyle={TableStyles.textHead}
@@ -50,13 +49,13 @@ const LastLastWeekTable = ({
 
         <TableWrapper style={TableStyles.wrapper}>
           <Col
-            data={elementButton(threeWeekName)}
+            data={elementButton(nextNextWeekName)}
             style={TableStyles.title}
             heightArr={[23, 23]}
             textStyle={TableStyles.textCol}
           />
           <Rows
-            data={threeWeekData}
+            data={nextNextWeekData}
             flexArr={[0.3, 0.3, 0.2, 0.4, 0.5]}
             style={TableStyles.row}
             textStyle={TableStyles.text}
@@ -71,4 +70,4 @@ const mapStateToProps = (state) => {
     jockeysData: state.raceData.jockeysData,
   };
 };
-export default connect(mapStateToProps)(LastLastWeekTable);
+export default connect(mapStateToProps)(NextNextWeekTable);

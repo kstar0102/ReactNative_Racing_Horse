@@ -38,6 +38,9 @@ import RaceRegisterRuducer from './ReacRegister/RaceRegisterRuducer';
 import horseNameValidationReducer from './horseNameValidationReducer';
 import showHorseGrowReducer from './horse/showHorseGrowReducer';
 
+//RACEREUDCER
+import RaceReducer from './race/RaceReducer';
+
 export default combineReducers({
     user: user,
     validationData: validationData,
@@ -75,4 +78,5 @@ export default combineReducers({
     raceData: RaceRegisterRuducer,
     horseNameValid: horseNameValidationReducer,
     showGrowData: showHorseGrowReducer,
+    racingData: RaceReducer
 });

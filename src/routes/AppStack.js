@@ -40,7 +40,9 @@ import PastureRaceCourseScreen from '../screens/PastureScreens/RaceTrack/Racetra
  */
 import RaceCourseScreen from '../screens/RaceCourseScreen';
 import CourseTables from '../screens/StableScreens/RaceRegistation/RegisterCourse';
-
+import HorseRace from '../screens/HorseRace';
+import RaceList from '../screens/HorseRace/RaceList';
+import RaceResultScreen from '../screens/HorseRace/RaceResultScreen';
 
 const Stack = createNativeStackNavigator();
 const ModalStack = createStackNavigator();
@@ -81,6 +83,10 @@ const AppStack = () => {
       <ModalStack.Screen name={'CourseTables'} component={CourseTables} options={horizontalAnimation}/>
       <ModalStack.Screen name={'StableRaceCourse'} component={StableRaceCourse} options={horizontalAnimation}/>
       <ModalStack.Screen name={'PastureRaceCourseScreen'} component={PastureRaceCourseScreen} options={horizontalAnimation}/>
+      <ModalStack.Screen name={'HorseRace'} component={HorseRace} options={horizontalAnimation}/>
+      <ModalStack.Screen name={'RaceList'} component={RaceList} options={horizontalAnimation}/>
+      <ModalStack.Screen name={'RaceResultScreen'} component={RaceResultScreen} options={horizontalAnimation}/>
+      
 
       </ModalStack.Navigator>
     </>

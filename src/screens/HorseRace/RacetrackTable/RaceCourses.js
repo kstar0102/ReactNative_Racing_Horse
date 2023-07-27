@@ -46,7 +46,6 @@ const RaceCourses = ({
   let beforeRaceWN = [];
   let beforeRaceWD = [];
   let beforeRaceId = [];
-
   beforeRacePlan.map((data, index) => {
     beforeRaceWD[index] = [
       data.type,
@@ -86,7 +85,7 @@ const RaceCourses = ({
       data.age_limit,
     ];
     nextRaceWN.push(data.name);
-    nextRaceId.push({ race_id: data.id });
+    nextRaceId.push({race_id: data.id});
   });
 
   let nextNextRaceWN = [];

@@ -3,7 +3,6 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
   } from 'react-native-responsive-screen';
-  import ButtonStyle from "./ButtonStyle";
 // container
 import colors from "../../containers/colors";
 
@@ -36,8 +35,13 @@ const styles = StyleSheet.create({
 		marginTop: 60
 	},
 	buttonColor: {
-		backgroundColor: colors.stallButtonColor
+		backgroundColor: colors.butonBackgroud,
+		marginTop: 5,
+		height: hp(6),
+		width: wp(35),
+		paddingVertical: 5,
 	},
+
 	buttonColorTwo:{
 		backgroundColor: colors.stallButtonColor,
 		marginTop: 5,

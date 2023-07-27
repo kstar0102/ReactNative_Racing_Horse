@@ -10,22 +10,21 @@ import {
 import { useNavigation } from "@react-navigation/native";
 // Redux
 import { connect, useDispatch } from "react-redux";
-import { ReacRegisterAction } from "../../../../store/actions/ReacRegister/ReacRegisterAction";
-
-import TableStyles from "./TableStyles";
+import { ReacRegisterAction } from "../../../store/actions/ReacRegister/ReacRegisterAction";
+import TableStyles from "../../StableScreens/RaceCourse/RacetrackTable/TableStyles";
 
 const LastLastWeekTable = ({
   threeWeekTitle,
   threeWeekData,
   threeWeekName,
-  raceId
+  raceId,
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const elementButton = (threeWeekNames) =>
     threeWeekNames.map((name, index) => (
       <View key={index}>
-        <TouchableOpacity onPress={() => handleClick(raceId(index))}>
+        <TouchableOpacity onPress={() => handleClick(raceId[index])}>
           <View style={TableStyles.btn}>
             <Text style={TableStyles.btnText}>{name}</Text>
           </View>
@@ -35,7 +34,7 @@ const LastLastWeekTable = ({
 
   const handleClick = (value) => {
     dispatch(ReacRegisterAction(value));
-    navigation.navigate("StableRaceCourse");
+    navigation.navigate("RaceList");
   };
 
   return (
@@ -66,6 +65,7 @@ const LastLastWeekTable = ({
     </View>
   );
 };
+
 const mapStateToProps = (state) => {
   return {
     jockeysData: state.raceData.jockeysData,

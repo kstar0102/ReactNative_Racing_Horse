@@ -18,7 +18,7 @@ import { connect, useDispatch } from "react-redux";
 import { RaceRegisterSaveAction } from "../../../store/actions/ReacRegister/RaceRegisterSaveAction";
 import { RaceRegisterBackSaveAction } from "../../../store/actions/ReacRegister/RaceRegisterBackSaveAction";
 
-const RegisterTable = ({
+const ParticipationHorsesList = ({
   raceFieldData,
   prizeData,
   jockeysData,
@@ -626,7 +626,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(RegisterTable);
+export default connect(mapStateToProps)(ParticipationHorsesList);
 
 const styles = StyleSheet.create({
   white: {
