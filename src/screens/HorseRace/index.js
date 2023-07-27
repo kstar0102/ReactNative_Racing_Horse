@@ -257,8 +257,10 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   buttonGroup:{
+    width: "100%",
     flexDirection: "row",
-    justifyContent: "center",
+    // justifyContent: "center",
+    marginLeft: "70%"
     
   },
   buttonText: {
