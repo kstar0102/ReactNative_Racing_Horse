@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
   },
   number: {
     position: "absolute",
-    left: -30,
+    left: 40,
     top: 30,
   },
 });
