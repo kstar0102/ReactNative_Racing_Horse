@@ -439,7 +439,7 @@ const Screenstyles = StyleSheet.create({
       background:{
       position: 'absolute',
       width: 1450,
-      height: 400,
+      height: 800,
       top: 0,
       opacity: 0.8,
       transform: [
@@ -458,7 +458,7 @@ const Screenstyles = StyleSheet.create({
       // position: 'absolute',
       width: 60,
       height: 60,
-      top: 50,
+      top: 55,
     }
   });
 

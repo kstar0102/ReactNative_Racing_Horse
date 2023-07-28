@@ -13,7 +13,7 @@ import {
 // Import the necessary modules and components
 
 import * as ScreenOrientation from "expo-screen-orientation";
-import backgroundImage from "../../assets/horseImageData/BakcBigimg.png";
+import backgroundImage from "../../assets/horseImageData/NewBack/G_1-1.png";
 import Screenstyles from "../ScreenStylesheet"; // Import the Screenstyles object from the appropriate file
 // Redux
 import { connect, useDispatch } from "react-redux";
@@ -134,7 +134,7 @@ const HorseRace = () => {
         {
           translateX: animations[i].interpolate({
             inputRange: [0, 1],
-            outputRange: [700, 0],
+            outputRange: [680, 0],
           }),
         },
       ],
@@ -250,8 +250,9 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "20%",
+    height: 32,
     backgroundColor: "blue",
-    padding: 10,
+    padding: 5,
     borderRadius: 5,
     marginTop: 20,
     marginLeft: 20
@@ -278,5 +279,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 40,
     top: 30,
+    zIndex: 1000
   },
 });
