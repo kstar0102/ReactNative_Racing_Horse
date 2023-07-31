@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createStackNavigator } from '@react-navigation/stack';
 // Screens
@@ -43,10 +44,16 @@ import CourseTables from '../screens/StableScreens/RaceRegistation/RegisterCours
 import HorseRace from '../screens/HorseRace';
 import RaceList from '../screens/HorseRace/RaceList';
 import RaceResultScreen from '../screens/HorseRace/RaceResultScreen';
-
+// Bankruptcy
+import Bankruptcy from '../screens/Bankruptcy';
 const Stack = createNativeStackNavigator();
 const ModalStack = createStackNavigator();
-const AppStack = () => {
+const AppStack = ({userPt}) => {
+  if(userPt <= 0){
+    return(
+      <Bankruptcy/>
+    );
+  }
   return (
     <>
       <ModalStack.Navigator>
@@ -86,11 +93,18 @@ const AppStack = () => {
       <ModalStack.Screen name={'HorseRace'} component={HorseRace} options={horizontalAnimation}/>
       <ModalStack.Screen name={'RaceList'} component={RaceList} options={horizontalAnimation}/>
       <ModalStack.Screen name={'RaceResultScreen'} component={RaceResultScreen} options={horizontalAnimation}/>
-      
+      {/* Bankruptcy */}
+      <ModalStack.Screen name={'Bankruptcy'} component={Bankruptcy} options={horizontalAnimation}/>
 
       </ModalStack.Navigator>
     </>
   );
 };
 
-export default AppStack;
+const mapStateToProps = state =>{
+  return{
+    userPt:state.user.userData.user_pt
+  }
+}
+
+export default connect(mapStateToProps)(AppStack);

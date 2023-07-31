@@ -72,6 +72,7 @@ const WorkingButton = ({ label, onPress, disabled, colorNumber, styleId }) => {
 				colorNumber == 3 ? styles.buttonThree : 'styles.button',
 				colorNumber == 4 ? styles.buttonFour : 'styles.button',
 				colorNumber == 5 ? styles.buttonFive : 'styles.button',
+				colorNumber == 6 ? styles.buttonSix : 'styles.button',
 				styleId == 1 ? styles.buttonStyle : 'styles.button',
 				styleId == 2 ? styles.buttonStyle : 'styles.button',
 				styleId == 3 ? styles.buttonStyleThree : 'styles.button',
@@ -110,6 +111,9 @@ const styles = StyleSheet.create({
 	},
 	buttonFive: {
 		backgroundColor: colors.lightPingk
+	},
+	buttonSix:{
+		backgroundColor: colors.butonBackgroud
 	},
 	label: {
 		color: colors.light.white,

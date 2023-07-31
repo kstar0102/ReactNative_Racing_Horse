@@ -63,7 +63,7 @@ const TopScreen = ({navigation, pastureData, user_id, horseData, pasture_id}) =>
               </View>
               <View style={Screenstyles.content}>
                   <CustomButtons label="厩 舎" onPress={() => handleStalleSubmit()}/>
-                  <CustomButtons label="セ リ"/>
+                  <CustomButtons label="セ リ"  onPress={() =>  navigation.navigate('Bankruptcy')}/>
                   <CustomButtons label="V I P" disabled={true}/>
               </View>
             </View>

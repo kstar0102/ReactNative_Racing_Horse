@@ -13,6 +13,15 @@ export const horseColor = [
     {鹿毛: require('../assets/images/horse/21.png')}
 ]
 
+
+export const raceWhipHorse = [
+  {白毛: require('../assets/horseImageData/RaceHorseColor/2/White/2wakuL.gif')},
+  {青鹿毛: require('../assets/horseImageData/RaceHorseColor/1/BlueBayHair_Whip/1wakuL.gif')},
+  {栗毛: require('../assets/horseImageData/RaceHorseColor/1/Chestnut_Whip/3wakuL.gif')},
+  {黑鹿毛: require('../assets/horseImageData/RaceHorseColor/1/BlackBayHair_Whip/4wakuL.gif')},
+  {鹿毛: require('../assets/horseImageData/RaceHorseColor/1/Kage_Whip/5wakuL.gif')}
+]
+
 export const horseSource = [
   {1: require("../assets/horseImageData/1wakuL.gif")},
   {2: require("../assets/horseImageData/2wakuL.gif")},

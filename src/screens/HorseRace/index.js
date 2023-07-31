@@ -19,7 +19,11 @@ import Screenstyles from "../ScreenStylesheet"; // Import the Screenstyles objec
 import { connect, useDispatch } from "react-redux";
 import { RaceResultAction } from "../../store/actions/race/RaceResultAction";
 import { useNavigation } from "@react-navigation/native";
-import { horseSource, numberSource, stillSource } from "./../../utils/globals"; // Import the horseSource variable from the correct source
+import {
+  raceWhipHorse,
+  numberSource,
+  stillSource,
+} from "./../../utils/globals"; // Import the horseSource variable from the correct source
 import {
   INPUT_RANGE_START,
   INPUT_RANGE_END,
@@ -29,8 +33,7 @@ import {
   ANIMATION_DURATION,
 } from "../../utils/constants";
 
-const HorseRace = () => {
-  // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+const HorseRace = ({ racingHorseData }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [winner, setWinner] = useState([]);
@@ -63,8 +66,8 @@ const HorseRace = () => {
   };
 
   const handleResult = () => {
-      navigation.navigate('RaceResultScreen');
-  }
+    navigation.navigate("RaceResultScreen");
+  };
   // BACK IMAGE ANIMATION
   const translate = () => {
     if (shouldStop) {
@@ -97,6 +100,20 @@ const HorseRace = () => {
 
       return speed;
     });
+    // const startSpeed = 20080; // Initial speed
+    // const acceleration = 200; // Rate of acceleration
+
+    // const speeds = animations.map((animation, index) => {
+    //   const speed = startSpeed + index * acceleration;
+
+    //   Animated.timing(animation, {
+    //     toValue: 1,
+    //     duration: speed,
+    //     useNativeDriver: true,
+    //   }).start();
+
+    //   return speed;
+    // });
 
     Animated.parallel(
       animations.map((animation, index) =>
@@ -110,7 +127,7 @@ const HorseRace = () => {
       let sortedSpeeds = [...speeds].sort((a, b) => a - b);
       let winners = [];
 
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < racingHorseData.length; i++) {
         let minSpeed = sortedSpeeds[i];
 
         for (let j = 0; j < speeds.length; j++) {
@@ -121,14 +138,21 @@ const HorseRace = () => {
         }
       }
       // setWinner(
-      //   winners.map(({ position, horse }) => `${position}st place: ${horse}`)
-      // );
-      dispatch(RaceResultAction( winners.map(({ position, horse }) => `${position}st place: ${horse}`)))
+      //   winners.m0
+      dispatch(
+        RaceResultAction(
+          winners.map(({ position, horse }) => `${position}st place: ${horse}`)
+        )
+      );
     });
   };
 
+  let colorCount = [];
+  if (racingHorseData != "") {
+    racingHorseData.map((item, index) => [colorCount.push(item[0].color)]);
+  }
   const horseAnimationStyles = [];
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < racingHorseData.length; i++) {
     const style = {
       transform: [
         {
@@ -179,19 +203,24 @@ const HorseRace = () => {
               );
             })}
           </View>
+
+          <Image
+            style={Screenstyles.final}
+            source={require("../../assets/horseImageData/Final/1.png")}
+          />
         </AnimetedImage>
 
         <View style={styles.horseGroup}>
           {horseAnimationStyles.map((style, i) => (
             <Animated.View key={i} style={[styles.horse, style]}>
               <View style={Screenstyles.RaceCoursecontent}>
-                {horseSource.map((sourceName, index) => {
+                {raceWhipHorse.map((item, index) => {
                   return (
                     <>
                       <Image
                         key={`${index}-${i}`}
                         style={Screenstyles.horseSize}
-                        source={sourceName[i + 1]}
+                        source={item[colorCount[i]]}
                       />
                     </>
                   );
@@ -216,11 +245,14 @@ const HorseRace = () => {
           <TouchableOpacity style={styles.button} onPress={handleStart}>
             <Text style={styles.buttonText}>レース</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, {backgroundColor: 'red'}]} onPress={handleResult}>
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: "red" }]}
+            onPress={handleResult}
+          >
             <Text style={styles.buttonText}>結果</Text>
           </TouchableOpacity>
         </View>
-
+ 
         {/* {winner && (
           <Text style={styles.winnerText}>
             {`The winner${winner.length > 1 ? "s are" : " is"} ${winner.join(
@@ -233,7 +265,13 @@ const HorseRace = () => {
   );
 };
 
-export default HorseRace;
+const mapStateToProps = (state) => {
+  return {
+    racingHorseData: state.racingHJData.racingHorse,
+    racingJockeyData: state.racingHJData.racingJockey,
+  };
+};
+export default connect(mapStateToProps)(HorseRace);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -255,20 +293,20 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 5,
     marginTop: 20,
-    marginLeft: 20
+    marginLeft: 20,
   },
-  buttonGroup:{
+  buttonGroup: {
+    position: "absolute",
+    left: "70%",
+    top: "46%",
     width: "100%",
     flexDirection: "row",
-    // justifyContent: "center",
-    marginLeft: "70%"
-    
   },
   buttonText: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   winnerText: {
     width: "100%",
@@ -279,6 +317,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 40,
     top: 30,
-    zIndex: 1000
+    zIndex: 1000,
   },
 });

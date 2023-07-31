@@ -26,7 +26,7 @@ const RaceResultScreen = ({ raceResultData }) => {
           <ReturnButtonScreen
             BigPlace={"競馬場"}
             screenName={"結果"}
-            nviUrl={"HorseRace"}
+            nviUrl={"RaceList"}
           />
         </View>
         <View style={{ marginTop: 250, marginLeft: 90 }}>
