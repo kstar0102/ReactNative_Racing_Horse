@@ -13,7 +13,7 @@ import {
 // Import the necessary modules and components
 
 import * as ScreenOrientation from "expo-screen-orientation";
-import backgroundImage from "../../assets/horseImageData/NewBack/G_1-1.png";
+import backgroundImage from "../../assets/horseImageData/NewBack/1.png";
 import Screenstyles from "../ScreenStylesheet"; // Import the Screenstyles object from the appropriate file
 // Redux
 import { connect, useDispatch } from "react-redux";
@@ -27,19 +27,21 @@ import {
 import {
   INPUT_RANGE_START,
   INPUT_RANGE_END,
-  OUTPUT_RANGE_START,
   OUTPUT_RANGE_END,
   ANIMATION_TO_VALUE,
   ANIMATION_DURATION,
+  
 } from "../../utils/constants";
 
-const HorseRace = ({ racingHorseData }) => {
+const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const [winner, setWinner] = useState([]);
-  const animations = Array.from({ length: 10 }, () => new Animated.Value(0)); // Create an array of Animated.Value without using useState inside the loop
+  const animations = Array.from({ length: racingHorseData.length }, () => new Animated.Value(0)); // Create an array of Animated.Value without using useState inside the loop
   const initialValue = 0;
   const translateValue = useRef(new Animated.Value(initialValue)).current;
+
+  const mWidth = raceFieldData.distance.split('m')[0];
+  let numberWidth = Number(mWidth);
 
   const backActionHandler = () => {
     // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
@@ -50,13 +52,13 @@ const HorseRace = ({ racingHorseData }) => {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
     // Add event listener for hardware back button press on Android
     BackHandler.addEventListener("hardwareBackPress", backActionHandler);
-
     return () => {
       // clear/remove event listener
       BackHandler.removeEventListener("hardwareBackPress", backActionHandler);
       ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     };
   }, []);
+
 
   let shouldStop = false;
 
@@ -87,11 +89,30 @@ const HorseRace = ({ racingHorseData }) => {
     });
   };
 
+
+  // let speed = 20080;
+  // racingHorseData.map((item, index)=>{
+  //   if(item[0].quality_leg == "逃" ){
+  //     speed = speed + 80;
+  //   }
+  //   if(item[0].quality_leg == "追" ){
+  //     speed = speed + 10080;
+  //   }
+  //   if(item[0].quality_leg == "大逃" ){
+  //     speed = speed - 10080;
+  //   }
+  //   if(item[0].quality_leg == "先" ){
+  //     speed = speed - 5080;
+  //   }
+  //   if(item[0].quality_leg == "差" ){
+  //     speed = speed + 10080;
+  //   }
+  // });
+ 
   // Horse ANIMATION
   const startRace = () => {
     const speeds = animations.map((animation) => {
       const speed = Math.floor(Math.random() * 10000) + 20080;
-
       Animated.timing(animation, {
         toValue: 1,
         duration: speed,
@@ -100,21 +121,6 @@ const HorseRace = ({ racingHorseData }) => {
 
       return speed;
     });
-    // const startSpeed = 20080; // Initial speed
-    // const acceleration = 200; // Rate of acceleration
-
-    // const speeds = animations.map((animation, index) => {
-    //   const speed = startSpeed + index * acceleration;
-
-    //   Animated.timing(animation, {
-    //     toValue: 1,
-    //     duration: speed,
-    //     useNativeDriver: true,
-    //   }).start();
-
-    //   return speed;
-    // });
-
     Animated.parallel(
       animations.map((animation, index) =>
         Animated.timing(animation, {
@@ -137,8 +143,6 @@ const HorseRace = ({ racingHorseData }) => {
           }
         }
       }
-      // setWinner(
-      //   winners.m0
       dispatch(
         RaceResultAction(
           winners.map(({ position, horse }) => `${position}st place: ${horse}`)
@@ -157,31 +161,34 @@ const HorseRace = ({ racingHorseData }) => {
       transform: [
         {
           translateX: animations[i].interpolate({
-            inputRange: [0, 1],
-            outputRange: [680, 0],
+            inputRange: [0, 0.2, 0.6, 1],
+            outputRange: [landWidth - 57, 380, 280, 0],
           }),
         },
       ],
     };
     horseAnimationStyles.push(style);
   }
+  let outPutValue = numberWidth - 300;
+
   // BACKIMAGE ANIMATION
   const translateAnimation = translateValue.interpolate({
     inputRange: [INPUT_RANGE_START, INPUT_RANGE_END],
-    outputRange: [OUTPUT_RANGE_START, OUTPUT_RANGE_END],
+    outputRange: [- outPutValue, OUTPUT_RANGE_END],
   });
   if (translateAnimation == 0) {
     shouldStop = true;
   }
-  const AnimetedImage = Animated.createAnimatedComponent(ImageBackground);
+  const AnimatedImage = Animated.createAnimatedComponent(ImageBackground);
 
   return (
     <>
       <View style={Screenstyles.RaceCourseContainer}>
-        <AnimetedImage
+        <AnimatedImage
           resizeMode="repeat"
           style={[
             Screenstyles.background,
+            {width: numberWidth * 1.5, flex: 1},
             {
               transform: [
                 {
@@ -192,7 +199,7 @@ const HorseRace = ({ racingHorseData }) => {
           ]}
           source={backgroundImage}
         >
-          <View style={[Screenstyles.stillGroup]}>
+          <View style={[Screenstyles.stillGroup, {width: numberWidth + 300}]}>
             {stillSource.map((still, j) => {
               return (
                 <Image
@@ -208,7 +215,7 @@ const HorseRace = ({ racingHorseData }) => {
             style={Screenstyles.final}
             source={require("../../assets/horseImageData/Final/1.png")}
           />
-        </AnimetedImage>
+        </AnimatedImage>
 
         <View style={styles.horseGroup}>
           {horseAnimationStyles.map((style, i) => (
@@ -231,7 +238,6 @@ const HorseRace = ({ racingHorseData }) => {
                   return (
                     <Image
                       key={`${i}-${j}`}
-                      style={Screenstyles.horseSize}
                       source={number[i + 1]}
                     />
                   );
@@ -252,14 +258,6 @@ const HorseRace = ({ racingHorseData }) => {
             <Text style={styles.buttonText}>結果</Text>
           </TouchableOpacity>
         </View>
- 
-        {/* {winner && (
-          <Text style={styles.winnerText}>
-            {`The winner${winner.length > 1 ? "s are" : " is"} ${winner.join(
-              ", "
-            )}`}
-          </Text>
-        )} */}
       </View>
     </>
   );
@@ -269,6 +267,8 @@ const mapStateToProps = (state) => {
   return {
     racingHorseData: state.racingHJData.racingHorse,
     racingJockeyData: state.racingHJData.racingJockey,
+    raceFieldData: state.raceData.raceFieldData,
+    landWidth: state.dimensions.dimensionsData.height
   };
 };
 export default connect(mapStateToProps)(HorseRace);

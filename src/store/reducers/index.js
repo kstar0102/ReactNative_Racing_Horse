@@ -42,6 +42,9 @@ import showHorseGrowReducer from './horse/showHorseGrowReducer';
 import RaceReducer from './race/RaceReducer';
 import RaceStartReducer from './race/RaceStartReducer';
 
+// DIMENSIONS
+import dimensionsReducer from './dimension/dimensionsReducer';
+
 export default combineReducers({
     user: user,
     validationData: validationData,
@@ -80,5 +83,6 @@ export default combineReducers({
     horseNameValid: horseNameValidationReducer,
     showGrowData: showHorseGrowReducer,
     racingData: RaceReducer,
-    racingHJData: RaceStartReducer
+    racingHJData: RaceStartReducer,
+    dimensions:  dimensionsReducer
 });

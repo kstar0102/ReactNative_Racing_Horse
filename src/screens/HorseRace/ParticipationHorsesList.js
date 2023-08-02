@@ -36,22 +36,6 @@ const ParticipationHorsesList = ({
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
   }, []);
 
-  // useEffect(() => {
-  //   if (horseData.age == "・2歳馬" && horseData.gender == "牡") {
-  //     setMassValue(55);
-  //   } else if (horseData.age == "・2歳馬" && horseData.gender == "牝") {
-  //     setMassValue(54);
-  //   } else if (horseData.age == "・3歳馬" && horseData.gender == "牡") {
-  //     setMassValue(56);
-  //   } else if (horseData.age == "・3歳馬" && horseData.gender == "牝") {
-  //     setMassValue(54);
-  //   } else if (horseData.age == "・4歳馬" && horseData.gender == "牡") {
-  //     setMassValue(58);
-  //   } else if (horseData.age == "・4歳馬" && horseData.gender == "牝") {
-  //     setMassValue(56);
-  //   }
-  // }, [horseData]);
-
   useEffect(() => {
     if (reaceReigsterData !== "") {
       setEscape([]);
@@ -125,17 +109,6 @@ const ParticipationHorsesList = ({
   } else {
     gender = raceFieldGender.split("")[0];
   }
-
-  // let convertedToFullWidth = "";
-  // for (let i = 0; i < age.length; i++) {
-  //   let charCode = age.charCodeAt(i);
-  //   if (charCode >= 48 && charCode <= 57) {
-  //     convertedToFullWidth += String.fromCharCode(charCode + 65248);
-  //   } else {
-  //     convertedToFullWidth += age.charAt(i);
-  //   }
-  // }
-
   let raceId = [];
   let jockeyId = [];
   if (reaceReigsterData != "") {

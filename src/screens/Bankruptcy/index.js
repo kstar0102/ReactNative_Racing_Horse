@@ -49,8 +49,8 @@ const Bankruptcy = ({ navigation }) => {
               <Text>「BOC銀行です。 」</Text>
               <Text>「牧場が無くなるとお聞きしまして・・・。」</Text>
               <Text>「50000ptほど融資いたしますが、</Text>
-              <Text> 利子が5%で毎月1500ptずつ、</Text>
-              <Text> ご返済となりますがよろしいですか?」</Text>
+              <Text>  利子が5%で毎月1500ptずつ、</Text>
+              <Text>  ご返済となりますがよろしいですか?」</Text>
             </View>
           </View>
           <View style={Screenstyles.bankBtnGroup}>

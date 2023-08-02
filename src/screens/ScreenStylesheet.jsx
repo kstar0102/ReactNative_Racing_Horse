@@ -427,8 +427,7 @@ const Screenstyles = StyleSheet.create({
 
   background: {
     position: "absolute",
-    width: 1450,
-    height: 800,
+    height: 1000,
     top: 0,
     opacity: 0.8,
     transform: [
@@ -438,7 +437,6 @@ const Screenstyles = StyleSheet.create({
     ],
   },
   stillGroup: {
-    // padding: 30
     flexDirection: "row",
     justifyContent: "space-around",
     marginRight: 150,
