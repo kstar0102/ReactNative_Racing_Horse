@@ -429,7 +429,6 @@ const Screenstyles = StyleSheet.create({
     position: "absolute",
     height: 1000,
     top: 0,
-    opacity: 0.8,
     transform: [
       {
         translateX: 0,
@@ -463,12 +462,14 @@ const Screenstyles = StyleSheet.create({
     backgroundColor: colors.butonBackgroud,
     top: 10,
     padding: 5,
-    left: 10
+    left: 10,
+    borderRadius: 10
   },
   bankruptcy: {
     left: 45,
     width: 300,
     height: 200,
+    borderRadius: 30
   },
   Bankloan:{
     left: "32%",
