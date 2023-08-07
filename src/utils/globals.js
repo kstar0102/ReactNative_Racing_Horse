@@ -60,3 +60,18 @@ export const numberSource = [
   {9: require("../assets/horseImageData/Number/9.png")},
   {10: require("../assets/horseImageData/Number/10.png")},
 ]
+
+
+export const glasss = [
+  {1: require("../assets/horseImageData/NewBack/G-1.png")},
+  {2: require("../assets/horseImageData/NewBack/G-2.png")},
+  {3: require("../assets/horseImageData/NewBack/G-3.png")},
+  {4: require("../assets/horseImageData/NewBack/G-4.png")},
+]
+
+export const road = [
+  {1: require("../assets/horseImageData/NewBack/R-1.png")},
+  {2: require("../assets/horseImageData/NewBack/R-2.png")},
+  {3: require("../assets/horseImageData/NewBack/R-3.png")},
+  {4: require("../assets/horseImageData/NewBack/R-4.png")},
+]

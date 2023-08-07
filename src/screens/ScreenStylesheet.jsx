@@ -427,7 +427,7 @@ const Screenstyles = StyleSheet.create({
 
   background: {
     position: "absolute",
-    height: 1000,
+    height: 400,
     top: 0,
     transform: [
       {
@@ -439,6 +439,13 @@ const Screenstyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginRight: 150,
+  },
+  skyImage:{
+    width: 1400,
+    height: 115,
+    flex: 1,
+    zIndex: -1,
+    position: "absolute",
   },
   still: {
     // position: 'absolute',

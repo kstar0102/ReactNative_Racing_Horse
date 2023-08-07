@@ -13,7 +13,6 @@ import {
 // Import the necessary modules and components
 
 import * as ScreenOrientation from "expo-screen-orientation";
-import backgroundImage from "../../assets/horseImageData/NewBack/1.png";
 import Screenstyles from "../ScreenStylesheet"; // Import the Screenstyles object from the appropriate file
 // Redux
 import { connect, useDispatch } from "react-redux";
@@ -30,19 +29,89 @@ import {
   OUTPUT_RANGE_END,
   ANIMATION_TO_VALUE,
   ANIMATION_DURATION,
-  
 } from "../../utils/constants";
 
 const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const animations = Array.from({ length: racingHorseData.length }, () => new Animated.Value(0)); // Create an array of Animated.Value without using useState inside the loop
+  const animations = Array.from(
+    { length: racingHorseData.length },
+    () => new Animated.Value(0)
+  ); // Create an array of Animated.Value without using useState inside the loop
   const initialValue = 0;
   const translateValue = useRef(new Animated.Value(initialValue)).current;
 
-  const mWidth = raceFieldData.distance.split('m')[0];
+  const mWidth = raceFieldData.distance.split("m")[0];
+  const ground = raceFieldData.ground;
+  const weather = raceFieldData.weather;
   let numberWidth = Number(mWidth);
+  let raceWidth = numberWidth + 2000;
+  const outPutRange = raceWidth - 800;
 
+  const raceTime = (raceWidths) => {
+    if (typeof raceWidths !== "number") {
+      return;
+    }
+    let result = "";
+    switch (true) {
+      case raceWidths >= 1000 && raceWidths <= 1600:
+        result = 30000;
+        break;
+      case raceWidths >= 1700 && raceWidths <= 2400:
+        result = 40000;
+        break;
+      case raceWidths >= 2500 && raceWidths <= 3200:
+        result = 50000;
+        break;
+      case raceWidths >= 3300:
+        result = 60000;
+        break;
+      default:
+        return;
+    }
+    return result;
+  };
+
+  const weatherType = (weather) => {
+    let result = "";
+    switch (true) {
+      case weather == "雨":
+        result = require("../../assets/horseImageData/NewBack/S-3.png");
+        break;
+      case weather == "雪":
+        result = require("../../assets/horseImageData/NewBack/S-3.png");
+        break;
+      case weather == "晴":
+        result = require("../../assets/horseImageData/NewBack/S-1.png");
+        break;
+      case weather == "曇":
+        result = require("../../assets/horseImageData/NewBack/S-2.png");
+      default:
+        return;
+    }
+    return result;
+  };
+
+  const groundType = (ground) => {
+    let result = "";
+    switch (true) {
+      case ground == "芝":
+        result = require("../../assets/horseImageData/NewBack/G-1.png");
+        break;
+      case ground == "ダ":
+        result = require("../../assets/horseImageData/NewBack/R-1.png");
+        break;
+      default:
+        return;
+    }
+    return result;
+  };
+
+  const racingtime = raceTime(numberWidth);
+  const weathers = weatherType(weather);
+  const grounds = groundType(ground);
+
+  console.log(weathers);
   const backActionHandler = () => {
     // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
     return false;
@@ -59,7 +128,6 @@ const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
     };
   }, []);
 
-
   let shouldStop = false;
 
   const handleStart = () => {
@@ -70,6 +138,7 @@ const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
   const handleResult = () => {
     navigation.navigate("RaceResultScreen");
   };
+
   // BACK IMAGE ANIMATION
   const translate = () => {
     if (shouldStop) {
@@ -88,31 +157,16 @@ const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
       }
     });
   };
-
-
-  // let speed = 20080;
-  // racingHorseData.map((item, index)=>{
-  //   if(item[0].quality_leg == "逃" ){
-  //     speed = speed + 80;
-  //   }
-  //   if(item[0].quality_leg == "追" ){
-  //     speed = speed + 10080;
-  //   }
-  //   if(item[0].quality_leg == "大逃" ){
-  //     speed = speed - 10080;
-  //   }
-  //   if(item[0].quality_leg == "先" ){
-  //     speed = speed - 5080;
-  //   }
-  //   if(item[0].quality_leg == "差" ){
-  //     speed = speed + 10080;
-  //   }
-  // });
- 
   // Horse ANIMATION
+  let animationState = false;
+
   const startRace = () => {
+    if (animationState) {
+      return; // Animation is already running
+    }
+    animationState = true;
     const speeds = animations.map((animation) => {
-      const speed = Math.floor(Math.random() * 10000) + 20080;
+      const speed = racingtime;
       Animated.timing(animation, {
         toValue: 1,
         duration: speed,
@@ -121,6 +175,7 @@ const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
 
       return speed;
     });
+
     Animated.parallel(
       animations.map((animation, index) =>
         Animated.timing(animation, {
@@ -130,6 +185,7 @@ const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
         })
       )
     ).start(() => {
+      // Animation completed
       let sortedSpeeds = [...speeds].sort((a, b) => a - b);
       let winners = [];
 
@@ -148,38 +204,97 @@ const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
           winners.map(({ position, horse }) => `${position}st place: ${horse}`)
         )
       );
+      animationState = false;
     });
   };
 
-  let colorCount = [];
-  if (racingHorseData != "") {
-    racingHorseData.map((item, index) => [colorCount.push(item[0].color)]);
-  }
+  const stopRace = () => {
+    animationState = false; // Stop the animation by setting the animation state to false
+    animations.forEach((animation) => {
+      animation.stopAnimation(); // Stop all the horse animations
+    });
+  };
+
+  const resumeRace = () => {
+    if (animationState) {
+      return; // Animation is already running
+    }
+
+    animationState = true;
+    const currentValues = animations.map((animation) => animation.__getValue());
+    const speeds = animations.map((animation, index) => {
+      const speed = Math.floor(Math.random() * 10000) + 10080;
+      Animated.timing(animation, {
+        toValue: 1,
+        duration: (1 - currentValues[index]) * speed, // Resume from the stopped value
+        useNativeDriver: true,
+      }).start();
+
+      return speed;
+    });
+  };
+
+  const handleBack = () => {
+    if (animationState) {
+      return; // Animation is already running
+    }
+    animationState = true;
+    const currentValues = animations.map((animation) => animation.__getValue());
+    const speeds = animations.map((animation, index) => {
+      const speed = Math.floor(Math.random() * 10000) + 10080;
+      Animated.timing(animation, {
+        toValue: 0, // Move forward by setting toValue to 1
+        duration: (1 - currentValues[index]) * speed, // Resume from the stopped value and complete the remaining distance
+        useNativeDriver: true,
+      }).start();
+  
+      return speed;
+    });
+  };
+
   const horseAnimationStyles = [];
   for (let i = 0; i < racingHorseData.length; i++) {
     const style = {
       transform: [
         {
           translateX: animations[i].interpolate({
-            inputRange: [0, 0.2, 0.6, 1],
-            outputRange: [landWidth - 57, 380, 280, 0],
+            inputRange: [0, 0.2, 0.4, 0.6, 0.8, 1],
+            outputRange: [
+              landWidth - 60,
+              (landWidth / 5) * 4 - 60,
+              (landWidth / 5) * 3 - 60,
+              (landWidth / 5) * 2 - 60,
+              landWidth / 5 - 60,
+              0,
+            ],
           }),
         },
       ],
     };
     horseAnimationStyles.push(style);
   }
-  let outPutValue = numberWidth - 300;
 
   // BACKIMAGE ANIMATION
   const translateAnimation = translateValue.interpolate({
     inputRange: [INPUT_RANGE_START, INPUT_RANGE_END],
-    outputRange: [- outPutValue, OUTPUT_RANGE_END],
+    outputRange: [-outPutRange, OUTPUT_RANGE_END],
   });
+
   if (translateAnimation == 0) {
     shouldStop = true;
   }
+
   const AnimatedImage = Animated.createAnimatedComponent(ImageBackground);
+  AnimatedImage.defaultProps = {
+    ...AnimatedImage.defaultProps,
+    // Set a lower frame rate (e.g., 30 frames per second)
+    maxFrameDuration: 33.333333333333336, // 1000 ms / 30 fps
+  };
+
+  let colorCount = [];
+  if (racingHorseData != "") {
+    racingHorseData.map((item, index) => [colorCount.push(item[0].color)]);
+  }
 
   return (
     <>
@@ -188,7 +303,7 @@ const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
           resizeMode="repeat"
           style={[
             Screenstyles.background,
-            {width: numberWidth * 1.5, flex: 1},
+            { width: raceWidth },
             {
               transform: [
                 {
@@ -197,9 +312,9 @@ const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
               ],
             },
           ]}
-          source={backgroundImage}
+          source={grounds}
         >
-          <View style={[Screenstyles.stillGroup, {width: numberWidth + 300}]}>
+          <View style={[Screenstyles.stillGroup, { width: raceWidth }]}>
             {stillSource.map((still, j) => {
               return (
                 <Image
@@ -235,18 +350,13 @@ const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
               </View>
               <View style={[styles.number]}>
                 {numberSource.map((number, j) => {
-                  return (
-                    <Image
-                      key={`${i}-${j}`}
-                      source={number[i + 1]}
-                    />
-                  );
+                  return <Image key={`${i}-${j}`} source={number[i + 1]} />;
                 })}
               </View>
             </Animated.View>
           ))}
         </View>
-
+        <Image style={[Screenstyles.skyImage]} source={weathers} />
         <View style={styles.buttonGroup}>
           <TouchableOpacity style={styles.button} onPress={handleStart}>
             <Text style={styles.buttonText}>レース</Text>
@@ -256,6 +366,18 @@ const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
             onPress={handleResult}
           >
             <Text style={styles.buttonText}>結果</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.button} onPress={resumeRace}>
+            <Text style={styles.buttonText}>Start</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.button} onPress={stopRace}>
+            <Text style={styles.buttonText}>Stop</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.button} onPress={handleBack}>
+            <Text style={styles.buttonText}>Back Start</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -268,7 +390,7 @@ const mapStateToProps = (state) => {
     racingHorseData: state.racingHJData.racingHorse,
     racingJockeyData: state.racingHJData.racingJockey,
     raceFieldData: state.raceData.raceFieldData,
-    landWidth: state.dimensions.dimensionsData.height
+    landWidth: state.dimensions.dimensionsData.height,
   };
 };
 export default connect(mapStateToProps)(HorseRace);
@@ -287,7 +409,7 @@ const styles = StyleSheet.create({
     marginVertical: -10,
   },
   button: {
-    width: "20%",
+    width: "-30%",
     height: 32,
     backgroundColor: "blue",
     padding: 5,
