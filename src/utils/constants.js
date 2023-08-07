@@ -9,4 +9,4 @@ export const OUTPUT_RANGE_S = -550;
 export const OUTPUT_RANGE_FO = -450;
 export const OUTPUT_RANGE_END =  0;
 export const ANIMATION_TO_VALUE = 1;
-export const ANIMATION_DURATION = 20000;
+export const ANIMATION_DURATION = 40000;

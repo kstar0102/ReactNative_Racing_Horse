@@ -69,7 +69,7 @@ export const glasss = [
   {4: require("../assets/horseImageData/NewBack/G-4.png")},
 ]
 
-export const road = [
+export const grounds = [
   {1: require("../assets/horseImageData/NewBack/R-1.png")},
   {2: require("../assets/horseImageData/NewBack/R-2.png")},
   {3: require("../assets/horseImageData/NewBack/R-3.png")},

@@ -22,15 +22,15 @@ import {
   raceWhipHorse,
   numberSource,
   stillSource,
+  grounds,
+  glasss,
 } from "./../../utils/globals"; // Import the horseSource variable from the correct source
 import {
   INPUT_RANGE_START,
   INPUT_RANGE_END,
   OUTPUT_RANGE_END,
   ANIMATION_TO_VALUE,
-  ANIMATION_DURATION,
 } from "../../utils/constants";
-
 const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -95,12 +95,15 @@ const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
   const groundType = (ground) => {
     let result = "";
     switch (true) {
-      case ground == "芝":
+      case ground == "芝": {
+        const randomNumber = Math.floor(Math.random() * 4) + 1;
         result = require("../../assets/horseImageData/NewBack/G-1.png");
         break;
-      case ground == "ダ":
+      }
+      case ground == "ダ": {
         result = require("../../assets/horseImageData/NewBack/R-1.png");
         break;
+      }
       default:
         return;
     }
@@ -111,7 +114,6 @@ const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
   const weathers = weatherType(weather);
   const grounds = groundType(ground);
 
-  console.log(weathers);
   const backActionHandler = () => {
     // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
     return false;
@@ -147,7 +149,7 @@ const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
     translateValue.setValue(initialValue);
     Animated.timing(translateValue, {
       toValue: ANIMATION_TO_VALUE,
-      duration: ANIMATION_DURATION,
+      duration: racingtime,
       easing: Easing.linear,
       useNativeDriver: true,
     }).start(() => {
@@ -247,7 +249,7 @@ const HorseRace = ({ racingHorseData, raceFieldData, landWidth }) => {
         duration: (1 - currentValues[index]) * speed, // Resume from the stopped value and complete the remaining distance
         useNativeDriver: true,
       }).start();
-  
+
       return speed;
     });
   };
