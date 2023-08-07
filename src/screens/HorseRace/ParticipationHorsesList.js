@@ -20,7 +20,6 @@ const ParticipationHorsesList = ({
     // NOT FOUND JOCKEYSDATA
     return false;
   }
-
   // horseData
   const dispatch = useDispatch();
   const navigation = useNavigation();

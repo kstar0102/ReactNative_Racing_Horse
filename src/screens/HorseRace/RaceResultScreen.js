@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, ImageBackground, Text, StyleSheet } from "react-native";
+import { View, ImageBackground, Text, BackHandler} from "react-native";
 import * as ScreenOrientation from "expo-screen-orientation";
 // Redux
 import { connect } from "react-redux";
@@ -12,6 +12,14 @@ import Screenstyles from "../ScreenStylesheet";
 const RaceResultScreen = ({ raceResultData }) => {
   useEffect(() => {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+  }, []);
+
+  const backActionHandler = () => {
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", backActionHandler);
   }, []);
 
   return (
@@ -42,7 +50,6 @@ const RaceResultScreen = ({ raceResultData }) => {
             <Text>NOT FOUND RESULT</Text>
           )}
         </View>
-
         <FooterScreen />
       </ImageBackground>
     </View>
