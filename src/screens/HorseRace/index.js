@@ -28,6 +28,14 @@ import {
 import {
   firstTiming,
   firstSpeedController,
+  secondTiming,
+  threeTiming,
+  fourTiming,
+  speedController,
+  secondSpeedController,
+  threeSpeedController,
+  fourSpeedController,
+  fiveSpeedController,
   raceTime,
   weatherType,
   groundType,
@@ -43,14 +51,22 @@ const HorseRace = ({
   raceFieldData,
   landWidth,
   reaceReigsterData,
+  racingJockeyData,
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const initialValue = 0;
   const translateValue = useRef(new Animated.Value(initialValue)).current;
   const [firstT, setFirstT] = useState(0);
-  const [firstSpeed, setFirstSpeed] = useState(0);
-
+  const [secondT, setSecondT] = useState(0);
+  const [threeT, setThreeT] = useState(0);
+  const [fourT, setFourT] = useState(0);
+  const [firstSpeed, setFirstSpeed] = useState(null);
+  const [speedControllers, setSpeedControllers] = useState(null);
+  const [secondSpeeds, setSecondSpeeds] = useState(null);
+  const [threeSpeeds, setThreeSpeeds] = useState(null);
+  const [fourSpeeds, setFourSpeeds] = useState(null);
+  const [fiveSpeeds, setFiveSpeeds] = useState(null);
   // const [weathers, setWeathers] = useState(0);
   const animations = Array.from(
     { length: racingHorseData.length },
@@ -68,12 +84,77 @@ const HorseRace = ({
   const weathers = weatherType(weather);
   const grounds = groundType(ground, glasss, grouns);
 
+  let colorCount = [];
+
+  // SPEED VALUe VALI
+  const spd_arr = [];
+  const totals = [];
+  // ANIMATION VALI
+  let shouldStop = false;
+  let animationState = false;
+  const horseAnimationStyles = [];
+  // CLEARTIMEOUT VALI
+  let raceTimer1;
+  let raceTimer2;
+  let raceTimer3;
+  let raceTimer4;
+  let raceTimer5;
   useEffect(() => {
     setFirstT(firstTiming(racingtime));
-    if (reaceReigsterData != "") {
+    if (
+      reaceReigsterData != "" &&
+      racingHorseData != "" &&
+      racingJockeyData != ""
+    ) {
       setFirstSpeed(firstSpeedController(reaceReigsterData, racingtime));
+      setSpeedControllers(
+        speedController(racingHorseData, ground, racingJockeyData)
+      );
     }
-  }, [racingtime, reaceReigsterData]);
+  }, [racingtime, reaceReigsterData, racingHorseData, racingJockeyData]);
+
+  useEffect(() => {
+    if (firstSpeed !== null) {
+      setSecondT(secondTiming(firstSpeed));
+      setThreeT(threeTiming(firstSpeed, firstT, secondT));
+      setFourT(fourTiming(firstSpeed, firstT, secondT, threeT));
+    }
+
+    if (speedControllers !== null && racingHorseData !== "") {
+      setSecondSpeeds(
+        secondSpeedController(
+          racingHorseData,
+          speedControllers,
+          firstSpeed,
+          firstT
+        )
+      );
+      setThreeSpeeds(
+        threeSpeedController(
+          racingHorseData,
+          speedControllers,
+          firstSpeed,
+          firstT + secondT
+        )
+      );
+      setFourSpeeds(
+        fourSpeedController(
+          racingHorseData,
+          speedControllers,
+          firstSpeed,
+          firstT + secondT + threeT
+        )
+      );
+      setFiveSpeeds(
+        fiveSpeedController(
+          racingHorseData,
+          speedControllers,
+          firstSpeed,
+          firstT + secondT + threeT + fourT
+        )
+      );
+    }
+  }, [firstSpeed, speedControllers]);
 
   const backActionHandler = () => {
     return false;
@@ -90,18 +171,58 @@ const HorseRace = ({
     };
   }, []);
 
-  let shouldStop = false;
-
   const handleStart = () => {
-    startRace();
+    startRace(firstSpeed);
     translate();
-    setTimeout(() => {
+    raceTimer1 = setTimeout(() => {
       stopRace();
       fResumeRace();
     }, firstT);
-  };
 
+    raceTimer2 = setTimeout(() => {
+      stopRace();
+      sResumeRace();
+    }, firstT + secondT);
+
+    raceTimer3 = setTimeout(() => {
+      stopRace();
+      tResumeRace();
+    }, firstT + secondT + threeT);
+
+    raceTimer4 = setTimeout(() => {
+      stopRace();
+      foResumeRace();
+      for (let i = 0; i < spd_arr[0].length; i++) {
+        totals.push({
+          position: (
+            (spd_arr[0][i] / 5 +
+              spd_arr[1][i] / 4 +
+              spd_arr[2][i] / 3 +
+              spd_arr[3][i] / 2 +
+              spd_arr[4][i] +
+              10000) /
+            1000
+          ).toFixed(2),
+          horse: `Horse ${i + 1}`,
+        });
+      }
+      const winners = totals.sort((a, b) => a.position - b.position);
+      dispatch(
+        RaceResultAction(
+          winners.map(
+            ({ position, horse }, index) =>
+              `${index + 1}st place: ${horse} \n time: ${position}`
+          )
+        )
+      );
+    }, firstT + secondT + threeT + fourT);
+  };
   const handleResult = () => {
+    clearTimeout(raceTimer1);
+    clearTimeout(raceTimer2);
+    clearTimeout(raceTimer3);
+    clearTimeout(raceTimer4);
+    clearTimeout(raceTimer5);
     navigation.navigate("RaceResultScreen");
   };
 
@@ -123,22 +244,24 @@ const HorseRace = ({
       }
     });
   };
-  // Horse ANIMATIONsk-LJtNzjWM5I2NikxKVNJ2T3BlbkFJ1iGj35xCkRLABDfp84AW
-  let animationState = false;
-
-  const startRace = () => {
+  // Horse ANIMATION
+  const startRace = (spds) => {
+    if (spds != undefined) {
+      spd_arr.push(spds);
+    }
     if (animationState) {
       return; // Animation is already running
     }
     animationState = true;
     const speeds = animations.map((animation, j) => {
-      const speed = firstSpeed[j];
+      const speed = spds[j];
       Animated.timing(animation, {
         toValue: 1,
         duration: speed,
         useNativeDriver: true,
-      }).start();
-
+      }).start(() => {
+        animationState = false;
+      });
       return speed;
     });
 
@@ -150,28 +273,7 @@ const HorseRace = ({
           useNativeDriver: true,
         })
       )
-    ).start(() => {
-      // Animation completed
-      let sortedSpeeds = [...speeds].sort((a, b) => a - b);
-      let winners = [];
-
-      for (let i = 0; i < racingHorseData.length; i++) {
-        let minSpeed = sortedSpeeds[i];
-
-        for (let j = 0; j < speeds.length; j++) {
-          if (speeds[j] === minSpeed) {
-            winners.push({ position: i + 1, horse: `Horse ${j + 1}` });
-            break;
-          }
-        }
-      }
-      dispatch(
-        RaceResultAction(
-          winners.map(({ position, horse }) => `${position}st place: ${horse}`)
-        )
-      );
-      animationState = false;
-    });
+    ).start(() => {});
   };
 
   const stopRace = () => {
@@ -182,61 +284,29 @@ const HorseRace = ({
     });
   };
 
-  const resumeRace = (spds) => {
-    if (animationState) {
-      return; // Animation is already running
-    }
-    animationState = true;
-    const currentValues = animations.map((animation) => animation.__getValue());
-    const speeds = animations.map((animation, index) => {
-      const speed = Math.floor(Math.random() * 10000) + 10080;
-      Animated.timing(animation, {
-        toValue: 1,
-        duration: (1 - currentValues[index]) * speed, // Resume from the stopped value
-        useNativeDriver: true,
-      }).start();
-
-      return speed;
-    });
-  };
-
   const fResumeRace = () => {
-    resumeRace(Math.floor(Math.random() * 10000) + 10080);
+    startRace(secondSpeeds);
   };
 
-  const handleBack = () => {
-    if (animationState) {
-      return; // Animation is already running
-    }
-    animationState = true;
-    const currentValues = animations.map((animation) => animation.__getValue());
-    const speeds = animations.map((animation, index) => {
-      const speed = Math.floor(Math.random() * 10000) + 10080;
-      Animated.timing(animation, {
-        toValue: 0, // Move forward by setting toValue to 1
-        duration: (1 - currentValues[index]) * speed, // Resume from the stopped value and complete the remaining distance
-        useNativeDriver: true,
-      }).start();
-
-      return speed;
-    });
+  const sResumeRace = () => {
+    startRace(threeSpeeds);
   };
 
-  const horseAnimationStyles = [];
+  const tResumeRace = () => {
+    startRace(fourSpeeds);
+  };
+
+  const foResumeRace = () => {
+    startRace(fiveSpeeds);
+  };
+
   for (let i = 0; i < racingHorseData.length; i++) {
     const style = {
       transform: [
         {
           translateX: animations[i].interpolate({
-            inputRange: [0, 0.2, 0.4, 0.6, 0.8, 1],
-            outputRange: [
-              landWidth - 60,
-              (landWidth / 5) * 4 - 60,
-              (landWidth / 5) * 3 - 60,
-              (landWidth / 5) * 2 - 60,
-              landWidth / 5 - 60,
-              0,
-            ],
+            inputRange: [0, 1],
+            outputRange: [landWidth - 60, 0],
           }),
         },
       ],
@@ -249,9 +319,9 @@ const HorseRace = ({
     outputRange: [-outPutRange, OUTPUT_RANGE_END],
   });
 
-  // if (translateAnimation == 0) {
-  //   shouldStop = true;
-  // }
+  if (translateAnimation == 0) {
+    shouldStop = true;
+  }
 
   const AnimatedImage = Animated.createAnimatedComponent(ImageBackground);
   AnimatedImage.defaultProps = {
@@ -260,9 +330,8 @@ const HorseRace = ({
     maxFrameDuration: 33.333333333333336, // 1000 ms / 30 fps
   };
 
-  let colorCount = [];
   if (racingHorseData != "") {
-    racingHorseData.map((item, index) => [colorCount.push(item[0].color)]);
+    racingHorseData.map((item) => [colorCount.push(item[0].color)]);
   }
 
   return (
@@ -335,18 +404,6 @@ const HorseRace = ({
             onPress={handleResult}
           >
             <Text style={styles.buttonText}>結果</Text>
-          </TouchableOpacity>
-
-          {/* <TouchableOpacity style={styles.button} onPress={resumeRace}>
-            <Text style={styles.buttonText}>Start</Text>
-          </TouchableOpacity> */}
-
-          <TouchableOpacity style={styles.button} onPress={stopRace}>
-            <Text style={styles.buttonText}>Stop</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.button} onPress={handleBack}>
-            <Text style={styles.buttonText}>Back Start</Text>
           </TouchableOpacity>
         </View>
       </View>
