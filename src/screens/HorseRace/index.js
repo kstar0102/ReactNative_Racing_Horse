@@ -52,6 +52,7 @@ const HorseRace = ({
   landWidth,
   reaceReigsterData,
   racingJockeyData,
+  prizeData,
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -67,6 +68,9 @@ const HorseRace = ({
   const [threeSpeeds, setThreeSpeeds] = useState(null);
   const [fourSpeeds, setFourSpeeds] = useState(null);
   const [fiveSpeeds, setFiveSpeeds] = useState(null);
+  const [isHandleStartRunning, setIsHandleStartRunning] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
+
   // const [weathers, setWeathers] = useState(0);
   const animations = Array.from(
     { length: racingHorseData.length },
@@ -78,27 +82,21 @@ const HorseRace = ({
   let numberWidth = Number(mWidth);
   let raceWidth = numberWidth + 2000;
   const outPutRange = raceWidth - 800;
-
   // WEATHER AND RACING TIME AND GROUNDS DEFAULT VAR
   const racingtime = raceTime(numberWidth);
   const weathers = weatherType(weather);
   const grounds = groundType(ground, glasss, grouns);
-
   let colorCount = [];
-
   // SPEED VALUe VALI
   const spd_arr = [];
   const totals = [];
+  const totalWinners = [];
   // ANIMATION VALI
   let shouldStop = false;
   let animationState = false;
   const horseAnimationStyles = [];
   // CLEARTIMEOUT VALI
-  let raceTimer1;
-  let raceTimer2;
-  let raceTimer3;
-  let raceTimer4;
-  let raceTimer5;
+  let raceTimeout;
   useEffect(() => {
     setFirstT(firstTiming(racingtime));
     if (
@@ -174,27 +172,28 @@ const HorseRace = ({
   const handleStart = () => {
     startRace(firstSpeed);
     translate();
-    raceTimer1 = setTimeout(() => {
+    clearTimeout(raceTimeout);
+    raceTimeout = setTimeout(() => {
       stopRace();
       fResumeRace();
     }, firstT);
 
-    raceTimer2 = setTimeout(() => {
+    raceTimeout = setTimeout(() => {
       stopRace();
       sResumeRace();
     }, firstT + secondT);
 
-    raceTimer3 = setTimeout(() => {
+    raceTimeout = setTimeout(() => {
       stopRace();
       tResumeRace();
     }, firstT + secondT + threeT);
 
-    raceTimer4 = setTimeout(() => {
+    raceTimeout = setTimeout(() => {
       stopRace();
       foResumeRace();
       for (let i = 0; i < spd_arr[0].length; i++) {
         totals.push({
-          position: (
+          time: (
             (spd_arr[0][i] / 5 +
               spd_arr[1][i] / 4 +
               spd_arr[2][i] / 3 +
@@ -203,29 +202,86 @@ const HorseRace = ({
               10000) /
             1000
           ).toFixed(2),
-          horse: `Horse ${i + 1}`,
+          ranking: i + 1,
         });
       }
-      const winners = totals.sort((a, b) => a.position - b.position);
-      dispatch(
-        RaceResultAction(
-          winners.map(
-            ({ position, horse }, index) =>
-              `${index + 1}st place: ${horse} \n time: ${position}`
-          )
-        )
-      );
+      const winners = totals.sort((a, b) => a.time - b.time);
+      totalWinners.push(winners);
     }, firstT + secondT + threeT + fourT);
   };
-  const handleResult = () => {
-    clearTimeout(raceTimer1);
-    clearTimeout(raceTimer2);
-    clearTimeout(raceTimer3);
-    clearTimeout(raceTimer4);
-    clearTimeout(raceTimer5);
-    navigation.navigate("RaceResultScreen");
-  };
 
+  let horseData = [];
+  const handleResult = () => {
+    if (totalWinners[0] != undefined) {
+      // RANKING AND TIME ARRAY ADD
+      let rankings = [];
+      let times = [];
+      // PUSH
+      reaceReigsterData.map((item) => {
+        const race_id = item.race_id;
+        const user_name = item.user_name;
+        const user_id = item.user_id;
+        const horse_name = item.horse_name;
+        const horse_id = item.horse_id;
+        const horse_gender = item.horse_gender;
+        const horse_age = item.horse_age;
+        const mass = item.mass;
+        const jockey_name = item.jockey_name;
+        const jockey_id = item.jockey_id;
+        const quality_leg = item.quality_leg;
+        const race_type = item.prize_id;
+        const stall_type = item.stall_type;
+        horseData.push({
+          race_id,
+          user_name,
+          user_id,
+          horse_name,
+          horse_id,
+          horse_gender,
+          horse_age,
+          mass,
+          jockey_name,
+          jockey_id,
+          quality_leg,
+          race_type,
+          stall_type,
+        });
+      });
+
+      if (totalWinners[0] != undefined) {
+        totalWinners[0].map((ranking) => {
+          rankings.push(ranking.ranking);
+          times.push(ranking.time);
+        });
+      }
+      for (let i = 0; i < horseData.length; i++) {
+        if (i < rankings.length || times.length) {
+          horseData[i].ranking = rankings[i];
+          horseData[i].time = times[i];
+        } else {
+          break;
+        }
+      }
+
+      for (let i = 0; i < prizeData.length; i++) {
+        const rank = prizeData[i].rank.trim();
+
+        for (let j = 0; j < horseData.length; j++) {
+          if (rank === String(horseData[j].ranking)) {
+            horseData[j].prize = prizeData[i].money;
+            break;
+          }
+        }
+      }
+    }
+
+    if (horseData != "") {
+      dispatch(RaceResultAction(horseData, currentTime));
+      clearTimeout(raceTimeout);
+      navigation.navigate("RaceResultScreen");
+    }
+   
+  };
   // BACK IMAGE ANIMATION
   const translate = () => {
     if (shouldStop) {
@@ -246,6 +302,7 @@ const HorseRace = ({
   };
   // Horse ANIMATION
   const startRace = (spds) => {
+    // console.log("--------spds-spds-------------", spds);
     if (spds != undefined) {
       spd_arr.push(spds);
     }
@@ -353,12 +410,12 @@ const HorseRace = ({
           source={grounds}
         >
           <View style={[Screenstyles.stillGroup, { width: raceWidth }]}>
-            {stillSource.map((still, j) => {
+            {stillSource.map((still, l) => {
               return (
                 <Image
-                  key={`${j}`}
+                  key={`${l}`}
                   style={Screenstyles.still}
-                  source={still[j + 1]}
+                  source={still[l + 1]}
                 />
               );
             })}
@@ -373,16 +430,15 @@ const HorseRace = ({
         <View style={styles.horseGroup}>
           {horseAnimationStyles.map((style, i) => (
             <Animated.View key={i} style={[styles.horse, style]}>
-              <View style={Screenstyles.RaceCoursecontent}>
-                {raceWhipHorse.map((item, index) => {
+              <View key={i} style={Screenstyles.RaceCoursecontent}>
+                {raceWhipHorse.map((item, k) => {
                   return (
-                    <>
+                    <View key={`${i}-${k}`}>
                       <Image
-                        key={`${index}-${i}`}
                         style={Screenstyles.horseSize}
                         source={item[colorCount[i]]}
                       />
-                    </>
+                    </View>
                   );
                 })}
               </View>
@@ -395,8 +451,13 @@ const HorseRace = ({
           ))}
         </View>
         <Image style={[Screenstyles.skyImage]} source={weathers} />
+
         <View style={styles.buttonGroup}>
-          <TouchableOpacity style={styles.button} onPress={handleStart}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleStart}
+            disabled={isHandleStartRunning == true ? true : false}
+          >
             <Text style={styles.buttonText}>レース</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -412,12 +473,14 @@ const HorseRace = ({
 };
 
 const mapStateToProps = (state) => {
+  // rank money
   return {
     racingHorseData: state.racingHJData.racingHorse,
     racingJockeyData: state.racingHJData.racingJockey,
     raceFieldData: state.raceData.raceFieldData,
     landWidth: state.dimensions.dimensionsData.height,
     reaceReigsterData: state.raceData.raceRegisterData,
+    prizeData: state.raceData.prizeData,
   };
 };
 export default connect(mapStateToProps)(HorseRace);

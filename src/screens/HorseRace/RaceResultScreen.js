@@ -40,11 +40,18 @@ const RaceResultScreen = ({ raceResultData }) => {
         <View style={{ marginTop: 250, marginLeft: 90 }}>
           {raceResultData != "" ? (
             raceResultData.map((result, index) => {
-              return (
-                <View key={index}>
-                  <Text style={{ fontSize: 25 }}>{result}</Text>
-                </View>
-              );
+             
+              const totals = [];
+              totals.push({time: result.time,  ranking: index + 1,});
+              const winners = totals.sort((a, b) => a.time - b.time);
+              // winners.map((win, j)=>{
+                return (
+                  <View key={index}>
+                    <Text style={{ fontSize: 25 }}>{`${winners[0].ranking}st : horse ${result.ranking} time: ${winners[0].time}`}</Text>
+                  </View>
+                );
+              // })
+              
             })
           ) : (
             <Text>NOT FOUND RESULT</Text>

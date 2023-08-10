@@ -17,6 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 import { connect, useDispatch } from "react-redux";
 import { RaceRegisterSaveAction } from "../../../store/actions/ReacRegister/RaceRegisterSaveAction";
 import { RaceRegisterBackSaveAction } from "../../../store/actions/ReacRegister/RaceRegisterBackSaveAction";
+import { StableGetAtion } from "../../../store/actions/truck/getApi/stableGetAtion";
 
 const RegisterTable = ({
   raceFieldData,
@@ -25,6 +26,7 @@ const RegisterTable = ({
   userData,
   horseData,
   reaceReigsterData,
+  stableMenu,
 }) => {
   if (raceFieldData == "" || prizeData == "" || jockeysData == "") {
     // NOT FOUND JOCKEYSDATA
@@ -52,6 +54,9 @@ const RegisterTable = ({
 
   const [freeButton, setFreeButton] = useState(0);
 
+  useEffect(() => {
+    dispatch(StableGetAtion());
+  }, []);
   useEffect(() => {
     if (raceFieldData.type == "新馬") {
       setPtvalue(80);
@@ -175,13 +180,17 @@ const RegisterTable = ({
   const jockey_name = banner == undefined ? jockeysData[0].name : banner.name;
   const quality_name =
     quality == undefined ? qualityData[0].name : quality.name;
-
-  // if(horseData.age
-  // }
-
+  let stall_type;
+  for (let i = 0; i < stableMenu.length; i++) {
+    const stableMenu_id = stableMenu[i].id;
+    if (horseData.stall_id == stableMenu_id) {
+      stall_type = stableMenu[i].name;
+    }
+  }
   const age = horseData.age.split("")[1];
   const horseGender = horseData.gender;
   const raceFieldAge = raceFieldData.age_limit.split("")[0];
+  const raceFieldAgeLimit = raceFieldData.age_limit.split("")[3];
   const raceFieldGender = raceFieldData.age_limit.split("・")[1];
 
   let gender;
@@ -217,54 +226,101 @@ const RegisterTable = ({
       jockey_name: jockey_name,
       quality_leg: quality_name,
       last_play: "",
+      stall_type: stall_type,
     };
     dispatch(RaceRegisterSaveAction(sendAllData));
     setQuality(undefined);
   };
 
   const handleClick = (value) => {
-    if (raceFieldAge === convertedToFullWidth) {
-      setModalVisible(true);
-      setActiveBin(value);
-      if (gender != "") {
-        if (horseGender === gender) {
-          setModalVisible(true);
-          setActiveBin(value);
-        } else {
-          setModalVisible(false);
-          Alert.alert(
-            " ",
-            "性別は同じではありません。",
-            [
-              {
-                text: "いいえ",
-                style: "cancel",
-              },
-              {
-                text: "はい",
-                onPress: () => console.log("Yes"),
-              },
-            ],
-            { cancelable: false }
-          );
+    if (raceFieldAgeLimit === "上") {
+      if (raceFieldAge <= convertedToFullWidth) {
+        setModalVisible(true);
+        setActiveBin(value);
+        if (gender != "") {
+          if (horseGender === gender) {
+            setModalVisible(true);
+            setActiveBin(value);
+          } else {
+            setModalVisible(false);
+            Alert.alert(
+              " ",
+              "性別は同じではありません。",
+              [
+                {
+                  text: "いいえ",
+                  style: "cancel",
+                },
+                {
+                  text: "はい",
+                  onPress: () => console.log("Yes"),
+                },
+              ],
+              { cancelable: false }
+            );
+          }
         }
+      } else {
+        Alert.alert(
+          " ",
+          "馬の年齢は同じではありません。",
+          [
+            {
+              text: "いいえ",
+              style: "cancel",
+            },
+            {
+              text: "はい",
+              onPress: () => console.log("Yes"),
+            },
+          ],
+          { cancelable: false }
+        );
       }
-    } else {
-      Alert.alert(
-        " ",
-        "馬の年齢は同じではありません。",
-        [
-          {
-            text: "いいえ",
-            style: "cancel",
-          },
-          {
-            text: "はい",
-            onPress: () => console.log("Yes"),
-          },
-        ],
-        { cancelable: false }
-      );
+    } else if (raceFieldAgeLimit === "定") {
+      if (raceFieldAge >= convertedToFullWidth) {
+        setModalVisible(true);
+        setActiveBin(value);
+        if (gender != "") {
+          if (horseGender === gender) {
+            setModalVisible(true);
+            setActiveBin(value);
+          } else {
+            setModalVisible(false);
+            Alert.alert(
+              " ",
+              "性別は同じではありません。",
+              [
+                {
+                  text: "いいえ",
+                  style: "cancel",
+                },
+                {
+                  text: "はい",
+                  onPress: () => console.log("Yes"),
+                },
+              ],
+              { cancelable: false }
+            );
+          }
+        }
+      } else {
+        Alert.alert(
+          " ",
+          "馬の年齢は同じではありません。",
+          [
+            {
+              text: "いいえ",
+              style: "cancel",
+            },
+            {
+              text: "はい",
+              onPress: () => console.log("Yes"),
+            },
+          ],
+          { cancelable: false }
+        );
+      }
     }
   };
   const handleBackClick = () => {
@@ -419,32 +475,23 @@ const RegisterTable = ({
                     <Text style={styles.white}>
                       {item.mass}kg/ {item.jockey_name}
                     </Text>
-                        <Image
-                          style={[styles.states, { display: escape[i] }]}
-                          source={require("../../../assets/images/qIcons/8.png")}
-                        />
-                        <Image
-                          style={[
-                            styles.states,
-                            { display: destination[i] },
-                          ]}
-                          source={require("../../../assets/images/qIcons/6.png")}
-                        />
-                        <Image
-                          style={[
-                            styles.states,
-                            { display: difference[i] },
-                          ]}
-                          source={require("../../../assets/images/qIcons/7.png")}
-                        />
-                        <Image
-                          style={[
-                            styles.states,
-                            { display: additional[i] },
-                          ]}
-                          source={require("../../../assets/images/qIcons/1.png")}
-                        />
-                    </View>
+                    <Image
+                      style={[styles.states, { display: escape[i] }]}
+                      source={require("../../../assets/images/qIcons/8.png")}
+                    />
+                    <Image
+                      style={[styles.states, { display: destination[i] }]}
+                      source={require("../../../assets/images/qIcons/6.png")}
+                    />
+                    <Image
+                      style={[styles.states, { display: difference[i] }]}
+                      source={require("../../../assets/images/qIcons/7.png")}
+                    />
+                    <Image
+                      style={[styles.states, { display: additional[i] }]}
+                      source={require("../../../assets/images/qIcons/1.png")}
+                    />
+                  </View>
                 );
               })
             ) : (
@@ -623,6 +670,7 @@ const mapStateToProps = (state) => {
     jockeysData: state.raceData.jockeysData,
     reaceReigsterData: state.raceData.raceRegisterData,
     userData: state.user.userData,
+    stableMenu: state.stableMenu.StableMenuData,
   };
 };
 

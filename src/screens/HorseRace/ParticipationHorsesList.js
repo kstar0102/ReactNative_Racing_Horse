@@ -12,11 +12,10 @@ const ParticipationHorsesList = ({
   raceFieldData,
   prizeData,
   jockeysData,
-  userData,
   horseData,
   reaceReigsterData,
 }) => {
-  if (raceFieldData == "" || prizeData == "" || jockeysData == "") {
+  if (raceFieldData == "" || prizeData == "" || jockeysData == "" || reaceReigsterData == "") {
     // NOT FOUND JOCKEYSDATA
     return false;
   }
@@ -48,7 +47,7 @@ const ParticipationHorsesList = ({
       let updatedAdditional = [];
       let checkButton = 0;
 
-      reaceReigsterData.forEach((item, index) => {
+      reaceReigsterData.forEach((item) => {
         if (item.quality_leg === "逃") {
           updatedEscape.push("flex");
           updatedDestination.push("none");
@@ -111,7 +110,7 @@ const ParticipationHorsesList = ({
   let raceId = [];
   let jockeyId = [];
   if (reaceReigsterData != "") {
-    reaceReigsterData.map((item, index) => {
+    reaceReigsterData.map((item) => {
       raceId.push(item.horse_id);
       jockeyId.push(item.jockey_id);
     });
@@ -129,14 +128,14 @@ const ParticipationHorsesList = ({
   let prices = [];
 
   {
-    prizeData.map((data, index) => {
+    prizeData.map((data) => {
       prices.push(data.money);
     });
   }
   let slicePrices = prices.slice(0, 5);
 
   let jockeyNames = [];
-  jockeysData.map((item, index) => {
+  jockeysData.map((item) => {
     jockeyNames.push({ name: item.name, id: item.id });
   });
 
@@ -144,67 +143,67 @@ const ParticipationHorsesList = ({
     <>
       <ScrollView style={styles.container}>
         <View style={styles.TableHeader}>
-          <Text style={styles.white}>
+          <Text style={styles.whites}>
             {raceFieldData.name} ({raceFieldData.type} ・{" "}
             {raceFieldData.age_limit}・定量)
           </Text>
-          <Text style={styles.white}>
+          <Text style={styles.whites}>
             {raceFieldData.place} ・ {raceFieldData.ground}
             {raceFieldData.distance} ・天気予報 ({raceFieldData.weather})
           </Text>
-          <Text style={styles.white}>賞金(pt):{slicePrices.join("・")}</Text>
+          <Text style={styles.whites}>賞金(pt):{slicePrices.join("・")}</Text>
         </View>
         <View style={styles.TableBody}>
           <View style={[styles.TableNumberTitle]}>
             <View style={styles.titleBorder}>
-              <Text style={styles.white}>枠</Text>
+              <Text style={styles.whites}>枠</Text>
             </View>
             <View>
               {reaceReigsterData ? (
-                reaceReigsterData.map((item, index) => {
+                reaceReigsterData.map((item, j) => {
                   return (
-                    <View key={index} style={styles.txtBorder}>
+                    <View key={j} style={styles.txtBorder}>
                       <Text
                         style={[
-                          index + 1 == 1
+                          j + 1 == 1
                             ? styles.whiteWhite
                             : styles.whiteNumber,
-                          index + 1 == 2
+                          j + 1 == 2
                             ? styles.whiteBlack
                             : styles.whiteNumber,
-                          index + 1 == 3 ? styles.whiteRed : styles.whiteNumber,
-                          index + 1 == 4
+                          j + 1 == 3 ? styles.whiteRed : styles.whiteNumber,
+                          j + 1 == 4
                             ? styles.whiteblue
                             : styles.whiteNumber,
-                          index + 1 == 5
+                          j + 1 == 5
                             ? styles.whiteYellow
                             : styles.whiteNumber,
-                          index + 1 == 6
+                          j + 1 == 6
                             ? styles.whiteGreen
                             : styles.whiteNumber,
-                          index + 1 == 7
+                          j + 1 == 7
                             ? styles.whiteOrange
                             : styles.whiteNumber,
-                          index + 1 == 8
+                          j + 1 == 8
                             ? styles.whiteOrange
                             : styles.whiteNumber,
-                          index + 1 == 9
+                          j + 1 == 9
                             ? styles.whitePink
                             : styles.whiteNumber,
-                          index + 1 == 10
+                          j + 1 == 10
                             ? styles.whitePink
                             : styles.whiteNumber,
                         ]}
                       >
-                        {index + 1}
+                        {j + 1}
                       </Text>
                     </View>
                   );
                 })
               ) : (
                 <View style={styles.txtBorder}>
-                  <Text style={styles.white}> (牡3)</Text>
-                  <Text style={styles.white}>馬主:</Text>
+                  <Text style={styles.whites}> (牡3)</Text>
+                  <Text style={styles.whites}>馬主:</Text>
                 </View>
               )}
             </View>
@@ -212,25 +211,25 @@ const ParticipationHorsesList = ({
           {/* ! */}
           <View style={styles.TableTitle}>
             <View style={styles.titleBorder}>
-              <Text style={styles.white}>登録馬</Text>
+              <Text style={styles.whites}>登録馬</Text>
             </View>
             <View>
               {reaceReigsterData ? (
-                reaceReigsterData.map((item, index) => {
+                reaceReigsterData.map((item, i) => {
                   return (
-                    <View key={index} style={styles.txtBorder}>
-                      <Text style={styles.white}>
+                    <View key={i} style={styles.txtBorder}>
+                      <Text style={styles.whites}>
                         {item.horse_name} ({item.horse_gender}
                         {item.horse_age})
                       </Text>
-                      <Text style={styles.white}>馬主:{item.user_name}</Text>
+                      <Text style={styles.whites}>馬主:{item.user_name}</Text>
                     </View>
                   );
                 })
               ) : (
                 <View style={styles.txtBorder}>
-                  <Text style={styles.white}> (牡3)</Text>
-                  <Text style={styles.white}>馬主:</Text>
+                  <Text style={styles.whites}> (牡3)</Text>
+                  <Text style={styles.whites}>馬主:</Text>
                 </View>
               )}
             </View>
@@ -239,29 +238,29 @@ const ParticipationHorsesList = ({
           {/* ! */}
           <View style={styles.TableTitle}>
             <View style={styles.titleBorder}>
-              <Text style={styles.white}>斤量/騎手/脚質</Text>
+              <Text style={styles.whites}>斤量/騎手/脚質</Text>
             </View>
             {reaceReigsterData ? (
-              reaceReigsterData.map((item, i) => {
+              reaceReigsterData.map((item, k) => {
                 return (
-                  <View key={i} style={styles.txtBorderM}>
-                    <Text style={styles.white}>
+                  <View key={k} style={styles.txtBorderM}>
+                    <Text style={styles.whites}>
                       {item.mass}kg/ {item.jockey_name}
                     </Text>
                     <Image
-                      style={[styles.states, { display: escape[i] }]}
+                      style={[styles.states, { display: escape[k] }]}
                       source={require("../../assets/images/qIcons/8.png")}
                     />
                     <Image
-                      style={[styles.states, { display: destination[i] }]}
+                      style={[styles.states, { display: destination[k] }]}
                       source={require("../../assets/images/qIcons/6.png")}
                     />
                     <Image
-                      style={[styles.states, { display: difference[i] }]}
+                      style={[styles.states, { display: difference[k] }]}
                       source={require("../../assets/images/qIcons/7.png")}
                     />
                     <Image
-                      style={[styles.states, { display: additional[i] }]}
+                      style={[styles.states, { display: additional[k] }]}
                       source={require("../../assets/images/qIcons/1.png")}
                     />
                   </View>
@@ -269,33 +268,6 @@ const ParticipationHorsesList = ({
               })
             ) : (
               <View style={styles.txtBorderM}>
-                <Text style={styles.white}>kg/ {"Konya"}</Text>
-                <View style={styles.stateBar}>
-                  <View style={styles.statesBorder}>
-                    <Image
-                      style={[styles.states, { display: "none" }]}
-                      source={require("../../assets/images/qIcon.png")}
-                    />
-                  </View>
-                  <View style={styles.statesBorder}>
-                    <Image
-                      style={[styles.states, { display: "none" }]}
-                      source={require("../../assets/images/qIcon.png")}
-                    />
-                  </View>
-                  <View style={styles.statesBorder}>
-                    <Image
-                      style={[styles.states, { display: "none" }]}
-                      source={require("../../assets/images/qIcon.png")}
-                    />
-                  </View>
-                  <View style={styles.statesBorder}>
-                    <Image
-                      style={[styles.states, { display: "none" }]}
-                      source={require("../../assets/images/qIcon.png")}
-                    />
-                  </View>
-                </View>
               </View>
             )}
           </View>
@@ -303,22 +275,22 @@ const ParticipationHorsesList = ({
           {/* ! */}
           <View style={styles.TableTitlePoint}>
             <View style={styles.titleBorder}>
-              <Text style={styles.white}>オッズ</Text>
+              <Text style={styles.whites}>オッズ</Text>
             </View>
             {reaceReigsterData ? (
-              reaceReigsterData.map((item, index) => {
+              reaceReigsterData.map((item, l) => {
                 return (
-                  <View key={index} style={styles.txtBorder}>
+                  <View key={l} style={styles.txtBorder}>
                     <Text style={styles.whitePoint}>
-                      {index + 1 + "" + 2 + "" + "." + index}
+                      {l + 1 + "" + 2 + "" + "." + l}
                     </Text>
                   </View>
                 );
               })
             ) : (
               <View style={styles.txtBorder}>
-                <Text style={styles.white}></Text>
-                <Text style={styles.white}></Text>
+                <Text style={styles.whites}></Text>
+                <Text style={styles.whites}></Text>
               </View>
             )}
           </View>
@@ -350,13 +322,14 @@ const mapStateToProps = (state) => {
     jockeysData: state.raceData.jockeysData,
     reaceReigsterData: state.raceData.raceRegisterData,
     userData: state.user.userData,
+     
   };
 };
 
 export default connect(mapStateToProps)(ParticipationHorsesList);
 
 const styles = StyleSheet.create({
-  white: {
+  whites: {
     color: colors.black,
     textAlign: "center",
     width: "97%",
@@ -425,10 +398,8 @@ const styles = StyleSheet.create({
   statesBorder: {
     borderRightWidth: 1,
     width: 20,
-    // backgroundColor: 'yellow'
   },
   states: {
-    color: colors.white,
     width: 80,
     height: 20,
   },
