@@ -137,11 +137,11 @@ const UpGrazing = ({
             </View>
             <View>
               <View style={[RTapScreensStyle.absoluteViewT]}>
-                <Text style={RTapScreensStyle.label}>逃げ</Text>
+                <Text style={RTapScreensStyle.label}>逃  げ</Text>
               </View>
               <ImageButton
                 label={"逃げ"}
-                source={require("../../../../assets/images/Pasture/icon3.png")}
+                source={require("../../../../assets/images/jockey_train_img/逃げ.png")}
                 id={3}
               />
               <DetailButton
@@ -156,11 +156,11 @@ const UpGrazing = ({
           <View style={RTapScreensStyle.ImageButtonMiddle}>
             <View>
               <View style={[RTapScreensStyle.absoluteViewT]}>
-                <Text style={RTapScreensStyle.label}>先行</Text>
+                <Text style={RTapScreensStyle.label}>先  行</Text>
               </View>
               <ImageButton
                 label={"先行"}
-                source={require("../../../../assets/images/Pasture/icon4.png")}
+                source={require("../../../../assets/images/jockey_train_img/先行.png")}
                 id={4}
               />
               <DetailButton
@@ -173,11 +173,11 @@ const UpGrazing = ({
             </View>
             <View>
               <View style={RTapScreensStyle.absoluteViewT}>
-                <Text style={RTapScreensStyle.label}>差し</Text>
+                <Text style={RTapScreensStyle.label}>差  し</Text>
               </View>
               <ImageButton
                 label={"差し"}
-                source={require("../../../../assets/images/Pasture/icon5.png")}
+                source={require("../../../../assets/images/jockey_train_img/差し.png")}
                 id={5}
               />
               <DetailButton
@@ -190,11 +190,11 @@ const UpGrazing = ({
             </View>
             <View>
               <View style={[RTapScreensStyle.absoluteViewT]}>
-                <Text style={RTapScreensStyle.label}>追い</Text>
+                <Text style={RTapScreensStyle.label}>追  い</Text>
               </View>
               <ImageButton
                 label={"追い"}
-                source={require("../../../../assets/images/Pasture/icon6.png")}
+                source={require("../../../../assets/images/jockey_train_img/追い.png")}
                 id={6}
               />
               <DetailButton
@@ -208,7 +208,7 @@ const UpGrazing = ({
           </View>
           <View style={RTapScreensStyle.ImageButtonBottom}>
             <View>
-              <View style={RTapScreensStyle.absoluteView}>
+              <View style={RTapScreensStyle.absoluteViewT}>
                 <Text style={RTapScreensStyle.label}>? ? ?</Text>
               </View>
               <ImageButton

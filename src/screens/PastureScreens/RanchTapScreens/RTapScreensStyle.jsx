@@ -293,7 +293,7 @@ const RTapScreensStyle = StyleSheet.create({
   absoluteViewT:{
     position: 'absolute',
     top: -10,
-    left: 34,
+    left: 33,
     zIndex: 1,
   },
   ButtonGroup:{
