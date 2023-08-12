@@ -13,8 +13,7 @@ import { SaleButton } from "../../../../components/Buttons";
 import { horseColor } from "../../../../utils/globals";
 import Ccolors from "../../../../containers/colors";
 
-const ThreeHorseTap = ({ twoData, arrowState }) => {
-  
+const ThreeHorseTap = ({ twoData, arrowState, registering }) => {
   const [arrowStates, setArrowState] = useState(arrowState);
   // ALL REPEAT
   const [happySate, setHappyState] = useState(0);
@@ -39,6 +38,7 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
 
   // Ground Color
   const [groundColor, setGroundColor] = useState("#1BFF00");
+  const [registeringState, setRegisteringState] = useState("none");
 
   if (twoData == "") {
     alert("YOUR HORSE NOT FOUND RETURN");
@@ -47,7 +47,20 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
   const [selected, setSelected] = useState(undefined);
   const [activeButton, setActiveButton] = useState(0);
   const [banner, setBanner] = useState(twoData[0]);
+  const filteredOneData =
+    registering != "" ? registering.map((data) => Number(data.horse_id)) : [];
 
+  useEffect(() => {
+    if (filteredOneData != "") {
+      if (filteredOneData.includes(banner.id)) {
+        setRegisteringState("flex");
+      } else {
+        setRegisteringState("flex");
+      }
+    } else {
+      setRegisteringState("none");
+    }
+  }, [banner]);
   useEffect(() => {
     setBanner(twoData[0]);
     setPattern(tiredNumber);
@@ -59,6 +72,7 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
       setGroundColor("red");
     }
   }, [twoData]);
+
   const data = twoData;
 
   useEffect(() => {
@@ -340,7 +354,7 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
   const setPattern = (condition) => {
     // Disable Injury
     let options;
-  
+
     if (condition <= 10) {
       return false;
     } else if (condition == 11 || condition == 12) {
@@ -391,9 +405,9 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
     } else {
       return false; // Return false for invalid conditions
     }
-  
+
     const randomNumber = Math.floor(Math.random() * 100);
-  
+
     // Iterate over the options until we reach the chosen value
     let sum = 0;
     for (const [key, value] of Object.entries(options || {})) {
@@ -409,7 +423,7 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
       }
     }
   };
-  
+
   const handleButtonPress = (id) => {
     setActiveButton(id);
   };
@@ -417,9 +431,15 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
   const renderScreenBelowButtons = () => {
     switch (activeButton) {
       case 1:
-        return <FGroup horseId={banner.id}/>;
+        return <FGroup horseId={banner.id} />;
       default:
-        return <GGroup horseId={banner.id} horseAge={banner.age.split("")[1]} horseGrow={banner.growth}/>;
+        return (
+          <GGroup
+            horseId={banner.id}
+            horseAge={banner.age.split("")[1]}
+            horseGrow={banner.growth}
+          />
+        );
     }
   };
 
@@ -437,14 +457,34 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
         </View>
         <View style={RTapScreensStyle.oneTopContentRight}>
           <View style={RTapScreensStyle.oneRioghtHeader}>
-          <Text style={[RTapScreensStyle.oneRioghtHeaderTxtA, {color: (!!selected && selected.gender == "牝") || data[0].gender == "牝" ? Ccolors.genderColorF : Ccolors.genderColorM}]}>
+            <Text
+              style={[
+                RTapScreensStyle.oneRioghtHeaderTxtA,
+                {
+                  color:
+                    (!!selected && selected.gender == "牝") ||
+                    data[0].gender == "牝"
+                      ? Ccolors.genderColorF
+                      : Ccolors.genderColorM,
+                },
+              ]}
+            >
               {(!!selected && selected.name) || data[0].name}
             </Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
-              <Text style={{ color: (!!selected && selected.gender == "牝") || data[0].gender == "牝" ? Ccolors.genderColorF : Ccolors.genderColorM}}>
+              <Text
+                style={{
+                  color:
+                    (!!selected && selected.gender == "牝") ||
+                    data[0].gender == "牝"
+                      ? Ccolors.genderColorF
+                      : Ccolors.genderColorM,
+                }}
+              >
                 {(!!selected && selected.gender) || data[0].gender}
               </Text>
-              {(!!selected && selected.age.split('')[1]) || data[0].age.split('')[1]}
+              {(!!selected && selected.age.split("")[1]) ||
+                data[0].age.split("")[1]}
             </Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
               {(!!selected && selected.growth) || data[0].growth}
@@ -616,11 +656,20 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
                 {horseColor.map((colorName, index) => {
                   if (colorName[selected.color]) {
                     return (
-                      <Image
-                        key={`${index}`}
-                        style={RTapScreensStyle.HorseAvatar}
-                        source={colorName[selected.color]}
-                      />
+                      <View key={`${index}`}>
+                        <Image
+                          style={RTapScreensStyle.HorseAvatar}
+                          source={colorName[selected.color]}
+                        />
+
+                        <Image
+                          style={[
+                            RTapScreensStyle.registering,
+                            { display: registeringState },
+                          ]}
+                          source={require("../../../../assets/horseImageData/registering_1.png")}
+                        />
+                      </View>
                     );
                   } else {
                     return null;
@@ -632,11 +681,20 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
                 {horseColor.map((colorName, index) => {
                   if (colorName[data[0].color]) {
                     return (
-                      <Image
-                        key={`${index}`}
-                        style={RTapScreensStyle.HorseAvatar}
-                        source={colorName[data[0].color]}
-                      />
+                      <View key={`${index}`}>
+                        <Image
+                          style={RTapScreensStyle.HorseAvatar}
+                          source={colorName[data[0].color]}
+                        />
+
+                        <Image
+                          style={[
+                            RTapScreensStyle.registering,
+                            { display: registeringState },
+                          ]}
+                          source={require("../../../../assets/horseImageData/registering_1.png")}
+                        />
+                      </View>
                     );
                   } else {
                     return null;
@@ -662,11 +720,7 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
                 onPress={() => handleButtonPress(1)}
               />
             )}
-            <WorkingButton
-              label={`引退`}
-              colorNumber={3}
-              styleId={2}
-            />
+            <WorkingButton label={`引退`} colorNumber={3} styleId={2} />
           </View>
         </View>
       </View>
@@ -680,6 +734,7 @@ const ThreeHorseTap = ({ twoData, arrowState }) => {
 const mapStateToProps = (state) => {
   return {
     arrowState: state.arrow.arrowState,
+    registering: state.registerData.registeringData,
   };
 };
 

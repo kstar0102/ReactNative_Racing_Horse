@@ -20,6 +20,7 @@ import nextNextNextRacePlanReducer from './getApi/nextNextNextRacePlanReducer';
 import arrowReducer from './Upbring/arrowReducer';
 // Game Time
 import gameTimeRuducer from './gameTime/gameTimeRuducer';
+import countDownReducer from './gameTime/countDownReducer';
 // Stable DATA
 import stableMenuReducer from './stable/stableMenuReducer';
 import jockeyRegisterReducer from './stable/jockey/jockeyRegisterReducer';
@@ -45,6 +46,9 @@ import RaceStartReducer from './race/RaceStartReducer';
 // DIMENSIONS
 import dimensionsReducer from './dimension/dimensionsReducer';
 
+// REGISTERING REDUCER
+import RaceHorseRegisterReducer from './ReacRegister/RaceHorseRegisterReducer';
+
 export default combineReducers({
     user: user,
     validationData: validationData,
@@ -67,6 +71,7 @@ export default combineReducers({
     arrow: arrowReducer,
     // GAME TIME
     currentGameTime: gameTimeRuducer,
+    countDownTime: countDownReducer,
     // STABLE DATA
     stableMenu: stableMenuReducer,
     jockeyData: jockeyRegisterReducer,
@@ -84,5 +89,8 @@ export default combineReducers({
     showGrowData: showHorseGrowReducer,
     racingData: RaceReducer,
     racingHJData: RaceStartReducer,
-    dimensions:  dimensionsReducer
+    dimensions:  dimensionsReducer,
+
+    // REGISTERING VALI
+    registerData: RaceHorseRegisterReducer
 });

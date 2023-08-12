@@ -18,7 +18,7 @@ import { connect, useDispatch } from "react-redux";
 import { RaceRegisterSaveAction } from "../../../store/actions/ReacRegister/RaceRegisterSaveAction";
 import { RaceRegisterBackSaveAction } from "../../../store/actions/ReacRegister/RaceRegisterBackSaveAction";
 import { StableGetAtion } from "../../../store/actions/truck/getApi/stableGetAtion";
-
+import { calculateGameDate } from "../../LayoutScreen/HeaderScreen";
 const RegisterTable = ({
   raceFieldData,
   prizeData,
@@ -27,6 +27,7 @@ const RegisterTable = ({
   horseData,
   reaceReigsterData,
   stableMenu,
+  raceWeekData
 }) => {
   if (raceFieldData == "" || prizeData == "" || jockeysData == "") {
     // NOT FOUND JOCKEYSDATA
@@ -45,6 +46,7 @@ const RegisterTable = ({
   const [selected, setSelected] = useState(undefined);
   const [massValue, setMassValue] = useState("");
   const [msgValue, setMsgValue] = useState("逃げ");
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   // Quality State
   const [escape, setEscape] = useState([]);
@@ -227,6 +229,7 @@ const RegisterTable = ({
       quality_leg: quality_name,
       last_play: "",
       stall_type: stall_type,
+      week: raceWeekData
     };
     dispatch(RaceRegisterSaveAction(sendAllData));
     setQuality(undefined);
@@ -671,6 +674,7 @@ const mapStateToProps = (state) => {
     reaceReigsterData: state.raceData.raceRegisterData,
     userData: state.user.userData,
     stableMenu: state.stableMenu.StableMenuData,
+    raceWeekData:state.raceData.raceWeekData
   };
 };
 

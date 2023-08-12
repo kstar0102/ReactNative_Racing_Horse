@@ -189,6 +189,13 @@ const RTapScreensStyle = StyleSheet.create({
     width: vw(4.5) + vh(3.5),
     marginTop: 30
   },
+  registering:{
+    position: 'absolute',
+    width: 65,
+    height: 65,
+    right: -8,
+    top: 15
+  },
   conditionsGroup:{
     flexDirection: 'row',
     alignItems: 'flex-end'

@@ -1,5 +1,5 @@
 
-import { GET_RACE_CORSE_DATA, GET_RACE_PRIZE_DATA, GET_RACE_JOCKEYS_DATA, GET_RACE_REGISTER_DATA } from '../types';
+import { GET_RACE_CORSE_DATA, GET_RACE_PRIZE_DATA, GET_RACE_JOCKEYS_DATA, GET_RACE_REGISTER_DATA, GET_RACE_WEEK } from '../types';
 import axios from 'axios';
 import { API } from '../../../utils/config';
 
@@ -30,7 +30,14 @@ export const raceRegisterData = (data) => {
     }
 };
 
-export function ReacRegisterAction(tableFieldId) {
+export const raceRegisterWeek = (data) => {
+    return {
+        type: GET_RACE_WEEK,
+        payload: data,
+    }
+};
+
+export function ReacRegisterAction(tableFieldId, weekDate) {
     return async (dispatch, getState) => {
         const token = getState().tokenData.tokenData;
         return await axios.post(API + 'showraceplan',
@@ -47,6 +54,7 @@ export function ReacRegisterAction(tableFieldId) {
                 dispatch(prizeData(res.data.prize_data));
                 dispatch(jockeysData(res.data.jockeys));
                 dispatch(raceRegisterData(res.data.race_register_data));
+                dispatch(raceRegisterWeek(weekDate));
             })
             .catch(error => {
                 throw (error);

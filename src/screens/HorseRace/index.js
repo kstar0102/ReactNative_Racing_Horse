@@ -14,12 +14,14 @@ import {
 
 import * as ScreenOrientation from "expo-screen-orientation";
 import Screenstyles from "../ScreenStylesheet"; // Import the Screenstyles object from the appropriate file
+import { calculateGameDate } from "../LayoutScreen/HeaderScreen";
 // Redux
 import { connect, useDispatch } from "react-redux";
 import { RaceResultAction } from "../../store/actions/race/RaceResultAction";
 import { useNavigation } from "@react-navigation/native";
 import {
   raceWhipHorse,
+  raceHorse,
   numberSource,
   stillSource,
   grouns,
@@ -70,8 +72,8 @@ const HorseRace = ({
   const [fiveSpeeds, setFiveSpeeds] = useState(null);
   const [isHandleStartRunning, setIsHandleStartRunning] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const whipRef = useRef(false);
 
-  // const [weathers, setWeathers] = useState(0);
   const animations = Array.from(
     { length: racingHorseData.length },
     () => new Animated.Value(0)
@@ -87,6 +89,7 @@ const HorseRace = ({
   const weathers = weatherType(weather);
   const grounds = groundType(ground, glasss, grouns);
   let colorCount = [];
+  let tiredValue = [];
   // SPEED VALUe VALI
   const spd_arr = [];
   const totals = [];
@@ -98,6 +101,7 @@ const HorseRace = ({
   // CLEARTIMEOUT VALI
   let raceTimeout;
   useEffect(() => {
+    whipRef.current = false;
     setFirstT(firstTiming(racingtime));
     if (
       reaceReigsterData != "" &&
@@ -155,7 +159,7 @@ const HorseRace = ({
   }, [firstSpeed, speedControllers]);
 
   const backActionHandler = () => {
-    return false;
+    return true;
   };
 
   useEffect(() => {
@@ -168,7 +172,6 @@ const HorseRace = ({
       ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     };
   }, []);
-
   const handleStart = () => {
     startRace(firstSpeed);
     translate();
@@ -276,11 +279,10 @@ const HorseRace = ({
     }
 
     if (horseData != "") {
-      dispatch(RaceResultAction(horseData, currentTime));
+      dispatch(RaceResultAction(horseData, calculateGameDate(currentTime)));
       clearTimeout(raceTimeout);
-      navigation.navigate("RaceResultScreen");
+      navigation.navigate("RaceResult");
     }
-   
   };
   // BACK IMAGE ANIMATION
   const translate = () => {
@@ -302,7 +304,6 @@ const HorseRace = ({
   };
   // Horse ANIMATION
   const startRace = (spds) => {
-    // console.log("--------spds-spds-------------", spds);
     if (spds != undefined) {
       spd_arr.push(spds);
     }
@@ -388,8 +389,12 @@ const HorseRace = ({
   };
 
   if (racingHorseData != "") {
-    racingHorseData.map((item) => [colorCount.push(item[0].color)]);
+    racingHorseData.map((item) => {
+      colorCount.push(item[0].color);
+    });
   }
+  const racingHorses =  whipRef.current ?  raceHorse : raceWhipHorse;
+ 
 
   return (
     <>
@@ -431,7 +436,7 @@ const HorseRace = ({
           {horseAnimationStyles.map((style, i) => (
             <Animated.View key={i} style={[styles.horse, style]}>
               <View key={i} style={Screenstyles.RaceCoursecontent}>
-                {raceWhipHorse.map((item, k) => {
+                {racingHorses.map((item, k) => {
                   return (
                     <View key={`${i}-${k}`}>
                       <Image

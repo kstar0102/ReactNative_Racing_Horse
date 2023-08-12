@@ -3,6 +3,7 @@ import { Text, View, SafeAreaView, ImageBackground } from 'react-native';
 // Rudux
 import { connect, useDispatch } from 'react-redux';
 import { gameTimeAction } from '../../store/actions/gameTime/gameTimeAction';
+import { countDownAction } from '../../store/actions/gameTime/countDownAction';
 // CUSTOM IMPORT
 import { HeaderButton } from '../../components/Buttons';
 import CountDownTimer from '../../components/time/CountDownTimer';
@@ -22,26 +23,22 @@ export const calculateGameDate = (time) => {
 };
 
 
-const HeaderScreen = ({userData}) => {
+const HeaderScreen = ({userData, fCountDownTime, sCountDownTime, tCountDownTime}) => {
   const dispatch = useDispatch();
-  const [secondsRemaining, setSecondsRemaining] = useState(21000);
+  const [secondsRemaining, setSecondsRemaining] = useState(33000);
+  const [thirdRemaining, setThirdRemaining] = useState(60000);
+  const [fourthRemaining, setFourthRemaining] = useState(43200);
   const [userPt, setUserPt] = useState();
   const [userLevel, setUserLevel] = useState();
   const secondsRemainingRef = useRef(secondsRemaining);
+  const thirdRemainingRef = useRef(thirdRemaining);
+  const fourthRemainingRef = useRef(fourthRemaining);
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     setUserPt(userData.user_pt);
     setUserLevel(userData.level);
-    AsyncStorage.getItem('secondsRemaining')
-      .then(value => {
-        if (value !== null) {
-          setSecondsRemaining(parseInt(value));
-          secondsRemainingRef.current = parseInt(value)
-        }
-      })
-      .catch(error => console.log(error));
-
+      
     return () => {
       AsyncStorage.setItem('secondsRemaining', String(secondsRemainingRef.current));
     };
@@ -49,15 +46,49 @@ const HeaderScreen = ({userData}) => {
 
 
   useEffect(() => {
+    
+   
+    
+   
     const intervalId = setInterval(() => {
-      setSecondsRemaining(prevSeconds => prevSeconds - 1);
-      AsyncStorage.setItem('secondsRemaining', String(secondsRemainingRef.current - 1));
 
-      if (secondsRemainingRef.current <= 0) {
-        setSecondsRemaining(30);
-        secondsRemainingRef.current = 21000;
+      var d = new Date();
+      const hour = d.getHours();
+      const minute = d.getMinutes();
+      const second = d.getSeconds();
+
+      setSecondsRemaining(prevSeconds => prevSeconds - 1);
+      setThirdRemaining(prevSeconds => prevSeconds - 1);
+      setFourthRemaining(prevSeconds => prevSeconds - 1);
+
+      let starttime = 9;
+      let endtime = 21;
+      
+      if(starttime <= hour <= endtime){
+        dispatch(countDownAction(String(20 - hour), String(60 - minute), String(60 - second)));
+      }
+      else{
+        let inputHour = '';
+        if(hour >= 21){
+          inputHour = 30 - hour;
+        }
+        else{
+          inputHour = 9 - hour;
+        }
+        dispatch(countDownAction(String(inputHour), String(60 - minute), String(60 - second)));
+      }
+      
+      if (secondsRemainingRef.current <= 0 || thirdRemainingRef.current <= 0 || fourthRemainingRef.current <= 0) {
+        setSecondsRemaining(43200);
+        setThirdRemaining(43200);
+        setFourthRemaining(43200);
+        secondsRemainingRef.current = 43200;
+        thirdRemainingRef.current = 43200;
+        fourthRemainingRef.current = 43200;
       } else {
         secondsRemainingRef.current -= 1;
+        thirdRemainingRef.current -= 1;
+        fourthRemainingRef.current-= 1;
       }
       setCurrentTime(new Date());
 
@@ -88,7 +119,7 @@ const HeaderScreen = ({userData}) => {
           レース発走まで あと
         </Text>
         <Text style={HeaderStylesheet.currentTime}>
-          <CountDownTimer secondsRemaining={secondsRemaining} />
+          <CountDownTimer secondsRemaining={{fCountDownTime, sCountDownTime, tCountDownTime}} />
         </Text>
       </View>
       {/* Header End BUTTONS TWO */}
@@ -101,7 +132,12 @@ const HeaderScreen = ({userData}) => {
 };
 
 const mapStateToProps = state => {
-  return  state.user
+  return{
+    userData: state.user.userData,
+    fCountDownTime: state.countDownTime.fCountDown,
+    sCountDownTime: state.countDownTime.sCountDown,
+    tCountDownTime: state.countDownTime.tCountDown,
+  }  
 };
 
 export default connect(mapStateToProps)(HeaderScreen);

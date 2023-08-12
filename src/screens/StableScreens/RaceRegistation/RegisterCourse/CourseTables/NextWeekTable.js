@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import {
   Table,
@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 // Redux
 import { connect, useDispatch } from "react-redux";
 import { ReacRegisterAction } from "../../../../../store/actions/ReacRegister/ReacRegisterAction";
+import { calculateGameDate } from "../../../../LayoutScreen/HeaderScreen";
 // Custom
 import TableStyles from "../../../RaceCourse/RacetrackTable/TableStyles";
 
@@ -23,19 +24,31 @@ const NextWeekTable = ({
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const gameTime = calculateGameDate(currentTime);
+
+  const next_date = new Date(gameTime.getTime() + (7 * 24 * 60 * 60 * 1000));
+  let next_date_month = next_date.getMonth() + 1;
+  let nextWeekNumber = Math.ceil(next_date.getDate() / 7);
+  if (nextWeekNumber == 5) {
+    next_date_month = next_date.getMonth() + 2;
+    nextWeekNumber = 1;
+  }
+  const next_week = next_date_month + "-" + nextWeekNumber;
+
   const elementButton = (nextWeekNames) =>
     nextWeekNames.map((name, index) => (
       <View key={index}>
-        <TouchableOpacity onPress={() => handleClick(nextId[index])}>
+        <TouchableOpacity onPress={() => handleClick(nextId[index], next_week)}>
           <View style={TableStyles.btn}>
             <Text style={TableStyles.btnText}>{name}</Text>
           </View>
         </TouchableOpacity>
       </View>
     ));
-  const handleClick = (value) => {
+  const handleClick = (value, week) => {
     navigation.navigate("RaceRegistation");
-    dispatch(ReacRegisterAction(value));
+    dispatch(ReacRegisterAction(value, week));
   };
 
   return (

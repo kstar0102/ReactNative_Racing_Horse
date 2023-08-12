@@ -14,7 +14,7 @@ import WorkingButton from "../../../../components/Buttons/WorkingButtons";
 import { horseColor } from "../../../../utils/globals";
 import Ccolors from "../../../../containers/colors";
 
-const OneHorseTap = ({ oneData, arrowState, showGrowstate }) => {
+const OneHorseTap = ({ oneData, arrowState, showGrowstate, registering }) => {
   const dispatch = useDispatch();
   const [arrowStates, setArrowState] = useState(arrowState);
   // ALL REPEAT
@@ -56,6 +56,22 @@ const OneHorseTap = ({ oneData, arrowState, showGrowstate }) => {
   const [selected, setSelected] = useState(undefined);
   const [activeButton, setActiveButton] = useState(0);
   const [banner, setBanner] = useState(oneData[0]);
+  const [registeringState, setRegisteringState] = useState("none");
+
+  const filteredOneData =
+    registering != "" ? registering.map((data) => Number(data.horse_id)) : [];
+
+  useEffect(() => {
+    if (filteredOneData != "") {
+      if (filteredOneData.includes(banner.id)) {
+        setRegisteringState("flex");
+      }else{
+        setRegisteringState("none");
+      }
+    } else {
+      setRegisteringState("none");
+    }
+  }, [banner]);
 
   useEffect(() => {
     setBanner(oneData[0]);
@@ -766,11 +782,20 @@ const OneHorseTap = ({ oneData, arrowState, showGrowstate }) => {
                 {horseColor.map((colorName, index) => {
                   if (colorName[selected.color]) {
                     return (
-                      <Image
-                        key={`${index}`}
-                        style={RTapScreensStyle.HorseAvatar}
-                        source={colorName[selected.color]}
-                      />
+                      <View key={`${index}`}>
+                        <Image
+                          style={RTapScreensStyle.HorseAvatar}
+                          source={colorName[selected.color]}
+                        />
+
+                        <Image
+                          style={[
+                            RTapScreensStyle.registering,
+                            { display: registeringState },
+                          ]}
+                          source={require("../../../../assets/horseImageData/registering_1.png")}
+                        />
+                      </View>
                     );
                   } else {
                     return null;
@@ -782,11 +807,20 @@ const OneHorseTap = ({ oneData, arrowState, showGrowstate }) => {
                 {horseColor.map((colorName, index) => {
                   if (colorName[data[0].color]) {
                     return (
-                      <Image
-                        key={`${index}`}
-                        style={RTapScreensStyle.HorseAvatar}
-                        source={colorName[data[0].color]}
-                      />
+                      <View key={`${index}`}>
+                        <Image
+                          style={RTapScreensStyle.HorseAvatar}
+                          source={colorName[data[0].color]}
+                        />
+
+                        <Image
+                          style={[
+                            RTapScreensStyle.registering,
+                            { display: registeringState },
+                          ]}
+                          source={require("../../../../assets/horseImageData/registering_1.png")}
+                        />
+                      </View>
                     );
                   } else {
                     return null;
@@ -827,6 +861,7 @@ const mapStateToProps = (state) => {
   return {
     arrowState: state.arrow.arrowState,
     showGrowstate: state.showGrowData.allGrowData[0],
+    registering: state.registerData.registeringData,
   };
 };
 

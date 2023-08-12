@@ -8,7 +8,6 @@ export const gameTime = (timeData) => {
 };
 
 export function gameTimeAction(setGameTime) {
-
     return async (dispatch) => {
         dispatch(gameTime(setGameTime))
     }

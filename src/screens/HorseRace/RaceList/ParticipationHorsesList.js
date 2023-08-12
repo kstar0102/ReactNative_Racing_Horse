@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 
-import colors from "../../containers/colors";
-import { RegisterButton, CustomButtons } from "../../components/Buttons";
+import colors from "../../../containers/colors";
+import { RegisterButton, CustomButtons } from "../../../components/Buttons";
 import { useNavigation } from "@react-navigation/native";
 import { connect, useDispatch } from "react-redux";
-import { RaceStartAction } from "../../store/actions/race/RaceStartAction";
+import { RaceStartAction } from "../../../store/actions/race/RaceStartAction";
 import * as ScreenOrientation from "expo-screen-orientation";
 
 const ParticipationHorsesList = ({
@@ -15,10 +15,12 @@ const ParticipationHorsesList = ({
   horseData,
   reaceReigsterData,
 }) => {
-  if (raceFieldData == "" || prizeData == "" || jockeysData == "" || reaceReigsterData == "") {
+  if (raceFieldData == "" || prizeData == "" || jockeysData == "") {
     // NOT FOUND JOCKEYSDATA
     return false;
   }
+
+  
   // horseData
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -249,19 +251,19 @@ const ParticipationHorsesList = ({
                     </Text>
                     <Image
                       style={[styles.states, { display: escape[k] }]}
-                      source={require("../../assets/images/qIcons/8.png")}
+                      source={require("../../../assets/images/qIcons/8.png")}
                     />
                     <Image
                       style={[styles.states, { display: destination[k] }]}
-                      source={require("../../assets/images/qIcons/6.png")}
+                      source={require("../../../assets/images/qIcons/6.png")}
                     />
                     <Image
                       style={[styles.states, { display: difference[k] }]}
-                      source={require("../../assets/images/qIcons/7.png")}
+                      source={require("../../../assets/images/qIcons/7.png")}
                     />
                     <Image
                       style={[styles.states, { display: additional[k] }]}
-                      source={require("../../assets/images/qIcons/1.png")}
+                      source={require("../../../assets/images/qIcons/1.png")}
                     />
                   </View>
                 );
@@ -307,7 +309,7 @@ const ParticipationHorsesList = ({
         <CustomButtons
           label={"結果"}
           color={3}
-          onPress={() => navigation.navigate("RaceResultScreen")}
+          onPress={() => navigation.navigate("RaceResult")}
           disabled={btnDisplay}
         />
       </View>

@@ -31,6 +31,24 @@ export const raceWhipHorse = [
   },
 ];
 
+export const raceHorse = [
+  {
+    白毛: require("../assets/horseImageData/RaceHorseColor/2/White/2wakuL.gif"),
+  },
+  {
+    青鹿毛: require("../assets/horseImageData/RaceHorseColor/1/BlueBayHair/1wakuL.gif"),
+  },
+  {
+    栗毛: require("../assets/horseImageData/RaceHorseColor/1/Chestnut/3wakuL.gif"),
+  },
+  {
+    黑鹿毛: require("../assets/horseImageData/RaceHorseColor/1/BlackBayHair/4wakuL.gif"),
+  },
+  {
+    鹿毛: require("../assets/horseImageData/RaceHorseColor/1/Kage/5wakuL.gif"),
+  },
+];
+
 export const horseSource = [
   { 1: require("../assets/horseImageData/1wakuL.gif") },
   { 2: require("../assets/horseImageData/2wakuL.gif") },

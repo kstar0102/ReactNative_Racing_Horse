@@ -3,6 +3,7 @@ import {
   GET_RACE_PRIZE_DATA,
   GET_RACE_JOCKEYS_DATA,
   GET_RACE_REGISTER_DATA,
+  GET_RACE_WEEK,
 } from "../../actions/types";
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   prizeData: "",
   jockeysData: "",
   raceRegisterData: "",
+  raceWeekData: "",
 };
 
 export default function RaceRegisterRuducer(state = initialState, action) {
@@ -22,6 +24,8 @@ export default function RaceRegisterRuducer(state = initialState, action) {
       return { ...state, jockeysData: action.payload };
     case GET_RACE_REGISTER_DATA:
       return { ...state, raceRegisterData: action.payload };
+    case GET_RACE_WEEK:
+      return { ...state, raceWeekData: action.payload };
     default:
       return state;
   }

@@ -80,6 +80,10 @@ export const secondSpeedController = (
     if (item[0] && item[0].quality_leg === "追") {
       sps[sps.length - 1] *= 0.05;
     }
+
+    if (item[0] && item[0].tired >= 15) {
+      sps[sps.length - 1] -= 10000;
+    }
   });
 
   speeds.forEach((item, index) => {
@@ -111,6 +115,10 @@ export const threeSpeedController = (
     }
     if (item[0] && item[0].quality_leg === "差") {
       sps[sps.length - 1] *= 0.05;
+    }
+
+    if (item[0] && item[0].tired >= 15) {
+      sps[sps.length - 1] -= 10000;
     }
   });
   speeds.forEach((item, i) => {
@@ -144,6 +152,10 @@ export const fourSpeedController = (
     if (item[0] && item[0].quality_leg === "先") {
       sps[sps.length - 1] *= 0.05;
     }
+
+    if (item[0] && item[0].tired >= 15) {
+      sps[sps.length - 1] -= 10000;
+    }
   });
 
   speeds.forEach((item, i) => {
@@ -176,6 +188,9 @@ export const fiveSpeedController = (
 
     if (item[0] && item[0].quality_leg === "逃") {
       sps[sps.length - 1] *= 0.05;
+    }
+    if (item[0] && item[0].tired >= 15) {
+      sps[sps.length - 1] -= 10000;
     }
   });
   speeds.forEach((item, i) => {
@@ -495,7 +510,7 @@ export const raceTime = (raceWidths) => {
   let result = "";
   switch (true) {
     case raceWidths >= 1000 && raceWidths <= 1600:
-      result = 30000;
+      result = 10000;
       break;
     case raceWidths >= 1700 && raceWidths <= 2400:
       result = 40000;

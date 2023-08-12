@@ -5,10 +5,10 @@ import { connect, useDispatch } from "react-redux";
 import { pastureAction } from "../store/actions/Pasture/pastureAction";
 import { raceAction } from "../store/actions/racepaln/getApi/racePlanAction";
 import { dimensionsAction } from "../store/actions/dimensions/dimensionsAction";
+import { HorseRegisteringAction } from "../store/actions/truck/TrainInstitution/HorseRegisteringAction";
 // Custom IMPORT
-import { calculateGameDate } from "./LayoutScreen/HeaderScreen";
 import { CustomButtons } from "../components/Buttons";
-import HeaderScreen from "./LayoutScreen/HeaderScreen";
+import HeaderScreen, { calculateGameDate } from "./LayoutScreen/HeaderScreen";
 import Screenstyles from "../screens/ScreenStylesheet";
 
 const TopScreen = ({
@@ -46,8 +46,41 @@ const TopScreen = ({
     dispatch(pastureAction(sandIds));
   }, [user_id, pasture_id]);
 
+  const gameTime = calculateGameDate(currentTime);
+
+  const next_date = new Date(gameTime.getTime() + (7 * 24 * 60 * 60 * 1000));
+  let next_date_month = next_date.getMonth() + 1;
+  let nextWeekNumber = Math.ceil(next_date.getDate() / 7);
+  if (nextWeekNumber == 5) {
+    next_date_month = next_date.getMonth() + 2;
+    nextWeekNumber = 1;
+  }
+  const before_before_date = new Date(gameTime.getTime() - (14 * 24 * 60 * 60 * 1000));
+
+  const next_next_date = new Date(gameTime.getTime() + (14 * 24 * 60 * 60 * 1000));
+  const next_next_date_month = next_next_date.getMonth() + 1;
+  const next_next_week_number = Math.ceil(before_before_date.getDate() / 7);
+
+  const next_next_next_date = new Date(gameTime.getTime() + (21 * 24 * 60 * 60 * 1000));
+  const next_next_next_date_month = next_next_next_date.getMonth() + 1;
+  const next_next_next_week_number = Math.ceil(before_before_date.getDate() / 7);
+
+  const  next_week = next_date_month + "-" + nextWeekNumber;
+  const  next_next_week = next_next_date_month + "-" + next_next_week_number;
+  const  next_next_next_week = next_next_next_date_month + "-" + next_next_next_week_number;
+
+
+
+
   const handleStalleSubmit = () => {
+    const sendDate = {
+      user_id: user_id,
+      next_week: next_week,
+      next_next_week: next_next_week,
+      next_next_next_week: next_next_next_week
+    }
     navigation.navigate("StallScreen");
+    dispatch(HorseRegisteringAction(sendDate));
   };
 
   const handleRaceCourse = () => {

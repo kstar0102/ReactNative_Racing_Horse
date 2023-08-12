@@ -43,7 +43,8 @@ import RaceCourseScreen from '../screens/RaceCourseScreen';
 import CourseTables from '../screens/StableScreens/RaceRegistation/RegisterCourse';
 import HorseRace from '../screens/HorseRace';
 import RaceList from '../screens/HorseRace/RaceList';
-import RaceResultScreen from '../screens/HorseRace/RaceResultScreen';
+import RaceResultScreen from '../screens/HorseRace/RaceResult/RaceResultScreen';
+import RaceResult from '../screens/HorseRace/RaceResult';
 // Bankruptcy
 import Bankruptcy from '../screens/Bankruptcy';
 const Stack = createNativeStackNavigator();
@@ -93,6 +94,7 @@ const AppStack = ({userPt}) => {
       <ModalStack.Screen name={'HorseRace'} component={HorseRace} options={horizontalAnimation}/>
       <ModalStack.Screen name={'RaceList'} component={RaceList} options={horizontalAnimation}/>
       <ModalStack.Screen name={'RaceResultScreen'} component={RaceResultScreen} options={horizontalAnimation}/>
+      <ModalStack.Screen name={'RaceResult'} component={RaceResult} options={horizontalAnimation}/>
       {/* Bankruptcy */}
       <ModalStack.Screen name={'Bankruptcy'} component={Bankruptcy} options={horizontalAnimation}/>
 
