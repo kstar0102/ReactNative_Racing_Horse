@@ -39,6 +39,7 @@ export const fourTiming = (x, y, z, j) => {
 };
 
 export const firstSpeedController = (raceRegisterData, time) => {
+
   let speed = [];
   raceRegisterData.forEach((item) => {
     if (item.quality_leg === "逃") {
@@ -510,7 +511,7 @@ export const raceTime = (raceWidths) => {
   let result = "";
   switch (true) {
     case raceWidths >= 1000 && raceWidths <= 1600:
-      result = 10000;
+      result = 30000;
       break;
     case raceWidths >= 1700 && raceWidths <= 2400:
       result = 40000;
