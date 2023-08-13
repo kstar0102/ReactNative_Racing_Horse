@@ -38,6 +38,7 @@ import {
   threeSpeedController,
   fourSpeedController,
   fiveSpeedController,
+  otherSpeedController,
   raceTime,
   weatherType,
   groundType,
@@ -70,6 +71,7 @@ const HorseRace = ({
   const [threeSpeeds, setThreeSpeeds] = useState(null);
   const [fourSpeeds, setFourSpeeds] = useState(null);
   const [fiveSpeeds, setFiveSpeeds] = useState(null);
+  const [otherSpeeds, setOtherSpeeds] = useState(null);
   const [isHandleStartRunning, setIsHandleStartRunning] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const whipRef = useRef(false);
@@ -124,40 +126,25 @@ const HorseRace = ({
 
     if (speedControllers !== null && racingHorseData !== "") {
       setSecondSpeeds(
-        secondSpeedController(
-          racingHorseData,
-          speedControllers,
-          firstSpeed,
-          firstT
-        )
+        secondSpeedController(racingHorseData, speedControllers, firstSpeed)
+      );
+      setOtherSpeeds(
+        otherSpeedController(racingHorseData, speedControllers, firstSpeed)
       );
       setThreeSpeeds(
-        threeSpeedController(
-          racingHorseData,
-          speedControllers,
-          firstSpeed,
-          firstT + secondT
-        )
+        threeSpeedController(racingHorseData, speedControllers, firstSpeed)
       );
       setFourSpeeds(
-        fourSpeedController(
-          racingHorseData,
-          speedControllers,
-          firstSpeed,
-          firstT + secondT + threeT
-        )
+        fourSpeedController(racingHorseData, speedControllers, firstSpeed)
       );
       setFiveSpeeds(
-        fiveSpeedController(
-          racingHorseData,
-          speedControllers,
-          firstSpeed,
-          firstT + secondT + threeT + fourT
-        )
+        fiveSpeedController(racingHorseData, speedControllers, firstSpeed)
       );
+     
     }
   }, [firstSpeed, speedControllers]);
-
+  
+  const otherSpeedReturn = otherSpeeds != null ? otherSpeeds.sort((a, b) => a - b)[0] : "";
   const backActionHandler = () => {
     return true;
   };
@@ -292,7 +279,7 @@ const HorseRace = ({
     translateValue.setValue(initialValue);
     Animated.timing(translateValue, {
       toValue: ANIMATION_TO_VALUE,
-      duration: racingtime,
+      duration: otherSpeedReturn,
       easing: Easing.linear,
       useNativeDriver: true,
     }).start(() => {
@@ -393,8 +380,7 @@ const HorseRace = ({
       colorCount.push(item[0].color);
     });
   }
-  const racingHorses =  whipRef.current ?  raceHorse : raceWhipHorse;
- 
+  const racingHorses = whipRef.current ? raceHorse : raceWhipHorse;
 
   return (
     <>

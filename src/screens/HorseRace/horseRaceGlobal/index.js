@@ -39,7 +39,6 @@ export const fourTiming = (x, y, z, j) => {
 };
 
 export const firstSpeedController = (raceRegisterData, time) => {
-
   let speed = [];
   raceRegisterData.forEach((item) => {
     if (item.quality_leg === "逃") {
@@ -65,7 +64,6 @@ export const secondSpeedController = (
   racingHorseData,
   speeds,
   firstSpeed,
-  time
 ) => {
   let secondSpeed = [];
   let sps = [];
@@ -96,6 +94,42 @@ export const secondSpeedController = (
   });
 
   return secondSpeed;
+};
+
+
+export const otherSpeedController = (
+  racingHorseData,
+  speeds,
+  firstSpeed,
+) => {
+  let otherSpeed = [];
+  let sps = [];
+  racingHorseData.forEach((item) => {
+    if (
+      item[0] &&
+      item[0].speed_b !== undefined &&
+      item[0].speed_w !== undefined
+    ) {
+      sps.push(item[0].speed_b - -item[0].speed_w);
+    }
+
+    if (item[0] && item[0].quality_leg === "追") {
+      sps[sps.length - 1] *= 0.05;
+    }
+
+    if (item[0] && item[0].tired >= 15) {
+      sps[sps.length - 1] -= 10000;
+    }
+  });
+
+  speeds.forEach((item, index) => {
+    otherSpeed.push(
+      firstSpeed[index] -
+        (item + sps[index]) * 10
+    );
+  });
+
+  return otherSpeed;
 };
 
 export const threeSpeedController = (
