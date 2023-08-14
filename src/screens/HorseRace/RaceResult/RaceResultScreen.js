@@ -172,7 +172,7 @@ const RaceResultScreen = ({
                     return (
                       <View key={l} style={styles.txtBorder}>
                         <Text style={styles.whitePoint}>
-                        {(item.time * 3 / 60).toFixed(0)}:0{(item.time * 3 / 60 % 1 * 60).toFixed(0)} / {item.time}
+                        {(Math.floor(item.time * 3 / 60))}:{(Math.floor(item.time * 3 / 60 % 1 * 60))} / {item.time}
                         </Text>
                       </View>
                     );
