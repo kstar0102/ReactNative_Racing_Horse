@@ -64,16 +64,16 @@ const HeaderScreen = ({userData, fCountDownTime, sCountDownTime, tCountDownTime}
       let starttime = 9;
       let endtime = 21;
       
-      if(starttime <= hour <= endtime){
+      if(hour >= starttime && hour <= endtime){
         dispatch(countDownAction(String(20 - hour), String(60 - minute), String(60 - second)));
       }
       else{
         let inputHour = '';
         if(hour >= 21){
-          inputHour = 30 - hour;
+          inputHour = 32 - hour;
         }
         else{
-          inputHour = 9 - hour;
+          inputHour = 8 - hour;
         }
         dispatch(countDownAction(String(inputHour), String(60 - minute), String(60 - second)));
       }
