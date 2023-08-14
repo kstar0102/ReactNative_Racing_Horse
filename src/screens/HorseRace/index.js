@@ -61,6 +61,9 @@ const HorseRace = ({
   const navigation = useNavigation();
   const initialValue = 0;
   const translateValue = useRef(new Animated.Value(initialValue)).current;
+  const fadeInAnimation = new Animated.Value(1);
+  const fadeOutAnimation = new Animated.Value(0);
+
   const [firstT, setFirstT] = useState(0);
   const [secondT, setSecondT] = useState(0);
   const [threeT, setThreeT] = useState(0);
@@ -140,11 +143,11 @@ const HorseRace = ({
       setFiveSpeeds(
         fiveSpeedController(racingHorseData, speedControllers, firstSpeed)
       );
-     
     }
   }, [firstSpeed, speedControllers]);
-  
-  const otherSpeedReturn = otherSpeeds != null ? otherSpeeds.sort((a, b) => a - b)[0] : "";
+
+  const otherSpeedReturn =
+    otherSpeeds != null ? otherSpeeds.sort((a, b) => a - b)[0] : "";
   const backActionHandler = () => {
     return true;
   };
@@ -343,6 +346,8 @@ const HorseRace = ({
 
   const foResumeRace = () => {
     startRace(fiveSpeeds);
+    fadeIn();
+    fadeOut();
   };
 
   for (let i = 0; i < racingHorseData.length; i++) {
@@ -380,7 +385,25 @@ const HorseRace = ({
       colorCount.push(item[0].color);
     });
   }
-  const racingHorses = whipRef.current ? raceHorse : raceWhipHorse;
+
+  // -----------------------------------------------------------------
+  // ANIMATIOON FADE IN OUT
+  // -------------------------------------------------------------------
+ const fadeIn = () => {
+    Animated.timing(fadeInAnimation, {
+      toValue: 0,
+      duration: 10,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    Animated.timing(fadeOutAnimation, {
+      toValue: 1,
+      duration: 10,
+      useNativeDriver: true,
+    }).start();
+  };
 
   return (
     <>
@@ -420,25 +443,47 @@ const HorseRace = ({
 
         <View style={styles.horseGroup}>
           {horseAnimationStyles.map((style, i) => (
-            <Animated.View key={i} style={[styles.horse, style]}>
-              <View key={i} style={Screenstyles.RaceCoursecontent}>
-                {racingHorses.map((item, k) => {
-                  return (
-                    <View key={`${i}-${k}`}>
-                      <Image
-                        style={Screenstyles.horseSize}
-                        source={item[colorCount[i]]}
-                      />
-                    </View>
-                  );
-                })}
-              </View>
-              <View style={[styles.number]}>
-                {numberSource.map((number, j) => {
-                  return <Image key={`${i}-${j}`} source={number[i + 1]} />;
-                })}
-              </View>
-            </Animated.View>
+            <View key={i}>
+              <Animated.View style={[styles.noWhip, style, {opacity: fadeOutAnimation}]}>
+                <View key={i} style={Screenstyles.RaceCoursecontent}>
+                  {raceHorse.map((item, k) => {
+                    return (
+                      <View key={`${i}-${k}`}>
+                        <Image
+                          style={Screenstyles.horseSize}
+                          source={item[colorCount[i]]}
+                        />
+                      </View>
+                    );
+                  })}
+                </View>
+                <View style={[styles.number]}>
+                  {numberSource.map((number, j) => {
+                    return <Image key={`${i}-${j}`} source={number[i + 1]} />;
+                  })}
+                </View>
+              </Animated.View>
+
+              <Animated.View style={[styles.horse, style, {opacity: fadeInAnimation}]}>
+                <View key={i} style={Screenstyles.RaceCoursecontent}>
+                  {raceWhipHorse.map((item, k) => {
+                    return (
+                      <View key={`${i}-${k}`}>
+                        <Image
+                          style={Screenstyles.horseSize}
+                          source={item[colorCount[i]]}
+                        />
+                      </View>
+                    );
+                  })}
+                </View>
+                <View style={[styles.number]}>
+                  {numberSource.map((number, j) => {
+                    return <Image key={`${i}-${j}`} source={number[i + 1]} />;
+                  })}
+                </View>
+              </Animated.View>
+            </View>
           ))}
         </View>
         <Image style={[Screenstyles.skyImage]} source={weathers} />
@@ -486,6 +531,11 @@ const styles = StyleSheet.create({
     marginTop: 100,
   },
   horse: {
+    width: 50,
+    marginVertical: -10,
+    marginTop:-33,
+  },
+  noWhip:{
     width: 50,
     marginVertical: -10,
   },
