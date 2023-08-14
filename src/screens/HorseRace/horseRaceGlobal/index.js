@@ -57,6 +57,7 @@ export const firstSpeedController = (raceRegisterData, time) => {
       speed.push(time - time * 0.05);
     }
   });
+
   return speed;
 };
 

@@ -11,10 +11,11 @@ import {
   BackHandler,
 } from "react-native";
 // Import the necessary modules and components
-
+//
 import * as ScreenOrientation from "expo-screen-orientation";
 import Screenstyles from "../ScreenStylesheet"; // Import the Screenstyles object from the appropriate file
 import { calculateGameDate } from "../LayoutScreen/HeaderScreen";
+import CurrentDateTimeWeather from "../../components/time/CurrentDateTimeWeather";
 // Redux
 import { connect, useDispatch } from "react-redux";
 import { RaceResultAction } from "../../store/actions/race/RaceResultAction";
@@ -108,25 +109,25 @@ const HorseRace = ({
   useEffect(() => {
     whipRef.current = false;
     setFirstT(firstTiming(racingtime));
+    setFirstSpeed(firstSpeedController(reaceReigsterData, racingtime));
     if (
       reaceReigsterData != "" &&
       racingHorseData != "" &&
       racingJockeyData != ""
     ) {
-      setFirstSpeed(firstSpeedController(reaceReigsterData, racingtime));
       setSpeedControllers(
         speedController(racingHorseData, ground, racingJockeyData)
       );
     }
   }, [racingtime, reaceReigsterData, racingHorseData, racingJockeyData]);
-
   useEffect(() => {
-    if (firstSpeed !== null) {
+    if (firstSpeed != null) {
       setSecondT(secondTiming(firstSpeed));
-      setThreeT(threeTiming(firstSpeed, firstT, secondT));
-      setFourT(fourTiming(firstSpeed, firstT, secondT, threeT));
+      if (secondT != 0) {
+        setThreeT(threeTiming(firstSpeed, firstT, secondT));
+        setFourT(fourTiming(firstSpeed, firstT, secondT, threeT));
+      }
     }
-
     if (speedControllers !== null && racingHorseData !== "") {
       setSecondSpeeds(
         secondSpeedController(racingHorseData, speedControllers, firstSpeed)
@@ -246,7 +247,8 @@ const HorseRace = ({
           rankings.push(ranking.ranking);
           times.push(ranking.time);
         });
-      }
+      };
+
       for (let i = 0; i < horseData.length; i++) {
         if (i < rankings.length || times.length) {
           horseData[i].ranking = rankings[i];
@@ -254,7 +256,7 @@ const HorseRace = ({
         } else {
           break;
         }
-      }
+      };
 
       for (let i = 0; i < prizeData.length; i++) {
         const rank = prizeData[i].rank.trim();
@@ -265,7 +267,17 @@ const HorseRace = ({
             break;
           }
         }
+      };
+
+
+      const timestamp = calculateGameDate(currentTime);
+      const date = new Date(timestamp);
+      const year = date.getFullYear();
+
+      for (let j = 0; j < horseData.length; j++) {
+          horseData[j].year = year;
       }
+
     }
 
     if (horseData != "") {
@@ -274,6 +286,7 @@ const HorseRace = ({
       navigation.navigate("RaceResult");
     }
   };
+
   // BACK IMAGE ANIMATION
   const translate = () => {
     if (shouldStop) {
@@ -389,7 +402,7 @@ const HorseRace = ({
   // -----------------------------------------------------------------
   // ANIMATIOON FADE IN OUT
   // -------------------------------------------------------------------
- const fadeIn = () => {
+  const fadeIn = () => {
     Animated.timing(fadeInAnimation, {
       toValue: 0,
       duration: 10,
@@ -444,7 +457,9 @@ const HorseRace = ({
         <View style={styles.horseGroup}>
           {horseAnimationStyles.map((style, i) => (
             <View key={i}>
-              <Animated.View style={[styles.noWhip, style, {opacity: fadeOutAnimation}]}>
+              <Animated.View
+                style={[styles.noWhip, style, { opacity: fadeOutAnimation }]}
+              >
                 <View key={i} style={Screenstyles.RaceCoursecontent}>
                   {raceHorse.map((item, k) => {
                     return (
@@ -464,7 +479,9 @@ const HorseRace = ({
                 </View>
               </Animated.View>
 
-              <Animated.View style={[styles.horse, style, {opacity: fadeInAnimation}]}>
+              <Animated.View
+                style={[styles.horse, style, { opacity: fadeInAnimation }]}
+              >
                 <View key={i} style={Screenstyles.RaceCoursecontent}>
                   {raceWhipHorse.map((item, k) => {
                     return (
@@ -533,9 +550,9 @@ const styles = StyleSheet.create({
   horse: {
     width: 50,
     marginVertical: -10,
-    marginTop:-33,
+    marginTop: -33,
   },
-  noWhip:{
+  noWhip: {
     width: 50,
     marginVertical: -10,
   },
