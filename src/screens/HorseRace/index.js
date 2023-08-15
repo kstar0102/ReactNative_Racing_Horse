@@ -62,8 +62,10 @@ const HorseRace = ({
   const navigation = useNavigation();
   const initialValue = 0;
   const translateValue = useRef(new Animated.Value(initialValue)).current;
-  const fadeInAnimation = new Animated.Value(1);
-  const fadeOutAnimation = new Animated.Value(0);
+  const fadeInAnimation = new Animated.Value(0);
+  const fadeOutAnimation = new Animated.Value(1);
+  const fadeOutButtonAnimation = new Animated.Value(1);
+  const fadeInButtonAnimation = new Animated.Value(0);
 
   const [firstT, setFirstT] = useState(0);
   const [secondT, setSecondT] = useState(0);
@@ -88,7 +90,7 @@ const HorseRace = ({
   const ground = raceFieldData.ground;
   const weather = raceFieldData.weather;
   let numberWidth = Number(mWidth);
-  let raceWidth = numberWidth + 2000;
+  let raceWidth = numberWidth * 2;
   const outPutRange = raceWidth - 800;
   // WEATHER AND RACING TIME AND GROUNDS DEFAULT VAR
   const racingtime = raceTime(numberWidth);
@@ -163,10 +165,31 @@ const HorseRace = ({
       ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     };
   }, []);
+
   const handleStart = () => {
     startRace(firstSpeed);
     translate();
+    fadeOutButton();
+    fadeInButton();
     clearTimeout(raceTimeout);
+
+    for (let i = 0; i < spd_arr[0].length; i++) {
+      totals.push({
+        time: (
+          (spd_arr[0][i] / 5 +
+            spd_arr[1][i] / 4 +
+            spd_arr[2][i] / 3 +
+            spd_arr[3][i] / 2 +
+            spd_arr[4][i] +
+            10000) /
+          1000
+        ).toFixed(2),
+        ranking: i + 1,
+      });
+    }
+
+    const winners = totals.sort((a, b) => a.time - b.time);
+    totalWinners.push(winners);
     raceTimeout = setTimeout(() => {
       stopRace();
       fResumeRace();
@@ -185,22 +208,6 @@ const HorseRace = ({
     raceTimeout = setTimeout(() => {
       stopRace();
       foResumeRace();
-      for (let i = 0; i < spd_arr[0].length; i++) {
-        totals.push({
-          time: (
-            (spd_arr[0][i] / 5 +
-              spd_arr[1][i] / 4 +
-              spd_arr[2][i] / 3 +
-              spd_arr[3][i] / 2 +
-              spd_arr[4][i] +
-              10000) /
-            1000
-          ).toFixed(2),
-          ranking: i + 1,
-        });
-      }
-      const winners = totals.sort((a, b) => a.time - b.time);
-      totalWinners.push(winners);
     }, firstT + secondT + threeT + fourT);
   };
 
@@ -247,7 +254,7 @@ const HorseRace = ({
           rankings.push(ranking.ranking);
           times.push(ranking.time);
         });
-      };
+      }
 
       for (let i = 0; i < horseData.length; i++) {
         if (i < rankings.length || times.length) {
@@ -256,7 +263,7 @@ const HorseRace = ({
         } else {
           break;
         }
-      };
+      }
 
       for (let i = 0; i < prizeData.length; i++) {
         const rank = prizeData[i].rank.trim();
@@ -267,17 +274,15 @@ const HorseRace = ({
             break;
           }
         }
-      };
-
+      }
 
       const timestamp = calculateGameDate(currentTime);
       const date = new Date(timestamp);
       const year = date.getFullYear();
 
       for (let j = 0; j < horseData.length; j++) {
-          horseData[j].year = year;
+        horseData[j].year = year;
       }
-
     }
 
     if (horseData != "") {
@@ -307,9 +312,11 @@ const HorseRace = ({
   };
   // Horse ANIMATION
   const startRace = (spds) => {
-    if (spds != undefined) {
-      spd_arr.push(spds);
-    }
+    console.log("----------------- ", spds);
+    spd_arr.push(firstSpeed, secondSpeeds, threeSpeeds, fourSpeeds, fiveSpeeds);
+    // if (spds != undefined) {
+    //   spd_arr.push(spds);
+    // }
     if (animationState) {
       return; // Animation is already running
     }
@@ -344,9 +351,10 @@ const HorseRace = ({
       animation.stopAnimation(); // Stop all the horse animations
     });
   };
-
   const fResumeRace = () => {
     startRace(secondSpeeds);
+    fadeIn();
+    fadeOut();
   };
 
   const sResumeRace = () => {
@@ -359,8 +367,8 @@ const HorseRace = ({
 
   const foResumeRace = () => {
     startRace(fiveSpeeds);
-    fadeIn();
-    fadeOut();
+    fadeInEnd();
+    fadeOutEnd();
   };
 
   for (let i = 0; i < racingHorseData.length; i++) {
@@ -404,7 +412,7 @@ const HorseRace = ({
   // -------------------------------------------------------------------
   const fadeIn = () => {
     Animated.timing(fadeInAnimation, {
-      toValue: 0,
+      toValue: 1,
       duration: 10,
       useNativeDriver: true,
     }).start();
@@ -412,12 +420,45 @@ const HorseRace = ({
 
   const fadeOut = () => {
     Animated.timing(fadeOutAnimation, {
+      toValue: 0,
+      duration: 10,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fadeInEnd = () => {
+    Animated.timing(fadeInAnimation, {
+      toValue: 0,
+      duration: 10,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fadeOutEnd = () => {
+    Animated.timing(fadeOutAnimation, {
       toValue: 1,
       duration: 10,
       useNativeDriver: true,
     }).start();
   };
 
+  const fadeOutButton = () => {
+    Animated.timing(fadeOutButtonAnimation, {
+      toValue: 0,
+      duration: 10,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fadeInButton = () => {
+    Animated.timing(fadeInButtonAnimation, {
+      toValue: 1,
+      duration: 10,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  console.log(raceWidth);
   return (
     <>
       <View style={Screenstyles.RaceCourseContainer}>
@@ -506,13 +547,25 @@ const HorseRace = ({
         <Image style={[Screenstyles.skyImage]} source={weathers} />
 
         <View style={styles.buttonGroup}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handleStart}
-            disabled={isHandleStartRunning == true ? true : false}
-          >
-            <Text style={styles.buttonText}>レース</Text>
-          </TouchableOpacity>
+          <Animated.View style={{ opacity: fadeOutButtonAnimation, zIndex: fadeOutButtonAnimation  }}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleStart}
+              disabled={isHandleStartRunning == true ? true : false}
+            >
+              <Text style={styles.buttonText}>レース</Text>
+            </TouchableOpacity>
+          </Animated.View>
+          <Animated.View style={{ opacity: fadeInButtonAnimation, zIndex: fadeInButtonAnimation }}>
+            <TouchableOpacity
+              style={styles.button1}
+              onPress={handleStart}
+              disabled={true}
+            >
+              <Text style={styles.buttonText}>レース</Text>
+            </TouchableOpacity>
+          </Animated.View>
+
           <TouchableOpacity
             style={[styles.button, { backgroundColor: "red" }]}
             onPress={handleResult}
@@ -526,7 +579,6 @@ const HorseRace = ({
 };
 
 const mapStateToProps = (state) => {
-  // rank money
   return {
     racingHorseData: state.racingHJData.racingHorse,
     racingJockeyData: state.racingHJData.racingJockey,
@@ -564,6 +616,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 20,
     marginLeft: 20,
+  },
+  button1:{
+    width: "-30%",
+    height: 32,
+    backgroundColor: "blue",
+    padding: 5,
+    borderRadius: 5,
+    marginTop: 20,
+    marginLeft: -60,
+    opacity: 0.5,
   },
   buttonGroup: {
     position: "absolute",
