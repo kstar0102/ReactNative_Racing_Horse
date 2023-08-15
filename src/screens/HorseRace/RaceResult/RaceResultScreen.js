@@ -11,11 +11,13 @@ const RaceResultScreen = ({
   prizeData,
   jockeysData,
   raceResultData,
+  lastResult,
 }) => {
   if (raceFieldData == "" || prizeData == "" || jockeysData == "") {
     // NOT FOUND JOCKEYSDATA
     return false;
   }
+
   // horseData
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -48,6 +50,13 @@ const RaceResultScreen = ({
   jockeysData.map((item) => {
     jockeyNames.push({ name: item.name, id: item.id });
   });
+  const resultData = lastResult == "" ? raceResultData : lastResult;
+
+  // Step 1: Generate an array of random values
+  const array = Array.from({length: resultData.length}, () => (Math.random() * (45 - 32) + 32).toFixed(2));
+
+  // Step 2: Sort the array in ascending order
+  array.sort((a, b) => a - b);
 
   return (
     <>
@@ -63,7 +72,7 @@ const RaceResultScreen = ({
           </Text>
           <Text style={styles.whites}>賞金(pt):{slicePrices.join("・")}</Text>
         </View>
-        {raceResultData ? (
+        {resultData ? (
           <View style={styles.TableBody}>
             {/* ! */}
             <View style={[styles.TableNumberTitle]}>
@@ -71,8 +80,8 @@ const RaceResultScreen = ({
                 <Text style={styles.whites}>着</Text>
               </View>
               <View>
-                {raceResultData ? (
-                  raceResultData.map((item, j) => {
+                {resultData ? (
+                  resultData.map((item, j) => {
                     return (
                       <View key={j} style={styles.txtBorder}>
                         <Text style={styles.whites}>
@@ -93,8 +102,8 @@ const RaceResultScreen = ({
                 <Text style={styles.whites}>枠</Text>
               </View>
               <View>
-                {raceResultData ? (
-                  raceResultData.map((item, j) => {
+                {resultData ? (
+                  resultData.map((item, j) => {
                     return (
                       <View key={j} style={styles.txtBorder}>
                         <Text
@@ -147,8 +156,8 @@ const RaceResultScreen = ({
                 <Text style={styles.whites}>馬名</Text>
               </View>
               <View>
-                {raceResultData ? (
-                  raceResultData.map((item, l) => {
+                {resultData ? (
+                  resultData.map((item, l) => {
                     return (
                       <View key={l} style={styles.txtBorder}>
                         <Text style={styles.whitePoint}>{item.horse_name}</Text>
@@ -167,12 +176,14 @@ const RaceResultScreen = ({
                 <Text style={styles.whites}>タイム/上り3F</Text>
               </View>
               <View style={styles.txtBorderM}>
-                {raceResultData ? (
-                  raceResultData.map((item, l) => {
+                {resultData ? (
+                  resultData.map((item, l) => {
                     return (
                       <View key={l} style={styles.txtBorder}>
                         <Text style={styles.whitePoint}>
-                        {(Math.floor(item.time * 3 / 60))}:{(Math.floor(item.time * 3 / 60 % 1 * 60))} / {item.time}
+                          {Math.floor((item.time * 3) / 60)}:
+                          {Math.floor((((item.time * 3) / 60) % 1) * 60)} /{" "}
+                          {array[l]}
                         </Text>
                       </View>
                     );
@@ -188,8 +199,8 @@ const RaceResultScreen = ({
               <View style={styles.titleBorder}>
                 <Text style={styles.whites}>オッズ</Text>
               </View>
-              {raceResultData ? (
-                raceResultData.map((item, l) => {
+              {resultData ? (
+                resultData.map((item, l) => {
                   return (
                     <View key={l} style={styles.txtBorder}>
                       <Text style={styles.whitePoint}>
@@ -219,6 +230,8 @@ const mapStateToProps = (state) => {
     jockeysData: state.raceData.jockeysData,
     userData: state.user.userData,
     raceResultData: state.racingData.raceResultData,
+    raceLastResultData: state.lastResultData.lastResultData,
+    lastResult: state.lastResultData.LastRaceResult,
   };
 };
 

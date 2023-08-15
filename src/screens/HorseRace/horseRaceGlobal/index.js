@@ -577,6 +577,7 @@ export const weatherType = (weather) => {
       break;
     case weather == "曇":
       result = require("../../../assets/horseImageData/NewBack/S-2.png");
+      break;
     default:
       return;
   }

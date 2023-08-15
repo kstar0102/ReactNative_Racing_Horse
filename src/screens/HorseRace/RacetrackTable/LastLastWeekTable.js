@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import {
   Table,
@@ -8,10 +8,11 @@ import {
   Rows,
 } from "react-native-table-component";
 import { useNavigation } from "@react-navigation/native";
+import { calculateGameDate } from "../../LayoutScreen/HeaderScreen";
 // Redux
 import { connect, useDispatch } from "react-redux";
 import { ReacRegisterAction } from "../../../store/actions/ReacRegister/ReacRegisterAction";
-import { RaceStartAction } from "../../../store/actions/race/RaceStartAction";
+import { RaceWeekAction } from "../../../store/actions/race/RaceWeekAction";
 import TableStyles from "../../StableScreens/RaceCourse/RacetrackTable/TableStyles";
 
 const LastLastWeekTable = ({
@@ -22,10 +23,12 @@ const LastLastWeekTable = ({
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const gameTime = calculateGameDate(currentTime);
   const elementButton = (threeWeekNames) =>
     threeWeekNames.map((name, index) => (
       <View key={index}>
-        <TouchableOpacity onPress={() => handleClick(raceId[index])}>
+        <TouchableOpacity onPress={() => handleClick(raceId[index], name)}>
           <View style={TableStyles.btn}>
             <Text style={TableStyles.btnText}>{name}</Text>
           </View>
@@ -33,8 +36,19 @@ const LastLastWeekTable = ({
       </View>
     ));
 
-  const handleClick = (value) => {
+  const before_before_date = new Date(
+    gameTime.getTime() - 14 * 24 * 60 * 60 * 1000
+  );
+  const before_before_date_month = before_before_date.getMonth() + 1;
+  const last_last_week_number = Math.ceil(before_before_date.getDate() / 7);
+  const timeData = before_before_date_month + "-" + last_last_week_number;
+  const handleClick = (value, name) => {
+    const sendWeek = {
+      week: timeData,
+      type: name
+    };
     dispatch(ReacRegisterAction(value));
+    dispatch(RaceWeekAction(sendWeek));
     navigation.navigate("RaceList");
   };
 
@@ -70,6 +84,7 @@ const LastLastWeekTable = ({
 const mapStateToProps = (state) => {
   return {
     jockeysData: state.raceData.jockeysData,
+    
   };
 };
 export default connect(mapStateToProps)(LastLastWeekTable);

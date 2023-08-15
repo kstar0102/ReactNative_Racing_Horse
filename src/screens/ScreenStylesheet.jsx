@@ -437,8 +437,6 @@ const Screenstyles = StyleSheet.create({
   },
   stillGroup: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginRight: 150,
   },
   skyImage:{
     width: 1400,
@@ -452,6 +450,7 @@ const Screenstyles = StyleSheet.create({
     width: 60,
     height: 60,
     top: 55,
+    marginLeft: 310
   },
   final: {
     // position: 'absolute',

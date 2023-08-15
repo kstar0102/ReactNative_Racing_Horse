@@ -14,16 +14,14 @@ const ParticipationHorsesList = ({
   jockeysData,
   horseData,
   reaceReigsterData,
+  lastResult
 }) => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
   if (raceFieldData == "" || prizeData == "" || jockeysData == "") {
     // NOT FOUND JOCKEYSDATA
     return false;
   }
-
-  
-  // horseData
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
   // Quality State
   const [escape, setEscape] = useState([]);
   const [destination, setDestination] = useState([]);
@@ -304,7 +302,7 @@ const ParticipationHorsesList = ({
           label={"レース"}
           color={1}
           onPress={() => handleClick()}
-          disabled={btnDisplay}
+          disabled={lastResult != "" ? true : btnDisplay}
         />
         <CustomButtons
           label={"結果"}
@@ -317,6 +315,8 @@ const ParticipationHorsesList = ({
   );
 };
 
+
+
 const mapStateToProps = (state) => {
   return {
     prizeData: state.raceData.prizeData,
@@ -324,7 +324,7 @@ const mapStateToProps = (state) => {
     jockeysData: state.raceData.jockeysData,
     reaceReigsterData: state.raceData.raceRegisterData,
     userData: state.user.userData,
-     
+    lastResult: state.lastResultData.LastRaceResult
   };
 };
 

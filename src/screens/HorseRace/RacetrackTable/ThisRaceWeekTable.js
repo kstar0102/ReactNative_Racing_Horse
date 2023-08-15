@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import {
   Table,
@@ -8,10 +8,11 @@ import {
   Rows,
 } from "react-native-table-component";
 import { useNavigation } from "@react-navigation/native";
+import { calculateGameDate } from "../../LayoutScreen/HeaderScreen";
 // Redux
 import { connect, useDispatch } from "react-redux";
 import { ReacRegisterAction } from "../../../store/actions/ReacRegister/ReacRegisterAction";
-
+import { RaceWeekAction } from "../../../store/actions/race/RaceWeekAction";
 import TableStyles from "../../StableScreens/RaceCourse/RacetrackTable/TableStyles";
 
 const ThisRaceWeekTable = ({
@@ -22,10 +23,12 @@ const ThisRaceWeekTable = ({
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const gameTime = calculateGameDate(currentTime);
   const elementButton = (raceWeekNames) =>
     raceWeekNames.map((name, index) => (
       <View key={index}>
-        <TouchableOpacity onPress={() => handleClick(raceId[index])}>
+        <TouchableOpacity onPress={() => handleClick(raceId[index],name)}>
           <View style={TableStyles.btn}>
             <Text style={TableStyles.btnText}>{name}</Text>
           </View>
@@ -33,8 +36,18 @@ const ThisRaceWeekTable = ({
       </View>
     ));
 
-  const handleClick = (value) => {
+  const current_date = new Date(gameTime.getTime());
+  const current_date_month = current_date.getMonth() + 1;
+  const week_number = Math.ceil(current_date.getDate() / 7);
+  const timeData = current_date_month + "-" + week_number;
+
+  const handleClick = (value, name) => {
+    const sendWeek = {
+      week: timeData,
+      type: name
+    };
     dispatch(ReacRegisterAction(value));
+    dispatch(RaceWeekAction(sendWeek));
     navigation.navigate("RaceList");
   };
 

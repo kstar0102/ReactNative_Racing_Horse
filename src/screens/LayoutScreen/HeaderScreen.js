@@ -77,21 +77,6 @@ const HeaderScreen = ({userData, fCountDownTime, sCountDownTime, tCountDownTime}
         }
         dispatch(countDownAction(String(inputHour), String(60 - minute), String(60 - second)));
       }
-      
-      if (secondsRemainingRef.current <= 0 || thirdRemainingRef.current <= 0 || fourthRemainingRef.current <= 0) {
-        setSecondsRemaining(43200);
-        setThirdRemaining(43200);
-        setFourthRemaining(43200);
-        secondsRemainingRef.current = 43200;
-        thirdRemainingRef.current = 43200;
-        fourthRemainingRef.current = 43200;
-      } else {
-        secondsRemainingRef.current -= 1;
-        thirdRemainingRef.current -= 1;
-        fourthRemainingRef.current-= 1;
-      }
-      setCurrentTime(new Date());
-
     }, 1000);
 
     return () => clearInterval(intervalId);
