@@ -312,11 +312,7 @@ const HorseRace = ({
   };
   // Horse ANIMATION
   const startRace = (spds) => {
-    console.log("----------------- ", spds);
     spd_arr.push(firstSpeed, secondSpeeds, threeSpeeds, fourSpeeds, fiveSpeeds);
-    // if (spds != undefined) {
-    //   spd_arr.push(spds);
-    // }
     if (animationState) {
       return; // Animation is already running
     }
