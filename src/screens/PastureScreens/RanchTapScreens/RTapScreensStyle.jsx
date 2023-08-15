@@ -130,6 +130,13 @@ const RTapScreensStyle = StyleSheet.create({
     color: '#1BFF00',
     paddingLeft: 10
   },
+
+  oneRioghtHeaderTxtGreenA:{
+    fontSize: 17,
+    color: '#1BFF00',
+    paddingLeft: 25
+  },
+
   oneRioghtBody: {
     borderTopWidth: 1,
     borderTopColor: colors.white,

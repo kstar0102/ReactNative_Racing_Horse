@@ -47,8 +47,10 @@ export const fiveTiming = (x, y, z, j) => {
 
   const sum = x.reduce((total, current) => total + current, 0);
   const value = sum / x.length - y - z - j - j;
-  const result = value / 3 - 400 ;
+  const result = value / 5  ;
 
+
+  console.log("-----result--------- ",  result);
   return result;
 };
 

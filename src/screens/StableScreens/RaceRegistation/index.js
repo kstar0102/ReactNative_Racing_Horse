@@ -15,7 +15,6 @@ import RegisterTable from "./RegisterTable";
 import Ccolors from "../../../containers/colors";
 
 const RaceRegistation = ({ stableData, registering }) => {
-
   if (stableData == "" || stableData == undefined) {
     alert("YOUR HORSE NOT FOUND RETURN");
     return <Spinner visible={true} />;
@@ -25,9 +24,9 @@ const RaceRegistation = ({ stableData, registering }) => {
   const [selected, setSelected] = useState(undefined);
   const [banner, setBanner] = useState(stableData[0]);
   const [registeringState, setRegisteringState] = useState("none");
-  
+
   const filteredOneData =
-  registering != "" ? registering.map((data) => Number(data.horse_id)) : [];
+    registering != "" ? registering.map((data) => Number(data.horse_id)) : [];
 
   useEffect(() => {
     if (filteredOneData != "") {
@@ -303,6 +302,8 @@ const RaceRegistation = ({ stableData, registering }) => {
       }
     }
   };
+
+  // console.log( "================ ",  selected.gender);
   return (
     <ImageBackground
       source={require("../../../assets/images/horse_track/stall.jpg")}
@@ -334,10 +335,10 @@ const RaceRegistation = ({ stableData, registering }) => {
                   RTapScreensStyle.oneRioghtHeaderTxtA,
                   {
                     color:
-                      (!!selected && selected.gender == "牝") ||
-                      data[0].gender == "牝"
-                        ? Ccolors.genderColorF
-                        : Ccolors.genderColorM,
+                      (!!selected && selected.gender == "牡") ||
+                      data[0].gender == "牡"
+                        ? Ccolors.genderColorM
+                        : Ccolors.genderColorF,
                   },
                 ]}
               >
@@ -347,10 +348,10 @@ const RaceRegistation = ({ stableData, registering }) => {
                 <Text
                   style={{
                     color:
-                      (!!selected && selected.gender == "牝") ||
-                      data[0].gender == "牝"
-                        ? Ccolors.genderColorF
-                        : Ccolors.genderColorM,
+                      (!!selected && selected.gender == "牡") ||
+                      data[0].gender == "牡"
+                        ? Ccolors.genderColorM
+                        : Ccolors.genderColorF,
                   }}
                 >
                   {(!!selected && selected.gender) || data[0].gender}
@@ -405,7 +406,7 @@ const RaceRegistation = ({ stableData, registering }) => {
 
                   <Text
                     style={[
-                      RTapScreensStyle.oneRioghtHeaderTxtGreen,
+                      RTapScreensStyle.oneRioghtHeaderTxtGreenA,
                       { color: groundColor },
                     ]}
                   >
@@ -433,14 +434,16 @@ const RaceRegistation = ({ stableData, registering }) => {
               </View>
 
               <View style={RTapScreensStyle.oneRioghtBodyTxtGroup}>
-                <Text style={RTapScreensStyle.oneRioghtBodyTxtA}>
-                  {(!!selected && distanceValue) || distanceValue}距離{" "}
+                <View style={RTapScreensStyle.txtGroup}>
+                  <Text style={RTapScreensStyle.oneRioghtBodyTxtA}>
+                    {(!!selected && distanceValue) || distanceValue}距離
+                  </Text>
                   <Text style={RTapScreensStyle.oneRioghtBodyTxtValueA}>
                     {" "}
                     {(!!selected && selected.quality_leg) ||
                       data[0].quality_leg}
                   </Text>
-                </Text>
+                </View>
                 <View style={RTapScreensStyle.oneRightTxt}>
                   <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
                     気性{" "}
