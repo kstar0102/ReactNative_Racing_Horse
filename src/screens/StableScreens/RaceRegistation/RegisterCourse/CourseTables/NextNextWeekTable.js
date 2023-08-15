@@ -28,15 +28,10 @@ const NextNextWeekTable = ({
   const gameTime = calculateGameDate(currentTime);
 
   const before_before_date = new Date(gameTime.getTime() - (14 * 24 * 60 * 60 * 1000));
-
   const next_next_date = new Date(gameTime.getTime() + (14 * 24 * 60 * 60 * 1000));
   const next_next_date_month = next_next_date.getMonth() + 1;
   const next_next_week_number = Math.ceil(before_before_date.getDate() / 7);
-
-
-  const  next_next_week = next_next_date_month + "-" + next_next_week_number;
-
-
+  const next_next_week = next_next_date_month + "-" + next_next_week_number;
 
 
   const elementButton = (nextNextWeekNames) =>

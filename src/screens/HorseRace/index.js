@@ -121,7 +121,7 @@ const HorseRace = ({
   const ground = raceFieldData.ground;
   const weather = raceFieldData.weather;
   let numberWidth = Number(mWidth);
-  let raceWidth = numberWidth * 2;
+  let raceWidth =( numberWidth / 100 )*290  ;
   const outPutRange = raceWidth - 800;
   // WEATHER AND RACING TIME AND GROUNDS DEFAULT VAR
   const racingtime = raceTime(numberWidth);
