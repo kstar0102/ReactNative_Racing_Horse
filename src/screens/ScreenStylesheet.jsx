@@ -450,7 +450,7 @@ const Screenstyles = StyleSheet.create({
     width: 60,
     height: 60,
     top: 55,
-    marginLeft: 310
+    marginLeft: 500
   },
   final: {
     // position: 'absolute',
