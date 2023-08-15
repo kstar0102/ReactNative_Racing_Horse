@@ -1,6 +1,6 @@
 /**
  * ===========================START=========================
- * Import parts 
+ * Import parts
  * ===========================START=========================
  */
 import React, { useState, useEffect, useRef } from "react";
@@ -48,11 +48,13 @@ import {
   secondTiming,
   threeTiming,
   fourTiming,
+  fiveTiming,
   speedController,
   secondSpeedController,
   threeSpeedController,
   fourSpeedController,
   fiveSpeedController,
+  sixSpeedController,
   otherSpeedController,
   raceTime,
   weatherType,
@@ -68,7 +70,7 @@ import {
 
 /**
  * =========================END=========================
- * Import parts 
+ * Import parts
  * =========================END=========================
  */
 
@@ -92,27 +94,29 @@ const HorseRace = ({
   const fadeOutButtonAnimation = new Animated.Value(1);
   const fadeInButtonAnimation = new Animated.Value(0);
 
-//
-// state define
-//  
+  //
+  // state define
+  //  setFiveT
   const [firstT, setFirstT] = useState(0);
   const [secondT, setSecondT] = useState(0);
   const [threeT, setThreeT] = useState(0);
   const [fourT, setFourT] = useState(0);
+  const [fiveT, setFiveT] = useState(0);
   const [firstSpeed, setFirstSpeed] = useState(null);
   const [speedControllers, setSpeedControllers] = useState(null);
   const [secondSpeeds, setSecondSpeeds] = useState(null);
   const [threeSpeeds, setThreeSpeeds] = useState(null);
   const [fourSpeeds, setFourSpeeds] = useState(null);
   const [fiveSpeeds, setFiveSpeeds] = useState(null);
+  const [sixSpeeds, setSixSpeeds] = useState(null);
   const [otherSpeeds, setOtherSpeeds] = useState(null);
   const [isHandleStartRunning, setIsHandleStartRunning] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const whipRef = useRef(false);
 
-//
-// Global scope variables
-//
+  //
+  // Global scope variables
+  //
   const animations = Array.from(
     { length: racingHorseData.length },
     () => new Animated.Value(0)
@@ -121,7 +125,7 @@ const HorseRace = ({
   const ground = raceFieldData.ground;
   const weather = raceFieldData.weather;
   let numberWidth = Number(mWidth);
-  let raceWidth =( numberWidth / 100 )*290  ;
+  let raceWidth = (numberWidth / 100) * 290;
   const outPutRange = raceWidth - 800;
   // WEATHER AND RACING TIME AND GROUNDS DEFAULT VAR
   const racingtime = raceTime(numberWidth);
@@ -138,14 +142,14 @@ const HorseRace = ({
   const horseAnimationStyles = [];
   // CLEARTIMEOUT VALI
   let raceTimeout;
-/**
- * ======================start==========================
- * UseEffect 
- * ======================start==========================
- */
-//
-// calculate first time, first speed and speedController(basic value)
-//
+  /**
+   * ======================start==========================
+   * UseEffect
+   * ======================start==========================
+   */
+  //
+  // calculate first time, first speed and speedController(basic value)
+  //
   useEffect(() => {
     whipRef.current = false;
     setFirstT(firstTiming(racingtime));
@@ -160,15 +164,17 @@ const HorseRace = ({
       );
     }
   }, [racingtime, reaceReigsterData, racingHorseData, racingJockeyData]);
-//
-// calculate second, third, fourth time, and another speeds
-//
+  //
+  // calculate second, third, fourth time, and another speeds
+  //
   useEffect(() => {
     if (firstSpeed != null) {
       setSecondT(secondTiming(firstSpeed));
+      setThreeT(threeTiming(firstSpeed, firstT, secondT));
+      setFourT(fourTiming(firstSpeed, firstT, secondT, threeT));
+
       if (secondT != 0) {
-        setThreeT(threeTiming(firstSpeed, firstT, secondT));
-        setFourT(fourTiming(firstSpeed, firstT, secondT, threeT));
+        setFiveT(fiveTiming(firstSpeed, firstT, secondT, threeT));
       }
     }
     if (speedControllers !== null && racingHorseData !== "") {
@@ -187,6 +193,9 @@ const HorseRace = ({
       setFiveSpeeds(
         fiveSpeedController(racingHorseData, speedControllers, firstSpeed)
       );
+      setSixSpeeds(
+        sixSpeedController(racingHorseData, speedControllers, firstSpeed)
+      );
     }
   }, [firstSpeed, speedControllers]);
 
@@ -195,9 +204,9 @@ const HorseRace = ({
   const backActionHandler = () => {
     return true;
   };
-//
-// screen orientation
-//
+  //
+  // screen orientation
+  //
   useEffect(() => {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
     // Add event listener for hardware back button press on Android
@@ -248,23 +257,27 @@ const HorseRace = ({
     totalWinners.push(winners);
     raceTimeout = setTimeout(() => {
       stopRace();
-      fResumeRace();
+      startRace(secondSpeeds);
+      fadeIn();
+      fadeOut();
     }, firstT);
 
     raceTimeout = setTimeout(() => {
       stopRace();
-      sResumeRace();
+      startRace(threeSpeeds);
     }, firstT + secondT);
 
     raceTimeout = setTimeout(() => {
       stopRace();
-      tResumeRace();
+      startRace(fourSpeeds);
     }, firstT + secondT + threeT);
 
     raceTimeout = setTimeout(() => {
       stopRace();
-      foResumeRace();
-    }, firstT + secondT + threeT + fourT);
+      startRace(sixSpeeds);
+      fadeInEnd();
+      fadeOutEnd();
+    }, firstT + secondT + threeT + fourT - fiveT);
   };
   //
   // get result
@@ -373,7 +386,7 @@ const HorseRace = ({
   //
   // start race(only logic)
   // Horse ANIMATION ACTION
-  // 
+  //
   const startRace = (spds) => {
     spd_arr.push(firstSpeed, secondSpeeds, threeSpeeds, fourSpeeds, fiveSpeeds);
     if (animationState) {
@@ -411,34 +424,6 @@ const HorseRace = ({
     animations.forEach((animation) => {
       animation.stopAnimation(); // Stop all the horse animations
     });
-  };
-  //
-  // start race at first time
-  //
-  const fResumeRace = () => {
-    startRace(secondSpeeds);
-    fadeIn();
-    fadeOut();
-  };
-  //
-  // start race at second time
-  //
-  const sResumeRace = () => {
-    startRace(threeSpeeds);
-  };
-  //
-  // start race at third time
-  //
-  const tResumeRace = () => {
-    startRace(fourSpeeds);
-  };
-  //
-  // start race at fourth time
-  //
-  const foResumeRace = () => {
-    startRace(fiveSpeeds);
-    fadeInEnd();
-    fadeOutEnd();
   };
   //
   // set every horse outputrange so that to calculate there distance
@@ -533,7 +518,7 @@ const HorseRace = ({
       useNativeDriver: true,
     }).start();
   };
-   /**
+  /**
    * =========================END==========================
    * fade in, fade out part
    * =========================END==========================
@@ -631,7 +616,12 @@ const HorseRace = ({
         <Image style={[Screenstyles.skyImage]} source={weathers} />
         {/* buttons start */}
         <View style={styles.buttonGroup}>
-          <Animated.View style={{ opacity: fadeOutButtonAnimation, zIndex: fadeOutButtonAnimation  }}>
+          <Animated.View
+            style={{
+              opacity: fadeOutButtonAnimation,
+              zIndex: fadeOutButtonAnimation,
+            }}
+          >
             <TouchableOpacity
               style={styles.button}
               onPress={handleStart}
@@ -640,7 +630,12 @@ const HorseRace = ({
               <Text style={styles.buttonText}>レース</Text>
             </TouchableOpacity>
           </Animated.View>
-          <Animated.View style={{ opacity: fadeInButtonAnimation, zIndex: fadeInButtonAnimation }}>
+          <Animated.View
+            style={{
+              opacity: fadeInButtonAnimation,
+              zIndex: fadeInButtonAnimation,
+            }}
+          >
             <TouchableOpacity
               style={styles.button1}
               onPress={handleStart}
@@ -707,7 +702,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 20,
   },
-  button1:{
+  button1: {
     width: "-30%",
     height: 32,
     backgroundColor: "blue",

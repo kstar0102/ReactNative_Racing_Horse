@@ -52,6 +52,7 @@ import RaceHorseRegisterReducer from './ReacRegister/RaceHorseRegisterReducer';
 
 // RaceOddsReducer
 import RaceOddsReducer from './race/RaceOddsReducer';
+import RaceNumberReducer from './race/RaceNumberReducer';
 
 export default combineReducers({
     user: user,
@@ -100,5 +101,6 @@ export default combineReducers({
     registerData: RaceHorseRegisterReducer,
 
     // RACING ODDS RANDOM DATA
-    raceOddsData: RaceOddsReducer
+    raceOddsData: RaceOddsReducer,
+    raceNumbersData: RaceNumberReducer
 });

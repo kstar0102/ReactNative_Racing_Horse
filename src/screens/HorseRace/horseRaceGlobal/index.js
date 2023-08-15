@@ -1,5 +1,5 @@
 export const firstTiming = (x) => {
-  const y = x / 5 + x / 20;
+  const y = x / 5;
   return y;
 };
 
@@ -35,8 +35,23 @@ export const fourTiming = (x, y, z, j) => {
   const sum = x.reduce((total, current) => total + current, 0);
   const value = sum / x.length - y - z - j;
   const result = value / 2;
+
   return result;
 };
+
+export const fiveTiming = (x, y, z, j) => {
+  if (x.length === 0) {
+    // Handle empty array case
+    return 0; // Or any other default value/error handling approach you prefer
+  }
+
+  const sum = x.reduce((total, current) => total + current, 0);
+  const value = sum / x.length - y - z - j - j;
+  const result = value / 3 - 400 ;
+
+  return result;
+};
+
 
 export const firstSpeedController = (raceRegisterData, time) => {
   let speed = [];
@@ -137,7 +152,6 @@ export const threeSpeedController = (
   racingHorseData,
   speeds,
   firstSpeed,
-  time
 ) => {
   let threeSpeed = [];
   let sps = [];
@@ -172,7 +186,6 @@ export const fourSpeedController = (
   racingHorseData,
   speeds,
   firstSpeed,
-  time
 ) => {
   let fourSpeed = [];
   let sps = [];
@@ -209,7 +222,6 @@ export const fiveSpeedController = (
   racingHorseData,
   speeds,
   firstSpeed,
-  time
 ) => {
   let fiveSpeed = [];
   let sps = [];
@@ -238,6 +250,40 @@ export const fiveSpeedController = (
   });
 
   return fiveSpeed;
+};
+
+export const sixSpeedController = (
+  racingHorseData,
+  speeds,
+  firstSpeed,
+) => {
+  let sixSpeed = [];
+  let sps = [];
+  racingHorseData.forEach((item, i) => {
+    if (
+      item[0] &&
+      item[0].stamina_b !== undefined &&
+      item[0].stamina_w !== undefined
+    ) {
+      sps.push(item[0].stamina_b - -item[0].stamina_w);
+    }
+
+    if (item[0] && item[0].quality_leg === "逃") {
+      sps[sps.length - 1] *= 0.05;
+    }
+    if (item[0] && item[0].tired >= 15) {
+      sps[sps.length - 1] -= 10000;
+    }
+  });
+  speeds.forEach((item, i) => {
+    sixSpeed.push(
+      firstSpeed[i] -
+        (item + sps[i]) * 10 -
+        (4.34  * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
+    );
+  });
+
+  return sixSpeed;
 };
 export const speedController = (racingHorseData, ground, racingJockeyData) => {
   let totalValue = [];
@@ -351,47 +397,6 @@ const happyFun = (happys, states, tireds) => {
   tiredFun(states * multipliers[happys], tireds);
   return tiredFun(states * multipliers[happys], tireds);
 };
-
-// const jockeyHappyFun = (jockeyHappys, jockeyStates, jockeyTired) => {
-
-//   if (typeof jockeyHappys !== "number") {
-//     throw new Error("Invalid input. The 'jockeyHappys' parameter must be a number.");
-//   }
-
-//   const multipliers = {
-//     10: 1.0,
-//     9: 0.98,
-//     8: 0.96,
-//     7: 0.94,
-//     6: 0.92,
-//     5: 0.9,
-//     4: 0.88,
-//     3: 0.86,
-//     2: 0.84,
-//     1: 0.82,
-//     0: 0.8,
-//     "-1": 0.78,
-//     "-2": 0.76,
-//     "-3": 0.74,
-//     "-4": 0.72,
-//     "-5": 0.7,
-//     "-6": 0.68,
-//     "-7": 0.66,
-//     "-8": 0.64,
-//     "-9": 0.62,
-//     "-10": 0.6,
-//   };
-
-//   if (!(jockeyHappys in multipliers)) {
-//     throw new Error(
-//       "Invalid input. The 'jockeyHappys' parameter must be in the range [-10, 10]."
-//     );
-//   }
-
-//   jockeyTiredFun(jockeyStates * multipliers[jockeyHappys], jockeyTired);
-//   return jockeyTiredFun(jockeyStates * multipliers[jockeyHappys], jockeyTired);
-// };
-
 const tiredFun = (happys, tireds) => {
   if (typeof tireds !== "number") {
     throw new Error("Invalid input. The 'happys' parameter must be a number.");
@@ -429,44 +434,6 @@ const tiredFun = (happys, tireds) => {
 
   return happys * multipliers[tireds];
 };
-
-// const jockeyTiredFun = (jockeyHappys, jockeyTireds) => {
-//   if (typeof jockeyTireds !== "number") {
-//     throw new Error("Invalid input. The 'happys' parameter must be a number.");
-//   }
-
-//   const multipliers = {
-//     0: 1.0,
-//     1: 0.98,
-//     2: 0.96,
-//     3: 0.94,
-//     4: 0.92,
-//     5: 0.9,
-//     6: 0.88,
-//     7: 0.86,
-//     8: 0.84,
-//     9: 0.82,
-//     10: 0.8,
-//     11: 0.78,
-//     12: 0.76,
-//     13: 0.74,
-//     14: 0.72,
-//     15: 0.7,
-//     16: 0.68,
-//     17: 0.66,
-//     18: 0.64,
-//     19: 0.62,
-//     20: 0.6,
-//   };
-
-//   if (!(jockeyTireds in multipliers)) {
-//     throw new Error(
-//       "Invalid input. The 'happys' parameter must be in the range [-10, 10]."
-//     );
-//   }
-
-//   return jockeyHappys * multipliers[jockeyTireds];
-// };
 
 const horseGround = (horseGrounds, speedValue, ground) => {
   let results = "";
@@ -545,15 +512,24 @@ export const raceTime = (raceWidths) => {
   }
   let result = "";
   switch (true) {
-    case raceWidths >= 1000 && raceWidths <= 1600:
+    case raceWidths >= 1000 && raceWidths <= 1300:
       result = 30000;
       break;
-    case raceWidths >= 1700 && raceWidths <= 2400:
+    case raceWidths >= 1400 && raceWidths <= 1600:
+      result = 35000;
+      break;
+    case raceWidths >= 1700 && raceWidths <= 2100:
       result = 40000;
       break;
-    case raceWidths >= 2500 && raceWidths <= 3200:
+    case raceWidths >= 2100 && raceWidths <= 2400:
+      result = 45000;
+      break;
+    case raceWidths >= 2500 && raceWidths <= 2800:
       result = 50000;
       break;
+    case raceWidths >= 2900 && raceWidths <= 3200:
+      result = 55000;
+      break;  
     case raceWidths >= 3300:
       result = 60000;
       break;

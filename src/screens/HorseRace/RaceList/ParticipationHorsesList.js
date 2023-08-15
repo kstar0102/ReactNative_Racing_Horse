@@ -120,7 +120,6 @@ const ParticipationHorsesList = ({
   // Step 1: Generate an array of random values
   const array = Array.from({length: reaceReigsterData.length}, () => (Math.random() * (1 - 50) + 50).toFixed(1));
   // Step 2: Sort the array in ascending order
-  array.sort((a, b) => a - b);
 
   const handleClick = () => {
     const sendIds = {
@@ -146,8 +145,13 @@ const ParticipationHorsesList = ({
     jockeyNames.push({ name: item.name, id: item.id });
   });
 
-
-
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+  shuffleArray(reaceReigsterData);
   return (
     <>
       <ScrollView style={styles.container}>
