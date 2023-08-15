@@ -14,7 +14,8 @@ import { horseColor } from "../../../utils/globals";
 import RegisterTable from "./RegisterTable";
 import Ccolors from "../../../containers/colors";
 
-const RaceRegistation = ({ stableData }) => {
+const RaceRegistation = ({ stableData, registering }) => {
+
   if (stableData == "" || stableData == undefined) {
     alert("YOUR HORSE NOT FOUND RETURN");
     return <Spinner visible={true} />;
@@ -23,7 +24,22 @@ const RaceRegistation = ({ stableData }) => {
   const [groundColor, setGroundColor] = useState("#1BFF00");
   const [selected, setSelected] = useState(undefined);
   const [banner, setBanner] = useState(stableData[0]);
+  const [registeringState, setRegisteringState] = useState("none");
+  
+  const filteredOneData =
+  registering != "" ? registering.map((data) => Number(data.horse_id)) : [];
 
+  useEffect(() => {
+    if (filteredOneData != "") {
+      if (filteredOneData.includes(banner.id)) {
+        setRegisteringState("flex");
+      } else {
+        setRegisteringState("none");
+      }
+    } else {
+      setRegisteringState("none");
+    }
+  }, [banner, registering]);
   useEffect(() => {
     setBanner(stableData[0]);
     setPattern(tiredNumber);
@@ -313,15 +329,35 @@ const RaceRegistation = ({ stableData }) => {
           </View>
           <View style={RTapScreensStyle.oneTopContentRight}>
             <View style={RTapScreensStyle.oneRioghtHeader}>
-            <Text style={[RTapScreensStyle.oneRioghtHeaderTxtA, {color: (!!selected && selected.gender == "牝") || data[0].gender == "牝" ? Ccolors.genderColorF : Ccolors.genderColorM}]}>
-              {(!!selected && selected.name) || data[0].name}
-            </Text>
-            <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
-              <Text style={{ color: (!!selected && selected.gender == "牝") || data[0].gender == "牝" ? Ccolors.genderColorF : Ccolors.genderColorM}}>
-                {(!!selected && selected.gender) || data[0].gender}
+              <Text
+                style={[
+                  RTapScreensStyle.oneRioghtHeaderTxtA,
+                  {
+                    color:
+                      (!!selected && selected.gender == "牝") ||
+                      data[0].gender == "牝"
+                        ? Ccolors.genderColorF
+                        : Ccolors.genderColorM,
+                  },
+                ]}
+              >
+                {(!!selected && selected.name) || data[0].name}
               </Text>
-              {(!!selected && selected.age.split('')[1]) || data[0].age.split('')[1]}
-            </Text>
+              <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
+                <Text
+                  style={{
+                    color:
+                      (!!selected && selected.gender == "牝") ||
+                      data[0].gender == "牝"
+                        ? Ccolors.genderColorF
+                        : Ccolors.genderColorM,
+                  }}
+                >
+                  {(!!selected && selected.gender) || data[0].gender}
+                </Text>
+                {(!!selected && selected.age.split("")[1]) ||
+                  data[0].age.split("")[1]}
+              </Text>
               <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
                 {(!!selected && selected.growth) || data[0].growth}
               </Text>
@@ -427,11 +463,21 @@ const RaceRegistation = ({ stableData }) => {
                   {horseColor.map((colorName, index) => {
                     if (colorName[selected.color]) {
                       return (
-                        <Image
-                          key={`${index}`}
-                          style={RTapScreensStyle.HorseAvatar}
-                          source={colorName[selected.color]}
-                        />
+                        <View>
+                          <Image
+                            key={`${index}`}
+                            style={RTapScreensStyle.HorseAvatar}
+                            source={colorName[selected.color]}
+                          />
+
+                          <Image
+                            style={[
+                              RTapScreensStyle.registering,
+                              { display: registeringState },
+                            ]}
+                            source={require("../../../assets/horseImageData/registering_1.png")}
+                          />
+                        </View>
                       );
                     } else {
                       return null;
@@ -443,11 +489,21 @@ const RaceRegistation = ({ stableData }) => {
                   {horseColor.map((colorName, index) => {
                     if (colorName[data[0].color]) {
                       return (
-                        <Image
-                          key={`${index}`}
-                          style={RTapScreensStyle.HorseAvatar}
-                          source={colorName[data[0].color]}
-                        />
+                        <View>
+                          <Image
+                            key={`${index}`}
+                            style={RTapScreensStyle.HorseAvatar}
+                            source={colorName[data[0].color]}
+                          />
+
+                          <Image
+                            style={[
+                              RTapScreensStyle.registering,
+                              { display: registeringState },
+                            ]}
+                            source={require("../../../assets/horseImageData/registering_1.png")}
+                          />
+                        </View>
                       );
                     } else {
                       return null;
@@ -472,6 +528,7 @@ const mapStateToProps = (state) => {
   return {
     stableData: state.stableMenu.StableSendData,
     arrowState: state.arrow.arrowState,
+    registering: state.registerData.registeringData,
   };
 };
 export default connect(mapStateToProps)(RaceRegistation);

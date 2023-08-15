@@ -18,6 +18,7 @@ import { connect, useDispatch } from "react-redux";
 import { RaceRegisterSaveAction } from "../../../store/actions/ReacRegister/RaceRegisterSaveAction";
 import { RaceRegisterBackSaveAction } from "../../../store/actions/ReacRegister/RaceRegisterBackSaveAction";
 import { StableGetAtion } from "../../../store/actions/truck/getApi/stableGetAtion";
+import { HorseRegisteringAction } from "../../../store/actions/truck/TrainInstitution/HorseRegisteringAction";
 import { calculateGameDate } from "../../LayoutScreen/HeaderScreen";
 const RegisterTable = ({
   raceFieldData,
@@ -59,6 +60,32 @@ const RegisterTable = ({
   useEffect(() => {
     dispatch(StableGetAtion());
   }, []);
+
+
+
+  const gameTime = calculateGameDate(currentTime);
+
+  const next_date = new Date(gameTime.getTime() + (7 * 24 * 60 * 60 * 1000));
+  let next_date_month = next_date.getMonth() + 1;
+  let nextWeekNumber = Math.ceil(next_date.getDate() / 7);
+  if (nextWeekNumber == 5) {
+    next_date_month = next_date.getMonth() + 2;
+    nextWeekNumber = 1;
+  }
+  const before_before_date = new Date(gameTime.getTime() - (14 * 24 * 60 * 60 * 1000));
+
+  const next_next_date = new Date(gameTime.getTime() + (14 * 24 * 60 * 60 * 1000));
+  const next_next_date_month = next_next_date.getMonth() + 1;
+  const next_next_week_number = Math.ceil(before_before_date.getDate() / 7);
+
+  const next_next_next_date = new Date(gameTime.getTime() + (21 * 24 * 60 * 60 * 1000));
+  const next_next_next_date_month = next_next_next_date.getMonth() + 1;
+  const next_next_next_week_number = Math.ceil(before_before_date.getDate() / 7);
+
+  const  next_week = next_date_month + "-" + nextWeekNumber;
+  const  next_next_week = next_next_date_month + "-" + next_next_week_number;
+  const  next_next_next_week = next_next_next_date_month + "-" + next_next_next_week_number;
+
   useEffect(() => {
     if (raceFieldData.type == "新馬") {
       setPtvalue(80);
@@ -231,6 +258,13 @@ const RegisterTable = ({
       stall_type: stall_type,
       week: raceWeekData
     };
+    const sendDate = {
+      user_id:  userData.id,
+      next_week: next_week,
+      next_next_week: next_next_week,
+      next_next_next_week: next_next_next_week
+    }
+    dispatch(HorseRegisteringAction(sendDate));
     dispatch(RaceRegisterSaveAction(sendAllData));
     setQuality(undefined);
   };
@@ -331,6 +365,13 @@ const RegisterTable = ({
       race_id: raceFieldData.id,
       user_id: userData.id,
     };
+    const sendDate = {
+      user_id:  userData.id,
+      next_week: next_week,
+      next_next_week: next_next_week,
+      next_next_next_week: next_next_next_week
+    }
+    dispatch(HorseRegisteringAction(sendDate));
     dispatch(RaceRegisterBackSaveAction(sendBackData));
   };
 

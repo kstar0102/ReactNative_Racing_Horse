@@ -49,18 +49,18 @@ const ThreeHorseTap = ({ twoData, arrowState, registering }) => {
   const [banner, setBanner] = useState(twoData[0]);
   const filteredOneData =
     registering != "" ? registering.map((data) => Number(data.horse_id)) : [];
-
   useEffect(() => {
     if (filteredOneData != "") {
       if (filteredOneData.includes(banner.id)) {
         setRegisteringState("flex");
       } else {
-        setRegisteringState("flex");
+        setRegisteringState("none");
       }
     } else {
       setRegisteringState("none");
     }
   }, [banner]);
+
   useEffect(() => {
     setBanner(twoData[0]);
     setPattern(tiredNumber);

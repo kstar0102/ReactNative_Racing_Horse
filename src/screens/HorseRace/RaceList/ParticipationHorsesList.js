@@ -6,6 +6,7 @@ import { RegisterButton, CustomButtons } from "../../../components/Buttons";
 import { useNavigation } from "@react-navigation/native";
 import { connect, useDispatch } from "react-redux";
 import { RaceStartAction } from "../../../store/actions/race/RaceStartAction";
+import { RaceOddsAction } from "../../../store/actions/race/RaceOddsAction";
 import * as ScreenOrientation from "expo-screen-orientation";
 
 const ParticipationHorsesList = ({
@@ -116,12 +117,18 @@ const ParticipationHorsesList = ({
     });
   }
 
+  // Step 1: Generate an array of random values
+  const array = Array.from({length: reaceReigsterData.length}, () => (Math.random() * (1 - 50) + 50).toFixed(1));
+  // Step 2: Sort the array in ascending order
+  array.sort((a, b) => a - b);
+
   const handleClick = () => {
     const sendIds = {
       horse_id: raceId,
       jockey_id: jockeyId,
     };
     dispatch(RaceStartAction(sendIds));
+    dispatch(RaceOddsAction(array));
     navigation.navigate('HorseRace');
   };
 
@@ -138,6 +145,8 @@ const ParticipationHorsesList = ({
   jockeysData.map((item) => {
     jockeyNames.push({ name: item.name, id: item.id });
   });
+
+
 
   return (
     <>
@@ -282,7 +291,7 @@ const ParticipationHorsesList = ({
                 return (
                   <View key={l} style={styles.txtBorder}>
                     <Text style={styles.whitePoint}>
-                      {l + 1 + "" + 2 + "" + "." + l}
+                      {array[l]}
                     </Text>
                   </View>
                 );

@@ -58,8 +58,10 @@ const OneHorseTap = ({ oneData, arrowState, showGrowstate, registering }) => {
   const [banner, setBanner] = useState(oneData[0]);
   const [registeringState, setRegisteringState] = useState("none");
 
+
   const filteredOneData =
     registering != "" ? registering.map((data) => Number(data.horse_id)) : [];
+   
 
   useEffect(() => {
     if (filteredOneData != "") {

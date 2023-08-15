@@ -12,16 +12,12 @@ const RaceResultScreen = ({
   jockeysData,
   raceResultData,
   lastResult,
+  oddsData
 }) => {
   if (raceFieldData == "" || prizeData == "" || jockeysData == "") {
     // NOT FOUND JOCKEYSDATA
     return false;
   }
-
-  // horseData
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
-  // Quality Stat
 
   useEffect(() => {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
@@ -204,7 +200,7 @@ const RaceResultScreen = ({
                   return (
                     <View key={l} style={styles.txtBorder}>
                       <Text style={styles.whitePoint}>
-                        {l + 1 + "" + 2 + "" + "." + l}
+                      {oddsData[l]}
                       </Text>
                     </View>
                   );
@@ -232,6 +228,7 @@ const mapStateToProps = (state) => {
     raceResultData: state.racingData.raceResultData,
     raceLastResultData: state.lastResultData.lastResultData,
     lastResult: state.lastResultData.LastRaceResult,
+    oddsData: state.raceOddsData.oddsData
   };
 };
 

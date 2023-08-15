@@ -50,6 +50,9 @@ import dimensionsReducer from './dimension/dimensionsReducer';
 // REGISTERING REDUCER
 import RaceHorseRegisterReducer from './ReacRegister/RaceHorseRegisterReducer';
 
+// RaceOddsReducer
+import RaceOddsReducer from './race/RaceOddsReducer';
+
 export default combineReducers({
     user: user,
     validationData: validationData,
@@ -94,5 +97,8 @@ export default combineReducers({
     dimensions:  dimensionsReducer,
 
     // REGISTERING VALI
-    registerData: RaceHorseRegisterReducer
+    registerData: RaceHorseRegisterReducer,
+
+    // RACING ODDS RANDOM DATA
+    raceOddsData: RaceOddsReducer
 });
