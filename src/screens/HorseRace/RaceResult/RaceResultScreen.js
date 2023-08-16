@@ -49,7 +49,7 @@ const RaceResultScreen = ({
   const resultData = lastResult == "" ? raceResultData : lastResult;
 
   // Step 1: Generate an array of random values
-  const array = Array.from({length: resultData.length}, () => (Math.random() * (45 - 32) + 32).toFixed(2));
+  const array = Array.from({length: resultData.length}, () =>  (Math.random() * (45 - 32) + 32).toFixed(1));
 
   // Step 2: Sort the array in ascending order
   array.sort((a, b) => a - b);
@@ -177,8 +177,10 @@ const RaceResultScreen = ({
                     return (
                       <View key={l} style={styles.txtBorder}>
                         <Text style={styles.whitePoint}>
-                          {Math.floor((item.time * 3) / 60)}:
-                          {Math.floor((((item.time * 3) / 60) % 1) * 60)} /{" "}
+                          0{Math.floor((item.time * 3) / 60)}:
+                          {Math.floor((((item.time * 3) / 60) % 1) * 60).toString().padStart(2, '0')} 
+                          :{String(((((item.time * 3) / 60) % 1) * 60) * 1000).slice(0, 2)}
+                          /{" "}
                           {array[l]}
                         </Text>
                       </View>

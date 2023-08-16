@@ -59,6 +59,7 @@ import {
   raceTime,
   weatherType,
   groundType,
+  finalsType
 } from "./horseRaceGlobal";
 
 import {
@@ -123,6 +124,7 @@ const HorseRace = ({
   ); // Create an array of Animated.Value without using useState inside the loop
   const mWidth = raceFieldData.distance.split("m")[0];
   const ground = raceFieldData.ground;
+  const place = raceFieldData.place;
   const weather = raceFieldData.weather;
   let numberWidth = Number(mWidth);
   let raceWidth = (numberWidth / 100) * 290;
@@ -131,6 +133,7 @@ const HorseRace = ({
   const racingtime = raceTime(numberWidth);
   const weathers = weatherType(weather);
   const grounds = groundType(ground, glasss, grouns);
+  const finals = finalsType(ground, place);
   let colorCount = [];
   // SPEED VALUE VALI
   const spd_arr = [];
@@ -557,7 +560,7 @@ const HorseRace = ({
 
           <Image
             style={Screenstyles.final}
-            source={require("../../assets/horseImageData/Final/1.png")}
+            source={finals}
           />
         </AnimatedImage>
         {/* ground end */}

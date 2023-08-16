@@ -302,8 +302,6 @@ const RaceRegistation = ({ stableData, registering }) => {
       }
     }
   };
-
-  // console.log( "================ ",  selected.gender);
   return (
     <ImageBackground
       source={require("../../../assets/images/horse_track/stall.jpg")}
