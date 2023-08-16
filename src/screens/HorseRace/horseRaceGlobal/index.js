@@ -46,11 +46,10 @@ export const fiveTiming = (x, y, z, j) => {
   }
   const sum = x.reduce((total, current) => total + current, 0);
   const value = sum / x.length - y - z - j - j;
-  const result = value / 5  ;
+  const result = value / 5;
 
   return result;
 };
-
 
 export const firstSpeedController = (raceRegisterData, time) => {
   let speed = [];
@@ -75,11 +74,7 @@ export const firstSpeedController = (raceRegisterData, time) => {
   return speed;
 };
 
-export const secondSpeedController = (
-  racingHorseData,
-  speeds,
-  firstSpeed,
-) => {
+export const secondSpeedController = (racingHorseData, speeds, firstSpeed) => {
   let secondSpeed = [];
   let sps = [];
   racingHorseData.forEach((item) => {
@@ -111,12 +106,7 @@ export const secondSpeedController = (
   return secondSpeed;
 };
 
-
-export const otherSpeedController = (
-  racingHorseData,
-  speeds,
-  firstSpeed,
-) => {
+export const otherSpeedController = (racingHorseData, speeds, firstSpeed) => {
   let otherSpeed = [];
   let sps = [];
   racingHorseData.forEach((item) => {
@@ -138,20 +128,13 @@ export const otherSpeedController = (
   });
 
   speeds.forEach((item, index) => {
-    otherSpeed.push(
-      firstSpeed[index] -
-        (item + sps[index]) * 10
-    );
+    otherSpeed.push(firstSpeed[index] - (item + sps[index]) * 10);
   });
 
   return otherSpeed;
 };
 
-export const threeSpeedController = (
-  racingHorseData,
-  speeds,
-  firstSpeed,
-) => {
+export const threeSpeedController = (racingHorseData, speeds, firstSpeed) => {
   let threeSpeed = [];
   let sps = [];
   racingHorseData.forEach((item, i) => {
@@ -181,11 +164,7 @@ export const threeSpeedController = (
   return threeSpeed;
 };
 
-export const fourSpeedController = (
-  racingHorseData,
-  speeds,
-  firstSpeed,
-) => {
+export const fourSpeedController = (racingHorseData, speeds, firstSpeed) => {
   let fourSpeed = [];
   let sps = [];
   racingHorseData.forEach((item, i) => {
@@ -217,11 +196,7 @@ export const fourSpeedController = (
   return fourSpeed;
 };
 
-export const fiveSpeedController = (
-  racingHorseData,
-  speeds,
-  firstSpeed,
-) => {
+export const fiveSpeedController = (racingHorseData, speeds, firstSpeed) => {
   let fiveSpeed = [];
   let sps = [];
   racingHorseData.forEach((item, i) => {
@@ -251,11 +226,7 @@ export const fiveSpeedController = (
   return fiveSpeed;
 };
 
-export const sixSpeedController = (
-  racingHorseData,
-  speeds,
-  firstSpeed,
-) => {
+export const sixSpeedController = (racingHorseData, speeds, firstSpeed) => {
   let sixSpeed = [];
   let sps = [];
   racingHorseData.forEach((item, i) => {
@@ -278,7 +249,7 @@ export const sixSpeedController = (
     sixSpeed.push(
       firstSpeed[i] -
         (item + sps[i]) * 10 -
-        (4.34  * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
+        (4.34 * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
     );
   });
 
@@ -528,7 +499,7 @@ export const raceTime = (raceWidths) => {
       break;
     case raceWidths >= 2900 && raceWidths <= 3200:
       result = 55000;
-      break;  
+      break;
     case raceWidths >= 3300:
       result = 60000;
       break;
@@ -581,7 +552,6 @@ export const groundType = (ground, glasss, grouns) => {
   return result;
 };
 
-
 export const finalsType = (ground, place) => {
   let result = "";
   switch (true) {
@@ -628,7 +598,8 @@ export const finalsType = (ground, place) => {
           break;
         }
         default:
-          return;
+          result = require("../../../assets/horseImageData/Right/福島_芝.png");
+          break;
       }
     }
     case ground == "ダ": {
@@ -674,7 +645,8 @@ export const finalsType = (ground, place) => {
           break;
         }
         default:
-          return;
+          result = require("../../../assets/horseImageData/Right/福島_芝.png");
+          break;
       }
     }
   }

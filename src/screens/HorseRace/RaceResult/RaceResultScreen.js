@@ -48,6 +48,8 @@ const RaceResultScreen = ({
   });
   const resultData = lastResult == "" ? raceResultData : lastResult;
 
+  // console.log(resultData[0].name);
+
   // Step 1: Generate an array of random values
   const array = Array.from({length: resultData.length}, () =>  (Math.random() * (45 - 32) + 32).toFixed(1));
 
@@ -202,7 +204,7 @@ const RaceResultScreen = ({
                   return (
                     <View key={l} style={styles.txtBorder}>
                       <Text style={styles.whitePoint}>
-                      {oddsData[l]}
+                      {item.odds}
                       </Text>
                     </View>
                   );

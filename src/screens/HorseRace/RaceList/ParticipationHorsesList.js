@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 
 import colors from "../../../containers/colors";
@@ -6,16 +6,19 @@ import { RegisterButton, CustomButtons } from "../../../components/Buttons";
 import { useNavigation } from "@react-navigation/native";
 import { connect, useDispatch } from "react-redux";
 import { RaceStartAction } from "../../../store/actions/race/RaceStartAction";
+import { RaceingHorseAction } from "../../../store/actions/race/RaceingHorseAction";
 import { RaceOddsAction } from "../../../store/actions/race/RaceOddsAction";
-import * as ScreenOrientation from "expo-screen-orientation";
 
+import * as ScreenOrientation from "expo-screen-orientation";
+import { speedController } from "../horseRaceGlobal";
 const ParticipationHorsesList = ({
   raceFieldData,
   prizeData,
   jockeysData,
   horseData,
   reaceReigsterData,
-  lastResult
+  lastResult,
+  racingHorseData,
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -23,20 +26,45 @@ const ParticipationHorsesList = ({
     // NOT FOUND JOCKEYSDATA
     return false;
   }
+
   // Quality State
   const [escape, setEscape] = useState([]);
   const [destination, setDestination] = useState([]);
   const [difference, setDifference] = useState([]);
   const [additional, setAdditional] = useState([]);
   const [freeButton, setFreeButton] = useState(0);
+  const [numbers, setNumbers] = useState(0);
+  const [raceReigsterData, setRaceReigsterData] = useState([]);
   const [btnDisplay, setBtnDisplay] = useState(true);
-
+  const [speedControllers, setSpeedControllers] = useState(0);
   useEffect(() => {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-  }, []);
+    shuffleArray(reaceReigsterData);
+  }, [navigation, reaceReigsterData]);
 
   useEffect(() => {
-    if (reaceReigsterData !== "") {
+    let stateValue = [];
+    if (racingHorseData != "") {
+      racingHorseData.map((item) => {
+        stateValue.push(
+          item[0].speed_b -
+            -item[0].speed_w +
+            (item[0].strength_b - -item[0].strength_w) +
+            (item[0].moment_b - -item[0].moment_w) +
+            (item[0].stamina_b - -item[0].stamina_w) +
+            (item[0].condition_b - -item[0].condition_w) +
+            (item[0].health_b - -item[0].health_b)
+        );
+      });
+    }
+
+    setSpeedControllers(
+      stateValue.map((number) => ((3000 - number) / 50).toFixed(1))
+    );
+  }, [racingHorseData]);
+
+  useEffect(() => {
+    if (raceReigsterData !== "") {
       setEscape([]);
       setDifference([]);
       setDestination([]);
@@ -48,7 +76,7 @@ const ParticipationHorsesList = ({
       let updatedAdditional = [];
       let checkButton = 0;
 
-      reaceReigsterData.forEach((item) => {
+      raceReigsterData.forEach((item) => {
         if (item.quality_leg === "逃") {
           updatedEscape.push("flex");
           updatedDestination.push("none");
@@ -88,16 +116,15 @@ const ParticipationHorsesList = ({
       setDifference(["none"]);
       setAdditional(["none"]);
     }
-  }, [reaceReigsterData, horseData]);
+  }, [raceReigsterData, horseData]);
 
   useEffect(() => {
-    if (reaceReigsterData != "" && reaceReigsterData.length > 1) {
+    if (raceReigsterData != "" && raceReigsterData.length > 1) {
       setBtnDisplay(false);
     } else {
       setBtnDisplay(true);
     }
-  }, [reaceReigsterData]);
-
+  }, [raceReigsterData]);
 
   // const age = horseData.age.split("")[1];
   const raceFieldGender = raceFieldData.age_limit.split("・")[1];
@@ -108,28 +135,6 @@ const ParticipationHorsesList = ({
   } else {
     gender = raceFieldGender.split("")[0];
   }
-  let raceId = [];
-  let jockeyId = [];
-  if (reaceReigsterData != "") {
-    reaceReigsterData.map((item) => {
-      raceId.push(item.horse_id);
-      jockeyId.push(item.jockey_id);
-    });
-  }
-
-  // Step 1: Generate an array of random values
-  const array = Array.from({length: reaceReigsterData.length}, () => (Math.random() * (1 - 50) + 50).toFixed(1));
-  // Step 2: Sort the array in ascending order
-
-  const handleClick = () => {
-    const sendIds = {
-      horse_id: raceId,
-      jockey_id: jockeyId,
-    };
-    dispatch(RaceStartAction(sendIds));
-    dispatch(RaceOddsAction(array));
-    navigation.navigate('HorseRace');
-  };
 
   let prices = [];
 
@@ -150,8 +155,31 @@ const ParticipationHorsesList = ({
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
+    setRaceReigsterData(array)
   }
-  shuffleArray(reaceReigsterData);
+  
+  let raceId = [];
+  let jockeyId = [];
+  if (raceReigsterData != "") {
+    raceReigsterData.map((item) => {
+      raceId.push(item.horse_id);
+      jockeyId.push(item.jockey_id);
+    });
+  }
+
+  useEffect(() => {
+    const sendIds = {
+      horse_id: raceId,
+      jockey_id: jockeyId,
+    };
+    dispatch(RaceStartAction(sendIds));
+  }, [raceReigsterData]);
+
+  const handleClick = () => {
+    dispatch(RaceingHorseAction(raceReigsterData));
+    navigation.navigate("HorseRace");
+  };
+
   return (
     <>
       <ScrollView style={styles.container}>
@@ -172,40 +200,22 @@ const ParticipationHorsesList = ({
               <Text style={styles.whites}>枠</Text>
             </View>
             <View>
-              {reaceReigsterData ? (
-                reaceReigsterData.map((item, j) => {
+              {raceReigsterData.length > 0 ? (
+                raceReigsterData.map((item, j) => {
                   return (
                     <View key={j} style={styles.txtBorder}>
                       <Text
                         style={[
-                          j + 1 == 1
-                            ? styles.whiteWhite
-                            : styles.whiteNumber,
-                          j + 1 == 2
-                            ? styles.whiteBlack
-                            : styles.whiteNumber,
+                          j + 1 == 1 ? styles.whiteWhite : styles.whiteNumber,
+                          j + 1 == 2 ? styles.whiteBlack : styles.whiteNumber,
                           j + 1 == 3 ? styles.whiteRed : styles.whiteNumber,
-                          j + 1 == 4
-                            ? styles.whiteblue
-                            : styles.whiteNumber,
-                          j + 1 == 5
-                            ? styles.whiteYellow
-                            : styles.whiteNumber,
-                          j + 1 == 6
-                            ? styles.whiteGreen
-                            : styles.whiteNumber,
-                          j + 1 == 7
-                            ? styles.whiteOrange
-                            : styles.whiteNumber,
-                          j + 1 == 8
-                            ? styles.whiteOrange
-                            : styles.whiteNumber,
-                          j + 1 == 9
-                            ? styles.whitePink
-                            : styles.whiteNumber,
-                          j + 1 == 10
-                            ? styles.whitePink
-                            : styles.whiteNumber,
+                          j + 1 == 4 ? styles.whiteblue : styles.whiteNumber,
+                          j + 1 == 5 ? styles.whiteYellow : styles.whiteNumber,
+                          j + 1 == 6 ? styles.whiteGreen : styles.whiteNumber,
+                          j + 1 == 7 ? styles.whiteOrange : styles.whiteNumber,
+                          j + 1 == 8 ? styles.whiteOrange : styles.whiteNumber,
+                          j + 1 == 9 ? styles.whitePink : styles.whiteNumber,
+                          j + 1 == 10 ? styles.whitePink : styles.whiteNumber,
                         ]}
                       >
                         {j + 1}
@@ -227,8 +237,8 @@ const ParticipationHorsesList = ({
               <Text style={styles.whites}>登録馬</Text>
             </View>
             <View>
-              {reaceReigsterData ? (
-                reaceReigsterData.map((item, i) => {
+              {raceReigsterData ? (
+                raceReigsterData.map((item, i) => {
                   return (
                     <View key={i} style={styles.txtBorder}>
                       <Text style={styles.whites}>
@@ -253,8 +263,8 @@ const ParticipationHorsesList = ({
             <View style={styles.titleBorder}>
               <Text style={styles.whites}>斤量/騎手/脚質</Text>
             </View>
-            {reaceReigsterData ? (
-              reaceReigsterData.map((item, k) => {
+            {raceReigsterData ? (
+              raceReigsterData.map((item, k) => {
                 return (
                   <View key={k} style={styles.txtBorderM}>
                     <Text style={styles.whites}>
@@ -280,8 +290,7 @@ const ParticipationHorsesList = ({
                 );
               })
             ) : (
-              <View style={styles.txtBorderM}>
-              </View>
+              <View style={styles.txtBorderM}></View>
             )}
           </View>
           {/* ! */}
@@ -290,13 +299,11 @@ const ParticipationHorsesList = ({
             <View style={styles.titleBorder}>
               <Text style={styles.whites}>オッズ</Text>
             </View>
-            {reaceReigsterData ? (
-              reaceReigsterData.map((item, l) => {
+            {raceReigsterData ? (
+              raceReigsterData.map((item, l) => {
                 return (
                   <View key={l} style={styles.txtBorder}>
-                    <Text style={styles.whitePoint}>
-                      {array[l]}
-                    </Text>
+                    <Text style={styles.whitePoint}>{speedControllers[l]}</Text>
                   </View>
                 );
               })
@@ -315,7 +322,8 @@ const ParticipationHorsesList = ({
           label={"レース"}
           color={1}
           onPress={() => handleClick()}
-          disabled={lastResult != "" ? true : btnDisplay}
+          // disabled={lastResult != "" ? true : btnDisplay}
+          disabled={btnDisplay}
         />
         <CustomButtons
           label={"結果"}
@@ -328,16 +336,15 @@ const ParticipationHorsesList = ({
   );
 };
 
-
-
 const mapStateToProps = (state) => {
   return {
+    racingHorseData: state.racingHJData.racingHorse,
     prizeData: state.raceData.prizeData,
     raceFieldData: state.raceData.raceFieldData,
     jockeysData: state.raceData.jockeysData,
     reaceReigsterData: state.raceData.raceRegisterData,
     userData: state.user.userData,
-    lastResult: state.lastResultData.LastRaceResult
+    lastResult: state.lastResultData.LastRaceResult,
   };
 };
 

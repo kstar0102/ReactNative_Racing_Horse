@@ -68,6 +68,7 @@ import {
   OUTPUT_RANGE_END,
   ANIMATION_TO_VALUE,
 } from "../../utils/constants";
+import { State } from "react-native-gesture-handler";
 
 /**
  * =========================END=========================
@@ -83,9 +84,11 @@ const HorseRace = ({
   raceFieldData,
   landWidth,
   reaceReigsterData,
+  raceHorseData,
   racingJockeyData,
   prizeData,
 }) => {
+
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const initialValue = 0;
@@ -105,6 +108,7 @@ const HorseRace = ({
   const [fiveT, setFiveT] = useState(0);
   const [firstSpeed, setFirstSpeed] = useState(null);
   const [speedControllers, setSpeedControllers] = useState(null);
+  const [odds, seOdds] = useState(null);
   const [secondSpeeds, setSecondSpeeds] = useState(null);
   const [threeSpeeds, setThreeSpeeds] = useState(null);
   const [fourSpeeds, setFourSpeeds] = useState(null);
@@ -150,6 +154,27 @@ const HorseRace = ({
    * UseEffect
    * ======================start==========================
    */
+
+  useEffect(() => {
+    let stateValue = [];
+    if (racingHorseData != "") {
+      racingHorseData.map((item) => {
+        stateValue.push(
+          item[0].speed_b -
+            -item[0].speed_w +
+            (item[0].strength_b - -item[0].strength_w) +
+            (item[0].moment_b - -item[0].moment_w) +
+            (item[0].stamina_b - -item[0].stamina_w) +
+            (item[0].condition_b - -item[0].condition_w) +
+            (item[0].health_b - -item[0].health_b)
+        );
+      });
+    }
+
+    seOdds(stateValue.map(number => ((3000 - number) / 50).toFixed(1)));
+  }, [racingHorseData]);
+
+  // console.log(odds);
   //
   // calculate first time, first speed and speedController(basic value)
   //
@@ -253,10 +278,11 @@ const HorseRace = ({
           1000
         ).toFixed(2),
         ranking: i + 1,
+        odds: odds[i]
       });
     }
 
-    const winners = totals.sort((a, b) => a.time - b.time);
+    const winners = totals;
     totalWinners.push(winners);
     raceTimeout = setTimeout(() => {
       stopRace();
@@ -291,8 +317,9 @@ const HorseRace = ({
       // RANKING AND TIME ARRAY ADD
       let rankings = [];
       let times = [];
+      let oddss = [];
       // PUSH
-      reaceReigsterData.map((item) => {
+      raceHorseData.map((item) => {
         const race_id = item.race_id;
         const user_name = item.user_name;
         const user_id = item.user_id;
@@ -327,6 +354,7 @@ const HorseRace = ({
         totalWinners[0].map((ranking) => {
           rankings.push(ranking.ranking);
           times.push(ranking.time);
+          oddss.push(ranking.odds);
         });
       }
 
@@ -334,6 +362,7 @@ const HorseRace = ({
         if (i < rankings.length || times.length) {
           horseData[i].ranking = rankings[i];
           horseData[i].time = times[i];
+          horseData[i].odds = oddss[i];
         } else {
           break;
         }
@@ -358,9 +387,9 @@ const HorseRace = ({
         horseData[j].year = year;
       }
     }
-
+    
     if (horseData != "") {
-      dispatch(RaceResultAction(horseData, calculateGameDate(currentTime)));
+      dispatch(RaceResultAction(horseData.sort((a, b) => a.time - b.time), calculateGameDate(currentTime)));
       clearTimeout(raceTimeout);
       navigation.navigate("RaceResult");
     }
@@ -668,6 +697,7 @@ const mapStateToProps = (state) => {
     raceFieldData: state.raceData.raceFieldData,
     landWidth: state.dimensions.dimensionsData.height,
     reaceReigsterData: state.raceData.raceRegisterData,
+    raceHorseData: state.racingHorseData.racingHorseData,
     prizeData: state.raceData.prizeData,
   };
 };

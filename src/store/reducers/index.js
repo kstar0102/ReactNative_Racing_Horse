@@ -53,6 +53,7 @@ import RaceHorseRegisterReducer from './ReacRegister/RaceHorseRegisterReducer';
 // RaceOddsReducer
 import RaceOddsReducer from './race/RaceOddsReducer';
 import RaceNumberReducer from './race/RaceNumberReducer';
+import RacingHorseReducer from './race/RacingHorseReducer';
 
 export default combineReducers({
     user: user,
@@ -99,8 +100,10 @@ export default combineReducers({
 
     // REGISTERING VALI
     registerData: RaceHorseRegisterReducer,
-
     // RACING ODDS RANDOM DATA
     raceOddsData: RaceOddsReducer,
-    raceNumbersData: RaceNumberReducer
+    raceNumbersData: RaceNumberReducer,
+
+    // RACING HORSE DATA
+    racingHorseData: RacingHorseReducer
 });
