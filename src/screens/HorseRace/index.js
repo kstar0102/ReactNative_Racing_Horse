@@ -3,7 +3,7 @@
  * Import parts
  * ===========================START=========================
  */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   View,
   StyleSheet,
@@ -19,6 +19,7 @@ import {
 // Import the necessary modules and components
 //
 import * as ScreenOrientation from "expo-screen-orientation";
+import Spinner from "react-native-loading-spinner-overlay";
 import Screenstyles from "../ScreenStylesheet"; // Import the Screenstyles object from the appropriate file
 import { calculateGameDate } from "../LayoutScreen/HeaderScreen";
 //
@@ -44,6 +45,7 @@ import {
 //
 import {
   firstTiming,
+  fistWhipTiming,
   firstSpeedController,
   secondTiming,
   threeTiming,
@@ -59,7 +61,7 @@ import {
   raceTime,
   weatherType,
   groundType,
-  finalsType
+  finalsType,
 } from "./horseRaceGlobal";
 
 import {
@@ -69,7 +71,6 @@ import {
   ANIMATION_TO_VALUE,
 } from "../../utils/constants";
 import { State } from "react-native-gesture-handler";
-
 /**
  * =========================END=========================
  * Import parts
@@ -87,8 +88,8 @@ const HorseRace = ({
   raceHorseData,
   racingJockeyData,
   prizeData,
+  oddsData,
 }) => {
-
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const initialValue = 0;
@@ -97,27 +98,28 @@ const HorseRace = ({
   const fadeOutAnimation = new Animated.Value(1);
   const fadeOutButtonAnimation = new Animated.Value(1);
   const fadeInButtonAnimation = new Animated.Value(0);
+  const fadeOutLodingAnimation = new Animated.Value(1);
 
   //
   // state define
   //  setFiveT
   const [firstT, setFirstT] = useState(0);
+  const [firstWhipT, setFirstWhipT] = useState(0);
   const [secondT, setSecondT] = useState(0);
   const [threeT, setThreeT] = useState(0);
   const [fourT, setFourT] = useState(0);
   const [fiveT, setFiveT] = useState(0);
   const [firstSpeed, setFirstSpeed] = useState(null);
   const [speedControllers, setSpeedControllers] = useState(null);
-  const [odds, seOdds] = useState(null);
   const [secondSpeeds, setSecondSpeeds] = useState(null);
   const [threeSpeeds, setThreeSpeeds] = useState(null);
   const [fourSpeeds, setFourSpeeds] = useState(null);
   const [fiveSpeeds, setFiveSpeeds] = useState(null);
   const [sixSpeeds, setSixSpeeds] = useState(null);
   const [otherSpeeds, setOtherSpeeds] = useState(null);
-  const [isHandleStartRunning, setIsHandleStartRunning] = useState(false);
+  const [isHandleStartRunning, setIsHandleStartRunning] = useState("flex");
   const [currentTime, setCurrentTime] = useState(new Date());
-  const whipRef = useRef(false);
+  const [loading, setLoading] = useState(false);
 
   //
   // Global scope variables
@@ -155,32 +157,22 @@ const HorseRace = ({
    * ======================start==========================
    */
 
-  useEffect(() => {
-    let stateValue = [];
-    if (racingHorseData != "") {
-      racingHorseData.map((item) => {
-        stateValue.push(
-          item[0].speed_b -
-            -item[0].speed_w +
-            (item[0].strength_b - -item[0].strength_w) +
-            (item[0].moment_b - -item[0].moment_w) +
-            (item[0].stamina_b - -item[0].stamina_w) +
-            (item[0].condition_b - -item[0].condition_w) +
-            (item[0].health_b - -item[0].health_b)
-        );
-      });
-    }
+    setTimeout(() => {
+      setIsHandleStartRunning("none");
+      Animated.timing(fadeOutLodingAnimation, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    }, 2300);
 
-    seOdds(stateValue.map(number => ((3000 - number) / 50).toFixed(1)));
-  }, [racingHorseData]);
-
-  // console.log(odds);
   //
   // calculate first time, first speed and speedController(basic value)
   //
   useEffect(() => {
-    whipRef.current = false;
+    //
     setFirstT(firstTiming(racingtime));
+    setFirstWhipT(fistWhipTiming(racingtime));
     setFirstSpeed(firstSpeedController(reaceReigsterData, racingtime));
     if (
       reaceReigsterData != "" &&
@@ -191,18 +183,20 @@ const HorseRace = ({
         speedController(racingHorseData, ground, racingJockeyData)
       );
     }
-  }, [racingtime, reaceReigsterData, racingHorseData, racingJockeyData]);
+  }, [racingtime]);
   //
   // calculate second, third, fourth time, and another speeds
   //
   useEffect(() => {
     if (firstSpeed != null) {
       setSecondT(secondTiming(firstSpeed));
-      setThreeT(threeTiming(firstSpeed, firstT, secondT));
-      setFourT(fourTiming(firstSpeed, firstT, secondT, threeT));
 
       if (secondT != 0) {
-        setFiveT(fiveTiming(firstSpeed, firstT, secondT, threeT));
+        setThreeT(threeTiming(firstSpeed, firstT, secondT));
+        if (threeT != 0) {
+          setFourT(fourTiming(firstSpeed, firstT, secondT, threeT));
+          setFiveT(fiveTiming(firstSpeed, firstT, secondT, threeT));
+        }
       }
     }
     if (speedControllers !== null && racingHorseData !== "") {
@@ -225,7 +219,7 @@ const HorseRace = ({
         sixSpeedController(racingHorseData, speedControllers, firstSpeed)
       );
     }
-  }, [firstSpeed, speedControllers]);
+  }, [firstSpeed, secondT, threeT]);
 
   const otherSpeedReturn =
     otherSpeeds != null ? otherSpeeds.sort((a, b) => a - b)[0] : "";
@@ -278,17 +272,21 @@ const HorseRace = ({
           1000
         ).toFixed(2),
         ranking: i + 1,
-        odds: odds[i]
+        odds: oddsData[i],
       });
     }
 
     const winners = totals;
     totalWinners.push(winners);
+
+    raceTimeout = setTimeout(() => {
+      fadeIn();
+      fadeOut();
+    }, firstWhipT);
+
     raceTimeout = setTimeout(() => {
       stopRace();
       startRace(secondSpeeds);
-      fadeIn();
-      fadeOut();
     }, firstT);
 
     raceTimeout = setTimeout(() => {
@@ -303,10 +301,17 @@ const HorseRace = ({
 
     raceTimeout = setTimeout(() => {
       stopRace();
+      startRace(fiveSpeeds);
+      fadeInEnd();
+      fadeOutEnd();
+    }, firstT + secondT + threeT + fourT);
+
+    raceTimeout = setTimeout(() => {
+      stopRace();
       startRace(sixSpeeds);
       fadeInEnd();
       fadeOutEnd();
-    }, firstT + secondT + threeT + fourT - fiveT);
+    }, firstT + secondT + threeT + fiveT);
   };
   //
   // get result
@@ -374,8 +379,13 @@ const HorseRace = ({
         for (let j = 0; j < horseData.length; j++) {
           if (rank === String(horseData[j].ranking)) {
             horseData[j].prize = prizeData[i].money;
-            break;
           }
+        }
+      }
+
+      for (let j = 0; j < horseData.length; j++) {
+        if (!horseData[j].prize) {
+          horseData[j].prize = 0;
         }
       }
 
@@ -387,9 +397,14 @@ const HorseRace = ({
         horseData[j].year = year;
       }
     }
-    
+
     if (horseData != "") {
-      dispatch(RaceResultAction(horseData.sort((a, b) => a.time - b.time), calculateGameDate(currentTime)));
+      dispatch(
+        RaceResultAction(
+          horseData.sort((a, b) => a.time - b.time),
+          calculateGameDate(currentTime)
+        )
+      );
       clearTimeout(raceTimeout);
       navigation.navigate("RaceResult");
     }
@@ -559,6 +574,15 @@ const HorseRace = ({
   return (
     <>
       <View style={Screenstyles.RaceCourseContainer}>
+        <Animated.View
+          style={[styles.loadingBack, { opacity: fadeOutLodingAnimation, zIndex: fadeOutLodingAnimation }]}
+        >
+          <Image
+            style={{ left: 350, top: 150, width: 64, height: 64 }}
+            source={require("../../assets/images/1484.gif")}
+          />
+        </Animated.View>
+
         {/* ground start */}
         <AnimatedImage
           resizeMode="repeat"
@@ -587,10 +611,7 @@ const HorseRace = ({
             })}
           </View>
 
-          <Image
-            style={Screenstyles.final}
-            source={finals}
-          />
+          <Image style={Screenstyles.final} source={finals} />
         </AnimatedImage>
         {/* ground end */}
         {/* horse start */}
@@ -654,11 +675,7 @@ const HorseRace = ({
               zIndex: fadeOutButtonAnimation,
             }}
           >
-            <TouchableOpacity
-              style={styles.button}
-              onPress={handleStart}
-              disabled={isHandleStartRunning == true ? true : false}
-            >
+            <TouchableOpacity style={styles.button} onPress={handleStart}>
               <Text style={styles.buttonText}>レース</Text>
             </TouchableOpacity>
           </Animated.View>
@@ -699,6 +716,7 @@ const mapStateToProps = (state) => {
     reaceReigsterData: state.raceData.raceRegisterData,
     raceHorseData: state.racingHorseData.racingHorseData,
     prizeData: state.raceData.prizeData,
+    oddsData: state.raceOddsData.oddsData,
   };
 };
 export default connect(mapStateToProps)(HorseRace);
@@ -708,6 +726,20 @@ export default connect(mapStateToProps)(HorseRace);
  * ======================START=======================
  */
 const styles = StyleSheet.create({
+  loadingBack: {
+    position: "absolute",
+    // top: 100,
+    // left: 300,
+    // flex: 1,
+    zIndex: 3000,
+    width: 750,
+    height: 400,
+    // display: "none",
+    backgroundColor: "#e5eff1",
+  },
+  spinnerTextStyle: {
+    color: "#FFF",
+  },
   container: {
     flex: 1,
     alignItems: "center",

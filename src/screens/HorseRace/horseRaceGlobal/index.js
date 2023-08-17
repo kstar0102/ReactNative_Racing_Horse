@@ -3,6 +3,13 @@ export const firstTiming = (x) => {
   return y;
 };
 
+
+
+export const fistWhipTiming = (x) => {
+  const y = x / 10;
+  return y;
+};
+
 export const secondTiming = (x) => {
   if (x.length === 0) {
     // Handle empty array case
@@ -35,7 +42,6 @@ export const fourTiming = (x, y, z, j) => {
   const sum = x.reduce((total, current) => total + current, 0);
   const value = sum / x.length - y - z - j;
   const result = value / 2;
-
   return result;
 };
 
@@ -46,8 +52,7 @@ export const fiveTiming = (x, y, z, j) => {
   }
   const sum = x.reduce((total, current) => total + current, 0);
   const value = sum / x.length - y - z - j - j;
-  const result = value / 5;
-
+  const result = value / 4;
   return result;
 };
 
@@ -73,6 +78,7 @@ export const firstSpeedController = (raceRegisterData, time) => {
 
   return speed;
 };
+
 
 export const secondSpeedController = (racingHorseData, speeds, firstSpeed) => {
   let secondSpeed = [];
@@ -249,7 +255,7 @@ export const sixSpeedController = (racingHorseData, speeds, firstSpeed) => {
     sixSpeed.push(
       firstSpeed[i] -
         (item + sps[i]) * 10 -
-        (4.34 * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
+        (4.2 * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
     );
   });
 
@@ -550,6 +556,71 @@ export const groundType = (ground, glasss, grouns) => {
       return;
   }
   return result;
+};
+
+export const oddsFun = (racingHorseData) => {
+  let stateValue = [];
+  let totalValue = [];
+  if (racingHorseData != "") {
+      racingHorseData.map((item) => {
+        stateValue.push(
+          item[0].speed_b -
+            -item[0].speed_w +
+            (item[0].strength_b - -item[0].strength_w) +
+            (item[0].moment_b - -item[0].moment_w) +
+            (item[0].stamina_b - -item[0].stamina_w) +
+            (item[0].condition_b - -item[0].condition_w) +
+            (item[0].health_b - -item[0].health_b)
+        );
+      });
+    }
+
+    let sum = 0;
+
+    stateValue.map((item) => {
+      sum += item;
+    });
+    
+    const averageSum = sum / stateValue.length
+    console.log("average", averageSum)
+    
+    const lessThanAverageSum = stateValue.filter(item => item < averageSum);
+    console.log("less", lessThanAverageSum);
+    const greaterThanAverageSum = stateValue.filter(item => item > averageSum);
+    console.log("great", greaterThanAverageSum);
+
+    const randomValueBig = Array.from({length: lessThanAverageSum.length}, () =>  (Math.random() * (50.10 - 20.10) + 20.10).toFixed(1));
+    // console.log(randomValueBig);
+    const randomValueSmall = Array.from({length: greaterThanAverageSum.length}, () =>  (Math.random() * (1.10 - 20.10) + 20.10).toFixed(1));
+    // console.log(randomValueSmall);
+
+    // 20 ~ 50 Random < averageSum
+    const sortedValuesBig = randomValueBig.map(Number).sort((a, b) => a - b);
+    const sortedValuesSmall = lessThanAverageSum.map(Number).sort((a, b) =>  b - a);
+    // console.log("sortedValuesSmall", sortedValuesSmall);
+    //  10 ~ 50 > averageSum
+    const randomSmallValues = randomValueSmall.map(Number).sort((a, b) => a - b);
+    const sortedSmallValuesSmall = greaterThanAverageSum.map(Number).sort((a, b) =>  b - a);
+    // console.log("sortedSmallValuesSmall", sortedSmallValuesSmall);
+
+    const mergedOriginValue = sortedValuesSmall.concat(sortedSmallValuesSmall);
+    const mergedCalculatedValue = sortedValuesBig.concat(randomSmallValues);
+
+    console.log(mergedOriginValue);
+    console.log(mergedCalculatedValue);
+    let resultArray = [];
+    stateValue.map((item) => {
+      for (let i = 0; i < stateValue.length; i++) {
+        if(item == mergedOriginValue[i]){
+          resultArray.push(mergedCalculatedValue[i])
+        }
+      }
+    });
+
+    // console.log(stateValue);
+    // console.log(resultArray);
+
+  return resultArray;
 };
 
 export const finalsType = (ground, place) => {

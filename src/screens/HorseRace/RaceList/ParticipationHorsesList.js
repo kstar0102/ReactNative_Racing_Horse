@@ -8,6 +8,7 @@ import { connect, useDispatch } from "react-redux";
 import { RaceStartAction } from "../../../store/actions/race/RaceStartAction";
 import { RaceingHorseAction } from "../../../store/actions/race/RaceingHorseAction";
 import { RaceOddsAction } from "../../../store/actions/race/RaceOddsAction";
+import { oddsFun } from "../horseRaceGlobal";
 
 import * as ScreenOrientation from "expo-screen-orientation";
 import { speedController } from "../horseRaceGlobal";
@@ -43,26 +44,10 @@ const ParticipationHorsesList = ({
   }, [navigation, reaceReigsterData]);
 
   useEffect(() => {
-    let stateValue = [];
-    if (racingHorseData != "") {
-      racingHorseData.map((item) => {
-        stateValue.push(
-          item[0].speed_b -
-            -item[0].speed_w +
-            (item[0].strength_b - -item[0].strength_w) +
-            (item[0].moment_b - -item[0].moment_w) +
-            (item[0].stamina_b - -item[0].stamina_w) +
-            (item[0].condition_b - -item[0].condition_w) +
-            (item[0].health_b - -item[0].health_b)
-        );
-      });
-    }
-
     setSpeedControllers(
-      stateValue.map((number) => ((3000 - number) / 50).toFixed(1))
+      oddsFun(racingHorseData)
     );
-  }, [racingHorseData]);
-
+  }, [navigation, racingHorseData]);
   useEffect(() => {
     if (raceReigsterData !== "") {
       setEscape([]);
@@ -124,7 +109,7 @@ const ParticipationHorsesList = ({
     } else {
       setBtnDisplay(true);
     }
-  }, [raceReigsterData]);
+  }, [navigation, raceReigsterData]);
 
   // const age = horseData.age.split("")[1];
   const raceFieldGender = raceFieldData.age_limit.split("・")[1];
@@ -177,6 +162,7 @@ const ParticipationHorsesList = ({
 
   const handleClick = () => {
     dispatch(RaceingHorseAction(raceReigsterData));
+    dispatch(RaceOddsAction(speedControllers));
     navigation.navigate("HorseRace");
   };
 
