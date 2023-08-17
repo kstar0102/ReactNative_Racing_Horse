@@ -728,14 +728,10 @@ export default connect(mapStateToProps)(HorseRace);
 const styles = StyleSheet.create({
   loadingBack: {
     position: "absolute",
-    // top: 100,
-    // left: 300,
-    // flex: 1,
     zIndex: 3000,
     width: 750,
     height: 400,
-    // display: "none",
-    backgroundColor: "#e5eff1",
+    backgroundColor: "#fff",
   },
   spinnerTextStyle: {
     color: "#FFF",
