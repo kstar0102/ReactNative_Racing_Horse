@@ -629,94 +629,94 @@ export const finalsType = (ground, place) => {
     case ground == "芝": {
       switch (place) {
         case "京都競馬場": {
-          result = require("../../../assets/horseImageData/Right/京都_芝.png");
+          result = require("../../../assets/horseImageData/Right/2-2.png");
           break;
         }
         case "中山競馬場": {
-          result = require("../../../assets/horseImageData/Right/中山_芝.png");
+          result = require("../../../assets/horseImageData/Right/2-1.png");
           break;
         }
         case "小倉競馬場": {
-          result = require("../../../assets/horseImageData/Right/小倉_芝.png");
+          result = require("../../../assets/horseImageData/Right/2-3.png");
           break;
         }
         case "東京競馬場": {
-          result = require("../../../assets/horseImageData/Left/東京_芝.png");
+          result = require("../../../assets/horseImageData/Left/2-4.png");
           break;
         }
         case "阪神競馬場": {
-          result = require("../../../assets/horseImageData/Right/阪神_芝.png");
+          result = require("../../../assets/horseImageData/Right/2-5.png");
           break;
         }
         case "福島競馬場": {
-          result = require("../../../assets/horseImageData/Right/福島_芝.png");
+          result = require("../../../assets/horseImageData/Right/2-6.png");
           break;
         }
         case "新潟競馬場": {
-          result = require("../../../assets/horseImageData/Left/新潟_芝.png");
+          result = require("../../../assets/horseImageData/Left/2-7.png");
           break;
         }
         case "函館競馬場": {
-          result = require("../../../assets/horseImageData/Right/函館_芝.png");
+          result = require("../../../assets/horseImageData/Right/2-8.png");
           break;
         }
         case "沙田競馬場": {
-          result = require("../../../assets/horseImageData/Right/京都_芝.png");
+          result = require("../../../assets/horseImageData/Right/2-2.png");
           break;
         }
         case "札幌競馬場": {
-          result = require("../../../assets/horseImageData/Right/札幌_芝.png");
+          result = require("../../../assets/horseImageData/Right/2-9.png");
           break;
         }
         default:
-          result = require("../../../assets/horseImageData/Right/福島_芝.png");
+          result = require("../../../assets/horseImageData/Right/2-2.png");
           break;
       }
     }
     case ground == "ダ": {
       switch (place) {
         case "京都競馬場": {
-          result = require("../../../assets/horseImageData/Right/京都_ダート.png");
+          result = require("../../../assets/horseImageData/Right/1-2.png");
           break;
         }
         case "中山競馬場": {
-          result = require("../../../assets/horseImageData/Right/中山_ダート.png");
+          result = require("../../../assets/horseImageData/Right/1-1.png");
           break;
         }
         case "小倉競馬場": {
-          result = require("../../../assets/horseImageData/Right/小倉_ダート.png");
+          result = require("../../../assets/horseImageData/Right/1-3.png");
           break;
         }
         case "東京競馬場": {
-          result = require("../../../assets/horseImageData/Left/東京_ダート.png");
+          result = require("../../../assets/horseImageData/Left/1-4.png");
           break;
         }
         case "阪神競馬場": {
-          result = require("../../../assets/horseImageData/Right/阪神_ダート.png");
+          result = require("../../../assets/horseImageData/Right/1-5.png");
           break;
         }
         case "福島競馬場": {
-          result = require("../../../assets/horseImageData/Right/福島_ダート.png");
+          result = require("../../../assets/horseImageData/Right/1-6.png");
           break;
         }
         case "新潟競馬場": {
-          result = require("../../../assets/horseImageData/Left/新潟_ダート.png");
+          result = require("../../../assets/horseImageData/Left/1-7.png");
           break;
         }
         case "函館競馬場": {
-          result = require("../../../assets/horseImageData/Right/函館_ダ.png");
+          result = require("../../../assets/horseImageData/Right/1-8.png");
           break;
         }
         case "沙田競馬場": {
-          result = require("../../../assets/horseImageData/Right/函館_ダ.png");
+          result = require("../../../assets/horseImageData/Right/1-8.png");
           break;
         }
         case "札幌競馬場": {
-          result = require("../../../assets/horseImageData/Right/札幌_ダート.png");
+          result = require("../../../assets/horseImageData/Right/1-9.png");
           break;
         }
         default:
-          result = require("../../../assets/horseImageData/Right/福島_芝.png");
+          result = require("../../../assets/horseImageData/Right/1-3.png");
           break;
       }
     }

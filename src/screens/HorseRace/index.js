@@ -14,6 +14,7 @@ import {
   ImageBackground,
   Easing,
   BackHandler,
+  Dimensions
 } from "react-native";
 //
 // Import the necessary modules and components
@@ -120,8 +121,7 @@ const HorseRace = ({
   const [isHandleStartRunning, setIsHandleStartRunning] = useState("flex");
   const [currentTime, setCurrentTime] = useState(new Date());
   const [loading, setLoading] = useState(false);
-
-  //
+  
   // Global scope variables
   //
   const animations = Array.from(
@@ -725,11 +725,14 @@ export default connect(mapStateToProps)(HorseRace);
  * style part
  * ======================START=======================
  */
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+  //
 const styles = StyleSheet.create({
   loadingBack: {
     position: "absolute",
     zIndex: 3000,
-    width: 750,
+    width: SCREEN_WIDTH,
     height: 400,
     backgroundColor: "#fff",
   },
