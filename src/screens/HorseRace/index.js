@@ -159,7 +159,7 @@ const HorseRace = ({
       duration: 500,
       useNativeDriver: true,
     }).start();
-  }, 2500);
+  }, 3000);
 
   //
   // calculate first time, first speed and speedController(basic value)
@@ -581,7 +581,7 @@ const HorseRace = ({
         >
           <Image
             style={{ left: 350, top: 150, width: 64, height: 64 }}
-            source={require("../../assets/images/1484.gif")}
+            source={require("../../assets/images/ZZ5H.gif")}
           />
         </Animated.View>
 
