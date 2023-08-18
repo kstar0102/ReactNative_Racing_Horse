@@ -210,9 +210,7 @@ const ParticipationHorsesList = ({
                   );
                 })
               ) : (
-                <View style={styles.txtBorder}>
-                  <Text style={styles.whites}> (牡3)</Text>
-                  <Text style={styles.whites}>馬主:</Text>
+                <View>
                 </View>
               )}
             </View>

@@ -14,13 +14,11 @@ import {
   ImageBackground,
   Easing,
   BackHandler,
-  Dimensions
 } from "react-native";
 //
 // Import the necessary modules and components
 //
 import * as ScreenOrientation from "expo-screen-orientation";
-import Spinner from "react-native-loading-spinner-overlay";
 import Screenstyles from "../ScreenStylesheet"; // Import the Screenstyles object from the appropriate file
 import { calculateGameDate } from "../LayoutScreen/HeaderScreen";
 //
@@ -48,10 +46,10 @@ import {
   firstTiming,
   fistWhipTiming,
   firstSpeedController,
+  cSpeedController,
   secondTiming,
   threeTiming,
   fourTiming,
-  fiveTiming,
   speedController,
   secondSpeedController,
   threeSpeedController,
@@ -71,7 +69,6 @@ import {
   OUTPUT_RANGE_END,
   ANIMATION_TO_VALUE,
 } from "../../utils/constants";
-import { State } from "react-native-gesture-handler";
 /**
  * =========================END=========================
  * Import parts
@@ -109,8 +106,8 @@ const HorseRace = ({
   const [secondT, setSecondT] = useState(0);
   const [threeT, setThreeT] = useState(0);
   const [fourT, setFourT] = useState(0);
-  const [fiveT, setFiveT] = useState(0);
   const [firstSpeed, setFirstSpeed] = useState(null);
+  const [cSpeed, setCSpeed] = useState(null);
   const [speedControllers, setSpeedControllers] = useState(null);
   const [secondSpeeds, setSecondSpeeds] = useState(null);
   const [threeSpeeds, setThreeSpeeds] = useState(null);
@@ -118,10 +115,8 @@ const HorseRace = ({
   const [fiveSpeeds, setFiveSpeeds] = useState(null);
   const [sixSpeeds, setSixSpeeds] = useState(null);
   const [otherSpeeds, setOtherSpeeds] = useState(null);
-  const [isHandleStartRunning, setIsHandleStartRunning] = useState("flex");
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [loading, setLoading] = useState(false);
-  
+
   // Global scope variables
   //
   const animations = Array.from(
@@ -156,15 +151,13 @@ const HorseRace = ({
    * UseEffect
    * ======================start==========================
    */
-
-    setTimeout(() => {
-      setIsHandleStartRunning("none");
-      Animated.timing(fadeOutLodingAnimation, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-    }, 2300);
+  setTimeout(() => {
+    Animated.timing(fadeOutLodingAnimation, {
+      toValue: 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  }, 2500);
 
   //
   // calculate first time, first speed and speedController(basic value)
@@ -174,6 +167,7 @@ const HorseRace = ({
     setFirstT(firstTiming(racingtime));
     setFirstWhipT(fistWhipTiming(racingtime));
     setFirstSpeed(firstSpeedController(reaceReigsterData, racingtime));
+    setCSpeed(cSpeedController(reaceReigsterData, racingtime));
     if (
       reaceReigsterData != "" &&
       racingHorseData != "" &&
@@ -195,7 +189,6 @@ const HorseRace = ({
         setThreeT(threeTiming(firstSpeed, firstT, secondT));
         if (threeT != 0) {
           setFourT(fourTiming(firstSpeed, firstT, secondT, threeT));
-          setFiveT(fiveTiming(firstSpeed, firstT, secondT, threeT));
         }
       }
     }
@@ -254,7 +247,13 @@ const HorseRace = ({
   // start race with settime out
   //
   const handleStart = () => {
+    // startRace(cSpeed);
     startRace(firstSpeed);
+    // setTimeout(() => {
+    //   startRace(firstSpeed);
+    //   console.log("-------firstSpeed-----------");
+    // }, 1000);
+
     translate();
     fadeOutButton();
     fadeInButton();
@@ -301,17 +300,10 @@ const HorseRace = ({
 
     raceTimeout = setTimeout(() => {
       stopRace();
-      startRace(fiveSpeeds);
-      fadeInEnd();
-      fadeOutEnd();
-    }, firstT + secondT + threeT + fourT);
-
-    raceTimeout = setTimeout(() => {
-      stopRace();
       startRace(sixSpeeds);
       fadeInEnd();
       fadeOutEnd();
-    }, firstT + secondT + threeT + fiveT);
+    }, firstT + secondT + threeT + fourT);
   };
   //
   // get result
@@ -424,8 +416,12 @@ const HorseRace = ({
       easing: Easing.linear,
       useNativeDriver: true,
     }).start(() => {
+
+      console.log("-------------sixSpeeds------------------ ")
+      startRace(sixSpeeds);
       if (true === shouldStop) {
         // Check if animation should continue after each loop
+   
         translate();
       }
     });
@@ -439,6 +435,8 @@ const HorseRace = ({
     if (animationState) {
       return; // Animation is already running
     }
+
+    console.log("--------------spds------------ ", spds);
     animationState = true;
     const speeds = animations.map((animation, j) => {
       const speed = spds[j];
@@ -498,6 +496,7 @@ const HorseRace = ({
   });
 
   if (translateAnimation == 0) {
+
     shouldStop = true;
   }
 
@@ -575,7 +574,10 @@ const HorseRace = ({
     <>
       <View style={Screenstyles.RaceCourseContainer}>
         <Animated.View
-          style={[styles.loadingBack, { opacity: fadeOutLodingAnimation, zIndex: fadeOutLodingAnimation }]}
+          style={[
+            styles.loadingBack,
+            { opacity: fadeOutLodingAnimation, zIndex: fadeOutLodingAnimation },
+          ]}
         >
           <Image
             style={{ left: 350, top: 150, width: 64, height: 64 }}
@@ -725,14 +727,12 @@ export default connect(mapStateToProps)(HorseRace);
  * style part
  * ======================START=======================
  */
-
-const SCREEN_WIDTH = Dimensions.get('window').width;
-  //
+//
 const styles = StyleSheet.create({
   loadingBack: {
     position: "absolute",
     zIndex: 3000,
-    width: SCREEN_WIDTH,
+    width: 1000,
     height: 400,
     backgroundColor: "#fff",
   },

@@ -3,8 +3,7 @@ export const firstTiming = (x) => {
   return y;
 };
 
-
-
+// HORSE WHIP TIMING
 export const fistWhipTiming = (x) => {
   const y = x / 10;
   return y;
@@ -33,6 +32,7 @@ export const threeTiming = (x, y, z) => {
   return result;
 };
 
+
 export const fourTiming = (x, y, z, j) => {
   if (x.length === 0) {
     // Handle empty array case
@@ -43,19 +43,7 @@ export const fourTiming = (x, y, z, j) => {
   const value = sum / x.length - y - z - j;
   const result = value / 2;
   return result;
-};
-
-export const fiveTiming = (x, y, z, j) => {
-  if (x.length === 0) {
-    // Handle empty array case
-    return 0; // Or any other default value/error handling approach you prefer
-  }
-  const sum = x.reduce((total, current) => total + current, 0);
-  const value = sum / x.length - y - z - j - j;
-  const result = value / 4;
-  return result;
-};
-
+}
 export const firstSpeedController = (raceRegisterData, time) => {
   let speed = [];
   raceRegisterData.forEach((item) => {
@@ -78,6 +66,30 @@ export const firstSpeedController = (raceRegisterData, time) => {
 
   return speed;
 };
+
+export const cSpeedController = (raceRegisterData, time) => {
+  let speed = [];
+  raceRegisterData.forEach((item) => {
+    if (item.quality_leg === "逃") {
+      speed.push(time - time * 0.45);
+    }
+    if (item.quality_leg === "追") {
+      speed.push(time);
+    }
+    if (item.quality_leg === "大逃") {
+      speed.push(time - time * 0.6);
+    }
+    if (item.quality_leg === "先" || item.quality_leg === "自在") {
+      speed.push(time - time * 0.3);
+    }
+    if (item.quality_leg === "差" || item.quality_leg === "まくり") {
+      speed.push(time - time * 0.15);
+    }
+  });
+
+  return speed;
+};
+
 
 
 export const secondSpeedController = (racingHorseData, speeds, firstSpeed) => {
@@ -143,7 +155,7 @@ export const otherSpeedController = (racingHorseData, speeds, firstSpeed) => {
 export const threeSpeedController = (racingHorseData, speeds, firstSpeed) => {
   let threeSpeed = [];
   let sps = [];
-  racingHorseData.forEach((item, i) => {
+  racingHorseData.forEach((item) => {
     if (
       item[0] &&
       item[0].strength_b !== undefined &&
@@ -173,7 +185,7 @@ export const threeSpeedController = (racingHorseData, speeds, firstSpeed) => {
 export const fourSpeedController = (racingHorseData, speeds, firstSpeed) => {
   let fourSpeed = [];
   let sps = [];
-  racingHorseData.forEach((item, i) => {
+  racingHorseData.forEach((item) => {
     if (
       item[0] &&
       item[0].moment_b !== undefined &&
@@ -205,7 +217,7 @@ export const fourSpeedController = (racingHorseData, speeds, firstSpeed) => {
 export const fiveSpeedController = (racingHorseData, speeds, firstSpeed) => {
   let fiveSpeed = [];
   let sps = [];
-  racingHorseData.forEach((item, i) => {
+  racingHorseData.forEach((item) => {
     if (
       item[0] &&
       item[0].stamina_b !== undefined &&
@@ -235,7 +247,7 @@ export const fiveSpeedController = (racingHorseData, speeds, firstSpeed) => {
 export const sixSpeedController = (racingHorseData, speeds, firstSpeed) => {
   let sixSpeed = [];
   let sps = [];
-  racingHorseData.forEach((item, i) => {
+  racingHorseData.forEach((item) => {
     if (
       item[0] &&
       item[0].stamina_b !== undefined &&
@@ -255,10 +267,9 @@ export const sixSpeedController = (racingHorseData, speeds, firstSpeed) => {
     sixSpeed.push(
       firstSpeed[i] -
         (item + sps[i]) * 10 -
-        (4.2 * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
+        (4 * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
     );
   });
-
   return sixSpeed;
 };
 export const speedController = (racingHorseData, ground, racingJockeyData) => {
@@ -515,6 +526,30 @@ export const raceTime = (raceWidths) => {
   return result;
 };
 
+// export const raceTime = (raceWidths) => {
+//   if (typeof raceWidths !== "number") {
+//     return;
+//   }
+//   let result = "";
+//   switch (true) {
+//     case raceWidths >= 1000 && raceWidths <= 1600:
+//       result = 30000;
+//       break;
+//     case raceWidths >= 1700 && raceWidths <= 2400:
+//       result = 40000;
+//       break;
+//     case raceWidths >= 2500 && raceWidths <= 3200:
+//       result = 50000;
+//       break;
+//     case raceWidths >= 3300:
+//       result = 60000;
+//       break;
+//     default:
+//       return;
+//   }
+//   return result;
+// };
+
 export const weatherType = (weather) => {
   let result = "";
   switch (true) {
@@ -582,12 +617,12 @@ export const oddsFun = (racingHorseData) => {
     });
     
     const averageSum = sum / stateValue.length
-    console.log("average", averageSum)
+    // console.log("average", averageSum)
     
     const lessThanAverageSum = stateValue.filter(item => item < averageSum);
-    console.log("less", lessThanAverageSum);
+    // console.log("less", lessThanAverageSum);
     const greaterThanAverageSum = stateValue.filter(item => item > averageSum);
-    console.log("great", greaterThanAverageSum);
+    // console.log("great", greaterThanAverageSum);
 
     const randomValueBig = Array.from({length: lessThanAverageSum.length}, () =>  (Math.random() * (50.10 - 20.10) + 20.10).toFixed(1));
     // console.log(randomValueBig);
@@ -606,8 +641,8 @@ export const oddsFun = (racingHorseData) => {
     const mergedOriginValue = sortedValuesSmall.concat(sortedSmallValuesSmall);
     const mergedCalculatedValue = sortedValuesBig.concat(randomSmallValues);
 
-    console.log(mergedOriginValue);
-    console.log(mergedCalculatedValue);
+    // console.log(mergedOriginValue);
+    // console.log(mergedCalculatedValue);
     let resultArray = [];
     stateValue.map((item) => {
       for (let i = 0; i < stateValue.length; i++) {

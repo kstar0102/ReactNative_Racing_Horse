@@ -12,7 +12,7 @@ const RaceResultScreen = ({
   jockeysData,
   raceResultData,
   lastResult,
-  oddsData
+  oddsData,
 }) => {
   if (raceFieldData == "" || prizeData == "" || jockeysData == "") {
     // NOT FOUND JOCKEYSDATA
@@ -49,7 +49,9 @@ const RaceResultScreen = ({
   const resultData = lastResult == "" ? raceResultData : lastResult;
 
   // Step 1: Generate an array of random values
-  const array = Array.from({length: resultData.length}, () =>  (Math.random() * (45 - 32) + 32).toFixed(1));
+  const array = Array.from({ length: resultData.length }, () =>
+    (Math.random() * (45 - 32) + 32).toFixed(1)
+  );
 
   // Step 2: Sort the array in ascending order
   array.sort((a, b) => a - b);
@@ -68,7 +70,7 @@ const RaceResultScreen = ({
           </Text>
           <Text style={styles.whites}>賞金(pt):{slicePrices.join("・")}</Text>
         </View>
-        {resultData ? (
+        {raceResultData ? (
           <View style={styles.TableBody}>
             {/* ! */}
             <View style={[styles.TableNumberTitle]}>
@@ -76,8 +78,8 @@ const RaceResultScreen = ({
                 <Text style={styles.whites}>着</Text>
               </View>
               <View>
-                {resultData ? (
-                  resultData.map((item, j) => {
+                {raceResultData ? (
+                  raceResultData.map((item, j) => {
                     return (
                       <View key={j} style={styles.txtBorder}>
                         <Text style={styles.whites}>
@@ -98,8 +100,8 @@ const RaceResultScreen = ({
                 <Text style={styles.whites}>枠</Text>
               </View>
               <View>
-                {resultData ? (
-                  resultData.map((item, j) => {
+                {raceResultData ? (
+                  raceResultData.map((item, j) => {
                     return (
                       <View key={j} style={styles.txtBorder}>
                         <Text
@@ -152,8 +154,8 @@ const RaceResultScreen = ({
                 <Text style={styles.whites}>馬名</Text>
               </View>
               <View>
-                {resultData ? (
-                  resultData.map((item, l) => {
+                {raceResultData ? (
+                  raceResultData.map((item, l) => {
                     return (
                       <View key={l} style={styles.txtBorder}>
                         <Text style={styles.whitePoint}>{item.horse_name}</Text>
@@ -172,16 +174,20 @@ const RaceResultScreen = ({
                 <Text style={styles.whites}>タイム/上り3F</Text>
               </View>
               <View style={styles.txtBorderM}>
-                {resultData ? (
-                  resultData.map((item, l) => {
+                {raceResultData ? (
+                  raceResultData.map((item, l) => {
                     return (
                       <View key={l} style={styles.txtBorder}>
                         <Text style={styles.whitePoint}>
                           0{Math.floor((item.time * 3) / 60)}:
-                          {Math.floor((((item.time * 3) / 60) % 1) * 60).toString().padStart(2, '0')} 
-                          :{String(((((item.time * 3) / 60) % 1) * 60) * 1000).slice(0, 2)}
-                          /{" "}
-                          {array[l]}
+                          {Math.floor((((item.time * 3) / 60) % 1) * 60)
+                            .toString()
+                            .padStart(2, "0")}
+                          :
+                          {String(
+                            (((item.time * 3) / 60) % 1) * 60 * 1000
+                          ).slice(0, 2)}
+                          / {array[l]}
                         </Text>
                       </View>
                     );
@@ -197,13 +203,11 @@ const RaceResultScreen = ({
               <View style={styles.titleBorder}>
                 <Text style={styles.whites}>オッズ</Text>
               </View>
-              {resultData ? (
-                resultData.map((item, l) => {
+              {raceResultData ? (
+                raceResultData.map((item, l) => {
                   return (
                     <View key={l} style={styles.txtBorder}>
-                      <Text style={styles.whitePoint}>
-                      {item.odds}
-                      </Text>
+                      <Text style={styles.whitePoint}>{item.odds}</Text>
                     </View>
                   );
                 })
@@ -214,7 +218,9 @@ const RaceResultScreen = ({
             {/* ! */}
           </View>
         ) : (
-          <View></View>
+          <View>
+            <Text>NO</Text>
+          </View>
         )}
       </ScrollView>
     </>
@@ -230,7 +236,7 @@ const mapStateToProps = (state) => {
     raceResultData: state.racingData.raceResultData,
     raceLastResultData: state.lastResultData.lastResultData,
     lastResult: state.lastResultData.LastRaceResult,
-    oddsData: state.raceOddsData.oddsData
+    oddsData: state.raceOddsData.oddsData,
   };
 };
 
