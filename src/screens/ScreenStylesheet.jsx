@@ -438,6 +438,9 @@ const Screenstyles = StyleSheet.create({
   stillGroup: {
     flexDirection: "row",
   },
+  stillGroupR:{
+    flexDirection: "row-reverse",
+  },
   skyImage:{
     width: 1400,
     height: 115,
@@ -452,12 +455,26 @@ const Screenstyles = StyleSheet.create({
     top: 55,
     marginLeft: 500
   },
+  stillR: {
+    // position: 'absolute',
+    width: 60,
+    height: 60,
+    top: 55,
+    marginRight: 500
+  },
   final: {
     // position: 'absolute',
     width: 80,
     height: 80,
     top: -25,
     left: -10,
+  },
+  finalR: {
+    position: 'absolute',
+    width: 80,
+    height: 80,
+    top: 35,
+    right: 50,
   },
   // bankruptcy
   bank:{

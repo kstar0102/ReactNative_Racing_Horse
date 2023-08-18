@@ -27,14 +27,13 @@ const ParticipationHorsesList = ({
     // NOT FOUND JOCKEYSDATA
     return false;
   }
-
+  const place = raceFieldData.place;
   // Quality State
   const [escape, setEscape] = useState([]);
   const [destination, setDestination] = useState([]);
   const [difference, setDifference] = useState([]);
   const [additional, setAdditional] = useState([]);
   const [freeButton, setFreeButton] = useState(0);
-  const [numbers, setNumbers] = useState(0);
   const [raceReigsterData, setRaceReigsterData] = useState([]);
   const [btnDisplay, setBtnDisplay] = useState(true);
   const [speedControllers, setSpeedControllers] = useState(0);
@@ -163,7 +162,12 @@ const ParticipationHorsesList = ({
   const handleClick = () => {
     dispatch(RaceingHorseAction(raceReigsterData));
     dispatch(RaceOddsAction(speedControllers));
-    navigation.navigate("HorseRace");
+
+    if(place == "東京競馬場" || place == "新潟競馬場" || place == "中京競馬場"){
+      navigation.navigate("ReverseRace");
+    }else{
+      navigation.navigate("HorseRace");
+    }
   };
 
   return (

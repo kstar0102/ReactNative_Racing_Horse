@@ -3,12 +3,6 @@ export const firstTiming = (x) => {
   return y;
 };
 
-// HORSE WHIP TIMING
-export const fistWhipTiming = (x) => {
-  const y = x / 10;
-  return y;
-};
-
 export const secondTiming = (x) => {
   if (x.length === 0) {
     // Handle empty array case

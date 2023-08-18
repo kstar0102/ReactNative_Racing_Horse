@@ -114,7 +114,7 @@ const TopScreen = ({
             <CustomButtons label="厩 舎" onPress={() => handleStalleSubmit()} />
             <CustomButtons
               label="セ リ"
-              onPress={() => navigation.navigate("Bankruptcy")}
+              onPress={() => navigation.navigate("ReverseRace")}
             />
             <CustomButtons label="V I P" disabled={true} />
           </View>

@@ -49,6 +49,48 @@ export const raceHorse = [
   },
 ];
 
+
+export const raceWhipReversHorse = [
+  {
+    白毛: require("../assets/horseImageData/RaceHorseColor/2-1/White_revers/2wakuR.gif"),
+  },
+  {
+    青鹿毛: require("../assets/horseImageData/RaceHorseColor/1-1/BlueBayHair_Whip_revers/1wakuR.gif"),
+  },
+  {
+    栗毛: require("../assets/horseImageData/RaceHorseColor/1-1/Chestnut_Whip_revers/3wakuR.gif"),
+  },
+  {
+    黑鹿毛: require("../assets/horseImageData/RaceHorseColor/1-1/BlackBayHair_Whip_revers/4wakuR.gif"),
+  },
+  {
+    鹿毛: require("../assets/horseImageData/RaceHorseColor/1-1/Kage_Whip_revers/5wakuR.gif"),
+  },
+];
+
+export const raceReversHorse = [
+  {
+    白毛: require("../assets/horseImageData/RaceHorseColor/2-1/White_revers/2wakuR.gif"),
+  },
+  {
+    青鹿毛: require("../assets/horseImageData/RaceHorseColor/1-1/BlueBayHair_revers/1wakuR.gif"),
+  },
+  {
+    栗毛: require("../assets/horseImageData/RaceHorseColor/1-1/Chestnut_revers/3wakuR.gif"),
+  },
+  {
+    黑鹿毛: require("../assets/horseImageData/RaceHorseColor/1-1/BlackBayHair_revers/4wakuR.gif"),
+  },
+  {
+    鹿毛: require("../assets/horseImageData/RaceHorseColor/1-1/Kage_revers/5wakuR.gif"),
+  },
+];
+
+
+
+
+
+
 export const horseSource = [
   { 1: require("../assets/horseImageData/1wakuL.gif") },
   { 2: require("../assets/horseImageData/2wakuL.gif") },

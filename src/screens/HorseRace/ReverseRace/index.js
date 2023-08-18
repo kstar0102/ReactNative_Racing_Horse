@@ -19,26 +19,26 @@ import {
 // Import the necessary modules and components
 //
 import * as ScreenOrientation from "expo-screen-orientation";
-import Screenstyles from "../ScreenStylesheet"; // Import the Screenstyles object from the appropriate file
-import { calculateGameDate } from "../LayoutScreen/HeaderScreen";
+import Screenstyles from "../../ScreenStylesheet"; // Import the Screenstyles object from the appropriate file
+import { calculateGameDate } from "../../LayoutScreen/HeaderScreen";
 //
 // Redux import
 //
 import { connect, useDispatch } from "react-redux";
-import { RaceResultAction } from "../../store/actions/race/RaceResultAction";
+import { RaceResultAction } from "../../../store/actions/race/RaceResultAction";
 import { useNavigation } from "@react-navigation/native";
 //
 // constant values
 // Import the horseSource variable from the correct source
 //
 import {
-  raceWhipHorse,
-  raceHorse,
+  raceWhipReversHorse,
+  raceReversHorse,
   numberSource,
   stillSource,
   grouns,
   glasss,
-} from "./../../utils/globals";
+} from "./../../../utils/globals";
 //
 // calculating formals
 //
@@ -61,14 +61,14 @@ import {
   weatherType,
   groundType,
   finalsType,
-} from "./horseRaceGlobal";
+} from "../horseRaceGlobal";
 
 import {
   INPUT_RANGE_START,
   INPUT_RANGE_END,
   OUTPUT_RANGE_END,
   ANIMATION_TO_VALUE,
-} from "../../utils/constants";
+} from "../../../utils/constants";
 /**
  * =========================END=========================
  * Import parts
@@ -78,7 +78,7 @@ import {
 //
 // Redux data
 //
-const HorseRace = ({
+const ReverseRace = ({
   racingHorseData,
   raceFieldData,
   landWidth,
@@ -301,6 +301,7 @@ const HorseRace = ({
       stopRace();
       startRace(sixSpeeds);
     }, firstT + secondT + threeT + fivT);
+    
   };
   //
   // get result
@@ -429,15 +430,15 @@ const HorseRace = ({
       return; // Animation is already running
     }
     animationState = true;
-    const speeds = animations.map((animation, j) => {
-      const speed = spds[j];
+    const currentValues = animations.map((animation) => animation.__getValue());
+    const speeds = animations.map((animation, index) => {
+      const speed = spds[index];
       Animated.timing(animation, {
-        toValue: 1,
-        duration: speed,
+        toValue: 0, // Move forward by setting toValue to 1
+        duration: (1 - currentValues[index]) * speed, // Resume from the stopped value and complete the remaining distance
         useNativeDriver: true,
-      }).start(() => {
-        animationState = false;
-      });
+      }).start();
+
       return speed;
     });
 
@@ -470,7 +471,7 @@ const HorseRace = ({
         {
           translateX: animations[i].interpolate({
             inputRange: [0, 1],
-            outputRange: [landWidth - 60, 0],
+            outputRange: [20, landWidth - 40],
           }),
         },
       ],
@@ -483,10 +484,11 @@ const HorseRace = ({
   //
   const translateAnimation = translateValue.interpolate({
     inputRange: [INPUT_RANGE_START, INPUT_RANGE_END],
-    outputRange: [-outPutRange, OUTPUT_RANGE_END],
+    outputRange: [OUTPUT_RANGE_END, -outPutRange],
   });
 
   if (translateAnimation == 0) {
+
     shouldStop = true;
   }
 
@@ -555,7 +557,7 @@ const HorseRace = ({
         >
           <Image
             style={{ left: 340, top: 150, width: 100, height: 64 }}
-            source={require("../../assets/images/ezgif.com-resize.gif")}
+            source={require("../../../assets/images/ezgif.com-resize.gif")}
           />
         </Animated.View>
 
@@ -575,19 +577,19 @@ const HorseRace = ({
           ]}
           source={grounds}
         >
-          <View style={[Screenstyles.stillGroup, { width: raceWidth }]}>
+          <View style={[Screenstyles.stillGroupR, { width: raceWidth }]}>
             {stillSource.map((still, l) => {
               return (
                 <Image
                   key={`${l}`}
-                  style={Screenstyles.still}
+                  style={Screenstyles.stillR}
                   source={still[l + 1]}
                 />
               );
             })}
           </View>
 
-          <Image style={Screenstyles.final} source={finals} />
+          <Image style={Screenstyles.finalR} source={finals} />
         </AnimatedImage>
         {/* ground end */}
         {/* horse start */}
@@ -598,7 +600,7 @@ const HorseRace = ({
                 style={[styles.noWhip, style, { opacity: fadeOutAnimation }]}
               >
                 <View key={i} style={Screenstyles.RaceCoursecontent}>
-                  {raceHorse.map((item, k) => {
+                  {raceReversHorse.map((item, k) => {
                     return (
                       <View key={`${i}-${k}`}>
                         <Image
@@ -609,7 +611,7 @@ const HorseRace = ({
                     );
                   })}
                 </View>
-                <View style={[styles.number]}>
+                <View style={[styles.numberR]}>
                   {numberSource.map((number, j) => {
                     return <Image key={`${i}-${j}`} source={number[i + 1]} />;
                   })}
@@ -620,7 +622,7 @@ const HorseRace = ({
                 style={[styles.horse, style, { opacity: fadeInAnimation }]}
               >
                 <View key={i} style={Screenstyles.RaceCoursecontent}>
-                  {raceWhipHorse.map((item, k) => {
+                  {raceWhipReversHorse.map((item, k) => {
                     return (
                       <View key={`${i}-${k}`}>
                         <Image
@@ -631,7 +633,7 @@ const HorseRace = ({
                     );
                   })}
                 </View>
-                <View style={[styles.number]}>
+                <View style={[styles.numberR]}>
                   {numberSource.map((number, j) => {
                     return <Image key={`${i}-${j}`} source={number[i + 1]} />;
                   })}
@@ -655,7 +657,6 @@ const HorseRace = ({
               <Text style={styles.buttonText}>レース</Text>
             </TouchableOpacity>
           </Animated.View>
-
           <Animated.View
             style={{
               opacity: fadeInButtonAnimation,
@@ -678,6 +679,8 @@ const HorseRace = ({
             <Text style={styles.buttonText}>結果</Text>
           </TouchableOpacity>
         </View>
+        {/* buttons end */}
+
         <View
           style={{
             flexDirection: "row",
@@ -687,15 +690,13 @@ const HorseRace = ({
         >
           <Image
             style={{ zIndex: -1, top: 210, height: 35 }}
-            source={require("../../assets/images/raceBackground.jpg")}
+            source={require("../../../assets/images/raceRBackground.jpg")}
           />
           <Image
             style={{ zIndex: -1, top: 210, right: 60, height: 35 }}
-            source={require("../../assets/images/raceBackgroundR.jpg")}
+            source={require("../../../assets/images/raceRBackgroundR.jpg")}
           />
         </View>
-
-        {/* buttons end */}
       </View>
     </>
   );
@@ -713,7 +714,7 @@ const mapStateToProps = (state) => {
     oddsData: state.raceOddsData.oddsData,
   };
 };
-export default connect(mapStateToProps)(HorseRace);
+export default connect(mapStateToProps)(ReverseRace);
 /**
  * ======================START=======================
  * style part
@@ -787,9 +788,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 20,
   },
-  number: {
+
+  numberR: {
     position: "absolute",
-    left: 40,
+    left: -20,
     top: 30,
     zIndex: 1000,
   },
