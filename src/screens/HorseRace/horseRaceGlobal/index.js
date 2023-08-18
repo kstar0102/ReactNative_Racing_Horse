@@ -42,8 +42,25 @@ export const fourTiming = (x, y, z, j) => {
   const sum = x.reduce((total, current) => total + current, 0);
   const value = sum / x.length - y - z - j;
   const result = value / 2;
+
+  
   return result;
 }
+
+export const fivTiming = (x, y, z, j) => {
+  if (x.length === 0) {
+    // Handle empty array case
+    return 0; // Or any other default value/error handling approach you prefer
+  }
+
+  const sum = x.reduce((total, current) => total + current, 0);
+  const value = sum / x.length - y - z - j;
+  const result = value / 2.3;
+
+  return result;
+}
+
+
 export const firstSpeedController = (raceRegisterData, time) => {
   let speed = [];
   raceRegisterData.forEach((item) => {
@@ -71,19 +88,19 @@ export const cSpeedController = (raceRegisterData, time) => {
   let speed = [];
   raceRegisterData.forEach((item) => {
     if (item.quality_leg === "逃") {
-      speed.push(time - time * 0.45);
+      speed.push(time - time * 0.6);
     }
     if (item.quality_leg === "追") {
       speed.push(time);
     }
     if (item.quality_leg === "大逃") {
-      speed.push(time - time * 0.6);
+      speed.push(time - time * 0.8);
     }
     if (item.quality_leg === "先" || item.quality_leg === "自在") {
-      speed.push(time - time * 0.3);
+      speed.push(time - time * 0.4);
     }
     if (item.quality_leg === "差" || item.quality_leg === "まくり") {
-      speed.push(time - time * 0.15);
+      speed.push(time - time * 0.2);
     }
   });
 
@@ -267,9 +284,10 @@ export const sixSpeedController = (racingHorseData, speeds, firstSpeed) => {
     sixSpeed.push(
       firstSpeed[i] -
         (item + sps[i]) * 10 -
-        (4 * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
+        (4.5 * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
     );
   });
+
   return sixSpeed;
 };
 export const speedController = (racingHorseData, ground, racingJockeyData) => {
@@ -526,30 +544,6 @@ export const raceTime = (raceWidths) => {
   return result;
 };
 
-// export const raceTime = (raceWidths) => {
-//   if (typeof raceWidths !== "number") {
-//     return;
-//   }
-//   let result = "";
-//   switch (true) {
-//     case raceWidths >= 1000 && raceWidths <= 1600:
-//       result = 30000;
-//       break;
-//     case raceWidths >= 1700 && raceWidths <= 2400:
-//       result = 40000;
-//       break;
-//     case raceWidths >= 2500 && raceWidths <= 3200:
-//       result = 50000;
-//       break;
-//     case raceWidths >= 3300:
-//       result = 60000;
-//       break;
-//     default:
-//       return;
-//   }
-//   return result;
-// };
-
 export const weatherType = (weather) => {
   let result = "";
   switch (true) {
@@ -617,32 +611,25 @@ export const oddsFun = (racingHorseData) => {
     });
     
     const averageSum = sum / stateValue.length
-    // console.log("average", averageSum)
     
     const lessThanAverageSum = stateValue.filter(item => item < averageSum);
-    // console.log("less", lessThanAverageSum);
     const greaterThanAverageSum = stateValue.filter(item => item > averageSum);
-    // console.log("great", greaterThanAverageSum);
+
 
     const randomValueBig = Array.from({length: lessThanAverageSum.length}, () =>  (Math.random() * (50.10 - 20.10) + 20.10).toFixed(1));
-    // console.log(randomValueBig);
     const randomValueSmall = Array.from({length: greaterThanAverageSum.length}, () =>  (Math.random() * (1.10 - 20.10) + 20.10).toFixed(1));
-    // console.log(randomValueSmall);
+
 
     // 20 ~ 50 Random < averageSum
     const sortedValuesBig = randomValueBig.map(Number).sort((a, b) => a - b);
     const sortedValuesSmall = lessThanAverageSum.map(Number).sort((a, b) =>  b - a);
-    // console.log("sortedValuesSmall", sortedValuesSmall);
     //  10 ~ 50 > averageSum
     const randomSmallValues = randomValueSmall.map(Number).sort((a, b) => a - b);
     const sortedSmallValuesSmall = greaterThanAverageSum.map(Number).sort((a, b) =>  b - a);
-    // console.log("sortedSmallValuesSmall", sortedSmallValuesSmall);
 
     const mergedOriginValue = sortedValuesSmall.concat(sortedSmallValuesSmall);
     const mergedCalculatedValue = sortedValuesBig.concat(randomSmallValues);
 
-    // console.log(mergedOriginValue);
-    // console.log(mergedCalculatedValue);
     let resultArray = [];
     stateValue.map((item) => {
       for (let i = 0; i < stateValue.length; i++) {
@@ -651,9 +638,6 @@ export const oddsFun = (racingHorseData) => {
         }
       }
     });
-
-    // console.log(stateValue);
-    // console.log(resultArray);
 
   return resultArray;
 };

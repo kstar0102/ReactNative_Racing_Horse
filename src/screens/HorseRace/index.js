@@ -50,6 +50,7 @@ import {
   secondTiming,
   threeTiming,
   fourTiming,
+  fivTiming,
   speedController,
   secondSpeedController,
   threeSpeedController,
@@ -106,6 +107,7 @@ const HorseRace = ({
   const [secondT, setSecondT] = useState(0);
   const [threeT, setThreeT] = useState(0);
   const [fourT, setFourT] = useState(0);
+  const [fivT, setFivT] = useState(0);
   const [firstSpeed, setFirstSpeed] = useState(null);
   const [cSpeed, setCSpeed] = useState(null);
   const [speedControllers, setSpeedControllers] = useState(null);
@@ -189,6 +191,7 @@ const HorseRace = ({
         setThreeT(threeTiming(firstSpeed, firstT, secondT));
         if (threeT != 0) {
           setFourT(fourTiming(firstSpeed, firstT, secondT, threeT));
+          setFivT(fivTiming(firstSpeed, firstT, secondT, threeT));
         }
       }
     }
@@ -215,7 +218,7 @@ const HorseRace = ({
   }, [firstSpeed, secondT, threeT]);
 
   const otherSpeedReturn =
-    otherSpeeds != null ? otherSpeeds.sort((a, b) => a - b)[0] : "";
+    otherSpeeds != null ? firstT + secondT + threeT + fourT : "";
   const backActionHandler = () => {
     return true;
   };
@@ -247,12 +250,10 @@ const HorseRace = ({
   // start race with settime out
   //
   const handleStart = () => {
-    // startRace(cSpeed);
-    startRace(firstSpeed);
-    // setTimeout(() => {
-    //   startRace(firstSpeed);
-    //   console.log("-------firstSpeed-----------");
-    // }, 1000);
+    startRace(cSpeed);
+    setTimeout(() => {
+      startRace(firstSpeed);
+    }, 1000);
 
     translate();
     fadeOutButton();
@@ -278,6 +279,7 @@ const HorseRace = ({
     const winners = totals;
     totalWinners.push(winners);
 
+    
     raceTimeout = setTimeout(() => {
       fadeIn();
       fadeOut();
@@ -299,11 +301,15 @@ const HorseRace = ({
     }, firstT + secondT + threeT);
 
     raceTimeout = setTimeout(() => {
-      stopRace();
-      startRace(sixSpeeds);
       fadeInEnd();
       fadeOutEnd();
     }, firstT + secondT + threeT + fourT);
+
+    raceTimeout = setTimeout(() => {
+      stopRace();
+      startRace(sixSpeeds);
+    }, firstT + secondT + threeT + fivT);
+    
   };
   //
   // get result
@@ -416,12 +422,8 @@ const HorseRace = ({
       easing: Easing.linear,
       useNativeDriver: true,
     }).start(() => {
-
-      console.log("-------------sixSpeeds------------------ ")
-      startRace(sixSpeeds);
       if (true === shouldStop) {
         // Check if animation should continue after each loop
-   
         translate();
       }
     });
@@ -435,8 +437,6 @@ const HorseRace = ({
     if (animationState) {
       return; // Animation is already running
     }
-
-    console.log("--------------spds------------ ", spds);
     animationState = true;
     const speeds = animations.map((animation, j) => {
       const speed = spds[j];
