@@ -580,8 +580,8 @@ const HorseRace = ({
           ]}
         >
           <Image
-            style={{ left: 350, top: 150, width: 64, height: 64 }}
-            source={require("../../assets/images/ZZ5H.gif")}
+            style={{ left: 340, top: 150, width: 100, height: 64 }}
+            source={require("../../assets/images/ezgif.com-resize.gif")}
           />
         </Animated.View>
 
