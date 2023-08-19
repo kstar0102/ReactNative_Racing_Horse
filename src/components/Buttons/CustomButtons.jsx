@@ -1,10 +1,12 @@
-import { TouchableOpacity, Text, StyleSheet, Button } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, Dimensions } from "react-native";
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
   } from 'react-native-responsive-screen';
 // container
 import colors from "../../containers/colors";
+
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const CustomButtons = ({ label, onPress,disabled, color }) => {
 	return (
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
 		height: hp(10),
 		width: wp(40),
-		paddingVertical: 20,
+		paddingVertical: SCREEN_HEIGHT < 600 ? 15 : 20,
 		marginTop: 60
 	},
 	buttonColor: {

@@ -25,7 +25,7 @@ const ButtonStyle = StyleSheet.create({
   },
   ModalCenter: {
     backgroundColor: colors.white,
-    marginTop: vh(38),
+    marginTop: vh(42),
     margin: vw(0.1) + vh(4),
     width: vw(85),
     height: vh(23),

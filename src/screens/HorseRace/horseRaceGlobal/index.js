@@ -82,19 +82,19 @@ export const cSpeedController = (raceRegisterData, time) => {
   let speed = [];
   raceRegisterData.forEach((item) => {
     if (item.quality_leg === "逃") {
-      speed.push(time - time * 0.6);
+      speed.push(time - time * 0.75);
     }
     if (item.quality_leg === "追") {
       speed.push(time);
     }
     if (item.quality_leg === "大逃") {
-      speed.push(time - time * 0.8);
+      speed.push(time - time * 1);
     }
     if (item.quality_leg === "先" || item.quality_leg === "自在") {
-      speed.push(time - time * 0.4);
+      speed.push(time - time * 0.5);
     }
     if (item.quality_leg === "差" || item.quality_leg === "まくり") {
-      speed.push(time - time * 0.2);
+      speed.push(time - time * 0.25);
     }
   });
 

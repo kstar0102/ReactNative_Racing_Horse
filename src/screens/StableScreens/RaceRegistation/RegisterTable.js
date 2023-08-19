@@ -7,6 +7,7 @@ import {
   Modal,
   Alert,
   Image,
+  Dimensions
 } from "react-native";
 import colors from "../../../containers/colors";
 import { RegisterButton, CustomButtons } from "../../../components/Buttons";
@@ -20,6 +21,9 @@ import { RaceRegisterBackSaveAction } from "../../../store/actions/ReacRegister/
 import { StableGetAtion } from "../../../store/actions/truck/getApi/stableGetAtion";
 import { HorseRegisteringAction } from "../../../store/actions/truck/TrainInstitution/HorseRegisteringAction";
 import { calculateGameDate } from "../../LayoutScreen/HeaderScreen";
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 const RegisterTable = ({
   raceFieldData,
   prizeData,
@@ -34,6 +38,7 @@ const RegisterTable = ({
     // NOT FOUND JOCKEYSDATA
     return false;
   }
+
   // horseData
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -676,14 +681,14 @@ const RegisterTable = ({
           transparent={true}
         >
           <View style={ButtonStyle.ModalCenter}>
-            <Text> 脚質を指示してください。</Text>
+            <Text> 脚質を指示してください。 ({horseData.quality_leg})</Text>
             <View style={ButtonStyle.Dropdown}>
               <DropdownR
                 name={qualityData[0].name}
                 data={qualityData}
                 onSelect={setSelected}
                 setId={handleQualityId}
-              />
+              />      
             </View>
             <View style={ButtonStyle.buttonContainer}>
               <View style={{ margin: 10 }}>
@@ -728,12 +733,9 @@ const styles = StyleSheet.create({
     width: "97%",
   },
   container: {
-    // borderWidth: 1,
     marginLeft: 10,
     marginRight: 10,
-    height: 250,
-    // height: 50,
-    // alignItems: 'center',
+    height: SCREEN_WIDTH > 400 || SCREEN_HEIGHT > 738 ? 280 : 250,
   },
   TableTitle: {
     backgroundColor: colors.cardBody,

@@ -18,7 +18,7 @@ const StableStyles = StyleSheet.create({
   },
   // InstitutionContainer Start
   institutionContainer: {
-    marginTop: 190
+    marginTop: SCREEN_WIDTH > 400 || SCREEN_HEIGHT > 738 ? vh(30) : vh(28)
   },
   upperContent: {
     flexDirection: 'row',

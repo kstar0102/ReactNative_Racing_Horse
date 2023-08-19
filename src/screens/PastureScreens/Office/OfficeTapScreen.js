@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { vw, vh } from 'react-native-expo-viewport-units';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import { vh } from 'react-native-expo-viewport-units';
 import { ITapButton } from '../../../components/Buttons';
 
 import OfficeTapBreedingHorseScreen from './OfficeTapScreens/BreedingHorseScreen';
@@ -9,6 +9,8 @@ import OfficeTapRaceHorseScreen from './OfficeTapScreens/RaceHorseScreen';
 import OfficeTapSaintScreen from './OfficeTapScreens/SaintScreen';
 import OfficeTapStallionScreen from './OfficeTapScreens/StallionScreen';
 
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 const OfficeTapScreen = () => {
   const [activeButton, setActiveButton] = useState(3);
 
@@ -51,7 +53,7 @@ export default OfficeTapScreen;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: vh(28),
+    marginTop: SCREEN_WIDTH > 400 || SCREEN_HEIGHT > 738 ? vh(30) : vh(28),
     flexDirection: 'column',
   },
   buttons: {

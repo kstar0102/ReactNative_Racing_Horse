@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, ScrollView, Image, Dimensions } from "react-native";
 
 import colors from "../../../containers/colors";
 import { RegisterButton, CustomButtons } from "../../../components/Buttons";
@@ -9,9 +9,9 @@ import { RaceStartAction } from "../../../store/actions/race/RaceStartAction";
 import { RaceingHorseAction } from "../../../store/actions/race/RaceingHorseAction";
 import { RaceOddsAction } from "../../../store/actions/race/RaceOddsAction";
 import { oddsFun } from "../horseRaceGlobal";
-
 import * as ScreenOrientation from "expo-screen-orientation";
-import { speedController } from "../horseRaceGlobal";
+
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 const ParticipationHorsesList = ({
   raceFieldData,
   prizeData,
@@ -163,11 +163,11 @@ const ParticipationHorsesList = ({
     dispatch(RaceingHorseAction(raceReigsterData));
     dispatch(RaceOddsAction(speedControllers));
 
-    if(place == "東京競馬場" || place == "新潟競馬場" || place == "中京競馬場"){
-      navigation.navigate("ReverseRace");
-    }else{
+    // if(place == "東京競馬場" || place == "新潟競馬場" || place == "中京競馬場"){
+    //   navigation.navigate("ReverseRace");
+    // }else{
       navigation.navigate("HorseRace");
-    }
+    // }
   };
 
   return (
@@ -352,12 +352,9 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
   },
   container: {
-    // borderWidth: 1,
     marginLeft: 10,
     marginRight: 10,
-    height: 450,
-    // height: 50,
-    // alignItems: 'center',
+    height: SCREEN_HEIGHT < 600 ? 320 : 450,
   },
   TableTitle: {
     backgroundColor: colors.cardBody,
@@ -365,7 +362,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   TableNumberTitle: {
-    // backgroundColor: colors.cardBody,
     width: "15%",
     borderWidth: 1,
   },

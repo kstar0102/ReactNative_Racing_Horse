@@ -15,6 +15,7 @@ import RegisterTable from "./RegisterTable";
 import Ccolors from "../../../containers/colors";
 
 const RaceRegistation = ({ stableData, registering }) => {
+
   if (stableData == "" || stableData == undefined) {
     alert("YOUR HORSE NOT FOUND RETURN");
     return <Spinner visible={true} />;
@@ -27,7 +28,7 @@ const RaceRegistation = ({ stableData, registering }) => {
 
   const filteredOneData =
     registering != "" ? registering.map((data) => Number(data.horse_id)) : [];
-
+    
   useEffect(() => {
     if (filteredOneData != "") {
       if (filteredOneData.includes(banner.id)) {
@@ -51,7 +52,6 @@ const RaceRegistation = ({ stableData, registering }) => {
     }
   }, [stableData]);
   const data = stableData;
-
   const handleSettingId = (value) => {
     setBanner(value);
     if (value) {
@@ -302,6 +302,8 @@ const RaceRegistation = ({ stableData, registering }) => {
       }
     }
   };
+
+
   return (
     <ImageBackground
       source={require("../../../assets/images/horse_track/stall.jpg")}

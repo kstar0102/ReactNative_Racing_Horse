@@ -30,7 +30,7 @@ const Screenstyles = StyleSheet.create({
 
   img: {
     backgroundColor: colors.backgroudColor,
-    height: SCREEN_HEIGHT + hp(2),
+    height: SCREEN_WIDTH > 400 || SCREEN_HEIGHT > 738 ? SCREEN_HEIGHT + hp(7) : SCREEN_HEIGHT + hp(2),
     width: SCREEN_WIDTH,
   },
   // All Style End

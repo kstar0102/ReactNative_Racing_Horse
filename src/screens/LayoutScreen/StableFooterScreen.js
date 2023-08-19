@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View,Dimensions } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -10,6 +10,9 @@ import { connect, useDispatch } from "react-redux";
 import { pastureAction } from "../../store/actions/Pasture/pastureAction";
 // Custom
 import { FooterButton } from "../../components/Buttons";
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const StableFooterScreen = ({user_id, pasture_id}) => {
   const navigation = useNavigation();

@@ -41,6 +41,7 @@
     "react-native-gesture-handler": "~2.9.0",
     "react-native-loading-spinner-overlay": "^3.0.1",
     "react-native-paper": "^5.8.0",
+    "react-native-responsive": "^1.0.2",
     "react-native-responsive-screen": "^1.4.2",
     "react-native-root-siblings": "^4.1.1",
     "react-native-root-toast": "^3.4.1",

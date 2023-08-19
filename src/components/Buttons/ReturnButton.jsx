@@ -1,10 +1,13 @@
-import { TouchableOpacity, Text, StyleSheet, Button } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, Dimensions } from "react-native";
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
   } from 'react-native-responsive-screen';
 // container
 import colors from "../../containers/colors";
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const ReturnButton = ({ label, onPress, disabled, color }) => {
 	return (
@@ -28,7 +31,7 @@ const styles = StyleSheet.create({
 		height: 35,
 		width: 80,
 		position: "absolute",
-		top: hp(18.5),
+		top: SCREEN_HEIGHT > 740 || SCREEN_WIDTH > 400 ? hp(21) : hp(18.5),
 		left: wp(1),
 		paddingVertical: 7,
 		zIndex: 1000

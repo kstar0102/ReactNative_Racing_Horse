@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, Dimensions } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 // Redux
 import { connect } from "react-redux";
@@ -7,7 +7,8 @@ import { connect } from "react-redux";
 import NextWeekTable from "./CourseTables/NextWeekTable";
 import NextNextNextWeekTable from "./CourseTables/NextNextNextWeekTable";
 import NextNextWeekTable from "./CourseTables/NextNextWeekTable";
-
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 const RacetrackCourse = ({ nextNextNextRacePlan, nextNextRacePlan, nextRacePlan }) => {
   if (!nextNextNextRacePlan || !nextNextRacePlan || !nextRacePlan) {
     return <Spinner visible={true} />;
@@ -105,6 +106,6 @@ const styles = StyleSheet.create({
   container: {
     marginLeft: 30,
     marginRight: 30,
-    height: 465,
+    height: SCREEN_WIDTH > 400 || SCREEN_HEIGHT > 738 ? 500 : 465,
   },
 });

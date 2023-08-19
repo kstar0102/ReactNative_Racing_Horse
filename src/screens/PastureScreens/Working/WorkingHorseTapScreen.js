@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { vw, vh } from 'react-native-expo-viewport-units';
 import { ITapButton } from '../../../components/Buttons';
 
@@ -9,7 +9,8 @@ import GrazingHorseTapScreen from './WorkingHorseTap/GrazingHorseTapScreen';
 import BroodmareHorseTapScreen from './WorkingHorseTap/BroodmareHorseTapScreen';
 import StallionHorseTapScreen from './WorkingHorseTap/StallionHorseTapScreen';
 import { connect } from 'react-redux';
-
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 const WorkingHorseTapScreen = ({ saveData }) => {
   const [activeButton, setActiveButton] = useState(1);
 
@@ -61,7 +62,7 @@ export default connect(mapStateToProps)(WorkingHorseTapScreen);
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: vh(28),
+    marginTop:  SCREEN_WIDTH > 400 || SCREEN_HEIGHT > 738 ? vh(30) : vh(28),
     flexDirection: 'column',
 
   },

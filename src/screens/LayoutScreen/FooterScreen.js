@@ -1,7 +1,6 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import {
-  widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
@@ -10,6 +9,9 @@ import { stableAllGetAction } from "../../store/actions/truck/getApi/stableAllGe
 import { connect, useDispatch } from "react-redux";
 // Custom
 import { FooterButton } from "../../components/Buttons";
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const FooterScreen = ({user_id}) => {
   const navigation = useNavigation();

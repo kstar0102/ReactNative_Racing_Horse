@@ -1,17 +1,23 @@
+import {StyleSheet, StatusBar,Dimensions} from 'react-native';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
   } from 'react-native-responsive-screen';
-import {StyleSheet, StatusBar} from 'react-native';
 import colors from '../../containers/colors';
 
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+
+
 const HeaderStyleSheet = StyleSheet.create({
+
+    
     //BG Default Container
     container:{
       flexDirection: 'row',
       justifyContent: 'space-around',
       backgroundColor: colors.headerColor,
-      height: hp(18),
+      height: SCREEN_WIDTH > 400 || SCREEN_HEIGHT > 738 ? hp(20) : hp(18),
       width: wp(100),
       position: 'absolute',
       top:0,

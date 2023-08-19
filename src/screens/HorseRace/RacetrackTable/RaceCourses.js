@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, Dimensions } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 // Redux
 import { connect } from "react-redux";
@@ -9,6 +9,8 @@ import LastLastWeekTable from "./LastLastWeekTable";
 import LastWeekTable from "./LastWeekTable";
 import ThisRaceWeekTable from "./ThisRaceWeekTable";
 import NextNextWeekTable from "./NextNextWeekTable";
+
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const RaceCourses = ({
   thisWeekData,
@@ -162,7 +164,7 @@ export default connect(mapStateToProps)(RaceCourses);
 const styles = StyleSheet.create({
   container: {
     marginLeft: 30,
-    marginRight: 30,
-    height: 465,
+    marginRight:  30,
+    height: SCREEN_HEIGHT < 600 ? 350 : 465,
   },
 });

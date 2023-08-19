@@ -250,7 +250,7 @@ const HorseRace = ({
     startRace(cSpeed);
     setTimeout(() => {
       startRace(firstSpeed);
-    }, 1000);
+    }, 2000);
 
     translate();
     fadeOutButton();
@@ -678,24 +678,25 @@ const HorseRace = ({
             <Text style={styles.buttonText}>結果</Text>
           </TouchableOpacity>
         </View>
+        {/* buttons end */}
         <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
             zIndex: -3,
+            position: "absolute",
+            top: "49%",
           }}
         >
           <Image
-            style={{ zIndex: -1, top: 210, height: 35 }}
+            style={{ zIndex: -1, height: 35 }}
             source={require("../../assets/images/raceBackground.jpg")}
           />
           <Image
-            style={{ zIndex: -1, top: 210, right: 60, height: 35 }}
+            style={{ zIndex: -1, right: 60, height: 35 }}
             source={require("../../assets/images/raceBackgroundR.jpg")}
           />
         </View>
-
-        {/* buttons end */}
       </View>
     </>
   );
@@ -774,7 +775,7 @@ const styles = StyleSheet.create({
     top: "46.8%",
     width: "100%",
     flexDirection: "row",
-    paddingLeft: 20
+    paddingLeft: 20,
   },
   buttonText: {
     color: "#fff",

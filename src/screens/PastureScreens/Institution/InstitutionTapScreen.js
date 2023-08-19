@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { vh } from 'react-native-expo-viewport-units';
 
 // Custom IMPORT
@@ -10,6 +10,8 @@ import ScreenBlue from './InstitutionTapScreens/ScreenBlue';
 import ScreenRoad from './InstitutionTapScreens/ScreenRoad';
 import ScreenTruck from './InstitutionTapScreens/ScreenTruck';
 
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 const InstitutionTapScreen = () => {
   const [activeButton, setActiveButton] = useState(1);
 
@@ -52,7 +54,7 @@ export default InstitutionTapScreen;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: vh(28),
+    marginTop: SCREEN_WIDTH > 400 || SCREEN_HEIGHT > 738 ? vh(30) : vh(28),
     flexDirection: 'column',
 
   },

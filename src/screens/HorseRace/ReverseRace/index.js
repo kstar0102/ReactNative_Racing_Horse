@@ -686,14 +686,16 @@ const ReverseRace = ({
             flexDirection: "row",
             justifyContent: "space-between",
             zIndex: -3,
+            position: "absolute",
+            top: "49%",
           }}
         >
           <Image
-            style={{ zIndex: -1, top: 210, height: 35 }}
+            style={{ zIndex: -1, height: 35 }}
             source={require("../../../assets/images/raceRBackground.jpg")}
           />
           <Image
-            style={{ zIndex: -1, top: 210, right: 60, height: 35 }}
+            style={{ zIndex: -1, right: 60, height: 35 }}
             source={require("../../../assets/images/raceRBackgroundR.jpg")}
           />
         </View>

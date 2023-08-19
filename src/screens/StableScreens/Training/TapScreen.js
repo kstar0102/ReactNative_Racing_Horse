@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { vh } from 'react-native-expo-viewport-units'
 // REDUX
 import { connect, useDispatch } from 'react-redux';
@@ -10,6 +10,8 @@ import OneHorseTap from './TapScreens/OneHorseTap';
 import ThreeHorseTap from './TapScreens/ThreeHorseTap';
 import GrazingHorseTap from './TapScreens/GrazingHorseTap';
 
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 const TapScreen = ({ stableData }) => {
   const dispatch = useDispatch();
   const [activeButton, setActiveButton] = useState(1);
@@ -59,7 +61,7 @@ export default connect(mapStateToProps)(TapScreen);
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: vh(28),
+    marginTop: SCREEN_WIDTH > 400 || SCREEN_HEIGHT > 738 ? vh(30) : vh(28),
     flexDirection: 'column',
 
   },
