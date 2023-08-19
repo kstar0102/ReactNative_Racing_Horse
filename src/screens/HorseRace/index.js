@@ -14,6 +14,7 @@ import {
   ImageBackground,
   Easing,
   BackHandler,
+  Dimensions
 } from "react-native";
 //
 // Import the necessary modules and components
@@ -74,6 +75,9 @@ import {
  * Import parts
  * =========================END=========================
  */
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 //
 // Redux data
@@ -685,7 +689,7 @@ const HorseRace = ({
             justifyContent: "space-between",
             zIndex: -3,
             position: "absolute",
-            top: "49%",
+            top: SCREEN_WIDTH > 738 || SCREEN_HEIGHT > 400 ? "48%" : "49%",
           }}
         >
           <Image
@@ -772,7 +776,7 @@ const styles = StyleSheet.create({
   buttonGroup: {
     position: "absolute",
     left: "60%",
-    top: "46.8%",
+    top:  SCREEN_WIDTH > 738 || SCREEN_HEIGHT > 400 ?  "45.8%" :  "46.8%",
     width: "100%",
     flexDirection: "row",
     paddingLeft: 20,
