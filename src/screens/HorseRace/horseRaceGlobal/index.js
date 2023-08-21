@@ -1,61 +1,83 @@
 export const firstTiming = (x) => {
+  // ---2000m
+  // x = raceing total time;
+  // 40000 / 5 = 8000
   const y = x / 5;
   return y;
 };
 
 export const secondTiming = (x) => {
+  // x = firstspeed
+  //  [34000, 34000]
   if (x.length === 0) {
-    // Handle empty array case
     return 0; // Or any other default value/error handling approach you prefer
   }
 
   const sum = x.reduce((total, current) => total + current, 0);
+  // sum of arrays
   const value = sum / x.length / 5;
+  // value = 6800
   return value;
 };
 
 export const threeTiming = (x, y, z) => {
+  // x = first speed [34000, 34000]
+  // y = first timing 8000
+  // z = second timing  6800
   if (x.length === 0) {
     // Handle empty array case
     return 0; // Or any other default value/error handling approach you prefer
   }
 
   const sum = x.reduce((total, current) => total + current, 0);
+  // sum of arrays
   const value = sum / x.length - y - z;
   const result = value / 3;
+  // result = 6400
   return result;
 };
 
-
 export const fourTiming = (x, y, z, j) => {
+  // x = first speed [34000, 34000]
+  // y = first timing 8000
+  // z = second timing  6800
+  // j = three timing 6400
   if (x.length === 0) {
     // Handle empty array case
     return 0; // Or any other default value/error handling approach you prefer
   }
 
   const sum = x.reduce((total, current) => total + current, 0);
+  // sum of arrays
   const value = sum / x.length - y - z - j;
   const result = value / 2;
-
-  
+  // result = 6400
   return result;
-}
+};
 
+// end fast speed controller
 export const fivTiming = (x, y, z, j) => {
+  // x = first speed [34000, 34000]
+  // y = first timing 8000
+  // z = second timing  6800
+  // j = three timing 6400
   if (x.length === 0) {
     // Handle empty array case
     return 0; // Or any other default value/error handling approach you prefer
   }
 
   const sum = x.reduce((total, current) => total + current, 0);
+  // sum of arrays
   const value = sum / x.length - y - z - j;
-  const result = value / 2.3;
-
+  const result = value / 2.6;
+  // result =  4923.076923076923
   return result;
-}
+};
 
-
+// first speed
+// Calculated value by corneous
 export const firstSpeedController = (raceRegisterData, time) => {
+  // time = raceing total time
   let speed = [];
   raceRegisterData.forEach((item) => {
     if (item.quality_leg === "逃") {
@@ -74,11 +96,15 @@ export const firstSpeedController = (raceRegisterData, time) => {
       speed.push(time - time * 0.05);
     }
   });
-
+  // speed =  [34000, 34000]
   return speed;
 };
 
+// first speed
+// Calculated value by corneous
+// Calculations to make a lot of difference
 export const cSpeedController = (raceRegisterData, time) => {
+  // time = raceing total time
   let speed = [];
   raceRegisterData.forEach((item) => {
     if (item.quality_leg === "逃") {
@@ -88,22 +114,24 @@ export const cSpeedController = (raceRegisterData, time) => {
       speed.push(time);
     }
     if (item.quality_leg === "大逃") {
-      speed.push(time - time * 1);
+      speed.push(time - time * 1.2);
     }
     if (item.quality_leg === "先" || item.quality_leg === "自在") {
-      speed.push(time - time * 0.5);
+      speed.push(time - time * 0.6);
     }
     if (item.quality_leg === "差" || item.quality_leg === "まくり") {
-      speed.push(time - time * 0.25);
+      speed.push(time - time * 0.1);
     }
   });
-
+  // speed = [10000, 10000]
   return speed;
 };
 
-
-
+// first timing speed calculations
 export const secondSpeedController = (racingHorseData, speeds, firstSpeed) => {
+  // racingHorseData = racingHorseData : Horse data participating in the race
+  // speeds = speedcontroller : [394.44480000000004, 505.72800000000007]
+  // firstSpeed = first speed : [34000, 34000]
   let secondSpeed = [];
   let sps = [];
   racingHorseData.forEach((item) => {
@@ -124,6 +152,7 @@ export const secondSpeedController = (racingHorseData, speeds, firstSpeed) => {
     }
   });
 
+  // sps = quality_leg ==  追, tired >= 15, speed_b + speed_w : [213, 250]
   speeds.forEach((item, index) => {
     secondSpeed.push(
       firstSpeed[index] -
@@ -131,39 +160,15 @@ export const secondSpeedController = (racingHorseData, speeds, firstSpeed) => {
         (firstSpeed[index] - (item + sps[index]) * 10) / 5
     );
   });
-
+  // secondSpeed = [21154.176, 22340.4416]
   return secondSpeed;
 };
 
-export const otherSpeedController = (racingHorseData, speeds, firstSpeed) => {
-  let otherSpeed = [];
-  let sps = [];
-  racingHorseData.forEach((item) => {
-    if (
-      item[0] &&
-      item[0].speed_b !== undefined &&
-      item[0].speed_w !== undefined
-    ) {
-      sps.push(item[0].speed_b - -item[0].speed_w);
-    }
-
-    if (item[0] && item[0].quality_leg === "追") {
-      sps[sps.length - 1] *= 0.05;
-    }
-
-    if (item[0] && item[0].tired >= 15) {
-      sps[sps.length - 1] -= 10000;
-    }
-  });
-
-  speeds.forEach((item, index) => {
-    otherSpeed.push(firstSpeed[index] - (item + sps[index]) * 10);
-  });
-
-  return otherSpeed;
-};
-
+// second timing speed calculations
 export const threeSpeedController = (racingHorseData, speeds, firstSpeed) => {
+  // racingHorseData = racingHorseData : Horse data participating in the race
+  // speeds = speedcontroller : [394.44480000000004, 505.72800000000007]
+  // firstSpeed = first speed : [34000, 34000]
   let threeSpeed = [];
   let sps = [];
   racingHorseData.forEach((item) => {
@@ -182,6 +187,8 @@ export const threeSpeedController = (racingHorseData, speeds, firstSpeed) => {
       sps[sps.length - 1] -= 10000;
     }
   });
+
+  // sps = quality_leg ==  差, tired >= 15, strength_b + strength_w : [10.4, 12.3]
   speeds.forEach((item, i) => {
     threeSpeed.push(
       firstSpeed[i] -
@@ -189,11 +196,15 @@ export const threeSpeedController = (racingHorseData, speeds, firstSpeed) => {
         (2 * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
     );
   });
-
+  // threeSpeed = [17303.232, 17959.531199999998]
   return threeSpeed;
 };
 
+// three timing speed calculations
 export const fourSpeedController = (racingHorseData, speeds, firstSpeed) => {
+  // racingHorseData = racingHorseData : Horse data participating in the race
+  // speeds = speedcontroller : [394.44480000000004, 505.72800000000007]
+  // firstSpeed = first speed : [34000, 34000]
   let fourSpeed = [];
   let sps = [];
   racingHorseData.forEach((item) => {
@@ -213,7 +224,7 @@ export const fourSpeedController = (racingHorseData, speeds, firstSpeed) => {
       sps[sps.length - 1] -= 10000;
     }
   });
-
+  //sps = quality_leg ==  差, tired >= 15, moment_b + moment_w: [223, 216]
   speeds.forEach((item, i) => {
     fourSpeed.push(
       firstSpeed[i] -
@@ -221,11 +232,15 @@ export const fourSpeedController = (racingHorseData, speeds, firstSpeed) => {
         (3 * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
     );
   });
-
+  //  fourSpeed = [10713.088, 11130.2208]
   return fourSpeed;
 };
 
+// four timing speed calculations
 export const fiveSpeedController = (racingHorseData, speeds, firstSpeed) => {
+  // racingHorseData = racingHorseData : Horse data participating in the race
+  // speeds = speedcontroller : [394.44480000000004, 505.72800000000007]
+  // firstSpeed = first speed : [34000, 34000]
   let fiveSpeed = [];
   let sps = [];
   racingHorseData.forEach((item) => {
@@ -244,6 +259,8 @@ export const fiveSpeedController = (racingHorseData, speeds, firstSpeed) => {
       sps[sps.length - 1] -= 10000;
     }
   });
+
+  // sps = quality_leg ==  差, tired >= 15, stamina_b + stamina_w : [239, 226]
   speeds.forEach((item, i) => {
     fiveSpeed.push(
       firstSpeed[i] -
@@ -252,9 +269,11 @@ export const fiveSpeedController = (racingHorseData, speeds, firstSpeed) => {
     );
   });
 
+  // fiveSpeed = [5533.110400000001, 5336.544000000002]
   return fiveSpeed;
 };
 
+// five timing speed calculations END TIMIMG SPEED
 export const sixSpeedController = (racingHorseData, speeds, firstSpeed) => {
   let sixSpeed = [];
   let sps = [];
@@ -284,7 +303,12 @@ export const sixSpeedController = (racingHorseData, speeds, firstSpeed) => {
 
   return sixSpeed;
 };
+
+// all Speed sum
 export const speedController = (racingHorseData, ground, racingJockeyData) => {
+  // racingHorseData = racingHorseData : Horse data participating in the race
+  // ground = ダ or 芝
+  // racingJockeyData =  Jockey data participating in the race
   let totalValue = [];
   let stateValue = [];
   let jockeyValue = [];
@@ -313,13 +337,16 @@ export const speedController = (racingHorseData, ground, racingJockeyData) => {
       )
     );
   });
+  // stateValue =  [842.8800000000001, 657.4080000000001]
 
+  // jockey state calculations
   racingJockeyData.map((items, index) => {
     const jockeySkillValue =
       items[0].p_add -
       -items[0].p_difference -
       -items[0].p_miss -
       -items[0].p_target;
+
     jockeyValue.push(jockeySkillValue);
 
     const totalHorseAndJockeyValue = jockeySkillRange(
@@ -329,9 +356,14 @@ export const speedController = (racingHorseData, ground, racingJockeyData) => {
     totalValue.push(totalHorseAndJockeyValue);
   });
 
+  // totalValue = [505.72800000000007, 394.44480000000004]
   return totalValue;
 };
+
+// jockeySkill calculations
 const jockeySkillRange = (skill, stateValue) => {
+  // skill = 1, 5.75
+  // stateValue = 842.8800000000001, 657.4080000000001
   if (typeof skill !== "number") {
     return;
   }
@@ -359,7 +391,11 @@ const jockeySkillRange = (skill, stateValue) => {
   return results;
 };
 
+// happy calculations
 const happyFun = (happys, states, tireds) => {
+  // happys = 0, 0
+  // states = all sum states 1317,  1284
+  // tireds = 10, 10
   if (typeof happys !== "number") {
     throw new Error("Invalid input. The 'happys' parameter must be a number.");
   }
@@ -393,10 +429,14 @@ const happyFun = (happys, states, tireds) => {
       "Invalid input. The 'happys' parameter must be in the range [-10, 10]."
     );
   }
+
   tiredFun(states * multipliers[happys], tireds);
+  // return = 842.8800000000001, 821.7600000000001
   return tiredFun(states * multipliers[happys], tireds);
 };
 const tiredFun = (happys, tireds) => {
+  // happys = 1027.2, 1053.6000000000001
+  // tireds = 10,  10
   if (typeof tireds !== "number") {
     throw new Error("Invalid input. The 'happys' parameter must be a number.");
   }
@@ -430,11 +470,15 @@ const tiredFun = (happys, tireds) => {
       "Invalid input. The 'happys' parameter must be in the range [-10, 10]."
     );
   }
-
+  // return  842.8800000000001, 821.7600000000001
   return happys * multipliers[tireds];
 };
 
+//  horse ground speed calculation.
 const horseGround = (horseGrounds, speedValue, ground) => {
+  // horseGrounds = ダ, 万
+  // speedValue = horseSpeed 842.8800000000001, 821.7600000000001
+  // ground = ダ, ダ
   let results = "";
   switch (true) {
     case horseGrounds === ground:
@@ -447,10 +491,14 @@ const horseGround = (horseGrounds, speedValue, ground) => {
       return;
   }
 
+  // results = 842.8800000000001, 657.4080000000001
   return results;
 };
 
 const distanceRange = (distance, average) => {
+  
+  // distance = distance_max + distance_min : 2100, 2100
+  // average = horseGround Value : 842.8800000000001, 657.4080000000001
   if (typeof distance !== "number") {
     return;
   }
@@ -474,10 +522,15 @@ const distanceRange = (distance, average) => {
     default:
       return;
   }
+
+  // results 0, 0
+  // distanceSpeed(results, average = 657.4080000000001, 842.8800000000001
   return distanceSpeed(results, average);
 };
 
 const distanceSpeed = (distance, averageSpeed) => {
+  // distance = 0, 0
+  // averageSpeed = 842.8800000000001, 657.4080000000001
   if (typeof distance !== "number") {
     throw new Error("Invalid input. The 'happys' parameter must be a number.");
   }
@@ -501,11 +554,14 @@ const distanceSpeed = (distance, averageSpeed) => {
       "Invalid input. The 'happys' parameter must be in the range [-10, 10]."
     );
   }
-
+  // return = 842.8800000000001, 657.4080000000001
   return averageSpeed * multipliers[distance];
 };
 
+// raceTime fun
 export const raceTime = (raceWidths) => {
+
+  // raceWidths = 2000
   if (typeof raceWidths !== "number") {
     return;
   }
@@ -535,9 +591,75 @@ export const raceTime = (raceWidths) => {
     default:
       return;
   }
+  // result = 40000
   return result;
 };
 
+// ODDS FUN
+export const oddsFun = (racingHorseData) => {
+  //
+  let stateValue = [];
+  let totalValue = [];
+  if (racingHorseData != "") {
+    racingHorseData.map((item) => {
+      stateValue.push(
+        item[0].speed_b -
+          -item[0].speed_w +
+          (item[0].strength_b - -item[0].strength_w) +
+          (item[0].moment_b - -item[0].moment_w) +
+          (item[0].stamina_b - -item[0].stamina_w) +
+          (item[0].condition_b - -item[0].condition_w) +
+          (item[0].health_b - -item[0].health_b)
+      );
+    });
+  }
+
+  let sum = 0;
+
+  stateValue.map((item) => {
+    sum += item;
+  });
+
+  const averageSum = sum / stateValue.length;
+
+  const lessThanAverageSum = stateValue.filter((item) => item < averageSum);
+  const greaterThanAverageSum = stateValue.filter((item) => item > averageSum);
+
+  const randomValueBig = Array.from({ length: lessThanAverageSum.length }, () =>
+    (Math.random() * (50.1 - 20.1) + 20.1).toFixed(1)
+  );
+  const randomValueSmall = Array.from(
+    { length: greaterThanAverageSum.length },
+    () => (Math.random() * (1.1 - 20.1) + 20.1).toFixed(1)
+  );
+
+  // 20 ~ 50 Random < averageSum
+  const sortedValuesBig = randomValueBig.map(Number).sort((a, b) => a - b);
+  const sortedValuesSmall = lessThanAverageSum
+    .map(Number)
+    .sort((a, b) => b - a);
+  //  10 ~ 50 > averageSum
+  const randomSmallValues = randomValueSmall.map(Number).sort((a, b) => a - b);
+  const sortedSmallValuesSmall = greaterThanAverageSum
+    .map(Number)
+    .sort((a, b) => b - a);
+
+  const mergedOriginValue = sortedValuesSmall.concat(sortedSmallValuesSmall);
+  const mergedCalculatedValue = sortedValuesBig.concat(randomSmallValues);
+
+  let resultArray = [];
+  stateValue.map((item) => {
+    for (let i = 0; i < stateValue.length; i++) {
+      if (item == mergedOriginValue[i]) {
+        resultArray.push(mergedCalculatedValue[i]);
+      }
+    }
+  });
+
+  return resultArray;
+};
+
+// IMAGE
 export const weatherType = (weather) => {
   let result = "";
   switch (true) {
@@ -579,61 +701,6 @@ export const groundType = (ground, glasss, grouns) => {
       return;
   }
   return result;
-};
-
-export const oddsFun = (racingHorseData) => {
-  let stateValue = [];
-  let totalValue = [];
-  if (racingHorseData != "") {
-      racingHorseData.map((item) => {
-        stateValue.push(
-          item[0].speed_b -
-            -item[0].speed_w +
-            (item[0].strength_b - -item[0].strength_w) +
-            (item[0].moment_b - -item[0].moment_w) +
-            (item[0].stamina_b - -item[0].stamina_w) +
-            (item[0].condition_b - -item[0].condition_w) +
-            (item[0].health_b - -item[0].health_b)
-        );
-      });
-    }
-
-    let sum = 0;
-
-    stateValue.map((item) => {
-      sum += item;
-    });
-    
-    const averageSum = sum / stateValue.length
-    
-    const lessThanAverageSum = stateValue.filter(item => item < averageSum);
-    const greaterThanAverageSum = stateValue.filter(item => item > averageSum);
-
-
-    const randomValueBig = Array.from({length: lessThanAverageSum.length}, () =>  (Math.random() * (50.10 - 20.10) + 20.10).toFixed(1));
-    const randomValueSmall = Array.from({length: greaterThanAverageSum.length}, () =>  (Math.random() * (1.10 - 20.10) + 20.10).toFixed(1));
-
-
-    // 20 ~ 50 Random < averageSum
-    const sortedValuesBig = randomValueBig.map(Number).sort((a, b) => a - b);
-    const sortedValuesSmall = lessThanAverageSum.map(Number).sort((a, b) =>  b - a);
-    //  10 ~ 50 > averageSum
-    const randomSmallValues = randomValueSmall.map(Number).sort((a, b) => a - b);
-    const sortedSmallValuesSmall = greaterThanAverageSum.map(Number).sort((a, b) =>  b - a);
-
-    const mergedOriginValue = sortedValuesSmall.concat(sortedSmallValuesSmall);
-    const mergedCalculatedValue = sortedValuesBig.concat(randomSmallValues);
-
-    let resultArray = [];
-    stateValue.map((item) => {
-      for (let i = 0; i < stateValue.length; i++) {
-        if(item == mergedOriginValue[i]){
-          resultArray.push(mergedCalculatedValue[i])
-        }
-      }
-    });
-
-  return resultArray;
 };
 
 export const finalsType = (ground, place) => {

@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, SafeAreaView, ImageBackground } from 'react-native';
-// Rudux
 import { connect, useDispatch } from 'react-redux';
-import { gameTimeAction } from '../../store/actions/gameTime/gameTimeAction';
 import { countDownAction } from '../../store/actions/gameTime/countDownAction';
-// CUSTOM IMPORT
 import { HeaderButton } from '../../components/Buttons';
 import CountDownTimer from '../../components/time/CountDownTimer';
 import CurrentDateTimeWeather from '../../components/time/CurrentDateTimeWeather';
@@ -18,7 +15,6 @@ export const calculateGameDate = (time) => {
   let currentGameSecond = (time - startCalTime)*14;
   const currentDateMilliseconds = startTime.getTime() + currentGameSecond;
   let currentDate = new Date(currentDateMilliseconds);
-  //dispatch(gameTimeAction(currentDate));
   return currentDate;
 };
 
@@ -38,7 +34,6 @@ const HeaderScreen = ({userData, fCountDownTime, sCountDownTime, tCountDownTime}
   useEffect(() => {
     setUserPt(userData.user_pt);
     setUserLevel(userData.level);
-      
     return () => {
       AsyncStorage.setItem('secondsRemaining', String(secondsRemainingRef.current));
     };
@@ -46,9 +41,6 @@ const HeaderScreen = ({userData, fCountDownTime, sCountDownTime, tCountDownTime}
 
 
   useEffect(() => {
-    
-   
-    
    
     const intervalId = setInterval(() => {
 
@@ -85,7 +77,6 @@ const HeaderScreen = ({userData, fCountDownTime, sCountDownTime, tCountDownTime}
 
   return (
     <SafeAreaView style={HeaderStylesheet.container}>
-      {/* Header Start */}
       <View style={HeaderStylesheet.headerContentStart}>
         <Text style={HeaderStylesheet.weatherCurrent}>
           {<CurrentDateTimeWeather gameTime = {calculateGameDate(currentTime)} />}
@@ -98,7 +89,7 @@ const HeaderScreen = ({userData, fCountDownTime, sCountDownTime, tCountDownTime}
           <Text style={HeaderStylesheet.goldCoinAndLevel}>資金 {userPt}pt</Text>
         </ImageBackground>
       </View>
-      {/* Header Midle */}
+      
       <View style={HeaderStylesheet.headerContentMidle}>
         <Text style={HeaderStylesheet.destination}>
           レース発走まで あと
@@ -107,7 +98,7 @@ const HeaderScreen = ({userData, fCountDownTime, sCountDownTime, tCountDownTime}
           <CountDownTimer secondsRemaining={{fCountDownTime, sCountDownTime, tCountDownTime}} />
         </Text>
       </View>
-      {/* Header End BUTTONS TWO */}
+      
       <View style={HeaderStylesheet.headerContentEnd}>
         <HeaderButton label="予想バトル" />
         <HeaderButton label="マニュアル" />

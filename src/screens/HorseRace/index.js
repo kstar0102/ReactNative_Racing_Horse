@@ -57,7 +57,6 @@ import {
   fourSpeedController,
   fiveSpeedController,
   sixSpeedController,
-  otherSpeedController,
   raceTime,
   weatherType,
   groundType,
@@ -118,7 +117,6 @@ const HorseRace = ({
   const [fourSpeeds, setFourSpeeds] = useState(null);
   const [fiveSpeeds, setFiveSpeeds] = useState(null);
   const [sixSpeeds, setSixSpeeds] = useState(null);
-  const [otherSpeeds, setOtherSpeeds] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
 
   // Global scope variables
@@ -200,9 +198,6 @@ const HorseRace = ({
       setSecondSpeeds(
         secondSpeedController(racingHorseData, speedControllers, firstSpeed)
       );
-      setOtherSpeeds(
-        otherSpeedController(racingHorseData, speedControllers, firstSpeed)
-      );
       setThreeSpeeds(
         threeSpeedController(racingHorseData, speedControllers, firstSpeed)
       );
@@ -218,8 +213,7 @@ const HorseRace = ({
     }
   }, [firstSpeed, secondT, threeT]);
 
-  const otherSpeedReturn =
-    otherSpeeds != null ? firstT + secondT + threeT + fourT : "";
+  const otherSpeedReturn = firstT + secondT + threeT + fourT;
   const backActionHandler = () => {
     return true;
   };
@@ -298,12 +292,14 @@ const HorseRace = ({
     }, firstT + secondT + threeT);
 
     raceTimeout = setTimeout(() => {
-      startRace(sixSpeeds);
+      // startRace(sixSpeeds);
+      console.log("---------------four--------------- ", sixSpeeds);
     }, firstT + secondT + threeT + fourT);
 
     raceTimeout = setTimeout(() => {
       stopRace();
       startRace(sixSpeeds);
+      console.log("---------------fiv--------------- ", sixSpeeds);
     }, firstT + secondT + threeT + fivT);
   };
   //
@@ -432,6 +428,8 @@ const HorseRace = ({
     if (animationState) {
       return; // Animation is already running
     }
+
+  
     animationState = true;
     const speeds = animations.map((animation, j) => {
       const speed = spds[j];
@@ -697,7 +695,7 @@ const HorseRace = ({
             source={require("../../assets/images/raceBackground.jpg")}
           />
           <Image
-            style={{ zIndex: -1, right: 60, height: 35 }}
+            style={{ zIndex: -1, right: SCREEN_WIDTH > 738 || SCREEN_HEIGHT > 400 ? 47: 60, height: 35 }}
             source={require("../../assets/images/raceBackgroundR.jpg")}
           />
         </View>
@@ -730,7 +728,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 3000,
     width: 1000,
-    height: 400,
+    height: SCREEN_WIDTH,
     backgroundColor: "#fff",
   },
   spinnerTextStyle: {
