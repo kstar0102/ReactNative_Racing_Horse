@@ -14,7 +14,7 @@ import {
   ImageBackground,
   Easing,
   BackHandler,
-  Dimensions
+  Dimensions,
 } from "react-native";
 //
 // Import the necessary modules and components
@@ -75,8 +75,8 @@ import {
  * =========================END=========================
  */
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SCREEN_WIDTH = Dimensions.get("window").width;
+const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 //
 // Redux data
@@ -90,6 +90,7 @@ const HorseRace = ({
   racingJockeyData,
   prizeData,
   oddsData,
+  raceCpuData,
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -118,13 +119,36 @@ const HorseRace = ({
   const [fiveSpeeds, setFiveSpeeds] = useState(null);
   const [sixSpeeds, setSixSpeeds] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  let raceAllData = [];
+  let raceResultData = [];
+  let colorCount = [];
 
+  
+  // 
+  if (racingHorseData != "") {
+    racingHorseData.map((item) => {
+      colorCount.push(item[0].color);
+      raceAllData.push(item[0]);
+    });
+  }
+
+  if (raceCpuData != "") {
+    raceCpuData.map((item) => {
+      colorCount.push(item.color);
+      raceAllData.push(item);
+      raceResultData.push(item);
+    });
+  }
+
+  if (raceHorseData != "") {
+    raceHorseData.map((item) => {
+      raceResultData.push(item);
+    });
+  }
   // Global scope variables
   //
-  const animations = Array.from(
-    { length: racingHorseData.length },
-    () => new Animated.Value(0)
-  ); // Create an array of Animated.Value without using useState inside the loop
+
+  const animations = Array.from({ length: 10 }, () => new Animated.Value(0)); // Create an array of Animated.Value without using useState inside the loop
   const mWidth = raceFieldData.distance.split("m")[0];
   const ground = raceFieldData.ground;
   const place = raceFieldData.place;
@@ -137,7 +161,7 @@ const HorseRace = ({
   const weathers = weatherType(weather);
   const grounds = groundType(ground, glasss, grouns);
   const finals = finalsType(ground, place);
-  let colorCount = [];
+
   // SPEED VALUE VALI
   const spd_arr = [];
   const totals = [];
@@ -167,18 +191,20 @@ const HorseRace = ({
   useEffect(() => {
     //
     setFirstT(firstTiming(racingtime));
-    setFirstSpeed(firstSpeedController(reaceReigsterData, racingtime));
-    setCSpeed(cSpeedController(reaceReigsterData, racingtime));
+    setFirstSpeed(firstSpeedController(raceAllData, racingtime));
+    setCSpeed(cSpeedController(raceAllData, racingtime));
     if (
       reaceReigsterData != "" &&
       racingHorseData != "" &&
-      racingJockeyData != ""
+      racingJockeyData != "" &&
+      raceCpuData != ""
     ) {
       setSpeedControllers(
-        speedController(racingHorseData, ground, racingJockeyData)
+        speedController(racingHorseData, ground, racingJockeyData, raceCpuData)
       );
     }
   }, [racingtime]);
+
   //
   // calculate second, third, fourth time, and another speeds
   //
@@ -196,22 +222,23 @@ const HorseRace = ({
     }
     if (speedControllers !== null && racingHorseData !== "") {
       setSecondSpeeds(
-        secondSpeedController(racingHorseData, speedControllers, firstSpeed)
+        secondSpeedController(racingHorseData,  speedControllers, firstSpeed, raceCpuData)
       );
       setThreeSpeeds(
-        threeSpeedController(racingHorseData, speedControllers, firstSpeed)
+        threeSpeedController(racingHorseData, speedControllers, firstSpeed, raceCpuData)
       );
       setFourSpeeds(
-        fourSpeedController(racingHorseData, speedControllers, firstSpeed)
+        fourSpeedController(racingHorseData, speedControllers, firstSpeed, raceCpuData)
       );
       setFiveSpeeds(
-        fiveSpeedController(racingHorseData, speedControllers, firstSpeed)
+        fiveSpeedController(racingHorseData, speedControllers, firstSpeed, raceCpuData)
       );
       setSixSpeeds(
-        sixSpeedController(racingHorseData, speedControllers, firstSpeed)
+        sixSpeedController(racingHorseData, speedControllers, firstSpeed, raceCpuData)
       );
     }
   }, [firstSpeed, secondT, threeT]);
+
 
   const otherSpeedReturn = firstT + secondT + threeT + fourT;
   const backActionHandler = () => {
@@ -245,10 +272,10 @@ const HorseRace = ({
   // start race with settime out
   //
   const handleStart = () => {
-    startRace(cSpeed);
-    setTimeout(() => {
+    // startRace(cSpeed);
+    // setTimeout(() => {
       startRace(firstSpeed);
-    }, 2000);
+    // }, 2000);
 
     translate();
     fadeOutButton();
@@ -305,6 +332,7 @@ const HorseRace = ({
   //
   // get result
   //
+
   let horseData = [];
   const handleResult = () => {
     if (totalWinners[0] != undefined) {
@@ -313,8 +341,7 @@ const HorseRace = ({
       let times = [];
       let oddss = [];
       // PUSH
-      raceHorseData.map((item) => {
-        const race_id = item.race_id;
+      raceResultData.map((item) => {
         const user_name = item.user_name;
         const user_id = item.user_id;
         const horse_name = item.horse_name;
@@ -325,10 +352,8 @@ const HorseRace = ({
         const jockey_name = item.jockey_name;
         const jockey_id = item.jockey_id;
         const quality_leg = item.quality_leg;
-        const race_type = item.prize_id;
         const stall_type = item.stall_type;
         horseData.push({
-          race_id,
           user_name,
           user_id,
           horse_name,
@@ -339,10 +364,10 @@ const HorseRace = ({
           jockey_name,
           jockey_id,
           quality_leg,
-          race_type,
           stall_type,
         });
       });
+
 
       if (totalWinners[0] != undefined) {
         totalWinners[0].map((ranking) => {
@@ -378,6 +403,18 @@ const HorseRace = ({
         }
       }
 
+      for (let j = 0; j < horseData.length; j++) {
+        if (!horseData[j].race_type) {
+          horseData[j].race_type = raceFieldData.type;
+        }
+      }
+
+      for (let j = 0; j < horseData.length; j++) {
+        if (!horseData[j].race_id) {
+          horseData[j].race_id = raceHorseData[0].race_id;
+        }
+      }
+
       const timestamp = calculateGameDate(currentTime);
       const date = new Date(timestamp);
       const year = date.getFullYear();
@@ -387,6 +424,8 @@ const HorseRace = ({
       }
     }
 
+
+    console.log("-------horseData--------- ", horseData)
     if (horseData != "") {
       dispatch(
         RaceResultAction(
@@ -425,11 +464,11 @@ const HorseRace = ({
   //
   const startRace = (spds) => {
     spd_arr.push(firstSpeed, secondSpeeds, threeSpeeds, fourSpeeds, fiveSpeeds);
+
     if (animationState) {
       return; // Animation is already running
     }
 
-  
     animationState = true;
     const speeds = animations.map((animation, j) => {
       const speed = spds[j];
@@ -466,19 +505,21 @@ const HorseRace = ({
   //
   // set every horse outputrange so that to calculate there distance
   //
-  for (let i = 0; i < racingHorseData.length; i++) {
-    const style = {
-      transform: [
-        {
-          translateX: animations[i].interpolate({
-            inputRange: [0, 1],
-            outputRange: [landWidth - 60, 0],
-          }),
-        },
-      ],
-    };
-    horseAnimationStyles.push(style);
-  }
+  if (raceAllData != "")
+    for (let i = 0; i < 10; i++) {
+      const style = {
+        transform: [
+          {
+            translateX: animations[i].interpolate({
+              inputRange: [0, 1],
+              outputRange: [landWidth - 60, 0],
+            }),
+          },
+        ],
+      };
+      horseAnimationStyles.push(style);
+    }
+
   //
   // moving background
   // BACKIMAGE ANIMATION
@@ -499,11 +540,7 @@ const HorseRace = ({
     maxFrameDuration: 33.333333333333336, // 1000 ms / 30 fps
   };
 
-  if (racingHorseData != "") {
-    racingHorseData.map((item) => {
-      colorCount.push(item[0].color);
-    });
-  }
+  // raceCpuData
   /**
    * =========================START==========================
    * fade in, fade out part
@@ -695,7 +732,11 @@ const HorseRace = ({
             source={require("../../assets/images/raceBackground.jpg")}
           />
           <Image
-            style={{ zIndex: -1, right: SCREEN_WIDTH > 738 || SCREEN_HEIGHT > 400 ? 47: 60, height: 35 }}
+            style={{
+              zIndex: -1,
+              right: SCREEN_WIDTH > 738 || SCREEN_HEIGHT > 400 ? 47 : 60,
+              height: 35,
+            }}
             source={require("../../assets/images/raceBackgroundR.jpg")}
           />
         </View>
@@ -708,6 +749,7 @@ const mapStateToProps = (state) => {
   return {
     racingHorseData: state.racingHJData.racingHorse,
     racingJockeyData: state.racingHJData.racingJockey,
+    raceCpuData: state.raceData.raceCpuData,
     raceFieldData: state.raceData.raceFieldData,
     landWidth: state.dimensions.dimensionsData.height,
     reaceReigsterData: state.raceData.raceRegisterData,
@@ -774,7 +816,7 @@ const styles = StyleSheet.create({
   buttonGroup: {
     position: "absolute",
     left: "60%",
-    top:  SCREEN_WIDTH > 738 || SCREEN_HEIGHT > 400 ?  "45.8%" :  "46.8%",
+    top: SCREEN_WIDTH > 400 || SCREEN_HEIGHT > 738 ? "45.8%" : "46.8%",
     width: "100%",
     flexDirection: "row",
     paddingLeft: 20,

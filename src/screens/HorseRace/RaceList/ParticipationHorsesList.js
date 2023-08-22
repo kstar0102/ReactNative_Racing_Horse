@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Image, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Dimensions,
+} from "react-native";
 
 import colors from "../../../containers/colors";
 import { RegisterButton, CustomButtons } from "../../../components/Buttons";
@@ -11,7 +18,7 @@ import { RaceOddsAction } from "../../../store/actions/race/RaceOddsAction";
 import { oddsFun } from "../horseRaceGlobal";
 import * as ScreenOrientation from "expo-screen-orientation";
 
-const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SCREEN_HEIGHT = Dimensions.get("window").height;
 const ParticipationHorsesList = ({
   raceFieldData,
   prizeData,
@@ -20,6 +27,7 @@ const ParticipationHorsesList = ({
   reaceReigsterData,
   lastResult,
   racingHorseData,
+  raceCpuData,
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -30,6 +38,7 @@ const ParticipationHorsesList = ({
   const place = raceFieldData.place;
   // Quality State
   const [escape, setEscape] = useState([]);
+  const [bigEscape, setBigEscape] = useState([]);
   const [destination, setDestination] = useState([]);
   const [difference, setDifference] = useState([]);
   const [additional, setAdditional] = useState([]);
@@ -37,47 +46,59 @@ const ParticipationHorsesList = ({
   const [raceReigsterData, setRaceReigsterData] = useState([]);
   const [btnDisplay, setBtnDisplay] = useState(true);
   const [speedControllers, setSpeedControllers] = useState(0);
+  let raceAllData = [];
+
   useEffect(() => {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     shuffleArray(reaceReigsterData);
   }, [navigation, reaceReigsterData]);
 
   useEffect(() => {
-    setSpeedControllers(
-      oddsFun(racingHorseData)
-    );
+    setSpeedControllers(oddsFun(racingHorseData, raceCpuData));
   }, [navigation, racingHorseData]);
+
   useEffect(() => {
-    if (raceReigsterData !== "") {
+    if (raceAllData !== "") {
       setEscape([]);
       setDifference([]);
       setDestination([]);
       setAdditional([]);
+      setBigEscape([]);
 
       let updatedEscape = [];
+      let updatedBigEscape = [];
       let updatedDifference = [];
       let updatedDestination = [];
       let updatedAdditional = [];
       let checkButton = 0;
-
-      raceReigsterData.forEach((item) => {
+      raceAllData.forEach((item) => {
         if (item.quality_leg === "逃") {
           updatedEscape.push("flex");
           updatedDestination.push("none");
           updatedDifference.push("none");
           updatedAdditional.push("none");
+          updatedBigEscape.push("none");
         } else if (item.quality_leg === "先") {
           updatedDestination.push("flex");
           updatedEscape.push("none");
           updatedDifference.push("none");
           updatedAdditional.push("none");
+          updatedBigEscape.push("none");
         } else if (item.quality_leg === "差") {
           updatedDifference.push("flex");
           updatedEscape.push("none");
           updatedDestination.push("none");
           updatedAdditional.push("none");
+          updatedBigEscape.push("none");
         } else if (item.quality_leg === "追") {
           updatedAdditional.push("flex");
+          updatedEscape.push("none");
+          updatedDestination.push("none");
+          updatedDifference.push("none");
+          updatedBigEscape.push("none");
+        } else if (item.quality_leg === "大逃") {
+          updatedBigEscape.push("flex");
+          updatedAdditional.push("none");
           updatedEscape.push("none");
           updatedDestination.push("none");
           updatedDifference.push("none");
@@ -88,12 +109,12 @@ const ParticipationHorsesList = ({
           checkButton = 0;
         }
       });
-
       setFreeButton(checkButton);
       setEscape(updatedEscape);
       setDifference(updatedDifference);
       setDestination(updatedDestination);
       setAdditional(updatedAdditional);
+      setBigEscape(updatedBigEscape);
     } else {
       setEscape(["none"]);
       setDestination(["none"]);
@@ -109,8 +130,6 @@ const ParticipationHorsesList = ({
       setBtnDisplay(true);
     }
   }, [navigation, raceReigsterData]);
-
-  // const age = horseData.age.split("")[1];
   const raceFieldGender = raceFieldData.age_limit.split("・")[1];
 
   let gender;
@@ -139,15 +158,31 @@ const ParticipationHorsesList = ({
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
-    setRaceReigsterData(array)
+    setRaceReigsterData(array);
   }
-  
+
   let raceId = [];
   let jockeyId = [];
   if (raceReigsterData != "") {
     raceReigsterData.map((item) => {
       raceId.push(item.horse_id);
       jockeyId.push(item.jockey_id);
+      raceAllData.push(item);
+    });
+  }
+
+  if (raceCpuData !== "") {
+    raceCpuData.map((item) => {
+      item.horse_name = item.name;
+      item.horse_age = item.gender.split("")[1];
+      item.horse_gender = item.gender.split("")[0];
+      item.user_name = "cpu";
+      item.user_id = 0;
+      item.horse_id = 0;
+      item.mass = item.weight;
+      item.jockey_id = 0;
+      stall_type = "cpu";
+      raceAllData.push(item);
     });
   }
 
@@ -162,11 +197,10 @@ const ParticipationHorsesList = ({
   const handleClick = () => {
     dispatch(RaceingHorseAction(raceReigsterData));
     dispatch(RaceOddsAction(speedControllers));
-
     // if(place == "東京競馬場" || place == "新潟競馬場" || place == "中京競馬場"){
     //   navigation.navigate("ReverseRace");
     // }else{
-      navigation.navigate("HorseRace");
+    navigation.navigate("HorseRace");
     // }
   };
 
@@ -190,8 +224,8 @@ const ParticipationHorsesList = ({
               <Text style={styles.whites}>枠</Text>
             </View>
             <View>
-              {raceReigsterData.length > 0 ? (
-                raceReigsterData.map((item, j) => {
+              {raceAllData.length > 0 ? (
+                raceAllData.map((item, j) => {
                   return (
                     <View key={j} style={styles.txtBorder}>
                       <Text
@@ -214,8 +248,7 @@ const ParticipationHorsesList = ({
                   );
                 })
               ) : (
-                <View>
-                </View>
+                <View></View>
               )}
             </View>
           </View>
@@ -225,8 +258,8 @@ const ParticipationHorsesList = ({
               <Text style={styles.whites}>登録馬</Text>
             </View>
             <View>
-              {raceReigsterData ? (
-                raceReigsterData.map((item, i) => {
+              {raceAllData ? (
+                raceAllData.map((item, i) => {
                   return (
                     <View key={i} style={styles.txtBorder}>
                       <Text style={styles.whites}>
@@ -247,12 +280,12 @@ const ParticipationHorsesList = ({
           </View>
           {/* ! */}
           {/* ! */}
-          <View style={styles.TableTitle}>
+          <View style={styles.TableTitleQ}>
             <View style={styles.titleBorder}>
               <Text style={styles.whites}>斤量/騎手/脚質</Text>
             </View>
-            {raceReigsterData ? (
-              raceReigsterData.map((item, k) => {
+            {raceAllData ? (
+              raceAllData.map((item, k) => {
                 return (
                   <View key={k} style={styles.txtBorderM}>
                     <Text style={styles.whites}>
@@ -274,6 +307,10 @@ const ParticipationHorsesList = ({
                       style={[styles.states, { display: additional[k] }]}
                       source={require("../../../assets/images/qIcons/1.png")}
                     />
+                    <Image
+                      style={[styles.states, { display: bigEscape[k] }]}
+                      source={require("../../../assets/images/qIcons/4.png")}
+                    />
                   </View>
                 );
               })
@@ -287,8 +324,8 @@ const ParticipationHorsesList = ({
             <View style={styles.titleBorder}>
               <Text style={styles.whites}>オッズ</Text>
             </View>
-            {raceReigsterData ? (
-              raceReigsterData.map((item, l) => {
+            {raceAllData ? (
+              raceAllData.map((item, l) => {
                 return (
                   <View key={l} style={styles.txtBorder}>
                     <Text style={styles.whitePoint}>{speedControllers[l]}</Text>
@@ -331,6 +368,7 @@ const mapStateToProps = (state) => {
     raceFieldData: state.raceData.raceFieldData,
     jockeysData: state.raceData.jockeysData,
     reaceReigsterData: state.raceData.raceRegisterData,
+    raceCpuData: state.raceData.raceCpuData,
     userData: state.user.userData,
     lastResult: state.lastResultData.LastRaceResult,
   };
@@ -349,36 +387,41 @@ const styles = StyleSheet.create({
     textAlign: "center",
     width: "90%",
     fontSize: 16,
-    paddingVertical: 9,
+    paddingVertical: 18,
   },
   container: {
-    marginLeft: 10,
-    marginRight: 10,
+    // marginLeft: 5,
+    // marginRight: 5,
     height: SCREEN_HEIGHT < 600 ? 320 : 450,
   },
   TableTitle: {
     backgroundColor: colors.cardBody,
-    width: "40%",
+    width: "50%",
     borderWidth: 1,
   },
+  TableTitleQ: {
+    width: "35%",
+    borderWidth: 1,
+    backgroundColor: colors.cardBody,
+  },
   TableNumberTitle: {
-    width: "15%",
+    width: "10%",
     borderWidth: 1,
   },
   TableTitlePoint: {
     backgroundColor: colors.white,
-    width: "14%",
+    width: "12%",
     borderWidth: 1,
   },
   txtBorder: {
     // borderWidth: 1,
     borderBottomWidth: 1,
-    height: 43,
+    height: 63,
   },
   txtBorderM: {
     alignItems: "center",
     borderBottomWidth: 1,
-    height: 43,
+    height: 63,
   },
   TableHeader: {
     backgroundColor: colors.butonBackgroud,
@@ -415,11 +458,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   whiteNumber: {
-    height: 42,
+    height: 62,
     textAlign: "center",
     width: "90%",
     fontSize: 20,
-    paddingVertical: 6,
+    paddingVertical: 15,
   },
   whiteWhite: {
     backgroundColor: "white",

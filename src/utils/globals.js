@@ -29,8 +29,14 @@ export const raceWhipHorse = [
   {
     鹿毛: require("../assets/horseImageData/RaceHorseColor/1/Kage_Whip/5wakuL.gif"),
   },
+  {
+    黒鹿毛: require("../assets/horseImageData/RaceHorseColor/1/BlackBayHair_Whip/4wakuL.gif"),
+  },
+  {
+    芦毛: require("../assets/horseImageData/RaceHorseColor/1/BlackBayHair_Whip/4wakuL.gif"),
+  },
 ];
-
+// 黒鹿毛
 export const raceHorse = [
   {
     白毛: require("../assets/horseImageData/RaceHorseColor/2/White/2wakuL.gif"),
@@ -47,8 +53,14 @@ export const raceHorse = [
   {
     鹿毛: require("../assets/horseImageData/RaceHorseColor/1/Kage/5wakuL.gif"),
   },
+  {
+    黒鹿毛: require("../assets/horseImageData/RaceHorseColor/1/BlackBayHair/4wakuL.gif"),
+  },
+  {
+    芦毛: require("../assets/horseImageData/RaceHorseColor/1/BlackBayHair/4wakuL.gif"),
+  },
+  
 ];
-
 
 export const raceWhipReversHorse = [
   {

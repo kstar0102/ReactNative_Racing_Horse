@@ -7,15 +7,7 @@
 //     }
 //   };
 
-// export function RaceResultAction(result) {
-//     return (dispatch) => {
-//       try {
-//         dispatch(raceResult(result))
-//       } catch (error) {
-//         throw error;
-//       }
-//     };
-//   }
+
 
 import { RACE_RESULT_DATA } from "../types";
 import axios from "axios";

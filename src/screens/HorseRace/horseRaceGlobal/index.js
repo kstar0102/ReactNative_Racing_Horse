@@ -1,3 +1,6 @@
+
+import { CpuState,cpuSpeed, cpuStrength, cpuStamina, cpuMoment, cpuHealth } from "../horseCpuState";
+
 export const firstTiming = (x) => {
   // ---2000m
   // x = raceing total time;
@@ -128,50 +131,83 @@ export const cSpeedController = (raceRegisterData, time) => {
 };
 
 // first timing speed calculations
-export const secondSpeedController = (racingHorseData, speeds, firstSpeed) => {
+export const secondSpeedController = (
+  racingHorseData,
+  speeds,
+  firstSpeed,
+  raceCpuData
+) => {
   // racingHorseData = racingHorseData : Horse data participating in the race
   // speeds = speedcontroller : [394.44480000000004, 505.72800000000007]
   // firstSpeed = first speed : [34000, 34000]
   let secondSpeed = [];
+  let cpuSpds = [];
   let sps = [];
-  racingHorseData.forEach((item) => {
+  
+  const cpuSpeeds =  cpuSpeed(raceCpuData);
+  cpuSpeeds.map((item)=>{
+    cpuSpds.push(item);
+  })
+
+ 
+  racingHorseData.forEach((item, i) => {
     if (
       item[0] &&
       item[0].speed_b !== undefined &&
       item[0].speed_w !== undefined
     ) {
-      sps.push(item[0].speed_b - -item[0].speed_w);
-    }
+      sps.push(Number(item[0].speed_b) + Number(item[0].speed_w));
+    };
 
     if (item[0] && item[0].quality_leg === "追") {
-      sps[sps.length - 1] *= 0.05;
+      sps[i] *= 0.05;
     }
 
     if (item[0] && item[0].tired >= 15) {
-      sps[sps.length - 1] -= 10000;
+      sps[i] -= 10000;
+    }
+
+  });
+  raceCpuData.map((item, index)=>{
+    if (item && item.quality_leg === "追") {
+      cpuSpds[index] *= 0.05;
+    }
+    if (item && item.tired >= 15) {
+      cpuSpds[index] -= 10000;
     }
   });
+ 
+  const newArray = sps.concat(cpuSpds);
 
   // sps = quality_leg ==  追, tired >= 15, speed_b + speed_w : [213, 250]
   speeds.forEach((item, index) => {
     secondSpeed.push(
       firstSpeed[index] -
-        (item + sps[index]) * 10 -
-        (firstSpeed[index] - (item + sps[index]) * 10) / 5
+        (item + newArray[index]) * 10 -
+        (firstSpeed[index] - (item + newArray[index]) * 10) / 5
     );
   });
+
   // secondSpeed = [21154.176, 22340.4416]
   return secondSpeed;
 };
 
 // second timing speed calculations
-export const threeSpeedController = (racingHorseData, speeds, firstSpeed) => {
+export const threeSpeedController = (racingHorseData, speeds, firstSpeed, raceCpuData) => {
   // racingHorseData = racingHorseData : Horse data participating in the race
   // speeds = speedcontroller : [394.44480000000004, 505.72800000000007]
   // firstSpeed = first speed : [34000, 34000]
   let threeSpeed = [];
+  let cpuSth= [];
   let sps = [];
-  racingHorseData.forEach((item) => {
+
+  const cpuStrengths = cpuStrength(raceCpuData);
+
+  cpuStrengths.map((item)=>{
+    cpuSth.push(item);
+  })
+
+  racingHorseData.forEach((item, i) => {
     if (
       item[0] &&
       item[0].strength_b !== undefined &&
@@ -180,20 +216,31 @@ export const threeSpeedController = (racingHorseData, speeds, firstSpeed) => {
       sps.push(item[0].strength_b - -item[0].strength_w);
     }
     if (item[0] && item[0].quality_leg === "差") {
-      sps[sps.length - 1] *= 0.05;
+      sps[i] *= 0.05;
     }
 
     if (item[0] && item[0].tired >= 15) {
-      sps[sps.length - 1] -= 10000;
+      sps[i] -= 10000;
     }
   });
+
+  raceCpuData.map((item, index)=>{
+    if (item && item.quality_leg === "差") {
+      cpuSth[index] *= 0.05;
+    }
+    if (item && item.tired >= 15) {
+      cpuSth[index] -= 10000;
+    }
+  });
+
+  const newArray = sps.concat(cpuSth);
 
   // sps = quality_leg ==  差, tired >= 15, strength_b + strength_w : [10.4, 12.3]
   speeds.forEach((item, i) => {
     threeSpeed.push(
       firstSpeed[i] -
-        (item + sps[i]) * 10 -
-        (2 * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
+        (item + newArray[i]) * 10 -
+        (2 * (firstSpeed[i] - (item + newArray[i]) * 10)) / 5
     );
   });
   // threeSpeed = [17303.232, 17959.531199999998]
@@ -201,13 +248,21 @@ export const threeSpeedController = (racingHorseData, speeds, firstSpeed) => {
 };
 
 // three timing speed calculations
-export const fourSpeedController = (racingHorseData, speeds, firstSpeed) => {
+export const fourSpeedController = (racingHorseData, speeds, firstSpeed, raceCpuData) => {
   // racingHorseData = racingHorseData : Horse data participating in the race
   // speeds = speedcontroller : [394.44480000000004, 505.72800000000007]
   // firstSpeed = first speed : [34000, 34000]
   let fourSpeed = [];
+  let cpuMnt= [];
   let sps = [];
-  racingHorseData.forEach((item) => {
+
+  const cpuMoments = cpuMoment(raceCpuData);
+  
+  cpuMoments.map((item)=>{
+    cpuMnt.push(item);
+  })
+
+  racingHorseData.forEach((item, i) => {
     if (
       item[0] &&
       item[0].moment_b !== undefined &&
@@ -217,19 +272,31 @@ export const fourSpeedController = (racingHorseData, speeds, firstSpeed) => {
     }
 
     if (item[0] && item[0].quality_leg === "先") {
-      sps[sps.length - 1] *= 0.05;
+      sps[i] *= 0.05;
     }
 
     if (item[0] && item[0].tired >= 15) {
-      sps[sps.length - 1] -= 10000;
+      sps[i] -= 10000;
     }
   });
+
+  raceCpuData.map((item, index)=>{
+    if (item && item.quality_leg === "差") {
+      cpuMnt[index] *= 0.05;
+    }
+    if (item && item.tired >= 15) {
+      cpuMnt[index] -= 10000;
+    }
+  });
+
+  const newArray = sps.concat(cpuMnt);
+
   //sps = quality_leg ==  差, tired >= 15, moment_b + moment_w: [223, 216]
   speeds.forEach((item, i) => {
     fourSpeed.push(
       firstSpeed[i] -
-        (item + sps[i]) * 10 -
-        (3 * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
+        (item + newArray[i]) * 10 -
+        (3 * (firstSpeed[i] - (item + newArray[i]) * 10)) / 5
     );
   });
   //  fourSpeed = [10713.088, 11130.2208]
@@ -237,12 +304,19 @@ export const fourSpeedController = (racingHorseData, speeds, firstSpeed) => {
 };
 
 // four timing speed calculations
-export const fiveSpeedController = (racingHorseData, speeds, firstSpeed) => {
+export const fiveSpeedController = (racingHorseData, speeds, firstSpeed, raceCpuData) => {
   // racingHorseData = racingHorseData : Horse data participating in the race
   // speeds = speedcontroller : [394.44480000000004, 505.72800000000007]
   // firstSpeed = first speed : [34000, 34000]
   let fiveSpeed = [];
+  let cpuSta= [];
   let sps = [];
+  const cpuStaminas = cpuStamina(raceCpuData);
+  
+  cpuStaminas.map((item)=>{
+    cpuSta.push(item);
+  })
+
   racingHorseData.forEach((item) => {
     if (
       item[0] &&
@@ -260,12 +334,23 @@ export const fiveSpeedController = (racingHorseData, speeds, firstSpeed) => {
     }
   });
 
+  raceCpuData.map((item, index)=>{
+    if (item && item.quality_leg === "差") {
+      cpuSta[index] *= 0.05;
+    }
+    if (item && item.tired >= 15) {
+      cpuSta[index] -= 10000;
+    }
+  });
+
+  const newArray = sps.concat(cpuSta);
+
   // sps = quality_leg ==  差, tired >= 15, stamina_b + stamina_w : [239, 226]
   speeds.forEach((item, i) => {
     fiveSpeed.push(
       firstSpeed[i] -
-        (item + sps[i]) * 10 -
-        (4 * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
+        (item + newArray[i]) * 10 -
+        (4 * (firstSpeed[i] - (item + newArray[i]) * 10)) / 5
     );
   });
 
@@ -274,9 +359,16 @@ export const fiveSpeedController = (racingHorseData, speeds, firstSpeed) => {
 };
 
 // five timing speed calculations END TIMIMG SPEED
-export const sixSpeedController = (racingHorseData, speeds, firstSpeed) => {
+export const sixSpeedController = (racingHorseData, speeds, firstSpeed, raceCpuData) => {
   let sixSpeed = [];
+  let cpuSta= [];
   let sps = [];
+  const cpuStaminas = cpuStamina(raceCpuData);
+  
+  cpuStaminas.map((item)=>{
+    cpuSta.push(item);
+  })
+
   racingHorseData.forEach((item) => {
     if (
       item[0] &&
@@ -293,11 +385,21 @@ export const sixSpeedController = (racingHorseData, speeds, firstSpeed) => {
       sps[sps.length - 1] -= 10000;
     }
   });
+  raceCpuData.map((item, index)=>{
+    if (item && item.quality_leg === "差") {
+      cpuSta[index] *= 0.05;
+    }
+    if (item && item.tired >= 15) {
+      cpuSta[index] -= 10000;
+    }
+  });
+
+  const newArray = sps.concat(cpuSta);
   speeds.forEach((item, i) => {
     sixSpeed.push(
       firstSpeed[i] -
-        (item + sps[i]) * 10 -
-        (4.5 * (firstSpeed[i] - (item + sps[i]) * 10)) / 5
+        (item + newArray[i]) * 10 -
+        (4.5 * (firstSpeed[i] - (item + newArray[i]) * 10)) / 5
     );
   });
 
@@ -305,13 +407,99 @@ export const sixSpeedController = (racingHorseData, speeds, firstSpeed) => {
 };
 
 // all Speed sum
-export const speedController = (racingHorseData, ground, racingJockeyData) => {
+export const speedController = (
+  racingHorseData,
+  ground,
+  racingJockeyData,
+  raceCpuData
+) => {
   // racingHorseData = racingHorseData : Horse data participating in the race
   // ground = ダ or 芝
   // racingJockeyData =  Jockey data participating in the race
   let totalValue = [];
   let stateValue = [];
   let jockeyValue = [];
+
+  if (raceCpuData != "") {
+    raceCpuData.map((item) => {
+      let condition = "";
+      let strength = "";
+      let stamina = "";
+      let speed = "";
+      let moment = "";
+      let health = "";
+
+      if (item.condition_b == "S") {
+        condition = Math.floor(Math.random() * (501 - 400) + 400);
+      } else if (item.condition_b == "A") {
+        condition = Math.floor(Math.random() * (401 - 300) + 300);
+      } else if (item.condition_b == "B") {
+        condition = Math.floor(Math.random() * (301 - 200) + 200);
+      } else if (item.condition_b == "C") {
+        condition = Math.floor(Math.random() * (201 - 100) + 100);
+      }
+
+      if (item.strength == "S") {
+        strength = Math.floor(Math.random() * (501 - 400) + 400);
+      } else if (item.strength == "A") {
+        strength = Math.floor(Math.random() * (401 - 300) + 300);
+      } else if (item.strength == "B") {
+        strength = Math.floor(Math.random() * (301 - 200) + 200);
+      } else if (item.strength == "C") {
+        strength = Math.floor(Math.random() * (201 - 100) + 100);
+      }
+
+      if (item.stamina == "S") {
+        stamina = Math.floor(Math.random() * (501 - 400) + 400);
+      } else if (item.stamina == "A") {
+        stamina = Math.floor(Math.random() * (401 - 300) + 300);
+      } else if (item.stamina == "B") {
+        stamina = Math.floor(Math.random() * (301 - 200) + 200);
+      } else if (item.stamina == "C") {
+        stamina = Math.floor(Math.random() * (201 - 100) + 100);
+      }
+
+      if (item.speed == "S") {
+        speed = Math.floor(Math.random() * (501 - 400) + 400);
+      } else if (item.speed == "A") {
+        speed = Math.floor(Math.random() * (401 - 300) + 300);
+      } else if (item.speed == "B") {
+        speed = Math.floor(Math.random() * (301 - 200) + 200);
+      } else if (item.speed == "C") {
+        speed = Math.floor(Math.random() * (201 - 100) + 100);
+      }
+
+      if (item.moment == "S") {
+        moment = Math.floor(Math.random() * (501 - 400) + 400);
+      } else if (item.moment == "A") {
+        moment = Math.floor(Math.random() * (401 - 300) + 300);
+      } else if (item.moment == "B") {
+        moment = Math.floor(Math.random() * (301 - 200) + 200);
+      } else if (item.moment == "C") {
+        moment = Math.floor(Math.random() * (201 - 100) + 100);
+      }
+
+      if (item.health == "S") {
+        health = Math.floor(Math.random() * (501 - 400) + 400);
+      } else if (item.health == "A") {
+        health = Math.floor(Math.random() * (401 - 300) + 300);
+      } else if (item.health == "B") {
+        health = Math.floor(Math.random() * (301 - 200) + 200);
+      } else if (item.health == "C") {
+        health = Math.floor(Math.random() * (201 - 100) + 100);
+      }
+
+
+      const horseValue = happyFun(
+        Number(item.happy),
+        condition + strength + stamina + speed + moment + health,
+        Number(item.tired)
+      );
+      const horseGroundValue = horseGround(item.ground, horseValue, ground);
+
+      totalValue.push(horseGroundValue);
+    });
+  }
 
   racingHorseData.map((item) => {
     // Calculate horse value
@@ -434,6 +622,51 @@ const happyFun = (happys, states, tireds) => {
   // return = 842.8800000000001, 821.7600000000001
   return tiredFun(states * multipliers[happys], tireds);
 };
+
+// happy calculations
+const cpuhappyFun = (happys, states, tireds) => {
+  // happys = 0, 0
+  // states = all sum states 1317,  1284
+  // tireds = 10, 10
+  if (typeof happys !== "number") {
+    throw new Error("Invalid input. The 'happys' parameter must be a number.");
+  }
+
+  const multipliers = {
+    10: 1.0,
+    9: 0.98,
+    8: 0.96,
+    7: 0.94,
+    6: 0.92,
+    5: 0.9,
+    4: 0.88,
+    3: 0.86,
+    2: 0.84,
+    1: 0.82,
+    0: 0.8,
+    "-1": 0.78,
+    "-2": 0.76,
+    "-3": 0.74,
+    "-4": 0.72,
+    "-5": 0.7,
+    "-6": 0.68,
+    "-7": 0.66,
+    "-8": 0.64,
+    "-9": 0.62,
+    "-10": 0.6,
+  };
+
+  if (!(happys in multipliers)) {
+    throw new Error(
+      "Invalid input. The 'happys' parameter must be in the range [-10, 10]."
+    );
+  }
+
+  // tiredFun(states * multipliers[happys], tireds);
+  // // return = 842.8800000000001, 821.7600000000001
+  // return tiredFun(states * multipliers[happys], tireds);
+};
+
 const tiredFun = (happys, tireds) => {
   // happys = 1027.2, 1053.6000000000001
   // tireds = 10,  10
@@ -496,7 +729,6 @@ const horseGround = (horseGrounds, speedValue, ground) => {
 };
 
 const distanceRange = (distance, average) => {
-  
   // distance = distance_max + distance_min : 2100, 2100
   // average = horseGround Value : 842.8800000000001, 657.4080000000001
   if (typeof distance !== "number") {
@@ -560,7 +792,6 @@ const distanceSpeed = (distance, averageSpeed) => {
 
 // raceTime fun
 export const raceTime = (raceWidths) => {
-
   // raceWidths = 2000
   if (typeof raceWidths !== "number") {
     return;
@@ -596,10 +827,10 @@ export const raceTime = (raceWidths) => {
 };
 
 // ODDS FUN
-export const oddsFun = (racingHorseData) => {
+export const oddsFun = (racingHorseData, raceAllData) => {
   //
   let stateValue = [];
-  let totalValue = [];
+  const cpuValue = CpuState(raceAllData);
   if (racingHorseData != "") {
     racingHorseData.map((item) => {
       stateValue.push(
@@ -613,6 +844,10 @@ export const oddsFun = (racingHorseData) => {
       );
     });
   }
+
+  cpuValue.map((item) => {
+    stateValue.push(item);
+  });
 
   let sum = 0;
 

@@ -49,13 +49,11 @@ const RaceResultScreen = ({
   const resultData = lastResult == "" ? raceResultData : lastResult;
 
   // Step 1: Generate an array of random values
-  const array = Array.from({ length: resultData.length }, () =>
+  const array = Array.from({ length: raceResultData.length }, () =>
     (Math.random() * (45 - 32) + 32).toFixed(1)
   );
-
   // Step 2: Sort the array in ascending order
   array.sort((a, b) => a - b);
-
   return (
     <>
       <ScrollView style={styles.container}>

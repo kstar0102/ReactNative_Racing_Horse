@@ -1,5 +1,5 @@
 
-import { GET_RACE_CORSE_DATA, GET_RACE_PRIZE_DATA, GET_RACE_JOCKEYS_DATA, GET_RACE_REGISTER_DATA, GET_RACE_WEEK } from '../types';
+import { GET_RACE_CORSE_DATA, GET_RACE_PRIZE_DATA, GET_RACE_JOCKEYS_DATA, GET_RACE_REGISTER_DATA, GET_RACE_WEEK, GET_RACE_CPU_HOURSE } from '../types';
 import axios from 'axios';
 import { API } from '../../../utils/config';
 
@@ -37,6 +37,13 @@ export const raceRegisterWeek = (data) => {
     }
 };
 
+export const raceCpuhourse = (data) =>{
+    return{
+        type: GET_RACE_CPU_HOURSE,
+        payload: data
+    }
+}
+
 export function ReacRegisterAction(tableFieldId, weekDate) {
     return async (dispatch, getState) => {
         const token = getState().tokenData.tokenData;
@@ -50,6 +57,7 @@ export function ReacRegisterAction(tableFieldId, weekDate) {
             }
         )
             .then(res => {
+                dispatch(raceCpuhourse(res.data.cpu_horse));
                 dispatch(raceData(res.data.race_data));
                 dispatch(prizeData(res.data.prize_data));
                 dispatch(jockeysData(res.data.jockeys));
