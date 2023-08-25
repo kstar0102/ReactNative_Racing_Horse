@@ -21,6 +21,9 @@ export const raceWhipHorse = [
     青鹿毛: require("../assets/horseImageData/RaceHorseColor/1/BlueBayHair_Whip/1wakuL.gif"),
   },
   {
+    青毛: require("../assets/horseImageData/RaceHorseColor/1/BlueBayHair_Whip/1wakuL.gif"),
+  },
+  {
     栗毛: require("../assets/horseImageData/RaceHorseColor/1/Chestnut_Whip/3wakuL.gif"),
   },
   {
@@ -45,6 +48,9 @@ export const raceHorse = [
     青鹿毛: require("../assets/horseImageData/RaceHorseColor/1/BlueBayHair/1wakuL.gif"),
   },
   {
+    青毛: require("../assets/horseImageData/RaceHorseColor/1/BlueBayHair/1wakuL.gif"),
+  },
+  {
     栗毛: require("../assets/horseImageData/RaceHorseColor/1/Chestnut/3wakuL.gif"),
   },
   {
@@ -59,7 +65,9 @@ export const raceHorse = [
   {
     芦毛: require("../assets/horseImageData/RaceHorseColor/1/BlackBayHair/4wakuL.gif"),
   },
-  
+  {
+    栃栗毛: require("../assets/horseImageData/RaceHorseColor/1/BlackBayHair/4wakuL.gif"),
+  },
 ];
 
 export const raceWhipReversHorse = [
@@ -76,7 +84,13 @@ export const raceWhipReversHorse = [
     黑鹿毛: require("../assets/horseImageData/RaceHorseColor/1-1/BlackBayHair_Whip_revers/4wakuR.gif"),
   },
   {
+    芦毛: require("../assets/horseImageData/RaceHorseColor/1-1/BlackBayHair_Whip_revers/4wakuR.gif"),
+  },
+  {
     鹿毛: require("../assets/horseImageData/RaceHorseColor/1-1/Kage_Whip_revers/5wakuR.gif"),
+  },
+  {
+    栃栗毛: require("../assets/horseImageData/RaceHorseColor/1-1/Kage_Whip_revers/5wakuR.gif"),
   },
 ];
 

@@ -46,6 +46,7 @@ import ReverseRace from '../screens/HorseRace/ReverseRace';
 import RaceList from '../screens/HorseRace/RaceList';
 import RaceResultScreen from '../screens/HorseRace/RaceResult/RaceResultScreen';
 import RaceResult from '../screens/HorseRace/RaceResult';
+import MarryScreen from '../screens/PastureScreens/MarryScreen';
 // Bankruptcy
 import Bankruptcy from '../screens/Bankruptcy';
 const Stack = createNativeStackNavigator();
@@ -99,7 +100,8 @@ const AppStack = ({userPt}) => {
       <ModalStack.Screen name={'RaceResult'} component={RaceResult} options={horizontalAnimation}/>
       {/* Bankruptcy */}
       <ModalStack.Screen name={'Bankruptcy'} component={Bankruptcy} options={horizontalAnimation}/>
-
+      {/* MarryScreen */}
+      <ModalStack.Screen name={'MarryScreen'} component={MarryScreen} options={horizontalAnimation}/>
       </ModalStack.Navigator>
     </>
   );

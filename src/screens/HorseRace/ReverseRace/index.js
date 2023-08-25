@@ -246,6 +246,7 @@ const ReverseRace = ({
   //
   // start race with settime out
   //
+ 
   const handleStart = () => {
     startRace(cSpeed);
     setTimeout(() => {
@@ -276,6 +277,8 @@ const ReverseRace = ({
     const winners = totals;
     totalWinners.push(winners);
 
+
+
     raceTimeout = setTimeout(() => {
       stopRace();
       startRace(secondSpeeds);
@@ -295,6 +298,9 @@ const ReverseRace = ({
 
     raceTimeout = setTimeout(() => {
       startRace(sixSpeeds);
+
+      const winHorses =  totalWinners.sort((a, b) => a.time - b.time);
+      console.log(winHorses);
     }, firstT + secondT + threeT + fourT);
 
     raceTimeout = setTimeout(() => {

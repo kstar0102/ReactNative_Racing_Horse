@@ -12,10 +12,11 @@ import {
   Animated,
   Image,
   ImageBackground,
-  Easing,
   BackHandler,
   Dimensions,
+  ScrollView,
 } from "react-native";
+
 //
 // Import the necessary modules and components
 //
@@ -63,12 +64,7 @@ import {
   finalsType,
 } from "./horseRaceGlobal";
 
-import {
-  INPUT_RANGE_START,
-  INPUT_RANGE_END,
-  OUTPUT_RANGE_END,
-  ANIMATION_TO_VALUE,
-} from "../../utils/constants";
+import RaceHorses from "./RaceHorses";
 /**
  * =========================END=========================
  * Import parts
@@ -84,6 +80,7 @@ const SCREEN_HEIGHT = Dimensions.get("window").height;
 const HorseRace = ({
   racingHorseData,
   raceFieldData,
+  raceResultDatas,
   landWidth,
   reaceReigsterData,
   raceHorseData,
@@ -94,14 +91,10 @@ const HorseRace = ({
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const initialValue = 0;
-  const translateValue = useRef(new Animated.Value(initialValue)).current;
+  const fadeInButtonAnimation = new Animated.Value(0);
   const fadeInAnimation = new Animated.Value(0);
   const fadeOutAnimation = new Animated.Value(1);
-  const fadeOutButtonAnimation = new Animated.Value(1);
-  const fadeInButtonAnimation = new Animated.Value(0);
-  const fadeOutLodingAnimation = new Animated.Value(1);
-
+  
   //
   // state define
   //  setFiveT
@@ -119,16 +112,23 @@ const HorseRace = ({
   const [fiveSpeeds, setFiveSpeeds] = useState(null);
   const [sixSpeeds, setSixSpeeds] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [startState, setStartState] = useState(0);
+  const [horseState, setHorseState] = useState(0);
+
   let raceAllData = [];
   let raceResultData = [];
   let colorCount = [];
-
-  
-  // 
+  //
   if (racingHorseData != "") {
     racingHorseData.map((item) => {
       colorCount.push(item[0].color);
       raceAllData.push(item[0]);
+    });
+  }
+
+  if (raceHorseData != "") {
+    raceHorseData.map((item) => {
+      raceResultData.push(item);
     });
   }
 
@@ -140,11 +140,6 @@ const HorseRace = ({
     });
   }
 
-  if (raceHorseData != "") {
-    raceHorseData.map((item) => {
-      raceResultData.push(item);
-    });
-  }
   // Global scope variables
   //
 
@@ -156,6 +151,8 @@ const HorseRace = ({
   let numberWidth = Number(mWidth);
   let raceWidth = (numberWidth / 100) * 290;
   const outPutRange = raceWidth - 800;
+  const [stateA, setStateA] = useState({ a: raceWidth - 60 });
+  const fastSpeed = useRef(raceWidth - 60);
   // WEATHER AND RACING TIME AND GROUNDS DEFAULT VAR
   const racingtime = raceTime(numberWidth);
   const weathers = weatherType(weather);
@@ -167,7 +164,6 @@ const HorseRace = ({
   const totals = [];
   const totalWinners = [];
   // ANIMATION VALI
-  let shouldStop = false;
   let animationState = false;
   const horseAnimationStyles = [];
   // CLEARTIMEOUT VALI
@@ -177,13 +173,13 @@ const HorseRace = ({
    * UseEffect
    * ======================start==========================
    */
-  setTimeout(() => {
-    Animated.timing(fadeOutLodingAnimation, {
-      toValue: 0,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-  }, 3000);
+  // setTimeout(() => {
+  //   Animated.timing(fadeOutLodingAnimation, {
+  //     toValue: 0,
+  //     duration: 500,
+  //     useNativeDriver: true,
+  //   }).start();
+  // }, 3000);
 
   //
   // calculate first time, first speed and speedController(basic value)
@@ -208,6 +204,7 @@ const HorseRace = ({
   //
   // calculate second, third, fourth time, and another speeds
   //
+
   useEffect(() => {
     if (firstSpeed != null) {
       setSecondT(secondTiming(firstSpeed));
@@ -222,27 +219,50 @@ const HorseRace = ({
     }
     if (speedControllers !== null && racingHorseData !== "") {
       setSecondSpeeds(
-        secondSpeedController(racingHorseData,  speedControllers, firstSpeed, raceCpuData)
+        secondSpeedController(
+          racingHorseData,
+          speedControllers,
+          firstSpeed,
+          raceCpuData
+        )
       );
       setThreeSpeeds(
-        threeSpeedController(racingHorseData, speedControllers, firstSpeed, raceCpuData)
+        threeSpeedController(
+          racingHorseData,
+          speedControllers,
+          firstSpeed,
+          raceCpuData
+        )
       );
       setFourSpeeds(
-        fourSpeedController(racingHorseData, speedControllers, firstSpeed, raceCpuData)
+        fourSpeedController(
+          racingHorseData,
+          speedControllers,
+          firstSpeed,
+          raceCpuData
+        )
       );
       setFiveSpeeds(
-        fiveSpeedController(racingHorseData, speedControllers, firstSpeed, raceCpuData)
+        fiveSpeedController(
+          racingHorseData,
+          speedControllers,
+          firstSpeed,
+          raceCpuData
+        )
       );
       setSixSpeeds(
-        sixSpeedController(racingHorseData, speedControllers, firstSpeed, raceCpuData)
+        sixSpeedController(
+          racingHorseData,
+          speedControllers,
+          firstSpeed,
+          raceCpuData
+        )
       );
     }
   }, [firstSpeed, secondT, threeT]);
 
-
-  const otherSpeedReturn = firstT + secondT + threeT + fourT;
   const backActionHandler = () => {
-    return true;
+    return false;
   };
   //
   // screen orientation
@@ -272,196 +292,55 @@ const HorseRace = ({
   // start race with settime out
   //
   const handleStart = () => {
+    setStartState(1);
     // startRace(cSpeed);
     // setTimeout(() => {
-      startRace(firstSpeed);
+    //   startRace(firstSpeed);
     // }, 2000);
 
-    translate();
-    fadeOutButton();
-    fadeInButton();
-    clearTimeout(raceTimeout);
+    // clearTimeout(raceTimeout);
 
-    for (let i = 0; i < spd_arr[0].length; i++) {
-      totals.push({
-        time: (
-          (spd_arr[0][i] / 5 +
-            spd_arr[1][i] / 4 +
-            spd_arr[2][i] / 3 +
-            spd_arr[3][i] / 2 +
-            spd_arr[4][i] +
-            10000) /
-          1000
-        ).toFixed(2),
-        ranking: i + 1,
-        odds: oddsData[i],
-      });
-    }
-
-    const winners = totals;
-    totalWinners.push(winners);
+    // for (let i = 0; i < spd_arr[0].length; i++) {
+    //   totals.push({
+    //     time: (
+    //       (spd_arr[0][i] / 5 +
+    //         spd_arr[1][i] / 4 +
+    //         spd_arr[2][i] / 3 +
+    //         spd_arr[3][i] / 2 +
+    //         spd_arr[4][i] +
+    //         10000) /
+    //       1000
+    //     ).toFixed(2),
+    //     ranking: i + 1,
+    //     odds: oddsData[i],
+    //   });
+    // }
+    // const winners = totals;
+    // totalWinners.push(winners);
 
     raceTimeout = setTimeout(() => {
-      stopRace();
-      startRace(secondSpeeds);
+      console.log("---------------firstT---------");
     }, firstT);
 
     raceTimeout = setTimeout(() => {
-      stopRace();
-      startRace(threeSpeeds);
+      console.log("---------------secondT---------");
     }, firstT + secondT);
 
     raceTimeout = setTimeout(() => {
-      stopRace();
-      startRace(fourSpeeds);
+      console.log("---------------threeT---------");
       fadeInEnd();
       fadeOutEnd();
     }, firstT + secondT + threeT);
 
     raceTimeout = setTimeout(() => {
-      // startRace(sixSpeeds);
-      console.log("---------------four--------------- ", sixSpeeds);
+      console.log("---------------fourT--------------- ");
     }, firstT + secondT + threeT + fourT);
 
     raceTimeout = setTimeout(() => {
-      stopRace();
-      startRace(sixSpeeds);
-      console.log("---------------fiv--------------- ", sixSpeeds);
+      console.log("---------------fivT--------------- ");
     }, firstT + secondT + threeT + fivT);
   };
-  //
-  // get result
-  //
 
-  let horseData = [];
-  const handleResult = () => {
-    if (totalWinners[0] != undefined) {
-      // RANKING AND TIME ARRAY ADD
-      let rankings = [];
-      let times = [];
-      let oddss = [];
-      // PUSH
-      raceResultData.map((item) => {
-        const user_name = item.user_name;
-        const user_id = item.user_id;
-        const horse_name = item.horse_name;
-        const horse_id = item.horse_id;
-        const horse_gender = item.horse_gender;
-        const horse_age = item.horse_age;
-        const mass = item.mass;
-        const jockey_name = item.jockey_name;
-        const jockey_id = item.jockey_id;
-        const quality_leg = item.quality_leg;
-        const stall_type = item.stall_type;
-        horseData.push({
-          user_name,
-          user_id,
-          horse_name,
-          horse_id,
-          horse_gender,
-          horse_age,
-          mass,
-          jockey_name,
-          jockey_id,
-          quality_leg,
-          stall_type,
-        });
-      });
-
-
-      if (totalWinners[0] != undefined) {
-        totalWinners[0].map((ranking) => {
-          rankings.push(ranking.ranking);
-          times.push(ranking.time);
-          oddss.push(ranking.odds);
-        });
-      }
-
-      for (let i = 0; i < horseData.length; i++) {
-        if (i < rankings.length || times.length) {
-          horseData[i].ranking = rankings[i];
-          horseData[i].time = times[i];
-          horseData[i].odds = oddss[i];
-        } else {
-          break;
-        }
-      }
-
-      for (let i = 0; i < prizeData.length; i++) {
-        const rank = prizeData[i].rank.trim();
-
-        for (let j = 0; j < horseData.length; j++) {
-          if (rank === String(horseData[j].ranking)) {
-            horseData[j].prize = prizeData[i].money;
-          }
-        }
-      }
-
-      for (let j = 0; j < horseData.length; j++) {
-        if (!horseData[j].prize) {
-          horseData[j].prize = 0;
-        }
-      }
-
-      for (let j = 0; j < horseData.length; j++) {
-        if (!horseData[j].race_type) {
-          horseData[j].race_type = raceFieldData.type;
-        }
-      }
-
-      for (let j = 0; j < horseData.length; j++) {
-        if (!horseData[j].race_id) {
-          horseData[j].race_id = raceHorseData[0].race_id;
-        }
-      }
-
-      const timestamp = calculateGameDate(currentTime);
-      const date = new Date(timestamp);
-      const year = date.getFullYear();
-
-      for (let j = 0; j < horseData.length; j++) {
-        horseData[j].year = year;
-      }
-    }
-
-
-    console.log("-------horseData--------- ", horseData)
-    if (horseData != "") {
-      dispatch(
-        RaceResultAction(
-          horseData.sort((a, b) => a.time - b.time),
-          calculateGameDate(currentTime)
-        )
-      );
-      clearTimeout(raceTimeout);
-      navigation.navigate("RaceResult");
-    }
-  };
-  //
-  // moving ground
-  //
-  // BACK IMAGE ANIMATION
-  const translate = () => {
-    if (shouldStop) {
-      return;
-    }
-    translateValue.setValue(initialValue);
-    Animated.timing(translateValue, {
-      toValue: ANIMATION_TO_VALUE,
-      duration: otherSpeedReturn,
-      easing: Easing.linear,
-      useNativeDriver: true,
-    }).start(() => {
-      if (true === shouldStop) {
-        // Check if animation should continue after each loop
-        translate();
-      }
-    });
-  };
-  //
-  // start race(only logic)
-  // Horse ANIMATION ACTION
-  //
   const startRace = (spds) => {
     spd_arr.push(firstSpeed, secondSpeeds, threeSpeeds, fourSpeeds, fiveSpeeds);
 
@@ -502,50 +381,24 @@ const HorseRace = ({
       animation.stopAnimation(); // Stop all the horse animations
     });
   };
+
   //
   // set every horse outputrange so that to calculate there distance
   //
-  if (raceAllData != "")
-    for (let i = 0; i < 10; i++) {
-      const style = {
-        transform: [
-          {
-            translateX: animations[i].interpolate({
-              inputRange: [0, 1],
-              outputRange: [landWidth - 60, 0],
-            }),
-          },
-        ],
-      };
-      horseAnimationStyles.push(style);
-    }
-
-  //
-  // moving background
-  // BACKIMAGE ANIMATION
-  //
-  const translateAnimation = translateValue.interpolate({
-    inputRange: [INPUT_RANGE_START, INPUT_RANGE_END],
-    outputRange: [-outPutRange, OUTPUT_RANGE_END],
-  });
-
-  if (translateAnimation == 0) {
-    shouldStop = true;
+  for (let i = 0; i < 10; i++) {
+    const style = {
+      transform: [
+        {
+          translateX: animations[i].interpolate({
+            inputRange: [0, 1],
+            outputRange: [landWidth - 60, 0],
+          }),
+        },
+      ],
+    };
+    horseAnimationStyles.push(style);
   }
 
-  const AnimatedImage = Animated.createAnimatedComponent(ImageBackground);
-  AnimatedImage.defaultProps = {
-    ...AnimatedImage.defaultProps,
-    // Set a lower frame rate (e.g., 30 frames per second)
-    maxFrameDuration: 33.333333333333336, // 1000 ms / 30 fps
-  };
-
-  // raceCpuData
-  /**
-   * =========================START==========================
-   * fade in, fade out part
-   * =========================START==========================
-   */
   const fadeInEnd = () => {
     Animated.timing(fadeInAnimation, {
       toValue: 1,
@@ -562,58 +415,16 @@ const HorseRace = ({
     }).start();
   };
 
-  const fadeOutButton = () => {
-    Animated.timing(fadeOutButtonAnimation, {
-      toValue: 0,
-      duration: 10,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const fadeInButton = () => {
-    Animated.timing(fadeInButtonAnimation, {
-      toValue: 1,
-      duration: 10,
-      useNativeDriver: true,
-    }).start();
-  };
-  /**
-   * =========================END==========================
-   * fade in, fade out part
-   * =========================END==========================
-   */
-  //VIEW---------------------------------------------------
   return (
     <>
       <View style={Screenstyles.RaceCourseContainer}>
-        <Animated.View
-          style={[
-            styles.loadingBack,
-            { opacity: fadeOutLodingAnimation, zIndex: fadeOutLodingAnimation },
-          ]}
-        >
-          <Image
-            style={{ left: 340, top: 150, width: 100, height: 64 }}
-            source={require("../../assets/images/ezgif.com-resize.gif")}
-          />
-        </Animated.View>
-
         {/* ground start */}
-        <AnimatedImage
-          resizeMode="repeat"
-          style={[
-            Screenstyles.background,
-            { width: raceWidth },
-            {
-              transform: [
-                {
-                  translateX: translateAnimation,
-                },
-              ],
-            },
-          ]}
-          source={grounds}
-        >
+        <ScrollView horizontal={true} style={[Screenstyles.background]}>
+          <Image
+            resizeMode="repeat"
+            style={[Screenstyles.background, { width: raceWidth }]}
+            source={require("../../assets/horseImageData/NewBack/G-1.png")}
+          />
           <View style={[Screenstyles.stillGroup, { width: raceWidth }]}>
             {stillSource.map((still, l) => {
               return (
@@ -625,98 +436,31 @@ const HorseRace = ({
               );
             })}
           </View>
-
           <Image style={Screenstyles.final} source={finals} />
-        </AnimatedImage>
-        {/* ground end */}
-        {/* horse start */}
-        <View style={styles.horseGroup}>
-          {horseAnimationStyles.map((style, i) => (
-            <View key={i}>
-              <Animated.View
-                style={[styles.noWhip, style, { opacity: fadeOutAnimation }]}
-              >
-                <View key={i} style={Screenstyles.RaceCoursecontent}>
-                  {raceHorse.map((item, k) => {
-                    return (
-                      <View key={`${i}-${k}`}>
-                        <Image
-                          style={Screenstyles.horseSize}
-                          source={item[colorCount[i]]}
-                        />
-                      </View>
-                    );
-                  })}
-                </View>
-                <View style={[styles.number]}>
-                  {numberSource.map((number, j) => {
-                    return <Image key={`${i}-${j}`} source={number[i + 1]} />;
-                  })}
-                </View>
-              </Animated.View>
-
-              <Animated.View
-                style={[styles.horse, style, { opacity: fadeInAnimation }]}
-              >
-                <View key={i} style={Screenstyles.RaceCoursecontent}>
-                  {raceWhipHorse.map((item, k) => {
-                    return (
-                      <View key={`${i}-${k}`}>
-                        <Image
-                          style={Screenstyles.horseSize}
-                          source={item[colorCount[i]]}
-                        />
-                      </View>
-                    );
-                  })}
-                </View>
-                <View style={[styles.number]}>
-                  {numberSource.map((number, j) => {
-                    return <Image key={`${i}-${j}`} source={number[i + 1]} />;
-                  })}
-                </View>
-              </Animated.View>
-            </View>
-          ))}
-        </View>
-        {/* hrose end */}
-        {/* sky image */}
+          <RaceHorses
+            raceWidth={raceWidth}
+            startState={startState}
+            fadeInAnimation={fadeInAnimation}
+            fadeOutAnimation={fadeOutAnimation}
+          />
+        </ScrollView>
         <Image style={[Screenstyles.skyImage]} source={weathers} />
         {/* buttons start */}
         <View style={styles.buttonGroup}>
-          <Animated.View
-            style={{
-              opacity: fadeOutButtonAnimation,
-              zIndex: fadeOutButtonAnimation,
-            }}
-          >
+          <Animated.View>
             <TouchableOpacity style={styles.button} onPress={handleStart}>
-              <Text style={styles.buttonText}>レース</Text>
-            </TouchableOpacity>
-          </Animated.View>
-
-          <Animated.View
-            style={{
-              opacity: fadeInButtonAnimation,
-              zIndex: fadeInButtonAnimation,
-            }}
-          >
-            <TouchableOpacity
-              style={styles.button1}
-              onPress={handleStart}
-              disabled={true}
-            >
               <Text style={styles.buttonText}>レース</Text>
             </TouchableOpacity>
           </Animated.View>
 
           <TouchableOpacity
             style={[styles.button, { backgroundColor: "#f02054" }]}
-            onPress={handleResult}
+            // onPress={handleResult}
           >
             <Text style={styles.buttonText}>結果</Text>
           </TouchableOpacity>
         </View>
+
         {/* buttons end */}
         <View
           style={{
@@ -754,6 +498,7 @@ const mapStateToProps = (state) => {
     landWidth: state.dimensions.dimensionsData.height,
     reaceReigsterData: state.raceData.raceRegisterData,
     raceHorseData: state.racingHorseData.racingHorseData,
+    raceResultDatas: state.racingData.raceResultData,
     prizeData: state.raceData.prizeData,
     oddsData: state.raceOddsData.oddsData,
   };
@@ -815,8 +560,8 @@ const styles = StyleSheet.create({
   },
   buttonGroup: {
     position: "absolute",
-    left: "60%",
-    top: SCREEN_WIDTH > 400 || SCREEN_HEIGHT > 738 ? "45.8%" : "46.8%",
+    left: "30%",
+    top: SCREEN_WIDTH > 738 || SCREEN_HEIGHT > 400 ? "45.8%" : "46.8%",
     width: "100%",
     flexDirection: "row",
     paddingLeft: 20,
@@ -837,6 +582,14 @@ const styles = StyleSheet.create({
     left: 40,
     top: 30,
     zIndex: 1000,
+  },
+  finalNumber: {
+    left: 20,
+    top: -30,
+    zIndex: 1000,
+  },
+  finalNumberOne: {
+    marginTop: 5,
   },
 });
 /**

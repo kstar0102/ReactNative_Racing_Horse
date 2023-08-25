@@ -12,6 +12,8 @@ import FooterScreen from './LayoutScreen/FooterScreen';
 import { CustomButtons, ReturnButton } from '../components/Buttons';
 import Screenstyles from '../screens/ScreenStylesheet';
 
+
+
 const PastureScreen = ({navigation, user_id, pasture_id}) => {
   const dispatch = useDispatch();
 
@@ -68,7 +70,7 @@ const PastureScreen = ({navigation, user_id, pasture_id}) => {
               <View style={Screenstyles.content}>
                   <CustomButtons label="施 設" onPress={handleSubmit}/>
                   <CustomButtons label="競馬場" onPress={handleGetSubmit}/>
-                  <CustomButtons label="種 付" disabled={true}/>
+                  <CustomButtons label="種 付" onPress={() => navigation.navigate('MarryScreen')}/>
               </View>
             </View>
             <FooterScreen/>
