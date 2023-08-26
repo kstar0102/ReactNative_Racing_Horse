@@ -76,6 +76,7 @@ const WorkingButton = ({ label, onPress, disabled, colorNumber, styleId }) => {
 				styleId == 1 ? styles.buttonStyle : 'styles.button',
 				styleId == 2 ? styles.buttonStyle : 'styles.button',
 				styleId == 3 ? styles.buttonStyleThree : 'styles.button',
+				styleId == 4 ? styles.buttonStyleFour : 'styles.button',
 				disabled && styles.disabled]}
 			onPress={onPress ? onPress : () => handlePress()}
 			disabled={disabled ? disabled : false}
@@ -123,6 +124,10 @@ const styles = StyleSheet.create({
 	},
 	buttonStyle: {
 		marginTop: 5
+	},
+	buttonStyleFour: {
+		marginTop: 5,
+		marginLeft: "73%"
 	},
 	buttonStyleThree:{
 		height: 30,

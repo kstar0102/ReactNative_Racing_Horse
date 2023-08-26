@@ -58,16 +58,14 @@ const OneHorseTap = ({ oneData, arrowState, showGrowstate, registering }) => {
   const [banner, setBanner] = useState(oneData[0]);
   const [registeringState, setRegisteringState] = useState("none");
 
-
   const filteredOneData =
     registering != "" ? registering.map((data) => Number(data.horse_id)) : [];
-   
 
   useEffect(() => {
     if (filteredOneData != "") {
       if (filteredOneData.includes(banner.id)) {
         setRegisteringState("flex");
-      }else{
+      } else {
         setRegisteringState("none");
       }
     } else {
@@ -590,10 +588,9 @@ const OneHorseTap = ({ oneData, arrowState, showGrowstate, registering }) => {
                 RTapScreensStyle.oneRioghtHeaderTxtA,
                 {
                   color:
-                    (!!selected && selected.gender == "牝") ||
-                    data[0].gender == "牝"
-                      ? Ccolors.genderColorF
-                      : Ccolors.genderColorM,
+                    banner.gender == "牡"
+                      ? Ccolors.genderColorM
+                      : Ccolors.genderColorF,
                 },
               ]}
             >
@@ -603,10 +600,9 @@ const OneHorseTap = ({ oneData, arrowState, showGrowstate, registering }) => {
               <Text
                 style={{
                   color:
-                    (!!selected && selected.gender == "牝") ||
-                    data[0].gender == "牝"
-                      ? Ccolors.genderColorF
-                      : Ccolors.genderColorM,
+                    banner.gender == "牡"
+                      ? Ccolors.genderColorM
+                      : Ccolors.genderColorF,
                 }}
               >
                 {(!!selected && selected.gender) || data[0].gender}

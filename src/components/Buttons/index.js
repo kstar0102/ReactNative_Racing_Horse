@@ -20,3 +20,4 @@ export { default as SaleButton } from './SaleButton';
 export { default as JockeyCheck } from './JockeyCheck';
 export { default as JockeyOk } from './JockeyOk';
 export { default as RegisterButton } from './RegisterButton';
+export { default as MarryButton } from './MarryButton';

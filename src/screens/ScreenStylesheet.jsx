@@ -482,7 +482,20 @@ const Screenstyles = StyleSheet.create({
     marginTop: 20,
     flexDirection: "row"  
   },
+  marryAlam:{
+  
+    flexDirection: "row" ,
+    marginLeft: 20,
+
+  },
   bankTxt:{
+    backgroundColor: colors.butonBackgroud,
+    top: 10,
+    padding: 5,
+    left: 10,
+    borderRadius: 10
+  },
+  marryTxt:{
     backgroundColor: colors.butonBackgroud,
     top: 10,
     padding: 5,
@@ -509,6 +522,20 @@ const Screenstyles = StyleSheet.create({
     left: 40,
     flexDirection: "row",
     justifyContent: "space-evenly"
+  },
+  marryBtnGroup:{
+    width: "60%",
+    left: 120,
+    paddingBottom: 10,
+    flexDirection: "row",
+    justifyContent: "space-evenly"
+  },
+  // Marry Screen =========================
+  marryButton:{
+    marginTop: 10,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around"
   }
 });
 

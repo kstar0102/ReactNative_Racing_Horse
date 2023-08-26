@@ -415,6 +415,7 @@ const HorseRace = ({
     }).start();
   };
 
+
   return (
     <>
       <View style={Screenstyles.RaceCourseContainer}>

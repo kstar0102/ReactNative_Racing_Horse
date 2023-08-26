@@ -60,7 +60,6 @@ const RTapScreensStyle = StyleSheet.create({
   oneTopContent: {
     flexDirection: 'column',
     alignItems: 'center'
-    // justifyContent: 'space-around'
   },
   oneRightContentTxt:{
     fontSize: hp(2)+ wp(1.5),
@@ -88,7 +87,7 @@ const RTapScreensStyle = StyleSheet.create({
   oneTopContentRight: {
     flexDirection: 'column',
     justifyContent: 'space-between',
-    minWidth: '95%'
+    minWidth: '95%',
   },
   oneRioghtHeader:{
     borderTopRightRadius: 10,
@@ -147,8 +146,22 @@ const RTapScreensStyle = StyleSheet.create({
     backgroundColor: colors.pBColor,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
+  oneRightMarryBody: {
+    borderTopWidth: 1,
+    borderTopColor: colors.white,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    paddingVertical: 2,
+    paddingHorizontal: 6,
+    backgroundColor: colors.pBColor,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: 70
+  },
+
   oneRightTxt:{
     display: 'flex',
     flexDirection: 'row',
@@ -160,6 +173,12 @@ const RTapScreensStyle = StyleSheet.create({
     fontWeight: 700,
     color: colors.white,
     marginTop: 1
+  },
+  oneRightMarryBodyTxt:{
+    fontSize: hp(1.2) + wp(1.8),
+    fontWeight: 700,
+    color: colors.white,
+    marginTop: -20
   },
   oneRioghtBodyTxtValue:{
     fontSize: hp(1) + wp(2.5),
@@ -195,6 +214,9 @@ const RTapScreensStyle = StyleSheet.create({
   HorseAvatar:{
     width: vw(4.5) + vh(3.5),
     marginTop: 30
+  },
+  HorseMarryAvatar:{
+    width: vw(4.5) + vh(3.5),
   },
   registering:{
     position: 'absolute',
@@ -361,7 +383,18 @@ const RTapScreensStyle = StyleSheet.create({
   lockTitle:{
     fontSize: 17,
     padding: 2
-  }
+  },
+  // Marry
+  marryPt:{
+    width: 150,
+    position: 'absolute',
+    top: 27,
+    // left: 30
+  },
+  marryPtTxt:{
+    fontSize: 15,
+    fontWeight: 700
+  } 
 });
 
   export default RTapScreensStyle;

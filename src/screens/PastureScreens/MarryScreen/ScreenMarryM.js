@@ -1,56 +1,38 @@
-import React, { useState, useEffect } from "react";
-import { View, Image, Text, ImageBackground } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import Toast from "react-native-root-toast";
-import Spinner from "react-native-loading-spinner-overlay";
-
-import DropDownR from "../../../components/Buttons/DropDwonR";
-import RTapScreensStyle from "../../PastureScreens/RanchTapScreens/RTapScreensStyle";
-import Screenstyles from "../../ScreenStylesheet";
-import HeaderScreen from "../../LayoutScreen/HeaderScreen";
-import StableFooterScreen from "../../LayoutScreen/StableFooterScreen";
-import ReturnButtonScreen from "../../../components/someScreen/ReturnButtonScreen";
+// Redux
 import { connect } from "react-redux";
-import { horseColor } from "../../../utils/globals";
-import RegisterTable from "./RegisterTable";
-import Ccolors from "../../../containers/colors";
 
-const RaceRegistation = ({ stableData, registering }) => {
-  if (stableData == "" || stableData == undefined) {
-    alert("YOUR HORSE NOT FOUND RETURN");
-    return <Spinner visible={true} />;
-  }
+import DropDwonM from "../../../components/Buttons/DropDwonM";
+import MarryBloodlineTable from "../../../components/table/MarryBloodlineTable";
+import MarryBloodlineSysTable from "../../../components/table/MarryBloodlineSysTable";
+import RTapScreensStyle from "../../PastureScreens/RanchTapScreens/RTapScreensStyle";
+import { horseColor } from "../../../utils/globals";
+import Ccolors from "../../../containers/colors";
+import WorkingButton from "../../../components/Buttons/WorkingButtons";
+// Custom IMPORT
+// Style
+import MarryStyle from "./MarryStyle";
+const ScreenMarryM = ({ horseDatas }) => {
+  const [selected, setSelected] = useState(undefined);
+  const [banner, setBanner] = useState(horseDatas[0]);
+  const [activeButton, setActiveButton] = useState(0);
   // Ground Color
   const [groundColor, setGroundColor] = useState("#1BFF00");
-  const [selected, setSelected] = useState(undefined);
-  const [banner, setBanner] = useState(stableData[0]);
-  const [registeringState, setRegisteringState] = useState("none");
-
-  const filteredOneData =
-    registering != "" ? registering.map((data) => Number(data.horse_id)) : [];
 
   useEffect(() => {
-    if (filteredOneData != "") {
-      if (filteredOneData.includes(banner.id)) {
-        setRegisteringState("flex");
-      } else {
-        setRegisteringState("none");
-      }
-    } else {
-      setRegisteringState("none");
-    }
-  }, [banner, registering]);
-  useEffect(() => {
-    setBanner(stableData[0]);
+    setBanner(horseDatas[0]);
     setPattern(tiredNumber);
-    if (stableData[0].ground == "ダ") {
+    if (horseDatas[0].ground == "ダ") {
       setGroundColor("#707172");
-    } else if (stableData[0].ground == "芝") {
+    } else if (horseDatas[0].ground == "芝") {
       setGroundColor("#1BFF00");
-    } else if (stableData[0].ground == "万") {
+    } else if (horseDatas[0].ground == "万") {
       setGroundColor("red");
     }
-  }, [stableData]);
-  const data = stableData;
+  }, [horseDatas]);
+  const data = horseDatas;
   const handleSettingId = (value) => {
     setBanner(value);
     if (value) {
@@ -134,60 +116,6 @@ const RaceRegistation = ({ stableData, registering }) => {
     return result;
   };
 
-  const conditionFaceRange = (conditionFace) => {
-    if (typeof conditionFace !== "number") {
-      return;
-    }
-    let result = "";
-    switch (true) {
-      case conditionFace >= 7 && conditionFace <= 500:
-        result = require("../../../assets/images/condition/happy.png");
-        break;
-      case conditionFace >= 3 && conditionFace <= 6:
-        result = require("../../../assets/images/condition/middlehappy.png");
-        break;
-      case conditionFace >= -2 && conditionFace <= 2:
-        result = require("../../../assets/images/condition/normel.png");
-        break;
-      case conditionFace >= -6 && conditionFace <= -3:
-        result = require("../../../assets/images/condition/sad.png");
-        break;
-      case conditionFace >= -10 && conditionFace <= -7:
-        result = require("../../../assets/images/condition/bad.png");
-        break;
-      default:
-        return;
-    }
-    return result;
-  };
-
-  const tiredRange = (tired) => {
-    if (typeof tired !== "number") {
-      return;
-    }
-    let result = "";
-    switch (true) {
-      case tired <= 7:
-        result = " ◎";
-        break;
-      case tired >= 8 && tired <= 12:
-        result = " o";
-        break;
-      case tired >= 13 && tired <= 14:
-        result = " ▲";
-        break;
-      case tired >= 15 && tired <= 17:
-        result = " △";
-        break;
-      case tired >= 18:
-        result = " ×";
-        break;
-      default:
-        return;
-    }
-    return result;
-  };
-
   const speed = skillRange(banner.speed_b - -banner.speed_w);
   const health = skillRange(banner.health_b - -banner.health_w);
   const moment = skillRange(banner.moment_b - -banner.moment_w);
@@ -197,8 +125,6 @@ const RaceRegistation = ({ stableData, registering }) => {
   const distanceValue = distanceRange(
     (banner.distance_max - -banner.distance_min) / 2
   );
-  const conditionFace = conditionFaceRange(parseInt(banner.happy));
-  const tired = tiredRange(parseInt(banner.tired));
   const tiredNumber = parseInt(banner.tired);
 
   // Health State
@@ -301,24 +227,48 @@ const RaceRegistation = ({ stableData, registering }) => {
       }
     }
   };
+
+  const handleButtonPress = (id) => {
+    setActiveButton(id);
+  };
+
+  const renderScreenBelowButtons = () => {
+    switch (activeButton) {
+      case 1:
+        return (
+          <MarryBloodlineTable
+            gender={"man"}
+            horseName={banner.name}
+            father_sys={banner.f_name}
+            father_f_sys={banner.f_f_name}
+            father_m_sys={banner.f_m_name}
+            mother_sys={banner.m_name}
+            mother_f_sys={banner.m_f_name}
+            mother_m_sys={banner.m_m_name}
+          />
+        );
+      default:
+        return (
+          <MarryBloodlineSysTable
+            gender={"man"}
+            horseName={banner.name}
+            father_sys={banner.f_sys}
+            father_f_sys={banner.f_f_sys}
+            father_m_sys={banner.f_m_sys}
+            mother_sys={banner.m_sys}
+            mother_f_sys={banner.m_f_sys}
+            mother_m_sys={banner.m_m_sys}
+          />
+        );
+    }
+  };
+
   return (
-    <ImageBackground
-      source={require("../../../assets/images/horse_track/stall.jpg")}
-      resizeMode="cover"
-      style={Screenstyles.img}
-    >
-      <HeaderScreen />
-      <ReturnButtonScreen
-        BigPlace={"厩 舎"}
-        screenName={"出走登録"}
-        colorNumber={1}
-        nviUrl={"StallScreen"}
-      />
-      <View style={RTapScreensStyle.RaceRegistationContainer}>
+    <ScrollView style={MarryStyle.content}>
+      <View>
         <View style={RTapScreensStyle.oneTopContent}>
           <View style={RTapScreensStyle.oneTopContentLeft}>
-            <Text style={RTapScreensStyle.shadowTxt}>所有馬一覧</Text>
-            <DropDownR
+            <DropDwonM
               name={data[0].name}
               data={data}
               onSelect={setSelected}
@@ -327,19 +277,6 @@ const RaceRegistation = ({ stableData, registering }) => {
           </View>
           <View style={RTapScreensStyle.oneTopContentRight}>
             <View style={RTapScreensStyle.oneRioghtHeader}>
-              <Text
-                style={[
-                  RTapScreensStyle.oneRioghtHeaderTxtA,
-                  {
-                    color:
-                      banner.gender == "牡"
-                        ? Ccolors.genderColorM
-                        : Ccolors.genderColorF,
-                  },
-                ]}
-              >
-                {(!!selected && selected.name) || data[0].name}
-              </Text>
               <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
                 <Text
                   style={{
@@ -357,24 +294,27 @@ const RaceRegistation = ({ stableData, registering }) => {
               <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
                 {(!!selected && selected.growth) || data[0].growth}
               </Text>
+
               <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
                 {(!!selected && selected.color) || data[0].color}
               </Text>
-              <Text style={RTapScreensStyle.oneRioghtHeaderTxtLetter}>
-                {(!!selected && selected.class) || "GIクラス"}
+              <Text
+                style={[
+                  RTapScreensStyle.oneRioghtHeaderTxtGreenA,
+                  { color: groundColor },
+                ]}
+              >
+                {(!!selected && selected.ground) || data[0].ground}
+              </Text>
+              <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
+                {(!!selected && `${distanceValue}距離`) ||
+                  `${distanceValue}距離`}
               </Text>
             </View>
-            <View style={RTapScreensStyle.oneRioghtBody}>
+            <View style={RTapScreensStyle.oneRightMarryBody}>
               <View>
-                <View style={RTapScreensStyle.conditionsGroup}>
-                  <Text style={RTapScreensStyle.oneRioghtBodyTxt}>調子</Text>
-                  <Image
-                    style={RTapScreensStyle.conditions}
-                    source={conditionFace}
-                  />
-                </View>
                 <View style={RTapScreensStyle.oneRightTxt}>
-                  <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
+                  <Text style={RTapScreensStyle.oneRightMarryBodyTxt}>
                     SP{" "}
                     <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>
                       {(!!selected && speed) || speed}
@@ -389,28 +329,16 @@ const RaceRegistation = ({ stableData, registering }) => {
                     </Text>
                   </Text>
                 </View>
-              </View>
-              <View>
-                <View style={RTapScreensStyle.oneRightTxt}>
-                  <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
-                    疲労
-                    <Text style={RTapScreensStyle.oneRioghtBodyTxtTired}>
-                      {(!!selected && tired) || tired}
-                    </Text>
-                  </Text>
-
-                  <Text
-                    style={[
-                      RTapScreensStyle.oneRioghtHeaderTxtGreenA,
-                      { color: groundColor },
-                    ]}
-                  >
-                    {(!!selected && selected.ground) || data[0].ground}
+                <View style={RTapScreensStyle.marryPt}>
+                  <Text style={RTapScreensStyle.marryPtTxt}>
+                    評価額 : 5000pt
                   </Text>
                 </View>
+              </View>
 
+              <View>
                 <View style={RTapScreensStyle.oneRightTxt}>
-                  <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
+                  <Text style={RTapScreensStyle.oneRightMarryBodyTxt}>
                     瞬発{" "}
                     <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>
                       {(!!selected && moment) || moment}
@@ -429,18 +357,8 @@ const RaceRegistation = ({ stableData, registering }) => {
               </View>
 
               <View style={RTapScreensStyle.oneRioghtBodyTxtGroup}>
-                <View style={RTapScreensStyle.txtGroup}>
-                  <Text style={RTapScreensStyle.oneRioghtBodyTxtA}>
-                    {(!!selected && distanceValue) || distanceValue}距離
-                  </Text>
-                  <Text style={RTapScreensStyle.oneRioghtBodyTxtValueA}>
-                    {" "}
-                    {(!!selected && selected.quality_leg) ||
-                      data[0].quality_leg}
-                  </Text>
-                </View>
                 <View style={RTapScreensStyle.oneRightTxt}>
-                  <Text style={RTapScreensStyle.oneRioghtBodyTxt}>
+                  <Text style={RTapScreensStyle.oneRightMarryBodyTxt}>
                     気性{" "}
                     <Text style={RTapScreensStyle.oneRioghtBodyTxtValue}>
                       {(!!selected && condition) || condition}
@@ -464,16 +382,8 @@ const RaceRegistation = ({ stableData, registering }) => {
                         <View>
                           <Image
                             key={`${index}`}
-                            style={RTapScreensStyle.HorseAvatar}
+                            style={RTapScreensStyle.HorseMarryAvatar}
                             source={colorName[selected.color]}
-                          />
-
-                          <Image
-                            style={[
-                              RTapScreensStyle.registering,
-                              { display: registeringState },
-                            ]}
-                            source={require("../../../assets/horseImageData/registering_1.png")}
                           />
                         </View>
                       );
@@ -490,16 +400,8 @@ const RaceRegistation = ({ stableData, registering }) => {
                         <View>
                           <Image
                             key={`${index}`}
-                            style={RTapScreensStyle.HorseAvatar}
+                            style={RTapScreensStyle.HorseMarryAvatar}
                             source={colorName[data[0].color]}
-                          />
-
-                          <Image
-                            style={[
-                              RTapScreensStyle.registering,
-                              { display: registeringState },
-                            ]}
-                            source={require("../../../assets/horseImageData/registering_1.png")}
                           />
                         </View>
                       );
@@ -512,21 +414,33 @@ const RaceRegistation = ({ stableData, registering }) => {
             </View>
           </View>
         </View>
+        <View style={RTapScreensStyle.ButtonGroup}>
+          {activeButton ? (
+            <WorkingButton
+              label={`系統`}
+              colorNumber={2}
+              styleId={4}
+              onPress={() => handleButtonPress(0)}
+            />
+          ) : (
+            <WorkingButton
+              label={`馬名`}
+              colorNumber={5}
+              styleId={4}
+              onPress={() => handleButtonPress(1)}
+            />
+          )}
+        </View>
+        <View>{renderScreenBelowButtons()}</View>
       </View>
-      <View>
-        <RegisterTable horseData={banner ? banner : data[0]} />
-      </View>
-
-      <StableFooterScreen />
-    </ImageBackground>
+    </ScrollView>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    stableData: state.stableMenu.StableSendData,
-    arrowState: state.arrow.arrowState,
-    registering: state.registerData.registeringData,
+    saveData: state.horseData.saveData,
   };
 };
-export default connect(mapStateToProps)(RaceRegistation);
+
+export default connect(mapStateToProps)(ScreenMarryM);

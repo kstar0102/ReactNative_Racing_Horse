@@ -44,6 +44,13 @@ const ButtonStyle = StyleSheet.create({
   bankruptcyModal: {
     marginTop: vh(60),
   },
+  marryModal: {
+    backgroundColor: "#d8d7d7",
+    width: "90%",
+    marginTop: vh(40),
+    marginLeft: 18,
+    borderRadius: 20,
+  },
   ModalCenterTxt: {
     marginTop: 30,
   },

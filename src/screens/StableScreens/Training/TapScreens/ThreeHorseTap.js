@@ -462,10 +462,9 @@ const ThreeHorseTap = ({ twoData, arrowState, registering }) => {
                 RTapScreensStyle.oneRioghtHeaderTxtA,
                 {
                   color:
-                    (!!selected && selected.gender == "牝") ||
-                    data[0].gender == "牝"
-                      ? Ccolors.genderColorF
-                      : Ccolors.genderColorM,
+                    banner.gender == "牡"
+                      ? Ccolors.genderColorM
+                      : Ccolors.genderColorF,
                 },
               ]}
             >
@@ -475,10 +474,9 @@ const ThreeHorseTap = ({ twoData, arrowState, registering }) => {
               <Text
                 style={{
                   color:
-                    (!!selected && selected.gender == "牝") ||
-                    data[0].gender == "牝"
-                      ? Ccolors.genderColorF
-                      : Ccolors.genderColorM,
+                    banner.gender == "牡"
+                      ? Ccolors.genderColorM
+                      : Ccolors.genderColorF,
                 }}
               >
                 {(!!selected && selected.gender) || data[0].gender}
