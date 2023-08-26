@@ -6,6 +6,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
+import { vw, vh } from "react-native-expo-viewport-units";
 const MarryBloodlineTable = ({
   father_sys,
   father_f_sys,
@@ -18,7 +19,7 @@ const MarryBloodlineTable = ({
 }) => {
   return (
     <>
-      <ScrollView horizontal={true} style={styles.container}>
+      <View style={styles.container}>
         <View style={[ gender == "girl" ?  styles.horseNameG : gender == "man" ? styles.horseName : styles.horseName ,  ]}>
           <Text style={styles.txtFont}>{horseName}</Text>
         </View>
@@ -48,7 +49,7 @@ const MarryBloodlineTable = ({
             </View>
           </View>
         </View>
-      </ScrollView>
+      </View>
     </>
   );
 };
@@ -67,13 +68,13 @@ const styles = StyleSheet.create({
   },
   horseName: {
     backgroundColor: "#4ca3f5",
-    width: 160,
+    width: vw(30),
     paddingTop: 80,
     padding: 10,
   },
   horseNameG:{
     backgroundColor: "#e094f7",
-    width: 160,
+    width: vw(30),
     paddingTop: 80,
     padding: 10,
   },
@@ -83,13 +84,13 @@ const styles = StyleSheet.create({
   horseFather: {
     backgroundColor: "#4ca3f5",
     height: 100,
-    width: 150,
+    width: vw(33),
     paddingTop: 43,
   },
   horseMother: {
     backgroundColor: "#e094f7",
     height: 100,
-    width: 150,
+    width: vw(33),
     paddingTop: 43,
   },
   horseGrand: {
@@ -98,28 +99,14 @@ const styles = StyleSheet.create({
   },
   horseGrandpa: {
     height: 50,
-    width: 150,
+    width: vw(37),
     paddingTop: 15,
     backgroundColor: "#4ca3f5",
   },
   horseGrandma: {
     height: 50,
-    width: 150,
+    width:  vw(37),
     paddingTop: 15,
     backgroundColor: "#e094f7",
-  },
-  greatGrand: {
-    flexDirection: "column",
-    justifyContent: "space-between",
-  },
-  horsegreatGrandpa: {
-    backgroundColor: "#4ca3f5",
-    height: 25,
-    width: 150,
-  },
-  horsegreatGrandma: {
-    backgroundColor: "#e094f7",
-    height: 25,
-    width: 150,
   },
 });

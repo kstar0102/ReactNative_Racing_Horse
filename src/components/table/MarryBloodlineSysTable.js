@@ -5,7 +5,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-
+import { vw, vh } from "react-native-expo-viewport-units";
 const MarryBloodlineSysTable = ({
   father_sys,
   father_f_sys,
@@ -14,12 +14,20 @@ const MarryBloodlineSysTable = ({
   mother_f_sys,
   mother_m_sys,
   horseName,
-  gender
+  gender,
 }) => {
   return (
     <>
-      <ScrollView horizontal={true} style={styles.container}>
-        <View style={[ gender == "girl" ?  styles.horseNameG : gender == "man" ? styles.horseName : styles.horseName ,  ]}>
+      <View style={styles.container}>
+        <View
+          style={[
+            gender == "girl"
+              ? styles.horseNameG
+              : gender == "man"
+              ? styles.horseName
+              : styles.horseName,
+          ]}
+        >
           <Text style={styles.txtFont}>オーエンテューダー系</Text>
         </View>
         <View style={styles.horseParental}>
@@ -48,46 +56,7 @@ const MarryBloodlineSysTable = ({
             </View>
           </View>
         </View>
-        <View style={styles.greatGrand}>
-          <View>
-            <View style={styles.horseGrand1}>
-              <View style={styles.horsegreatGrandpa}>
-                <Text>{father_f_sys}</Text>
-              </View>
-              <View style={styles.horsegreatGrandma}>
-                <Text>{father_m_sys}</Text>
-              </View>
-            </View>
-            <View style={styles.horseGrand2}>
-              <View style={styles.horsegreatGrandpa}>
-                <Text>{mother_f_sys}</Text>
-              </View>
-              <View style={styles.horsegreatGrandma}>
-                <Text>{mother_m_sys}</Text>
-              </View>
-            </View>
-          </View>
-
-          <View>
-            <View style={styles.horseGrand1}>
-              <View style={styles.horsegreatGrandpa}>
-                <Text>{father_f_sys}</Text>
-              </View>
-              <View style={styles.horsegreatGrandma}>
-                <Text>{father_m_sys}</Text>
-              </View>
-            </View>
-            <View style={styles.horseGrand2}>
-              <View style={styles.horsegreatGrandpa}>
-                <Text>{mother_f_sys}</Text>
-              </View>
-              <View style={styles.horsegreatGrandma}>
-                <Text>{mother_m_sys}</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </ScrollView>
+      </View>
     </>
   );
 };
@@ -106,13 +75,13 @@ const styles = StyleSheet.create({
   },
   horseName: {
     backgroundColor: "#4ca3f5",
-    width: 160,
+    width: vw(37),
     paddingTop: 80,
     padding: 10,
   },
-  horseNameG:{
+  horseNameG: {
     backgroundColor: "#e094f7",
-    width: 160,
+    width: vw(37),
     paddingTop: 80,
     padding: 10,
   },
@@ -122,13 +91,13 @@ const styles = StyleSheet.create({
   horseFather: {
     backgroundColor: "#4ca3f5",
     height: 100,
-    width: 150,
+    width: vw(30),
     paddingTop: 43,
   },
   horseMother: {
     backgroundColor: "#e094f7",
     height: 100,
-    width: 150,
+    width: vw(30),
     paddingTop: 43,
   },
   horseGrand: {
@@ -137,28 +106,14 @@ const styles = StyleSheet.create({
   },
   horseGrandpa: {
     height: 50,
-    width: 150,
+    width: vw(36),
     paddingTop: 15,
     backgroundColor: "#4ca3f5",
   },
   horseGrandma: {
     height: 50,
-    width: 150,
+    width: vw(36),
     paddingTop: 15,
     backgroundColor: "#e094f7",
-  },
-  greatGrand: {
-    flexDirection: "column",
-    justifyContent: "space-between",
-  },
-  horsegreatGrandpa: {
-    backgroundColor: "#4ca3f5",
-    height: 25,
-    width: 150,
-  },
-  horsegreatGrandma: {
-    backgroundColor: "#e094f7",
-    height: 25,
-    width: 150,
   },
 });
