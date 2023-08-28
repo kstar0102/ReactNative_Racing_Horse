@@ -65,6 +65,7 @@ import {
 } from "./horseRaceGlobal";
 
 import RaceHorses from "./RaceHorses";
+import MiniMap from "./MiniMap";
 /**
  * =========================END=========================
  * Import parts
@@ -91,10 +92,8 @@ const HorseRace = ({
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const fadeInButtonAnimation = new Animated.Value(0);
   const fadeInAnimation = new Animated.Value(0);
   const fadeOutAnimation = new Animated.Value(1);
-  
   //
   // state define
   //  setFiveT
@@ -142,17 +141,13 @@ const HorseRace = ({
 
   // Global scope variables
   //
-
-  const animations = Array.from({ length: 10 }, () => new Animated.Value(0)); // Create an array of Animated.Value without using useState inside the loop
+// Create an array of Animated.Value without using useState inside the loop
   const mWidth = raceFieldData.distance.split("m")[0];
   const ground = raceFieldData.ground;
   const place = raceFieldData.place;
   const weather = raceFieldData.weather;
   let numberWidth = Number(mWidth);
   let raceWidth = (numberWidth / 100) * 290;
-  const outPutRange = raceWidth - 800;
-  const [stateA, setStateA] = useState({ a: raceWidth - 60 });
-  const fastSpeed = useRef(raceWidth - 60);
   // WEATHER AND RACING TIME AND GROUNDS DEFAULT VAR
   const racingtime = raceTime(numberWidth);
   const weathers = weatherType(weather);
@@ -167,20 +162,11 @@ const HorseRace = ({
   let animationState = false;
   const horseAnimationStyles = [];
   // CLEARTIMEOUT VALI
-  let raceTimeout;
   /**
    * ======================start==========================
    * UseEffect
    * ======================start==========================
    */
-  // setTimeout(() => {
-  //   Animated.timing(fadeOutLodingAnimation, {
-  //     toValue: 0,
-  //     duration: 500,
-  //     useNativeDriver: true,
-  //   }).start();
-  // }, 3000);
-
   //
   // calculate first time, first speed and speedController(basic value)
   //
@@ -317,88 +303,33 @@ const HorseRace = ({
     // }
     // const winners = totals;
     // totalWinners.push(winners);
-
-    raceTimeout = setTimeout(() => {
+    // spd_arr.push(firstSpeed, secondSpeeds, threeSpeeds, fourSpeeds, fiveSpeeds);
+    setTimeout(() => {
       console.log("---------------firstT---------");
     }, firstT);
 
-    raceTimeout = setTimeout(() => {
+     setTimeout(() => {
       console.log("---------------secondT---------");
     }, firstT + secondT);
 
-    raceTimeout = setTimeout(() => {
+    setTimeout(() => {
       console.log("---------------threeT---------");
       fadeInEnd();
       fadeOutEnd();
     }, firstT + secondT + threeT);
 
-    raceTimeout = setTimeout(() => {
+    setTimeout(() => {
       console.log("---------------fourT--------------- ");
     }, firstT + secondT + threeT + fourT);
 
-    raceTimeout = setTimeout(() => {
+    setTimeout(() => {
       console.log("---------------fivT--------------- ");
     }, firstT + secondT + threeT + fivT);
-  };
-
-  const startRace = (spds) => {
-    spd_arr.push(firstSpeed, secondSpeeds, threeSpeeds, fourSpeeds, fiveSpeeds);
-
-    if (animationState) {
-      return; // Animation is already running
-    }
-
-    animationState = true;
-    const speeds = animations.map((animation, j) => {
-      const speed = spds[j];
-      Animated.timing(animation, {
-        toValue: 1,
-        duration: speed,
-        useNativeDriver: true,
-      }).start(() => {
-        animationState = false;
-      });
-      return speed;
-    });
-
-    Animated.parallel(
-      animations.map((animation, index) =>
-        Animated.timing(animation, {
-          toValue: 1,
-          duration: speeds[index],
-          useNativeDriver: true,
-        })
-      )
-    ).start(() => {});
-  };
-  //
-  // stop race(only logic)
-  //
-  const stopRace = () => {
-    animationState = false;
-    // Stop the animation by setting the animation state to false
-    animations.forEach((animation) => {
-      animation.stopAnimation(); // Stop all the horse animations
-    });
   };
 
   //
   // set every horse outputrange so that to calculate there distance
   //
-  for (let i = 0; i < 10; i++) {
-    const style = {
-      transform: [
-        {
-          translateX: animations[i].interpolate({
-            inputRange: [0, 1],
-            outputRange: [landWidth - 60, 0],
-          }),
-        },
-      ],
-    };
-    horseAnimationStyles.push(style);
-  }
-
   const fadeInEnd = () => {
     Animated.timing(fadeInAnimation, {
       toValue: 1,
@@ -415,7 +346,6 @@ const HorseRace = ({
     }).start();
   };
 
-
   return (
     <>
       <View style={Screenstyles.RaceCourseContainer}>
@@ -423,10 +353,10 @@ const HorseRace = ({
         <ScrollView horizontal={true} style={[Screenstyles.background]}>
           <Image
             resizeMode="repeat"
-            style={[Screenstyles.background, { width: raceWidth }]}
-            source={require("../../assets/horseImageData/NewBack/G-1.png")}
+            style={[Screenstyles.background, { width: 5800 }]}
+            source={require("../../assets/horseImageData/NewBack/G-3.png")}
           />
-          <View style={[Screenstyles.stillGroup, { width: raceWidth }]}>
+          <View style={[Screenstyles.stillGroup, { width: 5800 }]}>
             {stillSource.map((still, l) => {
               return (
                 <Image
@@ -439,13 +369,16 @@ const HorseRace = ({
           </View>
           <Image style={Screenstyles.final} source={finals} />
           <RaceHorses
-            raceWidth={raceWidth}
+            raceWidth={5800}
             startState={startState}
             fadeInAnimation={fadeInAnimation}
             fadeOutAnimation={fadeOutAnimation}
           />
         </ScrollView>
-        <Image style={[Screenstyles.skyImage]} source={weathers} />
+
+        <MiniMap  startState={startState}/>
+        <Image style={[Screenstyles.skyImage]} source={weathers}/>
+
         {/* buttons start */}
         <View style={styles.buttonGroup}>
           <Animated.View>
@@ -461,7 +394,6 @@ const HorseRace = ({
             <Text style={styles.buttonText}>結果</Text>
           </TouchableOpacity>
         </View>
-
         {/* buttons end */}
         <View
           style={{
@@ -469,7 +401,7 @@ const HorseRace = ({
             justifyContent: "space-between",
             zIndex: -3,
             position: "absolute",
-            top: SCREEN_WIDTH > 738 || SCREEN_HEIGHT > 400 ? "48%" : "49%",
+            top:  SCREEN_HEIGHT > 738 || SCREEN_WIDTH > 400 ? "48%" : "49%",
           }}
         >
           <Image
@@ -479,7 +411,7 @@ const HorseRace = ({
           <Image
             style={{
               zIndex: -1,
-              right: SCREEN_WIDTH > 738 || SCREEN_HEIGHT > 400 ? 47 : 60,
+              right:  SCREEN_HEIGHT > 738 || SCREEN_WIDTH > 400 ? 47 : 60,
               height: 35,
             }}
             source={require("../../assets/images/raceBackgroundR.jpg")}
@@ -562,7 +494,7 @@ const styles = StyleSheet.create({
   buttonGroup: {
     position: "absolute",
     left: "30%",
-    top: SCREEN_WIDTH > 738 || SCREEN_HEIGHT > 400 ? "45.8%" : "46.8%",
+    top:  SCREEN_HEIGHT > 738 || SCREEN_WIDTH > 400 ? "45.8%" : "46.8%",
     width: "100%",
     flexDirection: "row",
     paddingLeft: 20,

@@ -49,7 +49,6 @@ const Screenstyles = StyleSheet.create({
     marginLeft: wp(2.6),
   },
   NRtitleA: {
-    // marginLeft: wp(1),
     fontSize: hp(2) + wp(2),
     fontWeight: 700,
   },
@@ -87,7 +86,6 @@ const Screenstyles = StyleSheet.create({
   },
   NRleftD: {
     width: "32%",
-    // marginLeft: '-20%',
     flexDirection: "row",
     alignItems: "center",
     marginBottom: hp(3.5),
@@ -152,7 +150,6 @@ const Screenstyles = StyleSheet.create({
   NRtxtT: {
     fontSize: 20,
     fontWeight: 600,
-    // marginLeft: -9
   },
   NRtxtSpanT: {
     fontSize: 20,
@@ -161,12 +158,10 @@ const Screenstyles = StyleSheet.create({
   NRtxtH: {
     fontSize: 20,
     fontWeight: 600,
-    // marginLeft: -10
   },
   NRtxtSpanH: {
     fontSize: 20,
     fontWeight: 600,
-    // marginLeft: -20
   },
   NRtxtV: {
     fontSize: 20,
@@ -193,7 +188,6 @@ const Screenstyles = StyleSheet.create({
   titleFlex: {
     flexDirection: "row",
     marginLeft: 20,
-    // justifyContent: 'space-between'
   },
   ScrollView: {
     height: hp(45),
@@ -312,7 +306,6 @@ const Screenstyles = StyleSheet.create({
     marginTop: -13,
   },
   registerButton: {
-    // marginLeft: 20
   },
   // REVERSE SCREEN STYLE
   reserveContent: {
@@ -353,7 +346,6 @@ const Screenstyles = StyleSheet.create({
     marginRight: 5,
   },
   reserveTxtGroup: {
-    // marginTop: -20,
     display: "flex",
     flexDirection: "row",
   },
@@ -361,7 +353,6 @@ const Screenstyles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 600,
     textAlign: "center",
-    // marginRight: 80
   },
 
   reserveListShowTitle: {
@@ -400,7 +391,6 @@ const Screenstyles = StyleSheet.create({
 
     backgroundColor: "#efefef",
     height: "80%",
-    // with: 20
   },
   reserveListtxt: {
     fontSize: 15,
@@ -412,8 +402,6 @@ const Screenstyles = StyleSheet.create({
   },
   // =============HORSE RACE STYLE=============
   RaceCourseContainer: {
-    // marginTop: 10,
-    // width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
   },
   RaceCoursecontent: {
@@ -423,18 +411,11 @@ const Screenstyles = StyleSheet.create({
 
   },
   horseSize: {
-    //  width: 20
   },
-
   background: {
     position: "absolute",
     height: 400,
     top: 0,
-    // transform: [
-    //   {
-    //     translateX: 0,
-    //   },
-    // ],
   },
   stillGroup: {
     flexDirection: "row",
@@ -450,18 +431,15 @@ const Screenstyles = StyleSheet.create({
     position: "absolute",
   },
   still: {
-    // position: 'absolute',
     width: 60,
     height: 60,
     top: 55,
     marginLeft: 500
   },
   stillR: {
-    // position: 'absolute',
     width: 60,
     height: 60,
     top: 55,
-    // marginRight: 500
   },
   final: {
     position: 'absolute',

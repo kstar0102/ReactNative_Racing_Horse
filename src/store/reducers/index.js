@@ -55,6 +55,9 @@ import RaceOddsReducer from './race/RaceOddsReducer';
 import RaceNumberReducer from './race/RaceNumberReducer';
 import RacingHorseReducer from './race/RacingHorseReducer';
 
+//Marry Button Action
+import marryButtonReducer from './marryButtonReducer';
+
 export default combineReducers({
     user: user,
     validationData: validationData,
@@ -105,5 +108,8 @@ export default combineReducers({
     raceNumbersData: RaceNumberReducer,
 
     // RACING HORSE DATA
-    racingHorseData: RacingHorseReducer
+    racingHorseData: RacingHorseReducer,
+
+    // MARRY BUTTON ACTIOn
+    buttonAction: marryButtonReducer
 });

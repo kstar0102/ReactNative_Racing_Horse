@@ -46,8 +46,8 @@ const MarryScreen = ({ saveData }) => {
         <HeaderScreen />
         <View>
           <ReturnButtonScreen
-            BigPlace={"牧 場"}
-            screenName={"育 成"}
+            BigPlace={"牧  場"}
+            screenName={"種  付"}
             nviUrl={"PastureScreen"}
           />
         </View>
@@ -56,8 +56,8 @@ const MarryScreen = ({ saveData }) => {
           <ScreenMarryG />
         </ScrollView>
         <View style={Screenstyles.marryButton}>
-          <MarryButton label={"種付"} color={1} onPress={handleModal} />
-          <MarryButton label={"戻る"} />
+          <MarryButton label={"種    付"} color={1} onPress={handleModal} />
+          <MarryButton label={"戻    る"} />
         </View>
         <FooterScreen />
       </ImageBackground>

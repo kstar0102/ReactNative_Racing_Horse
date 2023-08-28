@@ -112,11 +112,6 @@ export const raceReversHorse = [
   },
 ];
 
-
-
-
-
-
 export const horseSource = [
   { 1: require("../assets/horseImageData/1wakuL.gif") },
   { 2: require("../assets/horseImageData/2wakuL.gif") },
@@ -170,3 +165,5 @@ export const grouns = [
   require("../assets/horseImageData/NewBack/R-4.png"),
 ];
 
+// ① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩
+export const numberCount = ["①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨", "⑩"];

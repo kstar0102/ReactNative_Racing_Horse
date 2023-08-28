@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import Toast from "react-native-root-toast";
 // Redux
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { marryButtonAction } from "../../../store/actions/Pasture/marryButtonAction";
 
 import DropDwonM from "../../../components/Buttons/DropDwonM";
 import MarryBloodlineTable from "../../../components/table/MarryBloodlineTable";
@@ -14,7 +15,8 @@ import WorkingButton from "../../../components/Buttons/WorkingButtons";
 // Custom IMPORT
 // Style
 import MarryStyle from "./MarryStyle";
-const ScreenMarryM = ({ horseDatas }) => {
+const ScreenMarryM = ({ horseDatas, buttonAction }) => {
+  const dispatch = useDispatch();
   const [selected, setSelected] = useState(undefined);
   const [banner, setBanner] = useState(horseDatas[0]);
   const [activeButton, setActiveButton] = useState(0);
@@ -230,10 +232,11 @@ const ScreenMarryM = ({ horseDatas }) => {
 
   const handleButtonPress = (id) => {
     setActiveButton(id);
+    dispatch(marryButtonAction(id));
   };
 
   const renderScreenBelowButtons = () => {
-    switch (activeButton) {
+    switch (buttonAction) {
       case 1:
         return (
           <MarryBloodlineTable
@@ -288,8 +291,9 @@ const ScreenMarryM = ({ horseDatas }) => {
                 >
                   {(!!selected && selected.gender) || data[0].gender}
                 </Text>
-                {(!!selected && selected.age.split("")[1]) ||
-                  data[0].age.split("")[1]}
+                7
+                {/* {(!!selected && selected.age.split("")[1]) ||
+                  data[0].age.split("")[1]} */}
               </Text>
               <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
                 {(!!selected && selected.growth) || data[0].growth}
@@ -415,16 +419,16 @@ const ScreenMarryM = ({ horseDatas }) => {
           </View>
         </View>
         <View style={RTapScreensStyle.ButtonGroup}>
-          {activeButton ? (
+          {buttonAction ? (
             <WorkingButton
-              label={`系統`}
+              label={`系  統`}
               colorNumber={2}
               styleId={4}
               onPress={() => handleButtonPress(0)}
             />
           ) : (
             <WorkingButton
-              label={`馬名`}
+              label={`馬  名`}
               colorNumber={5}
               styleId={4}
               onPress={() => handleButtonPress(1)}
@@ -440,6 +444,7 @@ const ScreenMarryM = ({ horseDatas }) => {
 const mapStateToProps = (state) => {
   return {
     saveData: state.horseData.saveData,
+    buttonAction: state.buttonAction.actionData
   };
 };
 

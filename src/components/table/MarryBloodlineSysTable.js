@@ -32,27 +32,27 @@ const MarryBloodlineSysTable = ({
         </View>
         <View style={styles.horseParental}>
           <View style={styles.horseFather}>
-            <Text>{father_sys}</Text>
+            <Text style={styles.txtFont}>{father_sys}系</Text>
           </View>
           <View style={styles.horseMother}>
-            <Text>{mother_sys}</Text>
+            <Text style={styles.txtFont}>{mother_sys}系</Text>
           </View>
         </View>
         <View style={styles.horseGrand}>
           <View style={styles.horseGrand1}>
             <View style={styles.horseGrandpa}>
-              <Text>{father_f_sys}</Text>
+              <Text style={styles.txtFont}>{father_f_sys}系</Text>
             </View>
             <View style={styles.horseGrandma}>
-              <Text>{father_m_sys}</Text>
+              <Text style={styles.txtFont}>{father_m_sys}系</Text>
             </View>
           </View>
           <View style={styles.horseGrand2}>
             <View style={styles.horseGrandpa}>
-              <Text>{mother_f_sys}</Text>
+              <Text style={styles.txtFont}>{mother_f_sys}系</Text>
             </View>
             <View style={styles.horseGrandma}>
-              <Text>{mother_m_sys}</Text>
+              <Text style={styles.txtFont}>{mother_m_sys}系</Text>
             </View>
           </View>
         </View>
@@ -71,17 +71,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   txtFont: {
-    fontSize: 18,
+    fontSize: 10,
   },
   horseName: {
     backgroundColor: "#4ca3f5",
-    width: vw(37),
+    width: vw(35),
     paddingTop: 80,
     padding: 10,
   },
   horseNameG: {
     backgroundColor: "#e094f7",
-    width: vw(37),
+    width: vw(35),
     paddingTop: 80,
     padding: 10,
   },

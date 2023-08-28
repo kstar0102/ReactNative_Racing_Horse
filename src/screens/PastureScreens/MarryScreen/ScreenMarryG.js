@@ -2,23 +2,24 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import Toast from "react-native-root-toast";
 // Redux
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { marryButtonAction } from "../../../store/actions/Pasture/marryButtonAction";
 
 import DropDwonM from "../../../components/Buttons/DropDwonM";
 import MarryBloodlineTable from "../../../components/table/MarryBloodlineTable";
 import MarryBloodlineSysTable from "../../../components/table/MarryBloodlineSysTable";
 import RTapScreensStyle from "../../PastureScreens/RanchTapScreens/RTapScreensStyle";
-import Screenstyles from "../../ScreenStylesheet";
+
 import { horseColor } from "../../../utils/globals";
 import Ccolors from "../../../containers/colors";
 import WorkingButton from "../../../components/Buttons/WorkingButtons";
 // Custom IMPORT
 // Style
 import MarryStyle from "./MarryStyle";
-const ScreenMarryG = ({ saveData }) => {
+const ScreenMarryG = ({ saveData, buttonAction }) => {
+  const dispatch = useDispatch();
   const [selected, setSelected] = useState(undefined);
   const [banner, setBanner] = useState(saveData[0]);
-  const [activeButton, setActiveButton] = useState(0);
   // Ground Color
   const [groundColor, setGroundColor] = useState("#1BFF00");
 
@@ -229,15 +230,14 @@ const ScreenMarryG = ({ saveData }) => {
     }
   };
   const handleButtonPress = (id) => {
-    setActiveButton(id);
+    dispatch(marryButtonAction(id));
   };
-
   const renderScreenBelowButtons = () => {
-    switch (activeButton) {
+    switch (buttonAction) {
       case 1:
         return (
           <MarryBloodlineTable
-            gender={"man"}
+            gender={"girl"}
             horseName={banner.name}
             father_sys={banner.f_name}
             father_f_sys={banner.f_f_name}
@@ -250,7 +250,7 @@ const ScreenMarryG = ({ saveData }) => {
       default:
         return (
           <MarryBloodlineSysTable
-            gender={"man"}
+            gender={"girl"}
             horseName={banner.sys}
             father_sys={banner.f_sys}
             father_f_sys={banner.f_f_sys}
@@ -284,8 +284,9 @@ const ScreenMarryG = ({ saveData }) => {
                 >
                   牝{/* {(!!selected && selected.gender) || 牝} */}
                 </Text>
-                {(!!selected && selected.age.split("")[1]) ||
-                  data[0].age.split("")[1]}
+                6
+                {/* {(!!selected && selected.age.split("")[1]) ||
+                  data[0].age.split("")[1]} */}
               </Text>
               <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
                 {(!!selected && selected.growth) || data[0].growth}
@@ -412,16 +413,16 @@ const ScreenMarryG = ({ saveData }) => {
         </View>
 
         <View style={RTapScreensStyle.ButtonGroup}>
-          {activeButton ? (
+          {buttonAction ? (
             <WorkingButton
-              label={`系統`}
+              label={`系  統`}
               colorNumber={2}
               styleId={4}
               onPress={() => handleButtonPress(0)}
             />
           ) : (
             <WorkingButton
-              label={`馬名`}
+              label={`馬  名`}
               colorNumber={5}
               styleId={4}
               onPress={() => handleButtonPress(1)}
@@ -437,6 +438,7 @@ const ScreenMarryG = ({ saveData }) => {
 const mapStateToProps = (state) => {
   return {
     saveData: state.horseData.saveData,
+    buttonAction: state.buttonAction.actionData
   };
 };
 

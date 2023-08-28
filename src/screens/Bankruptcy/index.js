@@ -26,7 +26,6 @@ const Bankruptcy = ({ navigation }) => {
   };
 
   const onLoad = () => {
-    
     Animated.timing(opacity, {
       toValue: 1,
       duration: 4000,
@@ -35,7 +34,6 @@ const Bankruptcy = ({ navigation }) => {
   };
 
   useEffect(() => {
-    
     onLoad()
   }, [])
   return (

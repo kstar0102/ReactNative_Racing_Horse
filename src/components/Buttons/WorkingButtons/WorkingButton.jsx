@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
 	},
 	buttonStyleFour: {
 		marginTop: 5,
+		marginBottom: -15,
 		marginLeft: "73%"
 	},
 	buttonStyleThree:{
