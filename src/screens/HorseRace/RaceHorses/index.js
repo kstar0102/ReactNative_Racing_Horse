@@ -17,7 +17,7 @@ const RaceHorses = ({
   const horseAnimationStyles = [];
   let colorCount = [];
   const durations = [
-    72000, 68000, 56000, 43000, 46000, 53000, 38000, 40000, 60000, 30000,
+    52000, 58000, 56000, 53000, 56000, 53000, 58000, 50000, 51000, 53000,
   ];
   if (racingHorseData != "") {
     racingHorseData.map((item) => {

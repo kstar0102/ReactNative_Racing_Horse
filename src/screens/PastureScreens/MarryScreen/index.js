@@ -23,11 +23,12 @@ import ButtonStyle from "../../../components/Buttons/ButtonStyle";
 const MarryScreen = ({ saveData }) => {
   const fillterMan = saveData.filter((data) => data.gender === "牡");
   const fillterGirl = saveData.filter((data) => data.gender === "牝");
-
   const [modalVisible, setModalVisible] = useState(false);
+
   const handleYes = () => {
     console.log("Yes");
   };
+  
   const handleNo = () => {
     setModalVisible(false);
   };

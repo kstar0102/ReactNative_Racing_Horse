@@ -34,6 +34,8 @@ const ScreenMarryG = ({ saveData, buttonAction }) => {
       setGroundColor("red");
     }
   }, [saveData]);
+
+
   const data = saveData;
   const handleSettingId = (value) => {
     setBanner(value);

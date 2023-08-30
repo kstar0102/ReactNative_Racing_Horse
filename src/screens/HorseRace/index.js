@@ -3,7 +3,7 @@
  * Import parts
  * ===========================START=========================
  */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -11,12 +11,10 @@ import {
   Text,
   Animated,
   Image,
-  ImageBackground,
   BackHandler,
   Dimensions,
   ScrollView,
 } from "react-native";
-
 //
 // Import the necessary modules and components
 //
@@ -33,14 +31,7 @@ import { useNavigation } from "@react-navigation/native";
 // constant values
 // Import the horseSource variable from the correct source
 //
-import {
-  raceWhipHorse,
-  raceHorse,
-  numberSource,
-  stillSource,
-  grouns,
-  glasss,
-} from "./../../utils/globals";
+import { stillSource } from "./../../utils/globals";
 //
 // calculating formals
 //
@@ -60,12 +51,13 @@ import {
   sixSpeedController,
   raceTime,
   weatherType,
-  groundType,
   finalsType,
 } from "./horseRaceGlobal";
 
 import RaceHorses from "./RaceHorses";
 import MiniMap from "./MiniMap";
+import Grounds from "./Grounds";
+import Loading from "./Loading";
 /**
  * =========================END=========================
  * Import parts
@@ -94,6 +86,8 @@ const HorseRace = ({
   const navigation = useNavigation();
   const fadeInAnimation = new Animated.Value(0);
   const fadeOutAnimation = new Animated.Value(1);
+  const [lodingAnimation, setLodingAnimation] = useState(new Animated.Value(1));
+
   //
   // state define
   //  setFiveT
@@ -141,7 +135,7 @@ const HorseRace = ({
 
   // Global scope variables
   //
-// Create an array of Animated.Value without using useState inside the loop
+  // Create an array of Animated.Value without using useState inside the loop
   const mWidth = raceFieldData.distance.split("m")[0];
   const ground = raceFieldData.ground;
   const place = raceFieldData.place;
@@ -151,22 +145,19 @@ const HorseRace = ({
   // WEATHER AND RACING TIME AND GROUNDS DEFAULT VAR
   const racingtime = raceTime(numberWidth);
   const weathers = weatherType(weather);
-  const grounds = groundType(ground, glasss, grouns);
   const finals = finalsType(ground, place);
 
   // SPEED VALUE VALI
   const spd_arr = [];
   const totals = [];
   const totalWinners = [];
-  // ANIMATION VALI
-  let animationState = false;
-  const horseAnimationStyles = [];
-  // CLEARTIMEOUT VALI
+
   /**
    * ======================start==========================
    * UseEffect
    * ======================start==========================
    */
+
   //
   // calculate first time, first speed and speedController(basic value)
   //
@@ -190,7 +181,6 @@ const HorseRace = ({
   //
   // calculate second, third, fourth time, and another speeds
   //
-
   useEffect(() => {
     if (firstSpeed != null) {
       setSecondT(secondTiming(firstSpeed));
@@ -269,16 +259,12 @@ const HorseRace = ({
    * =======================END=========================
    */
 
-  /**
-   * =======================START=======================
-   * handle main work
-   * =======================START=======================
-   */
   //
   // start race with settime out
   //
   const handleStart = () => {
     setStartState(1);
+    setLodingAnimation(new Animated.Value(0));
     // startRace(cSpeed);
     // setTimeout(() => {
     //   startRace(firstSpeed);
@@ -304,27 +290,18 @@ const HorseRace = ({
     // const winners = totals;
     // totalWinners.push(winners);
     // spd_arr.push(firstSpeed, secondSpeeds, threeSpeeds, fourSpeeds, fiveSpeeds);
-    setTimeout(() => {
-      console.log("---------------firstT---------");
-    }, firstT);
+    setTimeout(() => {}, firstT);
 
-     setTimeout(() => {
-      console.log("---------------secondT---------");
-    }, firstT + secondT);
+    setTimeout(() => {}, firstT + secondT);
 
     setTimeout(() => {
-      console.log("---------------threeT---------");
       fadeInEnd();
       fadeOutEnd();
     }, firstT + secondT + threeT);
 
-    setTimeout(() => {
-      console.log("---------------fourT--------------- ");
-    }, firstT + secondT + threeT + fourT);
+    setTimeout(() => {}, firstT + secondT + threeT + fourT);
 
-    setTimeout(() => {
-      console.log("---------------fivT--------------- ");
-    }, firstT + secondT + threeT + fivT);
+    setTimeout(() => {}, firstT + secondT + threeT + fivT);
   };
 
   //
@@ -349,14 +326,11 @@ const HorseRace = ({
   return (
     <>
       <View style={Screenstyles.RaceCourseContainer}>
+        <Loading fadeOutLodingAnimation={lodingAnimation} />
         {/* ground start */}
         <ScrollView horizontal={true} style={[Screenstyles.background]}>
-          <Image
-            resizeMode="repeat"
-            style={[Screenstyles.background, { width: 5800 }]}
-            source={require("../../assets/horseImageData/NewBack/G-3.png")}
-          />
           <View style={[Screenstyles.stillGroup, { width: 5800 }]}>
+            <Grounds ground={ground} />
             {stillSource.map((still, l) => {
               return (
                 <Image
@@ -376,8 +350,8 @@ const HorseRace = ({
           />
         </ScrollView>
 
-        <MiniMap  startState={startState}/>
-        <Image style={[Screenstyles.skyImage]} source={weathers}/>
+        <MiniMap startState={startState} />
+        <Image style={[Screenstyles.skyImage]} source={weathers} />
 
         {/* buttons start */}
         <View style={styles.buttonGroup}>
@@ -401,7 +375,7 @@ const HorseRace = ({
             justifyContent: "space-between",
             zIndex: -3,
             position: "absolute",
-            top:  SCREEN_HEIGHT > 738 || SCREEN_WIDTH > 400 ? "48%" : "49%",
+            top: SCREEN_HEIGHT > 738 || SCREEN_WIDTH > 400 ? "48%" : "49%",
           }}
         >
           <Image
@@ -411,7 +385,7 @@ const HorseRace = ({
           <Image
             style={{
               zIndex: -1,
-              right:  SCREEN_HEIGHT > 738 || SCREEN_WIDTH > 400 ? 47 : 60,
+              right: SCREEN_HEIGHT > 738 || SCREEN_WIDTH > 400 ? 47 : 60,
               height: 35,
             }}
             source={require("../../assets/images/raceBackgroundR.jpg")}
@@ -444,13 +418,6 @@ export default connect(mapStateToProps)(HorseRace);
  */
 //
 const styles = StyleSheet.create({
-  loadingBack: {
-    position: "absolute",
-    zIndex: 3000,
-    width: 1000,
-    height: SCREEN_WIDTH,
-    backgroundColor: "#fff",
-  },
   spinnerTextStyle: {
     color: "#FFF",
   },
@@ -494,7 +461,7 @@ const styles = StyleSheet.create({
   buttonGroup: {
     position: "absolute",
     left: "30%",
-    top:  SCREEN_HEIGHT > 738 || SCREEN_WIDTH > 400 ? "45.8%" : "46.8%",
+    top: SCREEN_HEIGHT > 738 || SCREEN_WIDTH > 400 ? "45.8%" : "46.8%",
     width: "100%",
     flexDirection: "row",
     paddingLeft: 20,
