@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
-import { View, Image, StyleSheet, Dimensions, Animated } from "react-native";
+import React, { useEffect } from "react";
+import { View, Image, StyleSheet, Animated } from "react-native";
 import { connect } from "react-redux";
 
 import Screenstyles from "../../ScreenStylesheet";
@@ -7,18 +7,25 @@ import { numberSource, raceWhipHorse, raceHorse } from "../../../utils/globals";
 
 const RaceHorses = ({
   raceWidth,
+  firstSpeed,
+  secondSpeeds,
+  threeSpeeds,
+  fourSpeeds,
+  fiveSpeeds,
+  firstTime,
+  secondTime,
+  threeTime,
+  fourTime,
   racingHorseData,
   raceCpuData,
   startState,
-  fadeInAnimation,
-  fadeOutAnimation,
 }) => {
   const animations = Array.from({ length: 10 }, () => new Animated.Value(0));
+  const fadeInAnimation = new Animated.Value(0);
+  const fadeOutAnimation = new Animated.Value(1);
   const horseAnimationStyles = [];
   let colorCount = [];
-  const durations = [
-    52000, 58000, 56000, 53000, 56000, 53000, 58000, 50000, 51000, 53000,
-  ];
+
   if (racingHorseData != "") {
     racingHorseData.map((item) => {
       colorCount.push(item[0].color);
@@ -31,28 +38,63 @@ const RaceHorses = ({
     });
   }
   useEffect(() => {
-    if (startState == 1) {
-      const speeds = animations.map((animation, j) => {
-        const speed = durations[j];
+    if (startState === 1) {
+      const statHorseWithDelay = (speed, delay) => {
+        setTimeout(() => {
+          statHorse(speed);
+        }, delay);
+      };
+
+      statHorse(firstSpeed);
+
+      statHorseWithDelay(secondSpeeds, firstTime);
+      statHorseWithDelay(threeSpeeds, firstTime + secondTime);
+      statHorseWithDelay(fourSpeeds, firstTime + secondTime + threeTime);
+
+      setTimeout(() => {
+        statHorse(fiveSpeeds);
+        fadeInEnd();
+        fadeOutEnd();
+      }, firstTime + secondTime + threeTime + fourTime);
+    }
+  }, [
+    startState,
+    statHorse,
+    firstSpeed,
+    secondSpeeds,
+    firstTime,
+    secondTime,
+    threeSpeeds,
+    fourSpeeds,
+    fiveSpeeds,
+    fadeInEnd,
+    fadeOutEnd,
+  ]);
+
+  const statHorse = (spds) => {
+    const speeds = animations.map((animation, j) => {
+      const speed = spds[j];
+
+      Animated.timing(animation, {
+        toValue: -(raceWidth - 60),
+        duration: -1000,
+        useNativeDriver: true,
+      }).start(() => {});
+      return speed;
+    });
+
+    Animated.parallel(
+      animations.map((animation, index) =>
         Animated.timing(animation, {
           toValue: -(raceWidth - 60),
-          duration: speed,
+          duration: speeds[index],
           useNativeDriver: true,
-        }).start(() => {});
-        return speed;
-      });
+        })
+      )
+    ).start(() => {});
+  };
 
-      Animated.parallel(
-        animations.map((animation, index) =>
-          Animated.timing(animation, {
-            toValue: -(raceWidth - 60),
-            duration: speeds[index],
-            useNativeDriver: true,
-          })
-        )
-      ).start(() => {});
-    }
-  }, [startState]);
+
 
   for (let i = 0; i < 10; i++) {
     const style = {
@@ -61,6 +103,23 @@ const RaceHorses = ({
     };
     horseAnimationStyles.push(style);
   }
+
+  const fadeInEnd = () => {
+    Animated.timing(fadeInAnimation, {
+      toValue: 1,
+      duration: 10,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fadeOutEnd = () => {
+    Animated.timing(fadeOutAnimation, {
+      toValue: 0,
+      duration: 10,
+      useNativeDriver: true,
+    }).start();
+  };
+
   return (
     <>
       <View style={styles.horseGroup}>
@@ -120,7 +179,7 @@ const mapStateToProps = (state) => {
   return {
     racingHorseData: state.racingHJData.racingHorse,
     raceCpuData: state.raceData.raceCpuData,
-    styles: styles, // Injecting the styles prop
+    styles: styles,
   };
 };
 

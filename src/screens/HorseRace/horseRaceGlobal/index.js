@@ -98,7 +98,7 @@ export const firstSpeedController = (raceRegisterData, time) => {
     if (item.quality_leg === "大逃") {
       speed.push(time - time * 0.2);
     }
-    if (item.quality_leg === "先" || item.quality_leg === "自在") {
+    if (item.quality_leg === "先" || item.quality_leg === "自") {
       speed.push(time - time * 0.1);
     }
     if (item.quality_leg === "差" || item.quality_leg === "まくり") {
@@ -106,6 +106,7 @@ export const firstSpeedController = (raceRegisterData, time) => {
     }
   });
   // speed =  [34000, 34000]
+
   return speed;
 };
 
@@ -125,7 +126,7 @@ export const cSpeedController = (raceRegisterData, time) => {
     if (item.quality_leg === "大逃") {
       speed.push(time - time * 0.4);
     }
-    if (item.quality_leg === "先" || item.quality_leg === "自在") {
+    if (item.quality_leg === "先" || item.quality_leg === "自") {
       speed.push(time - time * 0.2);
     }
     if (item.quality_leg === "差" || item.quality_leg === "まくり") {
@@ -150,10 +151,12 @@ export const secondSpeedController = (
   let cpuSpds = [];
   let sps = [];
 
-  const cpuSpeeds = cpuSpeed(raceCpuData);
-  cpuSpeeds.map((item) => {
-    cpuSpds.push(item);
-  });
+  if (raceCpuData != "") {
+    const cpuSpeeds = cpuSpeed(raceCpuData);
+    cpuSpeeds.map((item) => {
+      cpuSpds.push(item);
+    });
+  }
 
   racingHorseData.forEach((item, i) => {
     if (
@@ -173,18 +176,17 @@ export const secondSpeedController = (
     }
   });
 
-  
-  raceCpuData.map((item, index) => {
-    if (item && item.quality_leg === "追") {
-      cpuSpds[index] *= 0.05;
-    }
+  if (raceCpuData != "") {
+    raceCpuData.map((item, index) => {
+      if (item && item.quality_leg === "追") {
+        cpuSpds[index] *= 0.05;
+      }
 
-   
-    if (item && item.tired >= 15) {
-      cpuSpds[index] -= 10000;
-    }
-  });
-
+      if (item && item.tired >= 15) {
+        cpuSpds[index] -= 10000;
+      }
+    });
+  }
   const newArray = sps.concat(cpuSpds);
 
   // sps = quality_leg ==  追, tired >= 15, speed_b + speed_w : [213, 250]
@@ -195,8 +197,8 @@ export const secondSpeedController = (
         (firstSpeed[index] - (item + newArray[index]) * 10) / 5
     );
   });
- 
   // secondSpeed = [21154.176, 22340.4416]
+
   return secondSpeed;
 };
 
@@ -214,11 +216,12 @@ export const threeSpeedController = (
   let cpuSth = [];
   let sps = [];
 
-  const cpuStrengths = cpuStrength(raceCpuData);
-
-  cpuStrengths.map((item) => {
-    cpuSth.push(item);
-  });
+  if (raceCpuData != "") {
+    const cpuStrengths = cpuStrength(raceCpuData);
+    cpuStrengths.map((item) => {
+      cpuSth.push(item);
+    });
+  }
 
   racingHorseData.forEach((item, i) => {
     if (
@@ -237,14 +240,16 @@ export const threeSpeedController = (
     }
   });
 
-  raceCpuData.map((item, index) => {
-    if (item && item.quality_leg === "差") {
-      cpuSth[index] *= 0.05;
-    }
-    if (item && item.tired >= 15) {
-      cpuSth[index] -= 10000;
-    }
-  });
+  if (raceCpuData != "") {
+    raceCpuData.map((item, index) => {
+      if (item && item.quality_leg === "差") {
+        cpuSth[index] *= 0.05;
+      }
+      if (item && item.tired >= 15) {
+        cpuSth[index] -= 10000;
+      }
+    });
+  }
 
   const newArray = sps.concat(cpuSth);
 
@@ -274,11 +279,12 @@ export const fourSpeedController = (
   let cpuMnt = [];
   let sps = [];
 
-  const cpuMoments = cpuMoment(raceCpuData);
-
-  cpuMoments.map((item) => {
-    cpuMnt.push(item);
-  });
+  if (raceCpuData != "") {
+    const cpuMoments = cpuMoment(raceCpuData);
+    cpuMoments.map((item) => {
+      cpuMnt.push(item);
+    });
+  }
 
   racingHorseData.forEach((item, i) => {
     if (
@@ -298,14 +304,16 @@ export const fourSpeedController = (
     }
   });
 
-  raceCpuData.map((item, index) => {
-    if (item && item.quality_leg === "差") {
-      cpuMnt[index] *= 0.05;
-    }
-    if (item && item.tired >= 15) {
-      cpuMnt[index] -= 10000;
-    }
-  });
+  if (raceCpuData != "") {
+    raceCpuData.map((item, index) => {
+      if (item && item.quality_leg === "差") {
+        cpuMnt[index] *= 0.05;
+      }
+      if (item && item.tired >= 15) {
+        cpuMnt[index] -= 10000;
+      }
+    });
+  }
 
   const newArray = sps.concat(cpuMnt);
 
@@ -334,11 +342,13 @@ export const fiveSpeedController = (
   let fiveSpeed = [];
   let cpuSta = [];
   let sps = [];
-  const cpuStaminas = cpuStamina(raceCpuData);
 
-  cpuStaminas.map((item) => {
-    cpuSta.push(item);
-  });
+  if (raceCpuData != "") {
+    const cpuStaminas = cpuStamina(raceCpuData);
+    cpuStaminas.map((item) => {
+      cpuSta.push(item);
+    });
+  }
 
   racingHorseData.forEach((item) => {
     if (
@@ -357,14 +367,16 @@ export const fiveSpeedController = (
     }
   });
 
-  raceCpuData.map((item, index) => {
-    if (item && item.quality_leg === "差") {
-      cpuSta[index] *= 0.05;
-    }
-    if (item && item.tired >= 15) {
-      cpuSta[index] -= 10000;
-    }
-  });
+  if (raceCpuData != "") {
+    raceCpuData.map((item, index) => {
+      if (item && item.quality_leg === "差") {
+        cpuSta[index] *= 0.05;
+      }
+      if (item && item.tired >= 15) {
+        cpuSta[index] -= 10000;
+      }
+    });
+  }
 
   const newArray = sps.concat(cpuSta);
 
@@ -391,11 +403,13 @@ export const sixSpeedController = (
   let sixSpeed = [];
   let cpuSta = [];
   let sps = [];
-  const cpuStaminas = cpuStamina(raceCpuData);
 
-  cpuStaminas.map((item) => {
-    cpuSta.push(item);
-  });
+  if (raceCpuData != "") {
+    const cpuStaminas = cpuStamina(raceCpuData);
+    cpuStaminas.map((item) => {
+      cpuSta.push(item);
+    });
+  }
 
   racingHorseData.forEach((item) => {
     if (
@@ -413,14 +427,17 @@ export const sixSpeedController = (
       sps[sps.length - 1] -= 10000;
     }
   });
-  raceCpuData.map((item, index) => {
-    if (item && item.quality_leg === "差") {
-      cpuSta[index] *= 0.05;
-    }
-    if (item && item.tired >= 15) {
-      cpuSta[index] -= 10000;
-    }
-  });
+
+  if (raceCpuData != "") {
+    raceCpuData.map((item, index) => {
+      if (item && item.quality_leg === "差") {
+        cpuSta[index] *= 0.05;
+      }
+      if (item && item.tired >= 15) {
+        cpuSta[index] -= 10000;
+      }
+    });
+  }
 
   const newArray = sps.concat(cpuSta);
   speeds.forEach((item, i) => {
@@ -447,7 +464,6 @@ export const speedController = (
   let totalValue = [];
   let stateValue = [];
   let jockeyValue = [];
-
 
   racingHorseData.map((item) => {
     // Calculate horse value
@@ -490,7 +506,6 @@ export const speedController = (
     );
     totalValue.push(totalHorseAndJockeyValue);
   });
-
 
   if (raceCpuData != "") {
     raceCpuData.map((item) => {
@@ -568,7 +583,6 @@ export const speedController = (
       );
       const horseGroundValue = horseGround(item.ground, horseValue, ground);
 
-      // console.log("-=-=-=-=-=-=-= 0", horseGroundValue);
       totalValue.push(horseGroundValue);
     });
   }
@@ -692,7 +706,6 @@ const cpuhappyFun = (happys, states, tireds) => {
   }
 
   // tiredFun(states * multipliers[happys], tireds);
-  // // return = 842.8800000000001, 821.7600000000001
   // return tiredFun(states * multipliers[happys], tireds);
 };
 
@@ -828,25 +841,25 @@ export const raceTime = (raceWidths) => {
   let result = "";
   switch (true) {
     case raceWidths >= 1000 && raceWidths <= 1300:
-      result = 30000;
-      break;
-    case raceWidths >= 1400 && raceWidths <= 1600:
-      result = 35000;
-      break;
-    case raceWidths >= 1700 && raceWidths <= 2100:
       result = 40000;
       break;
-    case raceWidths >= 2100 && raceWidths <= 2400:
+    case raceWidths >= 1400 && raceWidths <= 1600:
       result = 45000;
       break;
-    case raceWidths >= 2500 && raceWidths <= 2800:
+    case raceWidths >= 1700 && raceWidths <= 2100:
       result = 50000;
       break;
-    case raceWidths >= 2900 && raceWidths <= 3200:
+    case raceWidths >= 2100 && raceWidths <= 2400:
       result = 55000;
       break;
-    case raceWidths >= 3300:
+    case raceWidths >= 2500 && raceWidths <= 2800:
       result = 60000;
+      break;
+    case raceWidths >= 2900 && raceWidths <= 3200:
+      result = 65000;
+      break;
+    case raceWidths >= 3300:
+      result = 70000;
       break;
     default:
       return;
@@ -925,145 +938,57 @@ export const oddsFun = (racingHorseData, raceAllData) => {
 
 // IMAGE
 export const weatherType = (weather) => {
-  let result = "";
-  switch (true) {
-    case weather == "雨":
-      result = require("../../../assets/horseImageData/NewBack/S-3.png");
-      break;
-    case weather == "雪":
-      result = require("../../../assets/horseImageData/NewBack/S-3.png");
-      break;
-    case weather == "晴":
-      result = require("../../../assets/horseImageData/NewBack/S-1.png");
-      break;
-    case weather == "曇":
-      result = require("../../../assets/horseImageData/NewBack/S-2.png");
-      break;
-    default:
-      return;
-  }
-  return result;
+  const weatherImages = {
+    雨: require("../../../assets/horseImageData/NewBack/S-3.png"),
+    雪: require("../../../assets/horseImageData/NewBack/S-3.png"),
+    晴: require("../../../assets/horseImageData/NewBack/S-1.png"),
+    曇: require("../../../assets/horseImageData/NewBack/S-2.png"),
+  };
+
+  return weatherImages[weather] || "";
 };
 
 export const groundType = (ground, glasss, grouns) => {
-  let result = "";
-  switch (true) {
-    case ground == "芝": {
-      let gls;
-      const randomNumber = Math.floor(Math.random() * 3) + 0;
-      gls = glasss[randomNumber];
-      result = gls;
-      break;
-    }
-    case ground == "ダ": {
-      const randomNumber = Math.floor(Math.random() * 3) + 0;
-      grn = grouns[randomNumber];
-      result = grn;
-      break;
-    }
-    default:
-      return;
+  if (ground === "芝") {
+    const randomNumber = Math.floor(Math.random() * 3);
+    return glasss[randomNumber];
+  } else if (ground === "ダ") {
+    const randomNumber = Math.floor(Math.random() * 3);
+    return grouns[randomNumber];
+  } else {
+    return "";
   }
-  return result;
 };
-
 export const finalsType = (ground, place) => {
-  let result = "";
-  switch (true) {
-    case ground == "芝": {
-      switch (place) {
-        case "京都競馬場": {
-          result = require("../../../assets/horseImageData/Right/2-2.png");
-          break;
-        }
-        case "中山競馬場": {
-          result = require("../../../assets/horseImageData/Right/2-1.png");
-          break;
-        }
-        case "小倉競馬場": {
-          result = require("../../../assets/horseImageData/Right/2-3.png");
-          break;
-        }
-        case "東京競馬場": {
-          result = require("../../../assets/horseImageData/Left/2-4.png");
-          break;
-        }
-        case "阪神競馬場": {
-          result = require("../../../assets/horseImageData/Right/2-5.png");
-          break;
-        }
-        case "福島競馬場": {
-          result = require("../../../assets/horseImageData/Right/2-6.png");
-          break;
-        }
-        case "新潟競馬場": {
-          result = require("../../../assets/horseImageData/Left/2-7.png");
-          break;
-        }
-        case "函館競馬場": {
-          result = require("../../../assets/horseImageData/Right/2-8.png");
-          break;
-        }
-        case "沙田競馬場": {
-          result = require("../../../assets/horseImageData/Right/2-2.png");
-          break;
-        }
-        case "札幌競馬場": {
-          result = require("../../../assets/horseImageData/Right/2-9.png");
-          break;
-        }
-        default:
-          result = require("../../../assets/horseImageData/Right/2-2.png");
-          break;
-      }
-    }
-    case ground == "ダ": {
-      switch (place) {
-        case "京都競馬場": {
-          result = require("../../../assets/horseImageData/Right/1-2.png");
-          break;
-        }
-        case "中山競馬場": {
-          result = require("../../../assets/horseImageData/Right/1-1.png");
-          break;
-        }
-        case "小倉競馬場": {
-          result = require("../../../assets/horseImageData/Right/1-3.png");
-          break;
-        }
-        case "東京競馬場": {
-          result = require("../../../assets/horseImageData/Left/1-4.png");
-          break;
-        }
-        case "阪神競馬場": {
-          result = require("../../../assets/horseImageData/Right/1-5.png");
-          break;
-        }
-        case "福島競馬場": {
-          result = require("../../../assets/horseImageData/Right/1-6.png");
-          break;
-        }
-        case "新潟競馬場": {
-          result = require("../../../assets/horseImageData/Left/1-7.png");
-          break;
-        }
-        case "函館競馬場": {
-          result = require("../../../assets/horseImageData/Right/1-8.png");
-          break;
-        }
-        case "沙田競馬場": {
-          result = require("../../../assets/horseImageData/Right/1-8.png");
-          break;
-        }
-        case "札幌競馬場": {
-          result = require("../../../assets/horseImageData/Right/1-9.png");
-          break;
-        }
-        default:
-          result = require("../../../assets/horseImageData/Right/1-3.png");
-          break;
-      }
-    }
-  }
-  return result;
+  const imageLookup = {
+    芝: {
+      京都競馬場: require("../../../assets/horseImageData/Right/2-2.png"),
+      中山競馬場: require("../../../assets/horseImageData/Right/2-1.png"),
+      小倉競馬場: require("../../../assets/horseImageData/Right/2-3.png"),
+      東京競馬場: require("../../../assets/horseImageData/Left/2-4.png"),
+      阪神競馬場: require("../../../assets/horseImageData/Right/2-5.png"),
+      福島競馬場: require("../../../assets/horseImageData/Right/2-6.png"),
+      新潟競馬場: require("../../../assets/horseImageData/Left/2-7.png"),
+      函館競馬場: require("../../../assets/horseImageData/Right/2-8.png"),
+      沙田競馬場: require("../../../assets/horseImageData/Right/2-2.png"),
+      札幌競馬場: require("../../../assets/horseImageData/Right/2-9.png"),
+    },
+    ダ: {
+      京都競馬場: require("../../../assets/horseImageData/Right/1-2.png"),
+      中山競馬場: require("../../../assets/horseImageData/Right/1-1.png"),
+      小倉競馬場: require("../../../assets/horseImageData/Right/1-3.png"),
+      東京競馬場: require("../../../assets/horseImageData/Left/1-4.png"),
+      阪神競馬場: require("../../../assets/horseImageData/Right/1-5.png"),
+      福島競馬場: require("../../../assets/horseImageData/Right/1-6.png"),
+      新潟競馬場: require("../../../assets/horseImageData/Left/1-7.png"),
+      函館競馬場: require("../../../assets/horseImageData/Right/1-8.png"),
+      沙田競馬場: require("../../../assets/horseImageData/Right/1-8.png"),
+      札幌競馬場: require("../../../assets/horseImageData/Right/1-9.png"),
+    },
+  };
+
+  return (
+    imageLookup[ground]?.[place] ||
+    require("../../../assets/horseImageData/Right/1-3.png")
+  );
 };

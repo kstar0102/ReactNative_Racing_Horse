@@ -3,7 +3,7 @@
  * Import parts
  * ===========================START=========================
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   StyleSheet,
@@ -84,8 +84,7 @@ const HorseRace = ({
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const fadeInAnimation = new Animated.Value(0);
-  const fadeOutAnimation = new Animated.Value(1);
+
   const [lodingAnimation, setLodingAnimation] = useState(new Animated.Value(1));
 
   //
@@ -106,15 +105,14 @@ const HorseRace = ({
   const [sixSpeeds, setSixSpeeds] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [startState, setStartState] = useState(0);
-  const [horseState, setHorseState] = useState(0);
+  const [horseSpeedState, setHorseSpeedState] = useState(0);
+  const scrollViewRef = useRef(null);
 
   let raceAllData = [];
   let raceResultData = [];
-  let colorCount = [];
-  //
+
   if (racingHorseData != "") {
     racingHorseData.map((item) => {
-      colorCount.push(item[0].color);
       raceAllData.push(item[0]);
     });
   }
@@ -127,12 +125,10 @@ const HorseRace = ({
 
   if (raceCpuData != "") {
     raceCpuData.map((item) => {
-      colorCount.push(item.color);
       raceAllData.push(item);
       raceResultData.push(item);
     });
   }
-
   // Global scope variables
   //
   // Create an array of Animated.Value without using useState inside the loop
@@ -163,14 +159,14 @@ const HorseRace = ({
   //
   useEffect(() => {
     //
+    scrollViewRef.current.scrollToEnd();
     setFirstT(firstTiming(racingtime));
     setFirstSpeed(firstSpeedController(raceAllData, racingtime));
     setCSpeed(cSpeedController(raceAllData, racingtime));
     if (
       reaceReigsterData != "" &&
       racingHorseData != "" &&
-      racingJockeyData != "" &&
-      raceCpuData != ""
+      racingJockeyData != ""
     ) {
       setSpeedControllers(
         speedController(racingHorseData, ground, racingJockeyData, raceCpuData)
@@ -181,6 +177,7 @@ const HorseRace = ({
   //
   // calculate second, third, fourth time, and another speeds
   //
+
   useEffect(() => {
     if (firstSpeed != null) {
       setSecondT(secondTiming(firstSpeed));
@@ -265,13 +262,6 @@ const HorseRace = ({
   const handleStart = () => {
     setStartState(1);
     setLodingAnimation(new Animated.Value(0));
-    // startRace(cSpeed);
-    // setTimeout(() => {
-    //   startRace(firstSpeed);
-    // }, 2000);
-
-    // clearTimeout(raceTimeout);
-
     // for (let i = 0; i < spd_arr[0].length; i++) {
     //   totals.push({
     //     time: (
@@ -290,47 +280,24 @@ const HorseRace = ({
     // const winners = totals;
     // totalWinners.push(winners);
     // spd_arr.push(firstSpeed, secondSpeeds, threeSpeeds, fourSpeeds, fiveSpeeds);
-    setTimeout(() => {}, firstT);
-
-    setTimeout(() => {}, firstT + secondT);
-
-    setTimeout(() => {
-      fadeInEnd();
-      fadeOutEnd();
-    }, firstT + secondT + threeT);
-
-    setTimeout(() => {}, firstT + secondT + threeT + fourT);
-
-    setTimeout(() => {}, firstT + secondT + threeT + fivT);
+    // setTimeout(() => {}, firstT);
   };
-
   //
   // set every horse outputrange so that to calculate there distance
   //
-  const fadeInEnd = () => {
-    Animated.timing(fadeInAnimation, {
-      toValue: 1,
-      duration: 10,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const fadeOutEnd = () => {
-    Animated.timing(fadeOutAnimation, {
-      toValue: 0,
-      duration: 10,
-      useNativeDriver: true,
-    }).start();
-  };
 
   return (
     <>
       <View style={Screenstyles.RaceCourseContainer}>
         <Loading fadeOutLodingAnimation={lodingAnimation} />
         {/* ground start */}
-        <ScrollView horizontal={true} style={[Screenstyles.background]}>
-          <View style={[Screenstyles.stillGroup, { width: 5800 }]}>
-            <Grounds ground={ground} />
+        <ScrollView
+          horizontal={true}
+          ref={scrollViewRef}
+          style={[Screenstyles.background]}
+        >
+          <View style={[Screenstyles.stillGroup, { width: raceWidth }]}>
+            <Grounds ground={ground} raceWidth={raceWidth} />
             {stillSource.map((still, l) => {
               return (
                 <Image
@@ -343,14 +310,33 @@ const HorseRace = ({
           </View>
           <Image style={Screenstyles.final} source={finals} />
           <RaceHorses
-            raceWidth={5800}
+            raceWidth={raceWidth}
             startState={startState}
-            fadeInAnimation={fadeInAnimation}
-            fadeOutAnimation={fadeOutAnimation}
+            firstSpeed={firstSpeed}
+            secondSpeeds={secondSpeeds}
+            threeSpeeds={threeSpeeds}
+            fourSpeeds={fourSpeeds}
+            fiveSpeeds={fiveSpeeds}
+            firstTime={firstT}
+            secondTime={secondT}
+            threeTime={threeT}
+            fourTime={fourT}
           />
         </ScrollView>
 
-        <MiniMap startState={startState} />
+        <MiniMap
+          startState={startState}
+          horseSpeeds={firstSpeed}
+          firstSpeed={firstSpeed}
+          secondSpeeds={secondSpeeds}
+          threeSpeeds={threeSpeeds}
+          fourSpeeds={fourSpeeds}
+          fiveSpeeds={fiveSpeeds}
+          firstTime={firstT}
+          secondTime={secondT}
+          threeTime={threeT}
+          fourTime={fourT}
+        />
         <Image style={[Screenstyles.skyImage]} source={weathers} />
 
         {/* buttons start */}

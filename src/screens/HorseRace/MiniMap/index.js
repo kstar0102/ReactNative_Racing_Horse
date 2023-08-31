@@ -4,40 +4,68 @@ import { numberCount } from "../../../utils/globals";
 import Screenstyles from "../../ScreenStylesheet";
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const SCREEN_HEIGHT = Dimensions.get("window").height;
-const MiniMap = ({ startState }) => {
+const MiniMap = ({
+  startState,
+  horseSpeeds,
+  firstSpeed,
+  secondSpeeds,
+  threeSpeeds,
+  fourSpeeds,
+  fiveSpeeds,
+  firstTime,
+  secondTime,
+  threeTime,
+  fourTime,
+}) => {
   const animations = Array.from({ length: 10 }, () => new Animated.Value(0));
   const horseAnimationStyles = [];
-  const durations = [
-    52000, 58000, 56000, 53000, 56000, 53000, 58000, 50000, 51000, 53000,
-  ];
 
   useEffect(() => {
     if (startState == 1) {
-      const speeds = animations.map((animation, j) => {
-        const speed = durations[j];
-        Animated.timing(animation, {
-          toValue: -(SCREEN_WIDTH - 30),
-          duration: speed,
-          useNativeDriver: true,
-        }).start(() => {});
-        return speed;
-      });
+      startMiniHorse(firstSpeed);
+      setTimeout(() => {
+        startMiniHorse(secondSpeeds);
+      }, firstTime);
 
-      Animated.parallel(
-        animations.map((animation, index) =>
-          Animated.timing(animation, {
-            toValue: -(SCREEN_WIDTH -30),
-            duration: speeds[index],
-            useNativeDriver: true,
-          })
-        )
-      ).start(() => {});
+      setTimeout(() => {
+        startMiniHorse(threeSpeeds);
+      }, firstTime + secondTime);
+
+      setTimeout(() => {
+        startMiniHorse(fourSpeeds);
+      }, firstTime + secondTime + threeTime);
+
+      setTimeout(() => {
+        startMiniHorse(fiveSpeeds);
+      }, firstTime + secondTime + threeTime + fourTime);
     }
   }, [startState]);
 
+  const startMiniHorse = (spds) => {
+    const speeds = animations.map((animation, j) => {
+      const speed = horseSpeeds[j];
+      Animated.timing(animation, {
+        toValue: -(SCREEN_HEIGHT - 30),
+        duration: speed,
+        useNativeDriver: true,
+      }).start(() => {});
+      return speed;
+    });
+
+    Animated.parallel(
+      animations.map((animation, index) =>
+        Animated.timing(animation, {
+          toValue: -(SCREEN_HEIGHT - 30),
+          duration: speeds[index],
+          useNativeDriver: true,
+        })
+      )
+    ).start(() => {});
+  };
+
   for (let i = 0; i < 10; i++) {
     const style = {
-      left: SCREEN_WIDTH - 30,
+      left: SCREEN_HEIGHT - 30,
       transform: [{ translateX: animations[i] }],
     };
     horseAnimationStyles.push(style);
@@ -65,7 +93,7 @@ const styles = StyleSheet.create({
   miniMap: {
     backgroundColor: "#000000a7",
     height: 60,
-    width: SCREEN_WIDTH,
+    width: SCREEN_HEIGHT,
   },
   miniMap_users: {
     position: "absolute",

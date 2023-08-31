@@ -9,14 +9,14 @@ import {
 } from "../horseRaceGlobal";
 import { grouns, glasss } from "../../../utils/globals";
 
-const Grounds = ({ ground }) => {
+const Grounds = ({ ground, raceWidth }) => {
   const grounds = groundType(ground, glasss, grouns);
 
   return (
     <>
       <Image
         resizeMode="repeat"
-        style={[Screenstyles.background, { width: 5800 }]}
+        style={[Screenstyles.background, { width: raceWidth }]}
         source={grounds}
       />
     </>
