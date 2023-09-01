@@ -256,9 +256,9 @@ const HorseRace = ({
    * =======================END=========================
    */
 
+  spd_arr.push(firstSpeed, secondSpeeds, threeSpeeds, fourSpeeds, fiveSpeeds);
   //
   // start race with settime out
-  spd_arr.push(firstSpeed, secondSpeeds, threeSpeeds, fourSpeeds, fiveSpeeds);
   const handleStart = () => {
     setStartState(1);
     setLodingAnimation(new Animated.Value(0));
@@ -395,7 +395,6 @@ const HorseRace = ({
           style={[Screenstyles.background]}
         >
           <View style={[Screenstyles.stillGroup, { width: raceWidth }]}>
-            <Grounds ground={ground} raceWidth={raceWidth} />
             {stillSource.map((still, l) => {
               return (
                 <Image
@@ -407,6 +406,7 @@ const HorseRace = ({
             })}
           </View>
           <Image style={Screenstyles.final} source={finals} />
+          <Grounds ground={ground} raceWidth={raceWidth} />
           <RaceHorses
             raceWidth={raceWidth}
             startState={startState}

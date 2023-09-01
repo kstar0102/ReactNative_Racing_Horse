@@ -217,7 +217,6 @@ const RaceResultScreen = ({
           </View>
         ) : (
           <View>
-            <Text>NO</Text>
           </View>
         )}
       </ScrollView>
