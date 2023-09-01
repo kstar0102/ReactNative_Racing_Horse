@@ -8,16 +8,13 @@ import {
 } from "../horseCpuState";
 
 export const firstTiming = (x) => {
-  // ---2000m
   // x = raceing total time;
-  // 40000 / 5 = 8000
   const y = x / 5;
   return y;
 };
 
 export const secondTiming = (x) => {
   // x = firstspeed
-  //  [34000, 34000]
   if (x.length === 0) {
     return 0; // Or any other default value/error handling approach you prefer
   }
@@ -25,14 +22,12 @@ export const secondTiming = (x) => {
   const sum = x.reduce((total, current) => total + current, 0);
   // sum of arrays
   const value = sum / x.length / 5;
+
   // value = 6800
   return value;
 };
 
 export const threeTiming = (x, y, z) => {
-  // x = first speed [34000, 34000]
-  // y = first timing 8000
-  // z = second timing  6800
   if (x.length === 0) {
     // Handle empty array case
     return 0; // Or any other default value/error handling approach you prefer
@@ -47,10 +42,6 @@ export const threeTiming = (x, y, z) => {
 };
 
 export const fourTiming = (x, y, z, j) => {
-  // x = first speed [34000, 34000]
-  // y = first timing 8000
-  // z = second timing  6800
-  // j = three timing 6400
   if (x.length === 0) {
     // Handle empty array case
     return 0; // Or any other default value/error handling approach you prefer
@@ -60,7 +51,6 @@ export const fourTiming = (x, y, z, j) => {
   // sum of arrays
   const value = sum / x.length - y - z - j;
   const result = value / 2;
-  // result = 6400
   return result;
 };
 
@@ -118,19 +108,19 @@ export const cSpeedController = (raceRegisterData, time) => {
   let speed = [];
   raceRegisterData.forEach((item) => {
     if (item.quality_leg === "逃") {
-      speed.push(time - time * 0.3);
+      speed.push(time - time * 0.45);
     }
     if (item.quality_leg === "追") {
       speed.push(time);
     }
     if (item.quality_leg === "大逃") {
-      speed.push(time - time * 0.4);
+      speed.push(time - time * 0.55);
     }
     if (item.quality_leg === "先" || item.quality_leg === "自") {
-      speed.push(time - time * 0.2);
+      speed.push(time - time * 0.3);
     }
     if (item.quality_leg === "差" || item.quality_leg === "まくり") {
-      speed.push(time - time * 0.1);
+      speed.push(time - time * 0.15);
     }
   });
   // speed = [10000, 10000]
@@ -1139,49 +1129,14 @@ export const oddsFun = (racingHorseData, raceAllData) => {
     stateValue.push(item);
   });
 
-  let sum = 0;
+  let sum = [];
+  let total = [];
 
-  stateValue.map((item) => {
-    sum += item;
+  stateValue.map((item, i) => {
+    sum.push(10 - item / 300);
+    total.push(((3000 / item) * sum[i] + 2 * sum[i] - 1).toFixed(1))
   });
-
-  const averageSum = sum / stateValue.length;
-
-  const lessThanAverageSum = stateValue.filter((item) => item < averageSum);
-  const greaterThanAverageSum = stateValue.filter((item) => item > averageSum);
-
-  const randomValueBig = Array.from({ length: lessThanAverageSum.length }, () =>
-    (Math.random() * (50.1 - 20.1) + 20.1).toFixed(1)
-  );
-  const randomValueSmall = Array.from(
-    { length: greaterThanAverageSum.length },
-    () => (Math.random() * (1.1 - 20.1) + 20.1).toFixed(1)
-  );
-
-  // 20 ~ 50 Random < averageSum
-  const sortedValuesBig = randomValueBig.map(Number).sort((a, b) => a - b);
-  const sortedValuesSmall = lessThanAverageSum
-    .map(Number)
-    .sort((a, b) => b - a);
-  //  10 ~ 50 > averageSum
-  const randomSmallValues = randomValueSmall.map(Number).sort((a, b) => a - b);
-  const sortedSmallValuesSmall = greaterThanAverageSum
-    .map(Number)
-    .sort((a, b) => b - a);
-
-  const mergedOriginValue = sortedValuesSmall.concat(sortedSmallValuesSmall);
-  const mergedCalculatedValue = sortedValuesBig.concat(randomSmallValues);
-
-  let resultArray = [];
-  stateValue.map((item) => {
-    for (let i = 0; i < stateValue.length; i++) {
-      if (item == mergedOriginValue[i]) {
-        resultArray.push(mergedCalculatedValue[i]);
-      }
-    }
-  });
-
-  return resultArray;
+  return total;
 };
 
 // IMAGE

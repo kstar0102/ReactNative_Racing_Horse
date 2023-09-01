@@ -23,11 +23,8 @@ const RaceHorses = ({
   fourTime,
   racingHorseData,
   raceCpuData,
-  cSpeed
+  cSpeed,
 }) => {
-
-  console.log("----------secondSpeeds--------",secondSpeeds);
-  console.log("-------------------------------", cSecondSpeeds);
   const animations = Array.from({ length: 10 }, () => new Animated.Value(0));
   const fadeInAnimation = new Animated.Value(0);
   const fadeOutAnimation = new Animated.Value(1);
@@ -51,20 +48,22 @@ const RaceHorses = ({
       const statHorseWithDelay = (speed, delay) => {
         setTimeout(() => {
           statHorse(speed);
-          console.log("-----------------delay----------", delay)
         }, delay);
       };
 
-      statHorse(cSpeed)
+      statHorse(cSpeed);
       statHorseWithDelay(firstSpeed, 3000);
+
       statHorseWithDelay(cSecondSpeeds, firstTime);
       statHorseWithDelay(secondSpeeds, firstTime + 2000);
 
       statHorseWithDelay(cThreeSpeeds, firstTime + secondTime);
       statHorseWithDelay(threeSpeeds, firstTime + secondTime + 3000);
 
-      statHorseWithDelay(cFiveSpeeds, firstTime + secondTime + threeTime + fourTime);
-      statHorseWithDelay(fiveSpeeds, firstTime + secondTime + threeTime + fourTime + 3000);
+      statHorseWithDelay(
+        cFiveSpeeds,
+        firstTime + secondTime + threeTime + fourTime
+      );
 
       setTimeout(() => {
         statHorse(cFourSpeeds);
@@ -73,30 +72,19 @@ const RaceHorses = ({
       }, firstTime + secondTime + threeTime);
 
       setTimeout(() => {
-        statHorse(fourSpeeds);
+        statHorse(cFourSpeeds);
         fadeInEnd();
         fadeOutEnd();
-      }, firstTime + secondTime + threeTime);
+      }, firstTime + secondTime + threeTime + 2000);
     }
   }, [startState]);
 
   const statHorse = (spds) => {
-     const speeds = animations.map((animation, j) => {
-       const speed = spds[j];
-       Animated.timing(animation, {
-         toValue: -(raceWidth - 60),
-         duration: speed,
-         useNativeDriver: true,
-         easing: Easing.linear,
-       }).start();
-       return speed;
-     });
-
     Animated.parallel(
       animations.map((animation, index) =>
         Animated.timing(animation, {
           toValue: -(raceWidth - 60),
-          duration: speeds[index],
+          duration: spds[index],
           useNativeDriver: true,
           easing: Easing.linear,
         })
