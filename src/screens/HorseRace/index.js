@@ -48,6 +48,10 @@ import {
   threeSpeedController,
   fourSpeedController,
   fiveSpeedController,
+  cSecondSpeedController,
+  cThreeSpeedController,
+  cFourSpeedController,
+  cFiveSpeedController,
   sixSpeedController,
   raceTime,
   weatherType,
@@ -102,6 +106,10 @@ const HorseRace = ({
   const [threeSpeeds, setThreeSpeeds] = useState(null);
   const [fourSpeeds, setFourSpeeds] = useState(null);
   const [fiveSpeeds, setFiveSpeeds] = useState(null);
+  const [cSecondSpeeds, setCSecondSpeeds] = useState(null);
+  const [cThreeSpeeds, setCThreeSpeeds] = useState(null);
+  const [cFourSpeeds, setCFourSpeeds] = useState(null);
+  const [cFiveSpeeds, setCFiveSpeeds] = useState(null);
   const [sixSpeeds, setSixSpeeds] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [startState, setStartState] = useState(0);
@@ -199,8 +207,24 @@ const HorseRace = ({
           raceCpuData
         )
       );
+      setCSecondSpeeds(
+        cSecondSpeedController(
+          racingHorseData,
+          speedControllers,
+          firstSpeed,
+          raceCpuData
+        )
+      );
       setThreeSpeeds(
         threeSpeedController(
+          racingHorseData,
+          speedControllers,
+          firstSpeed,
+          raceCpuData
+        )
+      );
+      setCThreeSpeeds(
+        cThreeSpeedController(
           racingHorseData,
           speedControllers,
           firstSpeed,
@@ -215,8 +239,24 @@ const HorseRace = ({
           raceCpuData
         )
       );
+      setCFourSpeeds(
+        cFourSpeedController(
+          racingHorseData,
+          speedControllers,
+          firstSpeed,
+          raceCpuData
+        )
+      );
       setFiveSpeeds(
         fiveSpeedController(
+          racingHorseData,
+          speedControllers,
+          firstSpeed,
+          raceCpuData
+        )
+      );
+      setCFiveSpeeds(
+        cFiveSpeedController(
           racingHorseData,
           speedControllers,
           firstSpeed,
@@ -416,7 +456,10 @@ const HorseRace = ({
             threeSpeeds={threeSpeeds}
             fourSpeeds={fourSpeeds}
             fiveSpeeds={fiveSpeeds}
-            sixSpeeds={sixSpeeds}
+            cSecondSpeeds={cSecondSpeeds}
+            cThreeSpeeds={cThreeSpeeds}
+            cFourSpeeds={cFourSpeeds}
+            cFiveSpeeds={cFiveSpeeds}
             firstTime={firstT}
             secondTime={secondT}
             threeTime={threeT}

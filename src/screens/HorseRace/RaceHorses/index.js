@@ -13,7 +13,10 @@ const RaceHorses = ({
   threeSpeeds,
   fourSpeeds,
   fiveSpeeds,
-  sixSpeeds,
+  cSecondSpeeds,
+  cThreeSpeeds,
+  cFourSpeeds,
+  cFiveSpeeds,
   firstTime,
   secondTime,
   threeTime,
@@ -22,6 +25,9 @@ const RaceHorses = ({
   raceCpuData,
   cSpeed
 }) => {
+
+  console.log("----------secondSpeeds--------",secondSpeeds);
+  console.log("-------------------------------", cSecondSpeeds);
   const animations = Array.from({ length: 10 }, () => new Animated.Value(0));
   const fadeInAnimation = new Animated.Value(0);
   const fadeOutAnimation = new Animated.Value(1);
@@ -45,14 +51,26 @@ const RaceHorses = ({
       const statHorseWithDelay = (speed, delay) => {
         setTimeout(() => {
           statHorse(speed);
+          console.log("-----------------delay----------", delay)
         }, delay);
       };
 
       statHorse(cSpeed)
       statHorseWithDelay(firstSpeed, 3000);
-      statHorseWithDelay(secondSpeeds, firstTime);
-      statHorseWithDelay(threeSpeeds, firstTime + secondTime);
-      statHorseWithDelay(sixSpeeds, firstTime + secondTime + threeTime + fourTime);
+      statHorseWithDelay(cSecondSpeeds, firstTime);
+      statHorseWithDelay(secondSpeeds, firstTime + 2000);
+
+      statHorseWithDelay(cThreeSpeeds, firstTime + secondTime);
+      statHorseWithDelay(threeSpeeds, firstTime + secondTime + 3000);
+
+      statHorseWithDelay(cFiveSpeeds, firstTime + secondTime + threeTime + fourTime);
+      statHorseWithDelay(fiveSpeeds, firstTime + secondTime + threeTime + fourTime + 3000);
+
+      setTimeout(() => {
+        statHorse(cFourSpeeds);
+        fadeInEnd();
+        fadeOutEnd();
+      }, firstTime + secondTime + threeTime);
 
       setTimeout(() => {
         statHorse(fourSpeeds);
