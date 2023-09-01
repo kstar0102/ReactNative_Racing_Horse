@@ -144,10 +144,10 @@ const HorseRace = ({
   const finals = finalsType(ground, place);
 
   // SPEED VALUE VALI
+  const [totalWinners, setTotalWinners] = useState([]);
   const spd_arr = [];
   const totals = [];
-  const totalWinners = [];
-
+  let horseData = [];
   /**
    * ======================start==========================
    * UseEffect
@@ -258,33 +258,131 @@ const HorseRace = ({
 
   //
   // start race with settime out
-  //
+  spd_arr.push(firstSpeed, secondSpeeds, threeSpeeds, fourSpeeds, fiveSpeeds);
   const handleStart = () => {
     setStartState(1);
     setLodingAnimation(new Animated.Value(0));
-    // for (let i = 0; i < spd_arr[0].length; i++) {
-    //   totals.push({
-    //     time: (
-    //       (spd_arr[0][i] / 5 +
-    //         spd_arr[1][i] / 4 +
-    //         spd_arr[2][i] / 3 +
-    //         spd_arr[3][i] / 2 +
-    //         spd_arr[4][i] +
-    //         10000) /
-    //       1000
-    //     ).toFixed(2),
-    //     ranking: i + 1,
-    //     odds: oddsData[i],
-    //   });
-    // }
-    // const winners = totals;
-    // totalWinners.push(winners);
-    // spd_arr.push(firstSpeed, secondSpeeds, threeSpeeds, fourSpeeds, fiveSpeeds);
-    // setTimeout(() => {}, firstT);
+
+    for (let i = 0; i < spd_arr[0].length; i++) {
+      totals.push({
+        time: (
+          (spd_arr[0][i] / 5 +
+            spd_arr[1][i] / 4 +
+            spd_arr[2][i] / 3 +
+            spd_arr[3][i] / 2 +
+            spd_arr[4][i] +
+            10000) /
+          1000
+        ).toFixed(2),
+        ranking: i + 1,
+        odds: oddsData[i],
+      });
+    }
+    const winners = totals;
+    setTotalWinners(winners);
   };
   //
   // set every horse outputrange so that to calculate there distance
   //
+
+  const handleResult = () => {
+    if (totalWinners != undefined) {
+      // RANKING AND TIME ARRAY ADD
+      let rankings = [];
+      let times = [];
+      let oddss = [];
+      // PUSH
+      raceResultData.map((item) => {
+        const user_name = item.user_name;
+        const user_id = item.user_id;
+        const horse_name = item.horse_name;
+        const horse_id = item.horse_id;
+        const horse_gender = item.horse_gender;
+        const horse_age = item.horse_age;
+        const mass = item.mass;
+        const jockey_name = item.jockey_name;
+        const jockey_id = item.jockey_id;
+        const quality_leg = item.quality_leg;
+        const stall_type = item.stall_type;
+        horseData.push({
+          user_name,
+          user_id,
+          horse_name,
+          horse_id,
+          horse_gender,
+          horse_age,
+          mass,
+          jockey_name,
+          jockey_id,
+          quality_leg,
+          stall_type,
+        });
+      });
+
+      if (totalWinners != undefined) {
+        totalWinners.map((ranking) => {
+          rankings.push(ranking.ranking);
+          times.push(ranking.time);
+          oddss.push(ranking.odds);
+        });
+      }
+
+      for (let i = 0; i < horseData.length; i++) {
+        if (i < rankings.length || times.length) {
+          horseData[i].ranking = rankings[i];
+          horseData[i].time = times[i];
+          horseData[i].odds = oddss[i];
+        } else {
+          break;
+        }
+      }
+
+      for (let i = 0; i < prizeData.length; i++) {
+        const rank = prizeData[i].rank.trim();
+
+        for (let j = 0; j < horseData.length; j++) {
+          if (rank === String(horseData[j].ranking)) {
+            horseData[j].prize = prizeData[i].money;
+          }
+        }
+      }
+
+      for (let j = 0; j < horseData.length; j++) {
+        if (!horseData[j].prize) {
+          horseData[j].prize = 0;
+        }
+      }
+
+      for (let j = 0; j < horseData.length; j++) {
+        if (!horseData[j].race_type) {
+          horseData[j].race_type = raceFieldData.type;
+        }
+      }
+
+      for (let j = 0; j < horseData.length; j++) {
+        if (!horseData[j].race_id) {
+          horseData[j].race_id = raceHorseData[0].race_id;
+        }
+      }
+
+      const timestamp = calculateGameDate(currentTime);
+      const date = new Date(timestamp);
+      const year = date.getFullYear();
+
+      for (let j = 0; j < horseData.length; j++) {
+        horseData[j].year = year;
+      }
+    }
+    if (horseData != "") {
+      dispatch(
+        RaceResultAction(
+          horseData.sort((a, b) => a.time - b.time),
+          calculateGameDate(currentTime)
+        )
+      );
+      navigation.navigate("RaceResult");
+    }
+  };
 
   return (
     <>
@@ -312,26 +410,28 @@ const HorseRace = ({
           <RaceHorses
             raceWidth={raceWidth}
             startState={startState}
+            cSpeed={cSpeed}
             firstSpeed={firstSpeed}
             secondSpeeds={secondSpeeds}
             threeSpeeds={threeSpeeds}
             fourSpeeds={fourSpeeds}
             fiveSpeeds={fiveSpeeds}
+            sixSpeeds={sixSpeeds}
             firstTime={firstT}
             secondTime={secondT}
             threeTime={threeT}
             fourTime={fourT}
           />
         </ScrollView>
-
         <MiniMap
           startState={startState}
-          horseSpeeds={firstSpeed}
+          cSpeed={cSpeed}
           firstSpeed={firstSpeed}
           secondSpeeds={secondSpeeds}
           threeSpeeds={threeSpeeds}
           fourSpeeds={fourSpeeds}
           fiveSpeeds={fiveSpeeds}
+          sixSpeeds={sixSpeeds}
           firstTime={firstT}
           secondTime={secondT}
           threeTime={threeT}
@@ -349,7 +449,7 @@ const HorseRace = ({
 
           <TouchableOpacity
             style={[styles.button, { backgroundColor: "#f02054" }]}
-            // onPress={handleResult}
+            onPress={handleResult}
           >
             <Text style={styles.buttonText}>結果</Text>
           </TouchableOpacity>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Image, StyleSheet, Animated } from "react-native";
+import { View, Image, StyleSheet, Animated, Easing } from "react-native";
 import { connect } from "react-redux";
 
 import Screenstyles from "../../ScreenStylesheet";
@@ -7,18 +7,20 @@ import { numberSource, raceWhipHorse, raceHorse } from "../../../utils/globals";
 
 const RaceHorses = ({
   raceWidth,
+  startState,
   firstSpeed,
   secondSpeeds,
   threeSpeeds,
   fourSpeeds,
   fiveSpeeds,
+  sixSpeeds,
   firstTime,
   secondTime,
   threeTime,
   fourTime,
   racingHorseData,
   raceCpuData,
-  startState,
+  cSpeed
 }) => {
   const animations = Array.from({ length: 10 }, () => new Animated.Value(0));
   const fadeInAnimation = new Animated.Value(0);
@@ -37,6 +39,7 @@ const RaceHorses = ({
       colorCount.push(item.color);
     });
   }
+
   useEffect(() => {
     if (startState === 1) {
       const statHorseWithDelay = (speed, delay) => {
@@ -45,43 +48,31 @@ const RaceHorses = ({
         }, delay);
       };
 
-      statHorse(firstSpeed);
-
+      statHorse(cSpeed)
+      statHorseWithDelay(firstSpeed, 3000);
       statHorseWithDelay(secondSpeeds, firstTime);
       statHorseWithDelay(threeSpeeds, firstTime + secondTime);
-      statHorseWithDelay(fourSpeeds, firstTime + secondTime + threeTime);
+      statHorseWithDelay(sixSpeeds, firstTime + secondTime + threeTime + fourTime);
 
       setTimeout(() => {
-        statHorse(fiveSpeeds);
+        statHorse(fourSpeeds);
         fadeInEnd();
         fadeOutEnd();
-      }, firstTime + secondTime + threeTime + fourTime);
+      }, firstTime + secondTime + threeTime);
     }
-  }, [
-    startState,
-    statHorse,
-    firstSpeed,
-    secondSpeeds,
-    firstTime,
-    secondTime,
-    threeSpeeds,
-    fourSpeeds,
-    fiveSpeeds,
-    fadeInEnd,
-    fadeOutEnd,
-  ]);
+  }, [startState]);
 
   const statHorse = (spds) => {
-    const speeds = animations.map((animation, j) => {
-      const speed = spds[j];
-
-      Animated.timing(animation, {
-        toValue: -(raceWidth - 60),
-        duration: -1000,
-        useNativeDriver: true,
-      }).start(() => {});
-      return speed;
-    });
+     const speeds = animations.map((animation, j) => {
+       const speed = spds[j];
+       Animated.timing(animation, {
+         toValue: -(raceWidth - 60),
+         duration: speed,
+         useNativeDriver: true,
+         easing: Easing.linear,
+       }).start();
+       return speed;
+     });
 
     Animated.parallel(
       animations.map((animation, index) =>
@@ -89,12 +80,11 @@ const RaceHorses = ({
           toValue: -(raceWidth - 60),
           duration: speeds[index],
           useNativeDriver: true,
+          easing: Easing.linear,
         })
       )
-    ).start(() => {});
+    ).start();
   };
-
-
 
   for (let i = 0; i < 10; i++) {
     const style = {

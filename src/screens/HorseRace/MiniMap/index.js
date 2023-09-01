@@ -1,53 +1,67 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, Dimensions, Animated } from "react-native";
+import { View, Text, StyleSheet, Dimensions, Animated, Easing } from "react-native";
 import { numberCount } from "../../../utils/globals";
 import Screenstyles from "../../ScreenStylesheet";
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const MiniMap = ({
   startState,
-  horseSpeeds,
   firstSpeed,
   secondSpeeds,
   threeSpeeds,
   fourSpeeds,
   fiveSpeeds,
+  sixSpeeds,
   firstTime,
   secondTime,
   threeTime,
   fourTime,
+  cSpeed
 }) => {
   const animations = Array.from({ length: 10 }, () => new Animated.Value(0));
   const horseAnimationStyles = [];
 
   useEffect(() => {
     if (startState == 1) {
-      startMiniHorse(firstSpeed);
-      setTimeout(() => {
-        startMiniHorse(secondSpeeds);
-      }, firstTime);
+      const startHorseWidhDaly = (speed, daly) => [
+        setTimeout(() => {
+          startMiniHorse(speed);
+        }, daly),
+      ];
 
-      setTimeout(() => {
-        startMiniHorse(threeSpeeds);
-      }, firstTime + secondTime);
-
-      setTimeout(() => {
-        startMiniHorse(fourSpeeds);
-      }, firstTime + secondTime + threeTime);
-
-      setTimeout(() => {
-        startMiniHorse(fiveSpeeds);
-      }, firstTime + secondTime + threeTime + fourTime);
+      startMiniHorse(cSpeed);
+      
+      startHorseWidhDaly(firstSpeed, 3000);
+      startHorseWidhDaly(secondSpeeds, firstTime);
+      startHorseWidhDaly(threeSpeeds, firstTime + secondTime);
+      startHorseWidhDaly(fourSpeeds, firstTime + secondTime + threeTime);
+      startHorseWidhDaly(
+        sixSpeeds,
+        firstTime + secondTime + threeTime + fourTime
+      );
     }
-  }, [startState]);
+  }, [
+    startState,
+    startMiniHorse,
+    firstSpeed,
+    secondSpeeds,
+    threeSpeeds,
+    fourSpeeds,
+    fiveSpeeds,
+    firstTime,
+    secondTime,
+    threeTime,
+    fourTime,
+  ]);
 
   const startMiniHorse = (spds) => {
     const speeds = animations.map((animation, j) => {
-      const speed = horseSpeeds[j];
+      const speed = spds[j];
       Animated.timing(animation, {
         toValue: -(SCREEN_HEIGHT - 30),
         duration: speed,
         useNativeDriver: true,
+        easing: Easing.linear,
       }).start(() => {});
       return speed;
     });
@@ -58,6 +72,7 @@ const MiniMap = ({
           toValue: -(SCREEN_HEIGHT - 30),
           duration: speeds[index],
           useNativeDriver: true,
+          easing: Easing.linear,
         })
       )
     ).start(() => {});
@@ -85,8 +100,6 @@ const MiniMap = ({
     </View>
   );
 };
-// .........① ② ③ ④ ⑤...⑥ ⑦ ⑧ ⑨ ⑩.........
-
 export default MiniMap;
 
 const styles = StyleSheet.create({
