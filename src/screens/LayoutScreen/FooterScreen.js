@@ -1,8 +1,6 @@
 import React from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
-import {
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { StyleSheet, View } from "react-native";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
 import { stableAllGetAction } from "../../store/actions/truck/getApi/stableAllGetAction";
 // Redux
@@ -10,10 +8,7 @@ import { connect, useDispatch } from "react-redux";
 // Custom
 import { FooterButton } from "../../components/Buttons";
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
-
-const FooterScreen = ({user_id}) => {
+const FooterScreen = ({ user_id }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -44,10 +39,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => {
-  return{
+const mapStateToProps = (state) => {
+  return {
     user_id: state.user.userData.id,
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(FooterScreen);

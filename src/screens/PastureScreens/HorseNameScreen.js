@@ -75,6 +75,10 @@ const HorseNameScreen = ({
     }
   }, [horseCheckData]);
 
+  const modifiedArray = horseCheckAge.map((value) => {
+    return `・${value}歳馬`;
+  });
+
   // Horse Validation Same Useffect
   useEffect(() => {
     setValiHorseName([]);
@@ -187,6 +191,7 @@ const HorseNameScreen = ({
         data: horseCheckData,
         user_id: user_id,
         pasture_id: pasture_id,
+        age: modifiedArray,
       };
       dispatch(horseAction(CheckData));
 

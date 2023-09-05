@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const CustomHook = ({saveData}) => {
+const CustomHook = ({ saveData }) => {
   const [banner, setBanner] = useState(saveData[0]);
   // Ground Color
   const [groundColor, setGroundColor] = useState("#1BFF00");
@@ -15,7 +15,7 @@ const CustomHook = ({saveData}) => {
       setGroundColor("red");
     }
   }, [saveData]);
-  
+
   return banner, groundColor;
 };
 

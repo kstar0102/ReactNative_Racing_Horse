@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View,Dimensions } from "react-native";
+import { StyleSheet, View } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -11,23 +11,20 @@ import { pastureAction } from "../../store/actions/Pasture/pastureAction";
 // Custom
 import { FooterButton } from "../../components/Buttons";
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
-
-const StableFooterScreen = ({user_id, pasture_id}) => {
+const StableFooterScreen = ({ user_id, pasture_id }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const handlePasture = () => {
     navigation.navigate("PastureScreen");
-    if(!pasture_id){
+    if (!pasture_id) {
       return;
     }
-      const sandIds =  {
-        "user_id": user_id,
-        "pasture_id": pasture_id
-      } 
-      dispatch(pastureAction(sandIds))
+    const sandIds = {
+      user_id: user_id,
+      pasture_id: pasture_id,
+    };
+    dispatch(pastureAction(sandIds));
   };
 
   return (
@@ -52,11 +49,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => {  
-  return{
+const mapStateToProps = (state) => {
+  return {
     user_id: state.user.userData.id,
     pasture_id: state.pasture.pastureData.id,
-  }
-}
+  };
+};
 
-export default  connect(mapStateToProps)(StableFooterScreen);
+export default connect(mapStateToProps)(StableFooterScreen);

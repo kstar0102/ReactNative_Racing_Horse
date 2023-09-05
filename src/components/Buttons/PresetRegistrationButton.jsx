@@ -24,11 +24,10 @@ const PresetRegistrationButton = ({
   label,
   disabled,
   allData,
-  preeAllData,
   preNameGroup,
   user_id,
   pasture_id,
-  place
+  place,
 }) => {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
@@ -61,14 +60,15 @@ const PresetRegistrationButton = ({
   const preset_num = preeSet == "" ? preeSetData[0].name : preeSet;
   const handlePreeSetRegister = () => {
     let input_pre = "";
-    if(preeSetData.some((element) => element.name === preset_num)){
+    if (preeSetData.some((element) => element.name === preset_num)) {
       input_pre = preset_num;
-    }
-    else{
-      let targetIndex = preNameGroup.findIndex((element) => element.name === preset_num);
+    } else {
+      let targetIndex = preNameGroup.findIndex(
+        (element) => element.name === preset_num
+      );
       input_pre = preeSetData[targetIndex].name;
     }
-    if(place == "pasture"){
+    if (place == "pasture") {
       const sendPreePastureData = {
         food_name: food_name,
         food_type: food_type,
@@ -81,7 +81,7 @@ const PresetRegistrationButton = ({
         pasture_id: pasture_id,
       };
       dispatch(preePastureSetAction(sendPreePastureData));
-    }else if(place == "stall"){
+    } else if (place == "stall") {
       const sendPreeStallData = {
         food_name: food_name,
         food_type: food_type,
@@ -95,9 +95,9 @@ const PresetRegistrationButton = ({
       };
       dispatch(preeStallSetAction(sendPreeStallData));
     }
-    
-    setInputText('');
-    setPreeSet('');
+
+    setInputText("");
+    setPreeSet("");
   };
 
   const handlePress = () => {
@@ -164,8 +164,8 @@ const PresetRegistrationButton = ({
   };
 
   const handleNoPress = () => {
-    setInputText('');
-    setPreeSet('');
+    setInputText("");
+    setPreeSet("");
     setModalVisible(false);
   };
 
@@ -174,8 +174,8 @@ const PresetRegistrationButton = ({
     setSecondModalVisible(false);
   };
   const handleSecondNoModalSubmit = () => {
-    setInputText('');
-    setPreeSet('');
+    setInputText("");
+    setPreeSet("");
     setModalVisible(false);
     setSecondModalVisible(false);
   };
@@ -185,8 +185,8 @@ const PresetRegistrationButton = ({
     handleEndPress();
   };
   const handleThredNoModalSubmit = () => {
-    setPreeSet('');
-    setInputText('');
+    setPreeSet("");
+    setInputText("");
     setThredModalVisible(false);
   };
 

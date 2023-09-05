@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Animated, Image, Dimensions } from "react-native";
 
-const Loading = ({fadeOutLodingAnimation}) => {
+const Loading = ({ fadeOutLodingAnimation }) => {
   useEffect(() => {
     setTimeout(() => {
       Animated.timing(fadeOutLodingAnimation, {

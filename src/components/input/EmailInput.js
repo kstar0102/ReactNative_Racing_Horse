@@ -1,18 +1,15 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { TextInput } from 'react-native-paper';
-import colors from '../../containers/colors';
+import React from "react";
+import { StyleSheet } from "react-native";
+import { TextInput } from "react-native-paper";
+import colors from "../../containers/colors";
 
-const EmailInput = ({onChangeText}) => {
- const handleInputChange = (inputValue) => {
-  onChangeText(inputValue);
- };
+const EmailInput = ({ onChangeText }) => {
+  const handleInputChange = (inputValue) => {
+    onChangeText(inputValue);
+  };
 
   return (
-    <TextInput
-      onChangeText={handleInputChange}
-      style={styles.passwordS}
-    />
+    <TextInput onChangeText={handleInputChange} style={styles.passwordS} />
   );
 };
 
@@ -27,5 +24,5 @@ const styles = StyleSheet.create({
     width: 310,
     borderWidth: 1,
     padding: 10,
-  }
+  },
 });

@@ -10,7 +10,7 @@ import LastWeekTable from "./LastWeekTable";
 import ThisRaceWeekTable from "./ThisRaceWeekTable";
 import NextNextWeekTable from "./NextNextWeekTable";
 
-const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 const RaceCourses = ({
   thisWeekData,
@@ -42,7 +42,7 @@ const RaceCourses = ({
       data.age_limit,
     ];
     thisRaceWN.push(data.name);
-    thisRaceId.push({race_id: data.id});
+    thisRaceId.push({ race_id: data.id });
   });
 
   let beforeRaceWN = [];
@@ -57,7 +57,7 @@ const RaceCourses = ({
       data.age_limit,
     ];
     beforeRaceWN.push(data.name);
-    beforeRaceId.push({race_id: data.id});
+    beforeRaceId.push({ race_id: data.id });
   });
 
   let lastRaceWN = [];
@@ -72,7 +72,7 @@ const RaceCourses = ({
       data.age_limit,
     ];
     lastRaceWN.push(data.name);
-    lastRaceId.push({race_id: data.id});
+    lastRaceId.push({ race_id: data.id });
   });
 
   let nextRaceWN = [];
@@ -87,7 +87,7 @@ const RaceCourses = ({
       data.age_limit,
     ];
     nextRaceWN.push(data.name);
-    nextRaceId.push({race_id: data.id});
+    nextRaceId.push({ race_id: data.id });
   });
 
   let nextNextRaceWN = [];
@@ -102,7 +102,7 @@ const RaceCourses = ({
       data.age_limit,
     ];
     nextNextRaceWN.push(data.name);
-    nextNextRaceId.push({race_id: data.id});
+    nextNextRaceId.push({ race_id: data.id });
   });
 
   const CONTENT = {
@@ -164,7 +164,7 @@ export default connect(mapStateToProps)(RaceCourses);
 const styles = StyleSheet.create({
   container: {
     marginLeft: 30,
-    marginRight:  30,
+    marginRight: 30,
     height: SCREEN_HEIGHT < 600 ? 350 : 465,
   },
 });

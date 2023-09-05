@@ -1,14 +1,20 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Table, TableWrapper, Row, Col } from 'react-native-table-component';
-import colors from '../../containers/colors';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { Table, TableWrapper, Row, Col } from "react-native-table-component";
+import colors from "../../containers/colors";
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import { convertToHalf } from '../../utils/validationText';
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
-const BloodLineTable = ({ father_sys, father_f_sys, father_m_sys, mother_sys, mother_f_sys, mohter_m_sys }) => {
+const BloodLineTable = ({
+  father_sys,
+  father_f_sys,
+  father_m_sys,
+  mother_sys,
+  mother_f_sys,
+  mohter_m_sys,
+}) => {
   const CONTENT = {
     father_sys: [father_sys],
     father_f_sys: [father_f_sys],
@@ -16,7 +22,7 @@ const BloodLineTable = ({ father_sys, father_f_sys, father_m_sys, mother_sys, mo
 
     mother_sys: [mother_sys],
     mother_f_sys: [mother_f_sys],
-    mohter_m_sys: [mohter_m_sys]
+    mohter_m_sys: [mohter_m_sys],
   };
   return (
     <View style={styles.container}>
@@ -66,7 +72,7 @@ const BloodLineTable = ({ father_sys, father_f_sys, father_m_sys, mother_sys, mo
       </Table>
     </View>
   );
-}
+};
 
 export default BloodLineTable;
 
@@ -87,7 +93,7 @@ const styles = StyleSheet.create({
 
   wrapper: {
     height: 60,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
 
   FatherName: {
@@ -97,7 +103,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.TableMoterColor,
   },
   colTextSize: {
-    fontSize: hp(1) + wp(.5), textAlign: 'center'
+    fontSize: hp(1) + wp(0.5),
+    textAlign: "center",
   },
-
 });

@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { ReturnButton } from "../Buttons";
 import Screenstyles from "../../screens/ScreenStylesheet";
 
-const ReturnButtonScreen = ({ nviUrl, secondNviUrl, BigPlace, screenName, colorNumber }) => {
+const ReturnButtonScreen = ({ nviUrl, BigPlace, screenName, colorNumber }) => {
   const navigation = useNavigation();
   return (
     <>

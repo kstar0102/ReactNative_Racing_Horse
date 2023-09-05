@@ -1,16 +1,16 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { TextInput } from 'react-native-paper';
-import colors from '../../containers/colors';
+import React from "react";
+import { StyleSheet } from "react-native";
+import { TextInput } from "react-native-paper";
+import colors from "../../containers/colors";
 
-const FarmNameInput = ({onChangeText}) => {
+const FarmNameInput = ({ onChangeText }) => {
   const handleInputChange = (inputValue) => {
     onChangeText(inputValue);
-   };
-   
+  };
+
   return (
     <TextInput
-      onChangeText={handleInputChange}  
+      onChangeText={handleInputChange}
       style={styles.passwordS}
       maxLength={7}
     />
@@ -28,5 +28,5 @@ const styles = StyleSheet.create({
     width: 105,
     borderWidth: 1,
     padding: 8,
-  }
+  },
 });

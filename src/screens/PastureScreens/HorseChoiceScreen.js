@@ -28,7 +28,7 @@ import Screenstyles from "../ScreenStylesheet";
 // Array value
 let horses = [];
 let prices = [];
-let ages = []
+let ages = [];
 let horsecheckornot = [
   false,
   false,
@@ -73,17 +73,16 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
     { label: "・繁殖馬" },
   ];
 
-
   useEffect(() => {
     const minAge = 5;
     const maxAge = 10;
-    
+
     if (horseData) {
       // Generate the random array of horse ages
       const horseAges = Array.from({ length: horseData.length }, () => {
         return Math.floor(Math.random() * (maxAge - minAge + 1)) + minAge;
-      });  
-     
+      });
+
       const breedingHorses = [];
       let breedGender;
       const breedAge = [];
@@ -103,7 +102,7 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
       setBreedingAge(breedAge.splice(15, 20));
     }
   }, [horseData]);
-  
+
   useEffect(() => {
     let filteredData;
     if (!selected) {
@@ -179,14 +178,11 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
     }
   };
 
-
-
   // Click Buybutton
   const handleSubmit = () => {
     const horseDataId = horseData.filter((data) => horses.includes(data.id));
     const priceByRange = {};
     horseDataId.forEach((horse) => {
-      
       const { price } = horse;
       if (price <= 100) {
         if (!priceByRange["1"]) priceByRange["1"] = 0;
@@ -200,7 +196,7 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
       }
     });
     let totalPrice = 0;
-    
+
     for (let key in priceByRange) {
       totalPrice += priceByRange[key];
     }
@@ -240,21 +236,30 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
           ) : (
             groupedData.map((chunk, outerIndex) => (
               <ScrollView key={chunk.id} style={Screenstyles.ScrollView}>
-                {chunk.map((data, innerIndex ) => (
-                  <View key={`${outerIndex}-${innerIndex}`} style={Screenstyles.horseCard}>
+                {chunk.map((data, innerIndex) => (
+                  <View
+                    key={`${outerIndex}-${innerIndex}`}
+                    style={Screenstyles.horseCard}
+                  >
                     <CheckButton
                       checkState={handleCheck}
                       id={data.id}
                       price={data.price}
-                      age={data.age == "・繁殖馬" ? breedingAge[innerIndex] : data.age.split('')[1]}
-                      checkingstate={horsecheckornot[innerIndex + checkflag * 5]}
+                      age={
+                        data.age == "・繁殖馬"
+                          ? breedingAge[innerIndex]
+                          : data.age.split("")[1]
+                      }
+                      checkingstate={
+                        horsecheckornot[innerIndex + checkflag * 5]
+                      }
                     />
                     <View style={Screenstyles.horseCardContent}>
                       <View style={Screenstyles.horseCardLeft}>
                         {horseColor.map((colorName, index) => {
                           if (colorName[data.color]) {
                             return (
-                                <View key={`${data.id}-${index}`}>
+                              <View key={`${data.id}-${index}`}>
                                 <View style={Screenstyles.titleFlex}>
                                   <Text
                                     style={{

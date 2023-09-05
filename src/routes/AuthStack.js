@@ -12,15 +12,17 @@ const Stack = createStackNavigator();
 const AuthStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen 
-        options={horizontalAnimation} 
-        name="Login" 
-        component={LoginScreen}/>
+      <Stack.Screen
+        options={horizontalAnimation}
+        name="Login"
+        component={LoginScreen}
+      />
 
-    <Stack.Screen 
-        options={horizontalAnimation} 
+      <Stack.Screen
+        options={horizontalAnimation}
         name="AppStack"
-        component={AppStack}/>
+        component={AppStack}
+      />
     </Stack.Navigator>
   );
 };

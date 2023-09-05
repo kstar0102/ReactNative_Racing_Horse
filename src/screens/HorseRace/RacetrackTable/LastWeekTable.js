@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import {
   Table,
@@ -44,7 +44,7 @@ const LastWeekTable = ({
   const handleClick = (value, name) => {
     const sendWeek = {
       week: timeData,
-      type: name
+      type: name,
     };
     dispatch(ReacRegisterAction(value));
     dispatch(RaceWeekAction(sendWeek));

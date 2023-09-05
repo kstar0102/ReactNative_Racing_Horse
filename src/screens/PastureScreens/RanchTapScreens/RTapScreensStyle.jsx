@@ -1,139 +1,138 @@
-import { StyleSheet,Dimensions } from 'react-native';
+import { StyleSheet, Dimensions } from "react-native";
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import { vw,vh  } from 'react-native-expo-viewport-units';
-import colors from '../../../containers/colors';
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { vw, vh } from "react-native-expo-viewport-units";
+import colors from "../../../containers/colors";
+const SCREEN_WIDTH = Dimensions.get("window").width;
 
 const RTapScreensStyle = StyleSheet.create({
-  BottomImg:{
-    position: 'absolute',
+  BottomImg: {
+    position: "absolute",
     // bottom: 20,
     top: 20,
     left: 20,
     width: vw(90),
-    height: vh(40)
+    height: vh(40),
   },
-  RacetrackCourse:{
-    height: vh(42)
+  RacetrackCourse: {
+    height: vh(42),
   },
-  RaceRegistationContainer:{
-    flexDirection: 'column',
-    alignItems: 'center',
+  RaceRegistationContainer: {
+    flexDirection: "column",
+    alignItems: "center",
     // justifyContent: 'space-around',
     marginBottom: 5,
     marginTop: 180,
   },
-  RaceRegistationContent:{
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 10
+  RaceRegistationContent: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginBottom: 10,
   },
-  reservationContainer:{
+  reservationContainer: {
     marginTop: 186,
   },
-  grazingContainer:{
+  grazingContainer: {
     marginTop: 5,
-    height: vh(28)
+    height: vh(28),
   },
-  fodderContainer:{
+  fodderContainer: {
     marginTop: 5,
-    height: vh(52)
+    height: vh(52),
   },
-  twoContainer:{
+  twoContainer: {
     flexGrow: 1,
-    height: vh(60)
+    height: vh(60),
   },
-  oneRioghtHeader:{
+  oneRioghtHeader: {
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     paddingVertical: 3,
     paddingHorizontal: 5,
     backgroundColor: colors.HBrown,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly'
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
   // STALL STYLE END
   oneTopContent: {
-    flexDirection: 'column',
-    alignItems: 'center'
+    flexDirection: "column",
+    alignItems: "center",
   },
-  oneRightContentTxt:{
-    fontSize: hp(2)+ wp(1.5),
+  oneRightContentTxt: {
+    fontSize: hp(2) + wp(1.5),
     fontWeight: 600,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
-  shadowTxt:{
+  shadowTxt: {
     color: colors.white,
-    fontSize: hp(2)+ wp(1.5),
+    fontSize: hp(2) + wp(1.5),
     fontWeight: 600,
     paddingBottom: 10,
 
-    textShadowColor: 'black',
+    textShadowColor: "black",
     textShadowOffset: { width: 4, height: 4 },
     textShadowRadius: 5,
   },
   oneTopContentLeft: {
-    display: 'flex',
-    flexDirection: 'column', 
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     paddingTop: -10,
     padding: 5,
-    width: '98%'
+    width: "98%",
   },
   oneTopContentRight: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    minWidth: '95%',
+    flexDirection: "column",
+    justifyContent: "space-between",
+    minWidth: "95%",
   },
-  oneRioghtHeader:{
+  oneRioghtHeader: {
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     paddingVertical: 3,
     paddingHorizontal: 5,
     backgroundColor: colors.HBrown,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly'
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
-  oneRioghtHeaderTxtA:{
+  oneRioghtHeaderTxtA: {
     fontSize: hp(1.5) + wp(2),
-    color: '#FF006B',
+    color: "#FF006B",
   },
-  oneRioghtHeaderTxt:{
+  oneRioghtHeaderTxt: {
     color: colors.white,
     paddingVertical: 3,
     paddingLeft: 6,
-    
-  //  marginRight: -40
+
+    //  marginRight: -40
   },
-  oneRioghtHeaderTxtWin:{
+  oneRioghtHeaderTxtWin: {
     color: colors.white,
     paddingVertical: 3,
     paddingLeft: 10,
-    letterSpacing: -1
+    letterSpacing: -1,
   },
-  oneRioghtHeaderTxtLetter:{
+  oneRioghtHeaderTxtLetter: {
     color: colors.white,
     paddingVertical: 3,
     paddingLeft: 10,
-    letterSpacing: -1
+    letterSpacing: -1,
   },
-  oneRioghtHeaderTxtPink:{
-    color: '#FF006B',
+  oneRioghtHeaderTxtPink: {
+    color: "#FF006B",
   },
-  oneRioghtHeaderTxtGreen:{
+  oneRioghtHeaderTxtGreen: {
     fontSize: 17,
-    color: '#1BFF00',
-    paddingLeft: 10
+    color: "#1BFF00",
+    paddingLeft: 10,
   },
 
-  oneRioghtHeaderTxtGreenA:{
+  oneRioghtHeaderTxtGreenA: {
     fontSize: 17,
-    color: '#1BFF00',
-    paddingLeft: 25
+    color: "#1BFF00",
+    paddingLeft: 25,
   },
 
   oneRioghtBody: {
@@ -144,9 +143,9 @@ const RTapScreensStyle = StyleSheet.create({
     paddingVertical: 2,
     paddingHorizontal: 6,
     backgroundColor: colors.pBColor,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
   },
   oneRightMarryBody: {
     borderTopWidth: 1,
@@ -156,245 +155,242 @@ const RTapScreensStyle = StyleSheet.create({
     paddingVertical: 2,
     paddingHorizontal: 6,
     backgroundColor: colors.pBColor,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    height: 70
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    height: 70,
   },
 
-  oneRightTxt:{
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end'
+  oneRightTxt: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
   },
-  oneRioghtBodyTxt:{
+  oneRioghtBodyTxt: {
     fontSize: hp(1.2) + wp(1.8),
     fontWeight: 700,
     color: colors.white,
-    marginTop: 1
+    marginTop: 1,
   },
-  oneRightMarryBodyTxt:{
+  oneRightMarryBodyTxt: {
     fontSize: hp(1.2) + wp(1.8),
     fontWeight: 700,
     color: colors.white,
-    marginTop: -20
+    marginTop: -20,
   },
-  oneRioghtBodyTxtValue:{
+  oneRioghtBodyTxtValue: {
     fontSize: hp(1) + wp(2.5),
     fontWeight: 600,
-    color: colors.black
+    color: colors.black,
   },
-  oneRioghtBodyTxtTired:{
+  oneRioghtBodyTxtTired: {
     fontSize: hp(1.6) + wp(2.6),
     color: colors.black,
-    fontWeight: 300
+    fontWeight: 300,
   },
-  oneRioghtBodyTxtGroup:{
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+  oneRioghtBodyTxtGroup: {
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
-  txtGroup:{
-    flexDirection: 'row'
+  txtGroup: {
+    flexDirection: "row",
   },
-  oneRioghtBodyTxtA:{
-    fontSize:  hp(1.2) + wp(1.8),
+  oneRioghtBodyTxtA: {
+    fontSize: hp(1.2) + wp(1.8),
     fontWeight: 600,
     marginRight: -20,
     // paddingLeft: 50,
-    marginTop: 6
+    marginTop: 6,
   },
-  oneRioghtBodyTxtValueA:{
-    fontSize:  hp(1.2) + wp(1.8),
+  oneRioghtBodyTxtValueA: {
+    fontSize: hp(1.2) + wp(1.8),
     fontWeight: 600,
     marginRight: -70,
     paddingLeft: 50,
-    marginTop: 6
+    marginTop: 6,
   },
-  HorseAvatar:{
+  HorseAvatar: {
     width: vw(4.5) + vh(3.5),
-    marginTop: 30
+    marginTop: 30,
   },
-  HorseMarryAvatar:{
+  HorseMarryAvatar: {
     width: vw(4.5) + vh(3.5),
   },
-  registering:{
-    position: 'absolute',
+  registering: {
+    position: "absolute",
     width: 65,
     height: 65,
     right: -8,
-    top: 15
+    top: 15,
   },
-  conditionsGroup:{
-    flexDirection: 'row',
-    alignItems: 'flex-end'
+  conditionsGroup: {
+    flexDirection: "row",
+    alignItems: "flex-end",
   },
-  conditions:{
-    marginLeft:3,
-    width:20,
-    height:20
+  conditions: {
+    marginLeft: 3,
+    width: 20,
+    height: 20,
   },
-  oneRightTxtUp:{
+  oneRightTxtUp: {
     color: colors.red,
-    fontSize:20
-  
+    fontSize: 20,
   },
-  oneRightTxtDown:{
+  oneRightTxtDown: {
     color: colors.blue,
-    fontSize:20
+    fontSize: 20,
   },
   // Bottom
-  BottomBackground:{
+  BottomBackground: {
     width: vw(95),
     height: vh(45),
-    flexDirection: 'column',
-    justifyContent: 'space-around'
+    flexDirection: "column",
+    justifyContent: "space-around",
   },
   oneBottomContent: {
-    position: 'relative',
-    alignItems: 'center',
+    position: "relative",
+    alignItems: "center",
   },
   ImageButtonTop: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      position: 'relative'
+    flexDirection: "row",
+    justifyContent: "space-around",
+    position: "relative",
   },
-  ImageButtonMiddle:{
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+  ImageButtonMiddle: {
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
-  ImageButtonBottom:{
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'flex-end'
+  ImageButtonBottom: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "flex-end",
   },
-  TitleImage:{
+  TitleImage: {
     width: 130,
-    height:20,
+    height: 20,
     paddingVertical: 16,
     marginLeft: vw(30),
   },
-  LongiIcon:{
+  LongiIcon: {
     width: vw(26),
     height: vh(6.7),
     opacity: 1,
     left: -3,
-    position: 'absolute',
+    position: "absolute",
   },
-  label:{
+  label: {
     color: colors.black,
     fontWeight: 600,
-    fontWeight: 'bold',
-    color: 'black',
-    textShadowColor: 'white',
+    fontWeight: "bold",
+    color: "black",
+    textShadowColor: "white",
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 10,
   },
   absoluteView: {
-    position: 'absolute',
+    position: "absolute",
     left: 27,
     top: -10,
     zIndex: 1,
   },
-  absoluteViewA:{
-    position: 'absolute',
+  absoluteViewA: {
+    position: "absolute",
     left: 24,
     top: -10,
     zIndex: 1,
   },
-  absoluteViewB:{
-    position: 'absolute',
+  absoluteViewB: {
+    position: "absolute",
     left: 5,
     top: -10,
     zIndex: 1,
   },
-  absoluteViewC:{
-    position: 'absolute',
+  absoluteViewC: {
+    position: "absolute",
     left: 18,
     top: -10,
     zIndex: 1,
   },
-  absoluteViewF:{
-    position: 'absolute',
+  absoluteViewF: {
+    position: "absolute",
     top: -10,
     left: 12,
     zIndex: 1,
   },
-  absoluteViewO:{
-    position: 'absolute',
+  absoluteViewO: {
+    position: "absolute",
     top: -10,
     left: 40,
     zIndex: 1,
   },
-  absoluteViewT:{
-    position: 'absolute',
+  absoluteViewT: {
+    position: "absolute",
     top: -10,
     left: 33,
     zIndex: 1,
   },
-  ButtonGroup:{
-    flexDirection: 'row',
-    justifyContent: 'space-around'
+  ButtonGroup: {
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
-  ButtonJokeyGroup:{
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+  ButtonJokeyGroup: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
     columnGap: 30,
-    marginRight: 45
+    marginRight: 45,
   },
-  ButtonGroupOne:{
-    marginTop: 20
+  ButtonGroupOne: {
+    marginTop: 20,
   },
-  ButtonGroupTwo:{
-    marginTop: 5
+  ButtonGroupTwo: {
+    marginTop: 5,
   },
   ///////////////////////////////////////// Avatars and AvatarTap Styles
-  avatarContainer:{
-
+  avatarContainer: {},
+  ranchContent: {
+    display: "flex",
+    flexDirection: "column",
+    rowGap: 2,
   },
-  ranchContent:{
-    display: 'flex',
-    flexDirection: 'column',
-    rowGap: 2
-  },
-  avatarGroup:{
+  avatarGroup: {
     width: SCREEN_WIDTH,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     columnGap: 20,
-    padding: 5
+    padding: 5,
   },
-  avatarImage:{
+  avatarImage: {
     width: 95,
-    height: 95
+    height: 95,
   },
-  avatarTxt:{
+  avatarTxt: {
     width: vw(56),
     backgroundColor: colors.headerButtonColor,
     paddingVertical: 5,
-    paddingHorizontal: 5
+    paddingHorizontal: 5,
   },
-  avatarTxtLock:{
+  avatarTxtLock: {
     width: vw(57),
     height: vh(14),
   },
-  lockTitle:{
+  lockTitle: {
     fontSize: 17,
-    padding: 2
+    padding: 2,
   },
   // Marry
-  marryPt:{
+  marryPt: {
     width: 150,
-    position: 'absolute',
+    position: "absolute",
     top: 27,
     // left: 30
   },
-  marryPtTxt:{
+  marryPtTxt: {
     fontSize: 15,
-    fontWeight: 700
-  } 
+    fontWeight: 700,
+  },
 });
 
-  export default RTapScreensStyle;
+export default RTapScreensStyle;

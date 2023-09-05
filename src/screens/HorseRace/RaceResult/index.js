@@ -27,7 +27,7 @@ const RaceResult = ({ navigation, saveData }) => {
             </View>
           </View>
           <View style={Screenstyles.UPCourse}>
-            <RaceResultScreen/>
+            <RaceResultScreen />
           </View>
         </View>
       </ImageBackground>

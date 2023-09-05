@@ -1,23 +1,22 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { TextInput } from 'react-native-paper';
-import colors from '../../containers/colors';
+import React from "react";
+import { StyleSheet } from "react-native";
+import { TextInput } from "react-native-paper";
+import colors from "../../containers/colors";
 
-const HorseNameInput = ({onChangeText, onBlurText, id}) => {
+const HorseNameInput = ({ onChangeText, onBlurText, id }) => {
   const handleInputChange = (inputValue) => {
     onChangeText(inputValue, id);
-  
   };
-   
+
   return (
     <TextInput
       onBlur={onBlurText}
-      onChangeText={handleInputChange}  
+      onChangeText={handleInputChange}
       style={styles.passwordS}
-      placeholder='名前を入力してください。'
+      placeholder="名前を入力してください。"
       maxLength={9}
     />
-  ); 
+  );
 };
 
 export default HorseNameInput;
@@ -31,5 +30,5 @@ const styles = StyleSheet.create({
     width: 335,
     borderWidth: 1,
     padding: 10,
-  }
+  },
 });

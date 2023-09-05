@@ -24,7 +24,7 @@ const ParticipationHorsesList = ({
   prizeData,
   jockeysData,
   horseData,
-  reaceReigsterData,
+  raceRegisterData,
   lastResult,
   racingHorseData,
   raceCpuData,
@@ -35,24 +35,26 @@ const ParticipationHorsesList = ({
     // NOT FOUND JOCKEYSDATA
     return false;
   }
-  const place = raceFieldData.place;
   // Quality State
   const [escape, setEscape] = useState([]);
   const [bigEscape, setBigEscape] = useState([]);
   const [destination, setDestination] = useState([]);
   const [difference, setDifference] = useState([]);
   const [additional, setAdditional] = useState([]);
-  const [freeButton, setFreeButton] = useState(0);
   const [raceReigsterData, setRaceReigsterData] = useState([]);
   const [btnDisplay, setBtnDisplay] = useState(true);
   const [speedControllers, setSpeedControllers] = useState(0);
-  let raceAllData = [];
-
+  const raceAllData = [];
+  const raceId = [];
+  const jockeyId = [];
+  const jockeyNames = [];
+  const prices = [];
   useEffect(() => {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-    shuffleArray(reaceReigsterData);
-  }, [navigation, reaceReigsterData]);
-
+    if (raceRegisterData != "") {
+      shuffleArray(raceRegisterData);
+    }
+  }, [navigation, raceRegisterData]);
   useEffect(() => {
     setSpeedControllers(oddsFun(racingHorseData, raceCpuData));
   }, [navigation, racingHorseData]);
@@ -65,12 +67,11 @@ const ParticipationHorsesList = ({
       setAdditional([]);
       setBigEscape([]);
 
-      let updatedEscape = [];
-      let updatedBigEscape = [];
-      let updatedDifference = [];
-      let updatedDestination = [];
-      let updatedAdditional = [];
-      let checkButton = 0;
+      const updatedEscape = [];
+      const updatedBigEscape = [];
+      const updatedDifference = [];
+      const updatedDestination = [];
+      const updatedAdditional = [];
       raceAllData.forEach((item) => {
         if (item.quality_leg === "逃") {
           updatedEscape.push("flex");
@@ -103,13 +104,7 @@ const ParticipationHorsesList = ({
           updatedDestination.push("none");
           updatedDifference.push("none");
         }
-        if (horseData.id == item.horse_id) {
-          checkButton = 1;
-        } else {
-          checkButton = 0;
-        }
       });
-      setFreeButton(checkButton);
       setEscape(updatedEscape);
       setDifference(updatedDifference);
       setDestination(updatedDestination);
@@ -121,7 +116,7 @@ const ParticipationHorsesList = ({
       setDifference(["none"]);
       setAdditional(["none"]);
     }
-  }, [raceReigsterData, horseData]);
+  }, [raceReigsterData]);
 
   useEffect(() => {
     if (raceReigsterData != "" && raceReigsterData.length > 1) {
@@ -130,25 +125,14 @@ const ParticipationHorsesList = ({
       setBtnDisplay(true);
     }
   }, [navigation, raceReigsterData]);
-  const raceFieldGender = raceFieldData.age_limit.split("・")[1];
-
-  let gender;
-  if (raceFieldGender === undefined) {
-    gender = "";
-  } else {
-    gender = raceFieldGender.split("")[0];
-  }
-
-  let prices = [];
 
   {
     prizeData.map((data) => {
       prices.push(data.money);
     });
   }
-  let slicePrices = prices.slice(0, 5);
+  const slicePrices = prices.slice(0, 5);
 
-  let jockeyNames = [];
   jockeysData.map((item) => {
     jockeyNames.push({ name: item.name, id: item.id });
   });
@@ -161,8 +145,6 @@ const ParticipationHorsesList = ({
     setRaceReigsterData(array);
   }
 
-  let raceId = [];
-  let jockeyId = [];
   if (raceReigsterData != "") {
     raceReigsterData.map((item) => {
       raceId.push(item.horse_id);
@@ -367,7 +349,7 @@ const mapStateToProps = (state) => {
     prizeData: state.raceData.prizeData,
     raceFieldData: state.raceData.raceFieldData,
     jockeysData: state.raceData.jockeysData,
-    reaceReigsterData: state.raceData.raceRegisterData,
+    raceRegisterData: state.raceData.raceRegisterData,
     raceCpuData: state.raceData.raceCpuData,
     userData: state.user.userData,
     lastResult: state.lastResultData.LastRaceResult,

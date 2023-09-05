@@ -305,8 +305,6 @@ const Screenstyles = StyleSheet.create({
     fontSize: 13,
     marginTop: -13,
   },
-  registerButton: {
-  },
   // REVERSE SCREEN STYLE
   reserveContent: {
     display: "flex",
@@ -382,7 +380,6 @@ const Screenstyles = StyleSheet.create({
     marginTop: -18,
     textAlign: "center",
   },
-  reserveRightList: {},
   reserveList: {
     display: "flex",
     flexDirection: "column",
@@ -409,8 +406,6 @@ const Screenstyles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-end",
 
-  },
-  horseSize: {
   },
   background: {
     position: "absolute",

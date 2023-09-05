@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  Image,
-  Modal,
-  Animated,
-} from "react-native";
+import { View, Text, Image, Modal, Animated } from "react-native";
 // Custom IMPORT
 import { RegisterButton } from "../../components/Buttons";
 import WorkingButton from "../../components/Buttons/WorkingButtons";
@@ -34,8 +28,8 @@ const Bankruptcy = ({ navigation }) => {
   };
 
   useEffect(() => {
-    onLoad()
-  }, [])
+    onLoad();
+  }, []);
   return (
     <View style={Screenstyles.container}>
       <View style={[Screenstyles.img, { backgroundColor: "black" }]}>

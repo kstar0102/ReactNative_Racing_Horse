@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import {
   Table,
@@ -34,22 +34,22 @@ const NextWeekTable = ({
       </View>
     ));
 
-    const [currentTime, setCurrentTime] = useState(new Date());
-    const gameTime = calculateGameDate(currentTime);
-  
-    const next_date = new Date(gameTime.getTime() + (7 * 24 * 60 * 60 * 1000));
-    let next_date_month = next_date.getMonth() + 1;
-    let nextWeekNumber = Math.ceil(next_date.getDate() / 7);
-    if (nextWeekNumber == 5) {
-      next_date_month = next_date.getMonth() + 2;
-      nextWeekNumber = 1;
-    }
-    const timeData = next_date_month + "-" + nextWeekNumber;
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const gameTime = calculateGameDate(currentTime);
+
+  const next_date = new Date(gameTime.getTime() + 7 * 24 * 60 * 60 * 1000);
+  let next_date_month = next_date.getMonth() + 1;
+  let nextWeekNumber = Math.ceil(next_date.getDate() / 7);
+  if (nextWeekNumber == 5) {
+    next_date_month = next_date.getMonth() + 2;
+    nextWeekNumber = 1;
+  }
+  const timeData = next_date_month + "-" + nextWeekNumber;
 
   const handleClick = (value, name) => {
     const sendWeek = {
       week: timeData,
-      type: name
+      type: name,
     };
     dispatch(ReacRegisterAction(value));
     dispatch(RaceWeekAction(sendWeek));

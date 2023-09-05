@@ -21,14 +21,18 @@ import WorkingButton from "../../../components/Buttons/WorkingButtons";
 import ButtonStyle from "../../../components/Buttons/ButtonStyle";
 
 const MarryScreen = ({ saveData }) => {
-  const fillterMan = saveData.filter((data) => data.gender === "牡");
-  const fillterGirl = saveData.filter((data) => data.gender === "牝");
+ 
+  const fillterMan = saveData.filter(
+    (data) => data.gender === "牡" && data.type === ""
+  );
+  const fillterGirl = saveData.filter((data) => data.type === "繁殖馬");
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleYes = () => {
     console.log("Yes");
   };
-  
+
   const handleNo = () => {
     setModalVisible(false);
   };
@@ -36,7 +40,7 @@ const MarryScreen = ({ saveData }) => {
   const handleModal = () => {
     setModalVisible(true);
   };
-
+  
   return (
     <View style={Screenstyles.container}>
       <ImageBackground
@@ -54,7 +58,7 @@ const MarryScreen = ({ saveData }) => {
         </View>
         <ScrollView style={[MarryStyle.container, { maxHeight: 450 }]}>
           <ScreenMarryM horseDatas={fillterMan} />
-          <ScreenMarryG />
+          <ScreenMarryG horseDatas={fillterGirl} />
         </ScrollView>
         <View style={Screenstyles.marryButton}>
           <MarryButton label={"種    付"} color={1} onPress={handleModal} />

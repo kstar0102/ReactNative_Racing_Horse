@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
-import { TouchableOpacity, Text, StyleSheet,View,Alert } from "react-native";
+import React, { useState } from "react";
+import { TouchableOpacity, Text, StyleSheet, View, Alert } from "react-native";
 // container
-import colors from '../../containers/colors';
+import colors from "../../containers/colors";
 
-const ReserveButton = ({colorNumber, pressFactor, label, disabled, onPress }) => {
+const ReserveButton = ({
+  colorNumber,
+  pressFactor,
+  label,
+  disabled,
+  onPress,
+}) => {
   const [activeButton, setActiveButton] = useState(1);
 
   const handleButtonPress = (id) => {
@@ -11,64 +17,63 @@ const ReserveButton = ({colorNumber, pressFactor, label, disabled, onPress }) =>
   };
 
   const renderScreenBelowButtons = () => {
-    switch(activeButton) {
+    switch (activeButton) {
       case 1:
         return <ScreenOne />;
       default:
         return <ScreenOne />;
     }
-  }
+  };
 
- const handlePress = () => {
-      if(pressFactor == "bid"){
-        Alert.alert(
-          "入厩",
-          "入厩させますか?",
-          [
-            {
-              text: "いいえ",
-              style: "cancel"
-            },
-            { 
-              text: "はい", 
-              onPress: () => console.log("Yes pressed")
-            }
-          ],
-          { cancelable: false }
-        );
-      }
-      else{
-        Alert.alert(
-          "入厩",
-          "入厩させますか?",
-          [
-            {
-              text: "hjkhjkhjkhjk",
-              style: "cancel"
-            },
-            { 
-              text: "はい", 
-              onPress: () => console.log("Yes pressed")
-            }
-          ],
-          { cancelable: false }
-        );
-      }
-    };
+  const handlePress = () => {
+    if (pressFactor == "bid") {
+      Alert.alert(
+        "入厩",
+        "入厩させますか?",
+        [
+          {
+            text: "いいえ",
+            style: "cancel",
+          },
+          {
+            text: "はい",
+            onPress: () => console.log("Yes pressed"),
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      Alert.alert(
+        "入厩",
+        "入厩させますか?",
+        [
+          {
+            text: "hjkhjkhjkhjk",
+            style: "cancel",
+          },
+          {
+            text: "はい",
+            onPress: () => console.log("Yes pressed"),
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+  };
   return (
     <View>
       <TouchableOpacity
-      style={[
+        style={[
           styles.button,
-          colorNumber == 1 ? styles.buttonOne : 'styles.button' ,
-          colorNumber == 2 ? styles.buttonTwo : 'styles.button',
-          colorNumber == 3 ? styles.buttonThree : 'styles.button',
-          colorNumber == 4 ? styles.buttonFour : 'styles.button',
-          colorNumber == 5 ? styles.buttonFive : 'styles.button',
-          disabled && styles.disabled]}
-           
-          onPress={onPress ? onPress : () => handlePress()}
-          disabled={disabled ? disabled : false}
+          colorNumber == 1 ? styles.buttonOne : "styles.button",
+          colorNumber == 2 ? styles.buttonTwo : "styles.button",
+          colorNumber == 3 ? styles.buttonThree : "styles.button",
+          colorNumber == 4 ? styles.buttonFour : "styles.button",
+          colorNumber == 5 ? styles.buttonFive : "styles.button",
+          disabled && styles.disabled,
+        ]}
+        onPress={onPress ? onPress : () => handlePress()}
+        disabled={disabled ? disabled : false}
       >
         <Text style={styles.label}>{label ? label : "Button"}</Text>
       </TouchableOpacity>
@@ -79,39 +84,38 @@ const ReserveButton = ({colorNumber, pressFactor, label, disabled, onPress }) =>
 export default ReserveButton;
 
 const styles = StyleSheet.create({
-	button: {
-		backgroundColor: colors.pink,
+  button: {
+    backgroundColor: colors.pink,
     borderRadius: 6,
-		height: 35,
-		width: 60,
-		paddingVertical: 5,
-    marginLeft: 1.5
-	},
-	buttonOne:{
-    backgroundColor: colors.tabButtonEnd
-	},
-	buttonTwo:{
-    backgroundColor: colors.tabButtonMiddle,
-    
-	},
-  buttonThree:{
-    backgroundColor: colors.butonBackgroud
+    height: 35,
+    width: 60,
+    paddingVertical: 5,
+    marginLeft: 1.5,
   },
-  buttonFour:{
+  buttonOne: {
+    backgroundColor: colors.tabButtonEnd,
+  },
+  buttonTwo: {
+    backgroundColor: colors.tabButtonMiddle,
+  },
+  buttonThree: {
+    backgroundColor: colors.butonBackgroud,
+  },
+  buttonFour: {
     backgroundColor: colors.butonBackgroud,
     width: 42,
   },
-  buttonFive:{
+  buttonFive: {
     backgroundColor: colors.tabButtonMiddle,
     width: 42,
   },
-	label: {
-		color: colors.light.white,
-		fontSize: 18,
-		fontWeight: 700,
-		textAlign: 'center'
-	},
-	disabled: {
-		opacity: 0.5,
-	}
+  label: {
+    color: colors.light.white,
+    fontSize: 18,
+    fontWeight: 700,
+    textAlign: "center",
+  },
+  disabled: {
+    opacity: 0.5,
+  },
 });

@@ -73,11 +73,11 @@ const StableScreen = ({ navigation, user_id, isjockey, institutionData }) => {
 
   const handleCourseSubmit = () => {
     dispatch(raceAction(calculateGameDate(currentTime)));
-    navigation.navigate("CourseTables")
+    navigation.navigate("CourseTables");
   }
   const handleTrain = () => {
     dispatch(signAction());
-    navigation.navigate("Training")
+    navigation.navigate("Training");
   }
  
   return (

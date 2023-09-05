@@ -14,7 +14,7 @@ import AvatarTapScreen from "./AvataTapScreen";
 import WorkingButton from "../../../components/Buttons/WorkingButtons/WorkingButton";
 import { SaleButton } from "../../../components/Buttons";
 import { horseColor } from "../../../utils/globals";
-import Ccolors from './../../../containers/colors';
+import Ccolors from "./../../../containers/colors";
 
 const ScreenThree = ({ threeData, arrowState, showGrowstate }) => {
   const dispatch = useDispatch();
@@ -597,10 +597,11 @@ const ScreenThree = ({ threeData, arrowState, showGrowstate }) => {
               {(!!selected && selected.name) || data[0].name}
             </Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
-              <Text style={{ color: (!!selected && selected.gender == "牝") || data[0].gender == "牝" ?  Ccolors.genderColorF: Ccolors.genderColorM}}>
-                {(!!selected && selected.gender) || data[0].gender}
+              <Text style={{ color: Ccolors.genderColorF }}>
+                {(!!selected && "牝") || "牝"}
               </Text>
-              2
+              {(!!selected && selected.age.split("")[1]) ||
+                data[0].age.split("")[1]}
             </Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
               {(!!selected && selected.growth) || data[0].growth}

@@ -216,8 +216,7 @@ const RaceResultScreen = ({
             {/* ! */}
           </View>
         ) : (
-          <View>
-          </View>
+          <View></View>
         )}
       </ScrollView>
     </>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import {
   Table,
@@ -28,7 +28,7 @@ const ThisRaceWeekTable = ({
   const elementButton = (raceWeekNames) =>
     raceWeekNames.map((name, index) => (
       <View key={index}>
-        <TouchableOpacity onPress={() => handleClick(raceId[index],name)}>
+        <TouchableOpacity onPress={() => handleClick(raceId[index], name)}>
           <View style={TableStyles.btn}>
             <Text style={TableStyles.btnText}>{name}</Text>
           </View>
@@ -44,7 +44,7 @@ const ThisRaceWeekTable = ({
   const handleClick = (value, name) => {
     const sendWeek = {
       week: timeData,
-      type: name
+      type: name,
     };
     dispatch(ReacRegisterAction(value));
     dispatch(RaceWeekAction(sendWeek));

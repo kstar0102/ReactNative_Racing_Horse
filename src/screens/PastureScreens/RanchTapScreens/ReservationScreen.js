@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { View, ImageBackground, Image, Text, ScrollView } from "react-native";
 // REDUX
 import { connect, useDispatch } from "react-redux";
@@ -231,12 +231,11 @@ const ReservationScreen = ({
     "プリセット5",
   ];
 
-  if(preeSetName){
+  if (preeSetName) {
     preeSetName.map((item, index) => {
       nameValues.push({ name: item });
     });
   }
-  
 
   let preeData = [];
 
@@ -421,9 +420,9 @@ const ReservationScreen = ({
       return false;
     }
     let newArray = [];
-    
+
     preeSetData.map((item, index) => {
-      if(presetCategories.includes(preeData)){
+      if (presetCategories.includes(preeData)) {
         if (item.preset_num == preeData) {
           newArray.push({
             name: item.food_name,
@@ -431,8 +430,7 @@ const ReservationScreen = ({
             type: item.food_type,
           });
         }
-      }
-      else{
+      } else {
         if (item.name == preeData) {
           newArray.push({
             name: item.food_name,
@@ -441,7 +439,6 @@ const ReservationScreen = ({
           });
         }
       }
-      
     });
     setDisplayData(newArray);
   };

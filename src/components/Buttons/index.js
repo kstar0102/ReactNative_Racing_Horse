@@ -1,4 +1,3 @@
-
 export { default as CustomButtons } from "./CustomButtons";
 export { default as ReturnButton } from "./ReturnButton";
 export { default as HeaderButton } from "./HeaderButton";
@@ -13,11 +12,11 @@ export { default as CheckButton } from "./CheckButton";
 export { default as PNameRegister } from "./PNameRegister";
 export { default as FarmCheckButton } from "./FarmCheckButton";
 export { default as CheckRadioButton } from "./CheckRadioButton";
-export { default as RTapButton } from './RTapbutton';
-export { default as ITapButton } from './ITapbutton';
-export { default as ImageButton } from './ImageButton';
-export { default as SaleButton } from './SaleButton';
-export { default as JockeyCheck } from './JockeyCheck';
-export { default as JockeyOk } from './JockeyOk';
-export { default as RegisterButton } from './RegisterButton';
-export { default as MarryButton } from './MarryButton';
+export { default as RTapButton } from "./RTapbutton";
+export { default as ITapButton } from "./ITapbutton";
+export { default as ImageButton } from "./ImageButton";
+export { default as SaleButton } from "./SaleButton";
+export { default as JockeyCheck } from "./JockeyCheck";
+export { default as JockeyOk } from "./JockeyOk";
+export { default as RegisterButton } from "./RegisterButton";
+export { default as MarryButton } from "./MarryButton";

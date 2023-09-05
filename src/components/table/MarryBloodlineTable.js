@@ -1,11 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
-import colors from "../../containers/colors";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
-
+import { View, StyleSheet, Text } from "react-native";
 import { vw, vh } from "react-native-expo-viewport-units";
 const MarryBloodlineTable = ({
   father_sys,

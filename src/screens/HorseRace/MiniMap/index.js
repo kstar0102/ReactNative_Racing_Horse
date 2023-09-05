@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, Dimensions, Animated, Easing } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Animated,
+  Easing,
+} from "react-native";
 import { numberCount } from "../../../utils/globals";
 import Screenstyles from "../../ScreenStylesheet";
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -16,7 +23,7 @@ const MiniMap = ({
   secondTime,
   threeTime,
   fourTime,
-  cSpeed
+  cSpeed,
 }) => {
   const animations = Array.from({ length: 10 }, () => new Animated.Value(0));
   const horseAnimationStyles = [];
@@ -30,7 +37,7 @@ const MiniMap = ({
       ];
 
       startMiniHorse(cSpeed);
-      
+
       startHorseWidhDaly(firstSpeed, 3000);
       startHorseWidhDaly(secondSpeeds, firstTime);
       startHorseWidhDaly(threeSpeeds, firstTime + secondTime);

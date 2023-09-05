@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
-import {getRandomWeather} from "../../utils/weather";
+import React, { useState, useEffect } from "react";
+import { View, Text } from "react-native";
+import { getRandomWeather } from "../../utils/weather";
 
 const CurrentDateTimeWeather = (gameTime) => {
-
-  const [currentDate, setCurrentDate] = useState('');
-  const [currentMonth , setCurrentMonth] = useState();
+  const [currentDate, setCurrentDate] = useState("");
+  const [currentMonth, setCurrentMonth] = useState();
   useEffect(() => {
-      const currentDate = gameTime.gameTime;
-      setCurrentMonth(currentDate.getMonth()+1);
-  },[])
+    const currentDate = gameTime.gameTime;
+    setCurrentMonth(currentDate.getMonth() + 1);
+  }, []);
   useEffect(() => {
     const date = gameTime.gameTime;
     const year = date.getFullYear();
@@ -21,7 +20,9 @@ const CurrentDateTimeWeather = (gameTime) => {
 
   return (
     <View>
-      <Text>{currentDate} ({getRandomWeather(currentMonth)[0]})</Text>
+      <Text>
+        {currentDate} ({getRandomWeather(currentMonth)[0]})
+      </Text>
     </View>
   );
 };

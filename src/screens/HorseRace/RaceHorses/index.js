@@ -13,10 +13,6 @@ const RaceHorses = ({
   threeSpeeds,
   fourSpeeds,
   fiveSpeeds,
-  cSecondSpeeds,
-  cThreeSpeeds,
-  cFourSpeeds,
-  cFiveSpeeds,
   firstTime,
   secondTime,
   threeTime,
@@ -24,10 +20,12 @@ const RaceHorses = ({
   racingHorseData,
   raceCpuData,
   cSpeed,
+  endSpeed,
 }) => {
   const animations = Array.from({ length: 10 }, () => new Animated.Value(0));
   const fadeInAnimation = new Animated.Value(0);
   const fadeOutAnimation = new Animated.Value(1);
+
   const horseAnimationStyles = [];
   let colorCount = [];
 
@@ -53,43 +51,38 @@ const RaceHorses = ({
 
       statHorse(cSpeed);
       statHorseWithDelay(firstSpeed, 3000);
+      statHorseWithDelay(secondSpeeds, firstTime);
+      statHorseWithDelay(threeSpeeds, firstTime + secondTime);
 
-      statHorseWithDelay(cSecondSpeeds, firstTime);
-      statHorseWithDelay(secondSpeeds, firstTime + 2000);
-
-      statHorseWithDelay(cThreeSpeeds, firstTime + secondTime);
-      statHorseWithDelay(threeSpeeds, firstTime + secondTime + 3000);
-
-      statHorseWithDelay(
-        cFiveSpeeds,
-        firstTime + secondTime + threeTime + fourTime
-      );
+      // statHorseWithDelay(
+      //   fiveSpeeds,
+      //   firstTime + secondTime + threeTime + fourTime
+      // );
 
       setTimeout(() => {
-        statHorse(cFourSpeeds);
+        statHorse(endSpeed);
         fadeInEnd();
         fadeOutEnd();
       }, firstTime + secondTime + threeTime);
-
-      setTimeout(() => {
-        statHorse(cFourSpeeds);
-        fadeInEnd();
-        fadeOutEnd();
-      }, firstTime + secondTime + threeTime + 2000);
     }
   }, [startState]);
 
   const statHorse = (spds) => {
-    Animated.parallel(
-      animations.map((animation, index) =>
-        Animated.timing(animation, {
-          toValue: -(raceWidth - 60),
-          duration: spds[index],
-          useNativeDriver: true,
-          easing: Easing.linear,
-        })
-      )
-    ).start();
+    const modifiedAnimations = animations.map((animation, index) => {
+      const lastIndex = animations.length;
+      const lastToValue = -(raceWidth - 60);
+      const toValue = index === lastIndex ? lastToValue : lastToValue;
+      return Animated.timing(animation, {
+        toValue,
+        duration: spds[index],
+        useNativeDriver: true,
+        easing: index === lastIndex ? Easing.step0 : Easing.linear,
+      });
+    });
+
+    const animationSequence = Animated.parallel(modifiedAnimations);
+
+    animationSequence.start();
   };
 
   for (let i = 0; i < 10; i++) {
@@ -201,6 +194,7 @@ const styles = StyleSheet.create({
     top: 30,
     zIndex: 1000,
   },
+
   finalNumber: {
     left: 20,
     top: -30,

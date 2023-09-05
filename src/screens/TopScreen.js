@@ -5,6 +5,7 @@ import { connect, useDispatch } from "react-redux";
 import { pastureAction } from "../store/actions/Pasture/pastureAction";
 import { raceAction } from "../store/actions/racepaln/getApi/racePlanAction";
 import { dimensionsAction } from "../store/actions/dimensions/dimensionsAction";
+import { stableAllGetAction } from "../store/actions/truck/getApi/stableAllGetAction";
 import { HorseRegisteringAction } from "../store/actions/truck/TrainInstitution/HorseRegisteringAction";
 // Custom IMPORT
 import { CustomButtons } from "../components/Buttons";
@@ -17,6 +18,7 @@ const TopScreen = ({
   user_id,
   horseData,
   pasture_id,
+  stableData,
 }) => {
   const defaultWidth = Dimensions.get("window").width;
   const defaultHeight = Dimensions.get("window").height;
@@ -25,9 +27,9 @@ const TopScreen = ({
   const [currentTime, setCurrentTime] = useState(new Date());
   // HANDLE SUBMIT PASUTE NEXT NAVIGATION
   const handlePastureSubmit = () => {
-    if (pastureData == "" && horseData == "") {
+    if (pastureData == "" && horseData == "" && stableData == "") {
       navigation.navigate("PastureNameScreen");
-    } else if (horseData == "") {
+    } else if (horseData == "" && stableData == "") {
       navigation.navigate("HorseChoiceScreen");
     } else {
       navigation.navigate("PastureScreen");
@@ -44,41 +46,48 @@ const TopScreen = ({
       pasture_id: pasture_id,
     };
     dispatch(pastureAction(sandIds));
-  }, [user_id, pasture_id]);
+    dispatch(stableAllGetAction(user_id));
+  }, [user_id, pasture_id, navigation]);
 
   const gameTime = calculateGameDate(currentTime);
 
-  const next_date = new Date(gameTime.getTime() + (7 * 24 * 60 * 60 * 1000));
+  const next_date = new Date(gameTime.getTime() + 7 * 24 * 60 * 60 * 1000);
   let next_date_month = next_date.getMonth() + 1;
   let nextWeekNumber = Math.ceil(next_date.getDate() / 7);
   if (nextWeekNumber == 5) {
     next_date_month = next_date.getMonth() + 2;
     nextWeekNumber = 1;
   }
-  const before_before_date = new Date(gameTime.getTime() - (14 * 24 * 60 * 60 * 1000));
+  const before_before_date = new Date(
+    gameTime.getTime() - 14 * 24 * 60 * 60 * 1000
+  );
 
-  const next_next_date = new Date(gameTime.getTime() + (14 * 24 * 60 * 60 * 1000));
+  const next_next_date = new Date(
+    gameTime.getTime() + 14 * 24 * 60 * 60 * 1000
+  );
   const next_next_date_month = next_next_date.getMonth() + 1;
   const next_next_week_number = Math.ceil(before_before_date.getDate() / 7);
 
-  const next_next_next_date = new Date(gameTime.getTime() + (21 * 24 * 60 * 60 * 1000));
+  const next_next_next_date = new Date(
+    gameTime.getTime() + 21 * 24 * 60 * 60 * 1000
+  );
   const next_next_next_date_month = next_next_next_date.getMonth() + 1;
-  const next_next_next_week_number = Math.ceil(before_before_date.getDate() / 7);
+  const next_next_next_week_number = Math.ceil(
+    before_before_date.getDate() / 7
+  );
 
-  const  next_week = next_date_month + "-" + nextWeekNumber;
-  const  next_next_week = next_next_date_month + "-" + next_next_week_number;
-  const  next_next_next_week = next_next_next_date_month + "-" + next_next_next_week_number;
-
-
-
+  const next_week = next_date_month + "-" + nextWeekNumber;
+  const next_next_week = next_next_date_month + "-" + next_next_week_number;
+  const next_next_next_week =
+    next_next_next_date_month + "-" + next_next_next_week_number;
 
   const handleStalleSubmit = () => {
     const sendDate = {
       user_id: user_id,
       next_week: next_week,
       next_next_week: next_next_week,
-      next_next_next_week: next_next_next_week
-    }
+      next_next_next_week: next_next_next_week,
+    };
     navigation.navigate("StallScreen");
     dispatch(HorseRegisteringAction(sendDate));
   };
@@ -130,6 +139,7 @@ const mapStateToProps = (state) => {
     user_id: state.user.userData.id,
     pasture_id: state.pasture.pastureData.id,
     horseData: state.horseData.saveData,
+    stableData: state.stableMenu.StableSendData,
   };
 };
 

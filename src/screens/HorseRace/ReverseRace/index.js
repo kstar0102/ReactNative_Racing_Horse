@@ -246,7 +246,7 @@ const ReverseRace = ({
   //
   // start race with settime out
   //
- 
+
   const handleStart = () => {
     startRace(cSpeed);
     setTimeout(() => {
@@ -277,8 +277,6 @@ const ReverseRace = ({
     const winners = totals;
     totalWinners.push(winners);
 
-
-
     raceTimeout = setTimeout(() => {
       stopRace();
       startRace(secondSpeeds);
@@ -299,15 +297,13 @@ const ReverseRace = ({
     raceTimeout = setTimeout(() => {
       startRace(sixSpeeds);
 
-      const winHorses =  totalWinners.sort((a, b) => a.time - b.time);
-      console.log(winHorses);
+      const winHorses = totalWinners.sort((a, b) => a.time - b.time);
     }, firstT + secondT + threeT + fourT);
 
     raceTimeout = setTimeout(() => {
       stopRace();
       startRace(sixSpeeds);
     }, firstT + secondT + threeT + fivT);
-    
   };
   //
   // get result
@@ -494,7 +490,6 @@ const ReverseRace = ({
   });
 
   if (translateAnimation == 0) {
-
     shouldStop = true;
   }
 
@@ -783,7 +778,7 @@ const styles = StyleSheet.create({
     top: "46.8%",
     width: "100%",
     flexDirection: "row",
-    paddingLeft: 20
+    paddingLeft: 20,
   },
   buttonText: {
     color: "#fff",

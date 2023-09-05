@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Image, Text, ImageBackground, ScrollView } from "react-native";
 import { ImageButton } from "../../../components/Buttons";
 import DetailButton from "../../../components/Buttons/DetailButton";
 import RTapScreensStyle from "./RTapScreensStyle";
 
-const FodderGroup = ({ horseId}) => {
+const FodderGroup = ({ horseId }) => {
   return (
     <ScrollView style={RTapScreensStyle.grazingContainer}>
       <View style={RTapScreensStyle.oneBottomContent}>

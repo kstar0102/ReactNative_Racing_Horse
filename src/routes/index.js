@@ -4,11 +4,10 @@ import AuthStack from "./AuthStack";
 
 const Routes = (auth) => {
   const token = auth.tokenData;
-  return token ? <AppStack/> : <AuthStack /> ;
-  
+  return token ? <AppStack /> : <AuthStack />;
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return state.tokenData;
 };
 

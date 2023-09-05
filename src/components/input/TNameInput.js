@@ -1,20 +1,20 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { TextInput } from 'react-native-paper';
-import colors from '../../containers/colors';
+import React from "react";
+import { StyleSheet } from "react-native";
+import { TextInput } from "react-native-paper";
+import colors from "../../containers/colors";
 
-const TNameInput = ({onChangeText}) => {
+const TNameInput = ({ onChangeText }) => {
   const handleInputChange = (inputValue) => {
     onChangeText(inputValue);
-   };
-   
+  };
+
   return (
     <TextInput
-      onChangeText={handleInputChange}  
+      onChangeText={handleInputChange}
       style={styles.passwordS}
       maxLength={9}
     />
-  ); 
+  );
 };
 
 export default TNameInput;
@@ -28,5 +28,5 @@ const styles = StyleSheet.create({
     width: 335,
     borderWidth: 1,
     padding: 10,
-  }
+  },
 });

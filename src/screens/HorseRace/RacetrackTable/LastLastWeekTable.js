@@ -45,7 +45,7 @@ const LastLastWeekTable = ({
   const handleClick = (value, name) => {
     const sendWeek = {
       week: timeData,
-      type: name
+      type: name,
     };
     dispatch(ReacRegisterAction(value));
     dispatch(RaceWeekAction(sendWeek));
@@ -84,7 +84,6 @@ const LastLastWeekTable = ({
 const mapStateToProps = (state) => {
   return {
     jockeysData: state.raceData.jockeysData,
-    
   };
 };
 export default connect(mapStateToProps)(LastLastWeekTable);

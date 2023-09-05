@@ -96,10 +96,19 @@ export const firstSpeedController = (raceRegisterData, time) => {
     }
   });
   // speed =  [34000, 34000]
-
   return speed;
 };
 
+//  先
+//  差
+//  逃
+//  追
+//  差
+//  大逃
+//  差
+//  大逃
+//  差
+//  先
 // first speed
 // Calculated value by corneous
 // Calculations to make a lot of difference
@@ -117,14 +126,104 @@ export const cSpeedController = (raceRegisterData, time) => {
       speed.push(time - time * 0.55);
     }
     if (item.quality_leg === "先" || item.quality_leg === "自") {
-      speed.push(time - time * 0.3);
+      speed.push(time - time * 0.35);
     }
     if (item.quality_leg === "差" || item.quality_leg === "まくり") {
-      speed.push(time - time * 0.15);
+      speed.push(time - time * 0.2);
     }
   });
   // speed = [10000, 10000]
   return speed;
+};
+
+export const endSpeedController = (
+  racingHorseData,
+  speeds,
+  firstSpeed,
+  raceCpuData,
+  raceRegisterData
+) => {
+  let endSpeed = [];
+  let cpuSpds = [];
+  let sps = [];
+
+  if (raceCpuData != "") {
+    const cpuSpeeds = cpuSpeed(raceCpuData);
+    cpuSpeeds.map((item) => {
+      cpuSpds.push(item);
+    });
+  }
+
+  racingHorseData.forEach((item, i) => {
+    if (
+      item[0] &&
+      item[0].speed_b !== undefined &&
+      item[0].speed_w !== undefined
+    ) {
+      sps.push(Number(item[0].moment_b) + Number(item[0].moment_w));
+    }
+
+    if (item[0] && item[0].tired >= 15) {
+      sps[i] -= 10000;
+    }
+  });
+
+  if (raceRegisterData != "") {
+    raceRegisterData.map((item, i) => {
+      if (item.quality_leg === "逃") {
+        sps[i] *= 6;
+      }
+      if (item.quality_leg === "追") {
+        sps[i] *= 10;
+      }
+      if (item.quality_leg === "大逃") {
+        sps[i] *= 6;
+      }
+      if (item.quality_leg === "先" || item.quality_leg === "自") {
+        sps[i] *= 7;
+      }
+      if (item.quality_leg === "差" || item.quality_leg === "まくり") {
+        sps[i] *= 7;
+      }
+    });
+  }
+
+  if (raceCpuData != "") {
+    raceCpuData.map((item, i) => {
+      if (item.quality_leg === "逃") {
+        cpuSpds[i] *= 3;
+      }
+      if (item.quality_leg === "追") {
+        cpuSpds[i] *= 3;
+      }
+      if (item.quality_leg === "大逃") {
+        cpuSpds[i] *= 3;
+      }
+      if (item.quality_leg === "先" || item.quality_leg === "自") {
+        cpuSpds[i] *= 3;
+      }
+      if (item.quality_leg === "差" || item.quality_leg === "まくり") {
+        cpuSpds[i] *= 4;
+      }
+
+      if (item && item.tired >= 15) {
+        cpuSpds[index] -= 10000;
+      }
+    });
+  }
+  const newArray = sps.concat(cpuSpds);
+
+  // sps = quality_leg ==  追, tired >= 15, speed_b + speed_w : [213, 250]
+  speeds.forEach((item, index) => {
+    endSpeed.push(
+      firstSpeed[index] -
+        (item + newArray[index]) * 10 -
+        (firstSpeed[index] - (item + newArray[index]) * 10) / 5
+    );
+  });
+  // endSpeed = [21154.176, 22340.4416]
+
+  return endSpeed;
 };
 
 // first timing speed calculations
@@ -157,10 +256,6 @@ export const secondSpeedController = (
       sps.push(Number(item[0].speed_b) + Number(item[0].speed_w));
     }
 
-    if (item[0] && item[0].quality_leg === "追") {
-      sps[i] *= 0.05;
-    }
-
     if (item[0] && item[0].tired >= 15) {
       sps[i] -= 10000;
     }
@@ -168,17 +263,13 @@ export const secondSpeedController = (
 
   if (raceCpuData != "") {
     raceCpuData.map((item, index) => {
-      if (item && item.quality_leg === "追") {
-        cpuSpds[index] *= 0.05;
-      }
-
       if (item && item.tired >= 15) {
         cpuSpds[index] -= 10000;
       }
     });
   }
-  const newArray = sps.concat(cpuSpds);
 
+  const newArray = sps.concat(cpuSpds);
   // sps = quality_leg ==  追, tired >= 15, speed_b + speed_w : [213, 250]
   speeds.forEach((item, index) => {
     secondSpeed.push(
@@ -188,73 +279,9 @@ export const secondSpeedController = (
     );
   });
   // secondSpeed = [21154.176, 22340.4416]
-
   return secondSpeed;
 };
 
-export const cSecondSpeedController = (
-  racingHorseData,
-  speeds,
-  cSpeed,
-  raceCpuData
-) => {
-  // racingHorseData = racingHorseData : Horse data participating in the race
-  // speeds = speedcontroller : [394.44480000000004, 505.72800000000007]
-  // cSpeed = first speed : [34000, 34000]
-  let secondSpeed = [];
-  let cpuSpds = [];
-  let sps = [];
-
-  if (raceCpuData != "") {
-    const cpuSpeeds = cpuSpeed(raceCpuData);
-    cpuSpeeds.map((item) => {
-      cpuSpds.push(item);
-    });
-  }
-
-  racingHorseData.forEach((item, i) => {
-    if (
-      item[0] &&
-      item[0].speed_b !== undefined &&
-      item[0].speed_w !== undefined
-    ) {
-      sps.push(Number(item[0].speed_b) + Number(item[0].speed_w));
-    }
-
-    if (item[0] && item[0].quality_leg === "追") {
-      sps[i];
-    }
-
-    if (item[0] && item[0].tired >= 15) {
-      sps[i] -= 10000;
-    }
-  });
-
-  if (raceCpuData != "") {
-    raceCpuData.map((item, index) => {
-      if (item && item.quality_leg === "追") {
-        cpuSpds[index];
-      }
-
-      if (item && item.tired >= 15) {
-        cpuSpds[index] -= 10000;
-      }
-    });
-  }
-  const newArray = sps.concat(cpuSpds);
-
-  // sps = quality_leg ==  追, tired >= 15, speed_b + speed_w : [213, 250]
-  speeds.forEach((item, index) => {
-    secondSpeed.push(
-      cSpeed[index] -
-        (item + newArray[index]) * 10 -
-        (cSpeed[index] - (item + newArray[index]) * 10) / 5
-    );
-  });
-  // secondSpeed = [21154.176, 22340.4416]
-
-  return secondSpeed;
-};
 // second timing speed calculations
 export const threeSpeedController = (
   racingHorseData,
@@ -284,10 +311,6 @@ export const threeSpeedController = (
     ) {
       sps.push(item[0].strength_b - -item[0].strength_w);
     }
-    if (item[0] && item[0].quality_leg === "差") {
-      sps[i] *= 0.05;
-    }
-
     if (item[0] && item[0].tired >= 15) {
       sps[i] -= 10000;
     }
@@ -295,9 +318,6 @@ export const threeSpeedController = (
 
   if (raceCpuData != "") {
     raceCpuData.map((item, index) => {
-      if (item && item.quality_leg === "差") {
-        cpuSth[index] *= 0.05;
-      }
       if (item && item.tired >= 15) {
         cpuSth[index] -= 10000;
       }
@@ -318,67 +338,6 @@ export const threeSpeedController = (
   return threeSpeed;
 };
 
-export const cThreeSpeedController = (
-  racingHorseData,
-  speeds,
-  cSpeed,
-  raceCpuData
-) => {
-  // racingHorseData = racingHorseData : Horse data participating in the race
-  // speeds = speedcontroller : [394.44480000000004, 505.72800000000007]
-  // cSpeed = first speed : [34000, 34000]
-  let threeSpeed = [];
-  let cpuSth = [];
-  let sps = [];
-
-  if (raceCpuData != "") {
-    const cpuStrengths = cpuStrength(raceCpuData);
-    cpuStrengths.map((item) => {
-      cpuSth.push(item);
-    });
-  }
-
-  racingHorseData.forEach((item, i) => {
-    if (
-      item[0] &&
-      item[0].strength_b !== undefined &&
-      item[0].strength_w !== undefined
-    ) {
-      sps.push(item[0].strength_b - -item[0].strength_w);
-    }
-    if (item[0] && item[0].quality_leg === "差") {
-      sps[i] *= 0.1;
-    }
-
-    if (item[0] && item[0].tired >= 15) {
-      sps[i] -= 10000;
-    }
-  });
-
-  if (raceCpuData != "") {
-    raceCpuData.map((item, index) => {
-      if (item && item.quality_leg === "差") {
-        cpuSth[index] *= 0.1;
-      }
-      if (item && item.tired >= 15) {
-        cpuSth[index] -= 10000;
-      }
-    });
-  }
-
-  const newArray = sps.concat(cpuSth);
-
-  // sps = quality_leg ==  差, tired >= 15, strength_b + strength_w : [10.4, 12.3]
-  speeds.forEach((item, i) => {
-    threeSpeed.push(
-      cSpeed[i] -
-        (item + newArray[i]) * 10 -
-        (2 * (cSpeed[i] - (item + newArray[i]) * 10)) / 5
-    );
-  });
-  // threeSpeed = [17303.232, 17959.531199999998]
-  return threeSpeed;
-};
 // three timing speed calculations
 export const fourSpeedController = (
   racingHorseData,
@@ -408,11 +367,6 @@ export const fourSpeedController = (
     ) {
       sps.push(item[0].moment_b - -item[0].moment_w);
     }
-
-    if (item[0] && item[0].quality_leg === "先") {
-      sps[i] *= 0.05;
-    }
-
     if (item[0] && item[0].tired >= 15) {
       sps[i] -= 10000;
     }
@@ -420,9 +374,6 @@ export const fourSpeedController = (
 
   if (raceCpuData != "") {
     raceCpuData.map((item, index) => {
-      if (item && item.quality_leg === "先") {
-        cpuMnt[index] *= 0.05;
-      }
       if (item && item.tired >= 15) {
         cpuMnt[index] -= 10000;
       }
@@ -443,68 +394,6 @@ export const fourSpeedController = (
   return fourSpeed;
 };
 
-export const cFourSpeedController = (
-  racingHorseData,
-  speeds,
-  cSpeed,
-  raceCpuData
-) => {
-  // racingHorseData = racingHorseData : Horse data participating in the race
-  // speeds = speedcontroller : [394.44480000000004, 505.72800000000007]
-  // cSpeed = first speed : [34000, 34000]
-  let fourSpeed = [];
-  let cpuMnt = [];
-  let sps = [];
-
-  if (raceCpuData != "") {
-    const cpuMoments = cpuMoment(raceCpuData);
-    cpuMoments.map((item) => {
-      cpuMnt.push(item);
-    });
-  }
-
-  racingHorseData.forEach((item, i) => {
-    if (
-      item[0] &&
-      item[0].moment_b !== undefined &&
-      item[0].moment_w !== undefined
-    ) {
-      sps.push(item[0].moment_b - -item[0].moment_w);
-    }
-
-    if (item[0] && item[0].quality_leg === "先") {
-      sps[i] *= 0.2;
-    }
-
-    if (item[0] && item[0].tired >= 15) {
-      sps[i] -= 10000;
-    }
-  });
-
-  if (raceCpuData != "") {
-    raceCpuData.map((item, index) => {
-      if (item && item.quality_leg === "先") {
-        cpuMnt[index] *= 0.2;
-      }
-      if (item && item.tired >= 15) {
-        cpuMnt[index] -= 10000;
-      }
-    });
-  }
-
-  const newArray = sps.concat(cpuMnt);
-
-  //sps = quality_leg ==  差, tired >= 15, moment_b + moment_w: [223, 216]
-  speeds.forEach((item, i) => {
-    fourSpeed.push(
-      cSpeed[i] -
-        (item + newArray[i]) * 10 -
-        (3 * (cSpeed[i] - (item + newArray[i]) * 10)) / 5
-    );
-  });
-  //  fourSpeed = [10713.088, 11130.2208]
-  return fourSpeed;
-};
 // four timing speed calculations
 export const fiveSpeedController = (
   racingHorseData,
@@ -535,9 +424,6 @@ export const fiveSpeedController = (
       sps.push(item[0].stamina_b - -item[0].stamina_w);
     }
 
-    if (item[0] && item[0].quality_leg === "逃") {
-      sps[i] *= 0.05;
-    }
     if (item[0] && item[0].tired >= 15) {
       sps[i] -= 10000;
     }
@@ -545,9 +431,6 @@ export const fiveSpeedController = (
 
   if (raceCpuData != "") {
     raceCpuData.map((item, index) => {
-      if (item && item.quality_leg === "逃") {
-        cpuSta[index] *= 0.05;
-      }
       if (item && item.tired >= 15) {
         cpuSta[index] -= 10000;
       }
@@ -569,68 +452,6 @@ export const fiveSpeedController = (
   return fiveSpeed;
 };
 
-export const cFiveSpeedController = (
-  racingHorseData,
-  speeds,
-  cSpeed,
-  raceCpuData
-) => {
-  // racingHorseData = racingHorseData : Horse data participating in the race
-  // speeds = speedcontroller : [394.44480000000004, 505.72800000000007]
-  // cSpeed = first speed : [34000, 34000]
-  let fiveSpeed = [];
-  let cpuSta = [];
-  let sps = [];
-
-  if (raceCpuData != "") {
-    const cpuStaminas = cpuStamina(raceCpuData);
-    cpuStaminas.map((item) => {
-      cpuSta.push(item);
-    });
-  }
-
-  racingHorseData.forEach((item, i) => {
-    if (
-      item[0] &&
-      item[0].stamina_b !== undefined &&
-      item[0].stamina_w !== undefined
-    ) {
-      sps.push(item[0].stamina_b - -item[0].stamina_w);
-    }
-
-    if (item[0] && item[0].quality_leg === "逃") {
-      sps[i] *= 0.4;
-    }
-    if (item[0] && item[0].tired >= 15) {
-      sps[i] -= 10000;
-    }
-  });
-
-  if (raceCpuData != "") {
-    raceCpuData.map((item, index) => {
-      if (item && item.quality_leg === "逃") {
-        cpuSta[index] *= 0.4;
-      }
-      if (item && item.tired >= 15) {
-        cpuSta[index] -= 10000;
-      }
-    });
-  }
-
-  const newArray = sps.concat(cpuSta);
-
-  // sps = quality_leg ==  差, tired >= 15, stamina_b + stamina_w : [239, 226]
-  speeds.forEach((item, i) => {
-    fiveSpeed.push(
-      cSpeed[i] -
-        (item + newArray[i]) * 10 -
-        (4 * (cSpeed[i] - (item + newArray[i]) * 10)) / 5
-    );
-  });
-
-  // fiveSpeed = [5533.110400000001, 5336.544000000002]
-  return fiveSpeed;
-};
 // five timing speed calculations END TIMIMG SPEED
 export const sixSpeedController = (
   racingHorseData,
@@ -1134,7 +955,7 @@ export const oddsFun = (racingHorseData, raceAllData) => {
 
   stateValue.map((item, i) => {
     sum.push(10 - item / 300);
-    total.push(((3000 / item) * sum[i] + 2 * sum[i] - 1).toFixed(1))
+    total.push(((3000 / item) * sum[i] + 2 * sum[i] - 1).toFixed(1));
   });
   return total;
 };

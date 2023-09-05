@@ -31,10 +31,8 @@ const DetailButton = ({
   const gameAllDate = calculateGameDate(currentTime);
   const gameDate = gameAllDate.toISOString().split("T")[0];
 
-
   const handleSubmit = (value, flag) => {
     if (flag == "jockey") {
-    
       const ptValue = value;
       const upSendJockey = {
         jockey_id: jockeyId,
@@ -431,7 +429,11 @@ const DetailButton = ({
             />
           </View>
         }
-        contentStyle={{ backgroundColor: "rgba(0,0,0,0)", bottom: 90, height: "100%" }}
+        contentStyle={{
+          backgroundColor: "rgba(0,0,0,0)",
+          bottom: 90,
+          height: "100%",
+        }}
         //(Must) This is the view displayed in the tooltip
         placement="bottom"
         //(Must) top, bottom, left, right, auto.

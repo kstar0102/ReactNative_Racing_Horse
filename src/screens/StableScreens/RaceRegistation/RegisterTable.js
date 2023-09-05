@@ -244,6 +244,7 @@ const RegisterTable = ({
     }
   }
 
+
   const handleSendData = () => {
     const sendAllData = {
       race_id: raceFieldData.id,

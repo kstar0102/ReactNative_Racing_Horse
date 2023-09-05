@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, StyleSheet, Button } from "react-native";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,

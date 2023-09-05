@@ -1,12 +1,18 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Table, TableWrapper, Row, Col, Rows } from 'react-native-table-component';
-import { useNavigation } from '@react-navigation/native';
-import TableStyles from '../../../StableScreens/RaceCourse/RacetrackTable/TableStyles';
+import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import {
+  Table,
+  TableWrapper,
+  Row,
+  Col,
+  Rows,
+} from "react-native-table-component";
+import { useNavigation } from "@react-navigation/native";
+import TableStyles from "../../../StableScreens/RaceCourse/RacetrackTable/TableStyles";
 
 const RaceWeekTable = ({ raceWeekTitle, raceWeekData, raceWeekName }) => {
   const navigation = useNavigation();
-  const elementButton = (raceWeekNames) => (
+  const elementButton = (raceWeekNames) =>
     raceWeekNames.map((name, index) => (
       <View key={index}>
         <TouchableOpacity onPress={() => handleClick()}>
@@ -15,11 +21,10 @@ const RaceWeekTable = ({ raceWeekTitle, raceWeekData, raceWeekName }) => {
           </View>
         </TouchableOpacity>
       </View>
-    ))
-  );
+    ));
 
   const handleClick = () => {
-    navigation.navigate('PastureRaceCourseScreen');
+    navigation.navigate("PastureRaceCourseScreen");
   };
 
   return (

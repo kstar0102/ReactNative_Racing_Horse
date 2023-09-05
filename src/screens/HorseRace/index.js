@@ -43,15 +43,12 @@ import {
   threeTiming,
   fourTiming,
   fivTiming,
+  endSpeedController,
   speedController,
   secondSpeedController,
   threeSpeedController,
   fourSpeedController,
   fiveSpeedController,
-  cSecondSpeedController,
-  cThreeSpeedController,
-  cFourSpeedController,
-  cFiveSpeedController,
   sixSpeedController,
   raceTime,
   weatherType,
@@ -67,10 +64,8 @@ import Loading from "./Loading";
  * Import parts
  * =========================END=========================
  */
-
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const SCREEN_HEIGHT = Dimensions.get("window").height;
-
 //
 // Redux data
 //
@@ -79,7 +74,7 @@ const HorseRace = ({
   raceFieldData,
   raceResultDatas,
   landWidth,
-  reaceReigsterData,
+  raceRegisterData,
   raceHorseData,
   racingJockeyData,
   prizeData,
@@ -100,16 +95,13 @@ const HorseRace = ({
   const [fourT, setFourT] = useState(0);
   const [fivT, setFivT] = useState(0);
   const [firstSpeed, setFirstSpeed] = useState(null);
+  const [endSpeed, setEndSpeed] = useState(null);
   const [cSpeed, setCSpeed] = useState(null);
   const [speedControllers, setSpeedControllers] = useState(null);
   const [secondSpeeds, setSecondSpeeds] = useState(null);
   const [threeSpeeds, setThreeSpeeds] = useState(null);
   const [fourSpeeds, setFourSpeeds] = useState(null);
   const [fiveSpeeds, setFiveSpeeds] = useState(null);
-  const [cSecondSpeeds, setCSecondSpeeds] = useState(null);
-  const [cThreeSpeeds, setCThreeSpeeds] = useState(null);
-  const [cFourSpeeds, setCFourSpeeds] = useState(null);
-  const [cFiveSpeeds, setCFiveSpeeds] = useState(null);
   const [sixSpeeds, setSixSpeeds] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [startState, setStartState] = useState(0);
@@ -119,9 +111,9 @@ const HorseRace = ({
   let raceAllData = [];
   let raceResultData = [];
 
-  if (racingHorseData != "") {
-    racingHorseData.map((item) => {
-      raceAllData.push(item[0]);
+  if (raceRegisterData != "") {
+    raceRegisterData.map((item) => {
+      raceAllData.push(item);
     });
   }
 
@@ -137,6 +129,7 @@ const HorseRace = ({
       raceResultData.push(item);
     });
   }
+
   // Global scope variables
   //
   // Create an array of Animated.Value without using useState inside the loop
@@ -171,8 +164,9 @@ const HorseRace = ({
     setFirstT(firstTiming(racingtime));
     setFirstSpeed(firstSpeedController(raceAllData, racingtime));
     setCSpeed(cSpeedController(raceAllData, racingtime));
+
     if (
-      reaceReigsterData != "" &&
+      raceRegisterData != "" &&
       racingHorseData != "" &&
       racingJockeyData != ""
     ) {
@@ -204,15 +198,8 @@ const HorseRace = ({
           racingHorseData,
           speedControllers,
           firstSpeed,
-          raceCpuData
-        )
-      );
-      setCSecondSpeeds(
-        cSecondSpeedController(
-          racingHorseData,
-          speedControllers,
-          firstSpeed,
-          raceCpuData
+          raceCpuData,
+          raceRegisterData
         )
       );
       setThreeSpeeds(
@@ -220,15 +207,8 @@ const HorseRace = ({
           racingHorseData,
           speedControllers,
           firstSpeed,
-          raceCpuData
-        )
-      );
-      setCThreeSpeeds(
-        cThreeSpeedController(
-          racingHorseData,
-          speedControllers,
-          firstSpeed,
-          raceCpuData
+          raceCpuData,
+          raceRegisterData
         )
       );
       setFourSpeeds(
@@ -236,15 +216,8 @@ const HorseRace = ({
           racingHorseData,
           speedControllers,
           firstSpeed,
-          raceCpuData
-        )
-      );
-      setCFourSpeeds(
-        cFourSpeedController(
-          racingHorseData,
-          speedControllers,
-          firstSpeed,
-          raceCpuData
+          raceCpuData,
+          raceRegisterData
         )
       );
       setFiveSpeeds(
@@ -252,15 +225,8 @@ const HorseRace = ({
           racingHorseData,
           speedControllers,
           firstSpeed,
-          raceCpuData
-        )
-      );
-      setCFiveSpeeds(
-        cFiveSpeedController(
-          racingHorseData,
-          speedControllers,
-          firstSpeed,
-          raceCpuData
+          raceCpuData,
+          raceRegisterData
         )
       );
       setSixSpeeds(
@@ -269,6 +235,15 @@ const HorseRace = ({
           speedControllers,
           firstSpeed,
           raceCpuData
+        )
+      );
+      setEndSpeed(
+        endSpeedController(
+          racingHorseData,
+          speedControllers,
+          firstSpeed,
+          raceCpuData,
+          raceRegisterData
         )
       );
     }
@@ -324,7 +299,6 @@ const HorseRace = ({
   //
   // set every horse outputrange so that to calculate there distance
   //
-
   const handleResult = () => {
     if (totalWinners != undefined) {
       // RANKING AND TIME ARRAY ADD
@@ -456,14 +430,11 @@ const HorseRace = ({
             threeSpeeds={threeSpeeds}
             fourSpeeds={fourSpeeds}
             fiveSpeeds={fiveSpeeds}
-            cSecondSpeeds={cSecondSpeeds}
-            cThreeSpeeds={cThreeSpeeds}
-            cFourSpeeds={cFourSpeeds}
-            cFiveSpeeds={cFiveSpeeds}
             firstTime={firstT}
             secondTime={secondT}
             threeTime={threeT}
             fourTime={fourT}
+            endSpeed={endSpeed}
           />
         </ScrollView>
         <MiniMap
@@ -532,7 +503,7 @@ const mapStateToProps = (state) => {
     raceCpuData: state.raceData.raceCpuData,
     raceFieldData: state.raceData.raceFieldData,
     landWidth: state.dimensions.dimensionsData.height,
-    reaceReigsterData: state.raceData.raceRegisterData,
+    raceRegisterData: state.raceData.raceRegisterData,
     raceHorseData: state.racingHorseData.racingHorseData,
     raceResultDatas: state.racingData.raceResultData,
     prizeData: state.raceData.prizeData,

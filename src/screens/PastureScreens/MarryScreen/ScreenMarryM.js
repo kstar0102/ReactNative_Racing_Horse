@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { View, Text, Image, ScrollView } from "react-native";
 import Toast from "react-native-root-toast";
 // Redux
 import { connect, useDispatch } from "react-redux";
@@ -16,6 +16,9 @@ import WorkingButton from "../../../components/Buttons/WorkingButtons";
 // Style
 import MarryStyle from "./MarryStyle";
 const ScreenMarryM = ({ horseDatas, buttonAction }) => {
+  if (horseDatas == "") {
+    return;
+  }
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(undefined);
   const [banner, setBanner] = useState(horseDatas[0]);
@@ -291,7 +294,7 @@ const ScreenMarryM = ({ horseDatas, buttonAction }) => {
                 >
                   {(!!selected && selected.gender) || data[0].gender}
                 </Text>
-                7
+                9
                 {/* {(!!selected && selected.age.split("")[1]) ||
                   data[0].age.split("")[1]} */}
               </Text>
@@ -444,7 +447,7 @@ const ScreenMarryM = ({ horseDatas, buttonAction }) => {
 const mapStateToProps = (state) => {
   return {
     saveData: state.horseData.saveData,
-    buttonAction: state.buttonAction.actionData
+    buttonAction: state.buttonAction.actionData,
   };
 };
 

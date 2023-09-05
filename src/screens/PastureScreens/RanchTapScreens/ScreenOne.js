@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useDebugValue } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Image, Text, ScrollView } from "react-native";
 import Toast from "react-native-root-toast";
 // Redux
@@ -64,8 +64,6 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
     };
     dispatch(showHorseGrow(sandIds));
   }, [oneData]);
-
-
 
   useEffect(() => {
     setBanner(oneData[0]);
@@ -513,7 +511,6 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
   };
 
   const displayToastMessage = (key) => {
-    
     let message = "";
     switch (key) {
       case "D1":
@@ -573,14 +570,34 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
         </View>
         <View style={RTapScreensStyle.oneTopContentRight}>
           <View style={RTapScreensStyle.oneRioghtHeader}>
-            <Text style={[RTapScreensStyle.oneRioghtHeaderTxtA, {color: (!!selected && selected.gender == "牝") || data[0].gender == "牝" ? Ccolors.genderColorF : Ccolors.genderColorM}]}>
+            <Text
+              style={[
+                RTapScreensStyle.oneRioghtHeaderTxtA,
+                {
+                  color:
+                    (!!selected && selected.gender == "牝") ||
+                    data[0].gender == "牝"
+                      ? Ccolors.genderColorF
+                      : Ccolors.genderColorM,
+                },
+              ]}
+            >
               {(!!selected && selected.name) || data[0].name}
             </Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
-              <Text style={{ color: (!!selected && selected.gender == "牝") || data[0].gender == "牝" ? Ccolors.genderColorF : Ccolors.genderColorM}}>
+              <Text
+                style={{
+                  color:
+                    (!!selected && selected.gender == "牝") ||
+                    data[0].gender == "牝"
+                      ? Ccolors.genderColorF
+                      : Ccolors.genderColorM,
+                }}
+              >
                 {(!!selected && selected.gender) || data[0].gender}
               </Text>
-              {(!!selected && selected.age.split('')[1]) || data[0].age.split('')[1]}
+              {(!!selected && selected.age.split("")[1]) ||
+                data[0].age.split("")[1]}
             </Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
               {(!!selected && selected.growth) || data[0].growth}

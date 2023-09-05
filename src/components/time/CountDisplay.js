@@ -1,6 +1,6 @@
-import React from 'react';
-import { Text, Button } from 'react-native';
-import { useCountdown } from './NewCount';
+import React from "react";
+import { Text, Button } from "react-native";
+import { useCountdown } from "./NewCount";
 
 const CountDisplay = () => {
   const { timer, resetTimer } = useCountdown();
@@ -12,9 +12,9 @@ const CountDisplay = () => {
   return (
     <>
       <Text>
-        {`${timer.hours.toString().padStart(2, '0')}:${timer.minutes
+        {`${timer.hours.toString().padStart(2, "0")}:${timer.minutes
           .toString()
-          .padStart(2, '0')}:${timer.seconds.toString().padStart(2, '0')}`}
+          .padStart(2, "0")}:${timer.seconds.toString().padStart(2, "0")}`}
       </Text>
       <Button title="Reset" onPress={handleReset} />
     </>

@@ -1,15 +1,14 @@
-import * as React from 'react';
-import { StyleSheet, SafeAreaView } from 'react-native';
-import { Checkbox } from 'react-native-paper';
+import * as React from "react";
+import { StyleSheet, SafeAreaView } from "react-native";
+import { Checkbox } from "react-native-paper";
 
 const CheckButton = ({ checkState, id, checkingstate, price, age }) => {
-
   const [checked, setChecked] = React.useState(checkingstate);
 
   React.useEffect(() => {
     setChecked(checkingstate);
-  },[checkingstate]);
-  
+  }, [checkingstate]);
+
   const handleCheckChange = (value) => {
     setChecked(value);
     checkState(value, id, price, age);
@@ -19,12 +18,12 @@ const CheckButton = ({ checkState, id, checkingstate, price, age }) => {
     <SafeAreaView style={styles.container}>
       <Checkbox
         value={checkState}
-        status={checked ? 'checked' : 'unchecked'}
+        status={checked ? "checked" : "unchecked"}
         onPress={() => {
           handleCheckChange(!checked);
         }}
-        color={'#000'}
-        uncheckColor={'red'}
+        color={"#000"}
+        uncheckColor={"red"}
         key={id}
       />
     </SafeAreaView>
@@ -33,7 +32,7 @@ const CheckButton = ({ checkState, id, checkingstate, price, age }) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     zIndex: 1000,
   },

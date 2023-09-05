@@ -16,7 +16,6 @@ import { SaleButton } from "../../../components/Buttons";
 import { horseColor } from "../../../utils/globals";
 import Ccolors from "../../../containers/colors";
 
-
 const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
   const dispatch = useDispatch();
   const [arrowStates, setArrowState] = useState(arrowState);
@@ -592,14 +591,34 @@ const ScreenTwo = ({ twoData, arrowState, showGrowstate }) => {
         </View>
         <View style={RTapScreensStyle.oneTopContentRight}>
           <View style={RTapScreensStyle.oneRioghtHeader}>
-            <Text style={[RTapScreensStyle.oneRioghtHeaderTxtA, {color:(!!selected && selected.gender == "牝") || data[0].gender == "牝" ? Ccolors.genderColorF : Ccolors.genderColorM }]}>
+            <Text
+              style={[
+                RTapScreensStyle.oneRioghtHeaderTxtA,
+                {
+                  color:
+                    (!!selected && selected.gender == "牝") ||
+                    data[0].gender == "牝"
+                      ? Ccolors.genderColorF
+                      : Ccolors.genderColorM,
+                },
+              ]}
+            >
               {(!!selected && selected.name) || data[0].name}
             </Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
-              <Text style={{ color: (!!selected && selected.gender == "牝") || data[0].gender == "牝" ? Ccolors.genderColorF : Ccolors.genderColorM}}>
+              <Text
+                style={{
+                  color:
+                    (!!selected && selected.gender == "牝") ||
+                    data[0].gender == "牝"
+                      ? Ccolors.genderColorF
+                      : Ccolors.genderColorM,
+                }}
+              >
                 {(!!selected && selected.gender) || data[0].gender}
               </Text>
-              {(!!selected && selected.age.split('')[1]) || data[0].age.split('')[1]}
+              {(!!selected && selected.age.split("")[1]) ||
+                data[0].age.split("")[1]}
             </Text>
             <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
               {(!!selected && selected.growth) || data[0].growth}

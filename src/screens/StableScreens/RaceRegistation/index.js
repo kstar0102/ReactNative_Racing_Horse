@@ -17,7 +17,8 @@ import Ccolors from "../../../containers/colors";
 const RaceRegistation = ({ stableData, registering }) => {
   if (stableData == "" || stableData == undefined) {
     alert("YOUR HORSE NOT FOUND RETURN");
-    return <Spinner visible={true} />;
+    // <Spinner visible={true} />
+    return;
   }
   // Ground Color
   const [groundColor, setGroundColor] = useState("#1BFF00");

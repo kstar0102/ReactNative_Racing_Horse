@@ -1,8 +1,7 @@
-
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import SelectDropdown from 'react-native-select-dropdown';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import SelectDropdown from "react-native-select-dropdown";
 
 const DropDwonM = ({ name, data, onSelect, setId }) => {
   const countriesWithFlags = data;
@@ -24,10 +23,16 @@ const DropDwonM = ({ name, data, onSelect, setId }) => {
           }}
           buttonStyle={styles.dropdown4BtnStyle}
           buttonTextStyle={styles.dropdown4BtnTxtStyle}
-          renderDropdownIcon={isOpened => {
-            return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+          renderDropdownIcon={(isOpened) => {
+            return (
+              <FontAwesome
+                name={isOpened ? "chevron-up" : "chevron-down"}
+                color={"#444"}
+                size={18}
+              />
+            );
           }}
-          dropdownIconPosition={'right'}
+          dropdownIconPosition={"right"}
           dropdownStyle={styles.dropdown4DropdownStyle}
           rowStyle={styles.dropdown4RowStyle}
           rowTextStyle={styles.dropdown4RowTxtStyle}
@@ -39,21 +44,24 @@ const DropDwonM = ({ name, data, onSelect, setId }) => {
 export default DropDwonM;
 const styles = StyleSheet.create({
   shadow: {
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 10,
   },
 
-  viewContainer: { backgroundColor: '#FFF' },
+  viewContainer: { backgroundColor: "#FFF" },
   dropdown4BtnStyle: {
-    width: '100%',
+    width: "100%",
     height: 30,
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
   },
-  dropdown4BtnTxtStyle: { color: '#444', textAlign: 'left' },
-  dropdown4DropdownStyle: { backgroundColor: '#EFEFEF', marginTop: -22 },
-  dropdown4RowStyle: { backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5' },
-  dropdown4RowTxtStyle: { color: '#444', textAlign: 'left' },
+  dropdown4BtnTxtStyle: { color: "#444", textAlign: "left" },
+  dropdown4DropdownStyle: { backgroundColor: "#EFEFEF", marginTop: -22 },
+  dropdown4RowStyle: {
+    backgroundColor: "#EFEFEF",
+    borderBottomColor: "#C5C5C5",
+  },
+  dropdown4RowTxtStyle: { color: "#444", textAlign: "left" },
 });
