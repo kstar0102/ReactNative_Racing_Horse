@@ -4,6 +4,7 @@ import Toast from "react-native-root-toast";
 // Redux
 import { connect, useDispatch } from "react-redux";
 import { marryButtonAction } from "../../../store/actions/Pasture/marryButtonAction";
+import { funtionCallAction } from "../../../store/actions/Pasture/funtionCallAction";
 
 import DropDwonM from "../../../components/Buttons/DropDwonM";
 import MarryBloodlineTable from "../../../components/table/MarryBloodlineTable";
@@ -12,11 +13,13 @@ import RTapScreensStyle from "../../PastureScreens/RanchTapScreens/RTapScreensSt
 import { horseColor } from "../../../utils/globals";
 import Ccolors from "../../../containers/colors";
 import WorkingButton from "../../../components/Buttons/WorkingButtons";
+
+import { breedingHorse } from "./marryGlobalFuntion";
 // Custom IMPORT
 // Style
 import MarryStyle from "./MarryStyle";
 const ScreenMarryG = ({ buttonAction, horseDatas }) => {
-  if(horseDatas == ""){
+  if (horseDatas == "") {
     return;
   }
   const dispatch = useDispatch();
@@ -24,6 +27,11 @@ const ScreenMarryG = ({ buttonAction, horseDatas }) => {
   const [banner, setBanner] = useState(horseDatas[0]);
   // Ground Color
   const [groundColor, setGroundColor] = useState("#1BFF00");
+  const [closeRelative, setCloseRelative] = useState(0);
+
+  useEffect(() => {
+    setCloseRelative(breedingHorse(banner));
+  }, [banner]);
 
   useEffect(() => {
     setBanner(horseDatas[0]);
@@ -40,6 +48,7 @@ const ScreenMarryG = ({ buttonAction, horseDatas }) => {
   const data = horseDatas;
   const handleSettingId = (value) => {
     setBanner(value);
+    dispatch(funtionCallAction(value));
     if (value) {
       setPattern(tiredNumber);
     }

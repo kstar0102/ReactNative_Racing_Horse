@@ -4,6 +4,7 @@ import Toast from "react-native-root-toast";
 // Redux
 import { connect, useDispatch } from "react-redux";
 import { marryButtonAction } from "../../../store/actions/Pasture/marryButtonAction";
+import { funtionCallAction } from "../../../store/actions/Pasture/funtionCallAction";
 
 import DropDwonM from "../../../components/Buttons/DropDwonM";
 import MarryBloodlineTable from "../../../components/table/MarryBloodlineTable";
@@ -12,6 +13,8 @@ import RTapScreensStyle from "../../PastureScreens/RanchTapScreens/RTapScreensSt
 import { horseColor } from "../../../utils/globals";
 import Ccolors from "../../../containers/colors";
 import WorkingButton from "../../../components/Buttons/WorkingButtons";
+
+import { stallion } from "./marryGlobalFuntion";
 // Custom IMPORT
 // Style
 import MarryStyle from "./MarryStyle";
@@ -25,6 +28,11 @@ const ScreenMarryM = ({ horseDatas, buttonAction }) => {
   const [activeButton, setActiveButton] = useState(0);
   // Ground Color
   const [groundColor, setGroundColor] = useState("#1BFF00");
+  const [stallions, setStallions] = useState(0);
+
+  useEffect(() => {
+    setStallions(stallion(banner));
+  }, [banner]);
 
   useEffect(() => {
     setBanner(horseDatas[0]);
@@ -40,6 +48,7 @@ const ScreenMarryM = ({ horseDatas, buttonAction }) => {
   const data = horseDatas;
   const handleSettingId = (value) => {
     setBanner(value);
+    dispatch(funtionCallAction(value));
     if (value) {
       setPattern(tiredNumber);
     }

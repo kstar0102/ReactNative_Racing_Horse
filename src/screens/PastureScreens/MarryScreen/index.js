@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   ImageBackground,
@@ -19,15 +19,21 @@ import { MarryButton } from "../../../components/Buttons";
 import { connect } from "react-redux";
 import WorkingButton from "../../../components/Buttons/WorkingButtons";
 import ButtonStyle from "../../../components/Buttons/ButtonStyle";
+import { closeRelatives } from "./marryGlobalFuntion";
 
-const MarryScreen = ({ saveData }) => {
- 
+const MarryScreen = ({ saveData, funAction }) => {
+  const [closeRelative, setCloseRelative] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  // console.log("-------------",funAction);
   const fillterMan = saveData.filter(
     (data) => data.gender === "牡" && data.type === ""
   );
   const fillterGirl = saveData.filter((data) => data.type === "繁殖馬");
 
-  const [modalVisible, setModalVisible] = useState(false);
+  useEffect(() => {
+    setCloseRelative(closeRelatives());
+  }, [funAction]);
 
   const handleYes = () => {
     console.log("Yes");
@@ -40,7 +46,7 @@ const MarryScreen = ({ saveData }) => {
   const handleModal = () => {
     setModalVisible(true);
   };
-  
+
   return (
     <View style={Screenstyles.container}>
       <ImageBackground
@@ -100,6 +106,7 @@ const MarryScreen = ({ saveData }) => {
 const mapStateToProps = (state) => {
   return {
     saveData: state.horseData.saveData,
+    funAction: state.buttonAction.funAction,
   };
 };
 
