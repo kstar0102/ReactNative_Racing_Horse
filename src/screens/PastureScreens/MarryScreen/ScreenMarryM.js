@@ -18,7 +18,7 @@ import { stallion } from "./marryGlobalFuntion";
 // Custom IMPORT
 // Style
 import MarryStyle from "./MarryStyle";
-const ScreenMarryM = ({ horseDatas, buttonAction }) => {
+const ScreenMarryM = ({ horseDatas, buttonAction, onDataUpdate }) => {
   if (horseDatas == "") {
     return;
   }
@@ -31,11 +31,10 @@ const ScreenMarryM = ({ horseDatas, buttonAction }) => {
   const [stallions, setStallions] = useState(0);
 
   useEffect(() => {
-    setStallions(stallion(banner));
+    onDataUpdate(banner);
   }, [banner]);
 
   useEffect(() => {
-    setBanner(horseDatas[0]);
     setPattern(tiredNumber);
     if (horseDatas[0].ground == "ダ") {
       setGroundColor("#707172");

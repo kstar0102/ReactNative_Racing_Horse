@@ -19,7 +19,7 @@ import { MarryButton } from "../../../components/Buttons";
 import { connect } from "react-redux";
 import WorkingButton from "../../../components/Buttons/WorkingButtons";
 import ButtonStyle from "../../../components/Buttons/ButtonStyle";
-import { closeRelatives } from "./marryGlobalFuntion";
+import { checkMarry } from "./marryGlobalFuntion";
 
 const MarryScreen = ({ saveData, funAction }) => {
   const [closeRelative, setCloseRelative] = useState(0);
@@ -31,9 +31,17 @@ const MarryScreen = ({ saveData, funAction }) => {
   );
   const fillterGirl = saveData.filter((data) => data.type === "繁殖馬");
 
-  useEffect(() => {
-    setCloseRelative(closeRelatives());
-  }, [funAction]);
+  const [filteredMan, setFilteredMan] = useState();
+  const [filteredGirl, setFilteredGirl] = useState();
+
+  const updateValueMan = (value) => {
+    
+    setFilteredMan(value);
+  };
+
+  const updateValueGirl = (value) => {
+    setFilteredGirl(value);
+  };
 
   const handleYes = () => {
     console.log("Yes");
@@ -44,8 +52,10 @@ const MarryScreen = ({ saveData, funAction }) => {
   };
 
   const handleModal = () => {
+    checkMarry(filteredMan, filteredGirl);
     setModalVisible(true);
   };
+  
 
   return (
     <View style={Screenstyles.container}>
@@ -63,8 +73,8 @@ const MarryScreen = ({ saveData, funAction }) => {
           />
         </View>
         <ScrollView style={[MarryStyle.container, { maxHeight: 450 }]}>
-          <ScreenMarryM horseDatas={fillterMan} />
-          <ScreenMarryG horseDatas={fillterGirl} />
+          <ScreenMarryM horseDatas={fillterMan}  onDataUpdate={updateValueMan} />
+          <ScreenMarryG horseDatas={fillterGirl} onDataUpdate={updateValueGirl}/>
         </ScrollView>
         <View style={Screenstyles.marryButton}>
           <MarryButton label={"種    付"} color={1} onPress={handleModal} />

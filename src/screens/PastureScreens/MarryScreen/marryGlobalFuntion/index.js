@@ -11,62 +11,60 @@ export const breedingHorse = (girl) => {
   return girl;
 };
 
-export const closeRelatives = () => {
+export const checkMarry = (man, girl) => {
+let result =  closeRelatives(man, girl);
+console.log(result);
+}
+
+// inbreeding
+const closeRelatives = (man, girl) => {
   // 50%
   g_name_array = [];
   m_name_array = [];
+
   // 25%
   g_f_name_array = [];
   m_f_name_array = [];
+  
   //12.50%
   g_f_f_name_array = [];
   m_f_f_name_array = [];
+  
   //6.25%
   g_f_f_f_name_array = [];
   m_f_f_f_name_array = [];
 
   // 50%
-  g_name_array.push(filteredGirl.name);
-  m_name_array.push(filteredMan.name);
+  g_name_array.push(girl.name);
+  m_name_array.push(man.name);
 
   // 25%
-  g_f_name_array.push(filteredGirl.f_name, filteredGirl.m_name);
-  m_f_name_array.push(filteredMan.f_name, filteredMan.m_name);
+  g_f_name_array.push(girl.f_name);
+  m_f_name_array.push(man.f_name);
 
   // 12.50%
   g_f_f_name_array.push(
-    filteredGirl.f_f_name,
-    filteredGirl.f_m_name,
-    filteredGirl.m_f_name,
-    filteredGirl.m_m_name
+    girl.f_f_name,
+    girl.m_f_name
   );
   m_f_f_name_array.push(
-    filteredMan.f_f_name,
-    filteredMan.f_m_name,
-    filteredMan.m_f_name,
-    filteredMan.m_m_name
+    man.f_f_name,
+    man.m_f_name
   );
 
   // 6.25%
   g_f_f_f_name_array.push(
-    filteredGirl.f_f_f_name,
-    filteredGirl.f_f_m_name,
-    filteredGirl.f_m_f_name,
-    filteredGirl.f_m_m_name,
-    filteredGirl.m_m_m_name,
-    filteredGirl.m_m_f_name,
-    filteredGirl.m_f_m_name,
-    filteredGirl.m_f_f_name
+    girl.f_f_f_name,
+    girl.f_m_f_name,
+    girl.m_m_f_name,
+    girl.m_f_f_name
   );
+  
   m_f_f_f_name_array.push(
-    filteredMan.f_f_f_name,
-    filteredMan.f_f_m_name,
-    filteredMan.f_m_f_name,
-    filteredMan.f_m_m_name,
-    filteredGirl.m_m_m_name,
-    filteredGirl.m_m_f_name,
-    filteredGirl.m_f_m_name,
-    filteredGirl.m_f_f_name
+    man.f_f_f_name,
+    man.f_m_f_name,
+    man.m_m_f_name,
+    man.m_f_f_name
   );
 
   // 6.25% calculator
@@ -173,39 +171,21 @@ export const closeRelatives = () => {
     f_four_EqualElements.length +
     three_EqualElements.length +
     four_EqualElements.length;
-  // f_name, m_name 25,
-
-  // f_f_name, m_m_name 12,50
-  // f_m_name, m_f_name
-
-  // f_f_f_name, m_m_m_name 6.25
-  // f_f_m_name, m_m_f_name
-  // f_m_f_name, m_f_m_name
-  // f_m_m_name, m_f_f_name
 
   console.log(lenghtTotal);
   console.log(totalCalculator);
-  result = "";
-  switch (true) {
-    case totalCalculator >= 50 || lenghtTotal >= 4:
-      result = "ok";
-      break;
-    case filteredGirl.f_name == filteredMan.f_name:
-      f_nameResults = 25;
-      break;
-    // case skill >= 2001 && skill <= 3000:
-    //   results = stateValue * 0.8;
-    //   break;
-    // case skill >= 1001 && skill <= 2000:
-    //   results = stateValue * 0.7;
-    //   break;
-    // case skill >= 0 && skill <= 1000:
-    //   results = stateValue * 0.6;
-    //   break;
-    default:
-      return;
+  
+  if(totalCalculator >= 50 || lenghtTotal >= 4){
+    return "inbreeding"
   }
-
-  // console.log(result);
-  // return results;
+  return "no";
 };
+
+const croseRelatives = (man, girl) => {
+
+}
+
+const tripleCrownRelatives = (man, girl) => {
+  
+}
+

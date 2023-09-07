@@ -18,7 +18,7 @@ import { breedingHorse } from "./marryGlobalFuntion";
 // Custom IMPORT
 // Style
 import MarryStyle from "./MarryStyle";
-const ScreenMarryG = ({ buttonAction, horseDatas }) => {
+const ScreenMarryG = ({ buttonAction, horseDatas, onDataUpdate }) => {
   if (horseDatas == "") {
     return;
   }
@@ -27,14 +27,12 @@ const ScreenMarryG = ({ buttonAction, horseDatas }) => {
   const [banner, setBanner] = useState(horseDatas[0]);
   // Ground Color
   const [groundColor, setGroundColor] = useState("#1BFF00");
-  const [closeRelative, setCloseRelative] = useState(0);
 
   useEffect(() => {
-    setCloseRelative(breedingHorse(banner));
+    onDataUpdate(banner);
   }, [banner]);
 
   useEffect(() => {
-    setBanner(horseDatas[0]);
     setPattern(tiredNumber);
     if (horseDatas[0].ground == "ダ") {
       setGroundColor("#707172");
