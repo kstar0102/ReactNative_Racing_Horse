@@ -19,13 +19,13 @@ import { MarryButton } from "../../../components/Buttons";
 import { connect } from "react-redux";
 import WorkingButton from "../../../components/Buttons/WorkingButtons";
 import ButtonStyle from "../../../components/Buttons/ButtonStyle";
-import { checkMarry } from "./marryGlobalFuntion";
+import { closeRelatives } from "./marryGlobalFuntion";
+import FaceModal from "./FaceModal";
 
 const MarryScreen = ({ saveData, funAction }) => {
   const [closeRelative, setCloseRelative] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
 
-  // console.log("-------------",funAction);
   const fillterMan = saveData.filter(
     (data) => data.gender === "牡" && data.type === ""
   );
@@ -33,9 +33,10 @@ const MarryScreen = ({ saveData, funAction }) => {
 
   const [filteredMan, setFilteredMan] = useState();
   const [filteredGirl, setFilteredGirl] = useState();
+  const [imageSource, setImageSource] = useState("");
+  const [crossName, setCrossName] = useState('');
 
   const updateValueMan = (value) => {
-    
     setFilteredMan(value);
   };
 
@@ -43,19 +44,50 @@ const MarryScreen = ({ saveData, funAction }) => {
     setFilteredGirl(value);
   };
 
-  const handleYes = () => {
-    console.log("Yes");
-  };
-
-  const handleNo = () => {
-    setModalVisible(false);
-  };
-
   const handleModal = () => {
-    checkMarry(filteredMan, filteredGirl);
+    let result = closeRelatives(filteredMan, filteredGirl);
+    console.log("result---------------");
+    console.log(result);
+    console.log("result----------------");
+
+    if(result.isClose == true){
+      setImageSource("inbreeding");
+    }
+    else if(result.isMiracle == true){
+      setImageSource("miracle");
+    }
+    else if(result.isKnow == true){
+      setImageSource("Know");
+    }
+    else if(result.isMatch == true){
+      setImageSource("match");
+    }
+    else if(result.isGoodFriend == true){
+      setImageSource("good friend");
+    }
+    else if(result.isFinal == true){
+      setImageSource("final");
+    }
+    else if(result.isTripCrown == true){
+      setImageSource("triple crown");
+    }
+    else if(result.isShotReversal == true){
+      setImageSource("shot reversal");
+    }
+    else if(result.isCross == true){
+      setImageSource("cross");
+      setCrossName(result.crossName);
+    }
+    else if(result.isOutBlid == true){
+      setImageSource("outblid");
+    }
+    
     setModalVisible(true);
   };
-  
+
+  const handleModalNo = () => {
+    setModalVisible(false);
+  }
 
   return (
     <View style={Screenstyles.container}>
@@ -73,8 +105,11 @@ const MarryScreen = ({ saveData, funAction }) => {
           />
         </View>
         <ScrollView style={[MarryStyle.container, { maxHeight: 450 }]}>
-          <ScreenMarryM horseDatas={fillterMan}  onDataUpdate={updateValueMan} />
-          <ScreenMarryG horseDatas={fillterGirl} onDataUpdate={updateValueGirl}/>
+          <ScreenMarryM horseDatas={fillterMan} onDataUpdate={updateValueMan} />
+          <ScreenMarryG
+            horseDatas={fillterGirl}
+            onDataUpdate={updateValueGirl}
+          />
         </ScrollView>
         <View style={Screenstyles.marryButton}>
           <MarryButton label={"種    付"} color={1} onPress={handleModal} />
@@ -82,33 +117,7 @@ const MarryScreen = ({ saveData, funAction }) => {
         </View>
         <FooterScreen />
       </ImageBackground>
-      {/* Modal */}
-      <Modal visible={modalVisible} animationType="fade" transparent={true}>
-        <View style={ButtonStyle.marryModal}>
-          <View style={Screenstyles.marryAlam}>
-            <Image
-              style={Screenstyles.bankPeople}
-              source={require("../../../assets/images/marry/2.png")}
-            />
-            <View style={Screenstyles.marryTxt}>
-              <Text>仲良しそうな配合を考えましたね!</Text>
-              <Text>種付けしますか?</Text>
-            </View>
-          </View>
-          <View style={Screenstyles.marryBtnGroup}>
-            <WorkingButton
-              label={"はい"}
-              colorNumber={6}
-              onPress={() => handleYes()}
-            />
-            <WorkingButton
-              label={"いいえ"}
-              colorNumber={6}
-              onPress={() => handleNo()}
-            />
-          </View>
-        </View>
-      </Modal>
+      <FaceModal imageSource={imageSource} modalVisible={modalVisible} updateModalState={handleModalNo} crossName = {crossName}/>
     </View>
   );
 };
