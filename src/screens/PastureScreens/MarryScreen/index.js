@@ -7,6 +7,7 @@ import {
   Image,
   Text,
 } from "react-native";
+import { connect, useDispatch } from "react-redux";
 // Custom IMPORT
 import HeaderScreen from "../../LayoutScreen/HeaderScreen";
 import FooterScreen from "../../LayoutScreen/FooterScreen";
@@ -16,13 +17,15 @@ import MarryStyle from "./MarryStyle";
 import ScreenMarryG from "./ScreenMarryG";
 import ScreenMarryM from "./ScreenMarryM";
 import { MarryButton } from "../../../components/Buttons";
-import { connect } from "react-redux";
 import WorkingButton from "../../../components/Buttons/WorkingButtons";
 import ButtonStyle from "../../../components/Buttons/ButtonStyle";
-import { closeRelatives } from "./marryGlobalFuntion";
+import { closeRelatives, checkKnicks } from "./marryGlobalFuntion";
 import FaceModal from "./FaceModal";
+import { knicksAction } from "../../../store/actions/Pasture/marryKnicksAction";
 
-const MarryScreen = ({ saveData, funAction }) => {
+const MarryScreen = ({ saveData, funAction, knickData }) => {
+  const dispatch = useDispatch();
+
   const [closeRelative, setCloseRelative] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -36,6 +39,10 @@ const MarryScreen = ({ saveData, funAction }) => {
   const [imageSource, setImageSource] = useState("");
   const [crossName, setCrossName] = useState('');
 
+  useEffect(() =>{
+    dispatch(knicksAction());
+  },[]);
+
   const updateValueMan = (value) => {
     setFilteredMan(value);
   };
@@ -46,8 +53,10 @@ const MarryScreen = ({ saveData, funAction }) => {
 
   const handleModal = () => {
     let result = closeRelatives(filteredMan, filteredGirl);
+    let knicks = checkKnicks(filteredMan, filteredGirl, knickData);
     console.log("result---------------");
     console.log(result);
+    console.log(knicks);
     console.log("result----------------");
 
     if(result.isClose == true){
@@ -117,15 +126,17 @@ const MarryScreen = ({ saveData, funAction }) => {
         </View>
         <FooterScreen />
       </ImageBackground>
-      <FaceModal imageSource={imageSource} modalVisible={modalVisible} updateModalState={handleModalNo} crossName = {crossName}/>
+      <FaceModal imageSource={imageSource} modalVisible={modalVisible} updateModalState={handleModalNo} crossName = {crossName} filteredMan = {filteredMan} filteredGirl = {filteredGirl}/>
     </View>
   );
 };
 
 const mapStateToProps = (state) => {
+
   return {
     saveData: state.horseData.saveData,
     funAction: state.buttonAction.funAction,
+    knickData: state.knickData.knickData
   };
 };
 

@@ -57,6 +57,7 @@ import RacingHorseReducer from './race/RacingHorseReducer';
 
 //Marry Button Action
 import marryButtonReducer from './marryButtonReducer';
+import knickReducer from './knicksReducers';
 
 export default combineReducers({
     user: user,
@@ -111,5 +112,6 @@ export default combineReducers({
     racingHorseData: RacingHorseReducer,
 
     // MARRY BUTTON ACTIOn
-    buttonAction: marryButtonReducer
+    buttonAction: marryButtonReducer,
+    knickData: knickReducer
 });
