@@ -473,7 +473,8 @@ const Screenstyles = StyleSheet.create({
     top: 10,
     padding: 5,
     left: 10,
-    borderRadius: 10
+    borderRadius: 10,
+    width: wp(60)
   },
   bankruptcy: {
     left: 45,

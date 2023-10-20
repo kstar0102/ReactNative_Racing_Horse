@@ -17,7 +17,10 @@ import {
   getRandomValue,
   convertAbilityNum,
   checkNum,
-  checkKnicks
+  calculatorKincks,
+  calculatorCross,
+  calculatorAbilityFactor,
+  getChildColor
 } from "./marryGlobalFuntion";
 // inbreeding case
 import {
@@ -78,6 +81,10 @@ import {
 // outblid case
 import { OUTBLID_STAMINA, OUTBLID_HEALTH } from "../../../utils/abilities";
 
+import { useDispatch } from "react-redux";
+import { progPastureAction } from "../../../store/actions/Pasture/progPastureAction";
+import { useNavigation } from "@react-navigation/native";
+
 const FaceModal = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [imageSource, setImageSource] = useState("");
@@ -85,6 +92,8 @@ const FaceModal = (props) => {
   const [message2, setMessage2] = useState("種付けしますか？");
 
   console.log(props.imageSource);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const handleYes = () => {
     // speed_b
@@ -161,7 +170,7 @@ const FaceModal = (props) => {
 
     const childGrowChances = getChildGrow(fatherGrow, motherGrow);
     const childGrow = generateResult(childGrowChances);
-    console.log(childGrow);
+    console.log("grow", childGrow);
 
     // distance start
     const fatherDistance = getDistanceLetter(props.filteredMan.distance_min);
@@ -173,7 +182,7 @@ const FaceModal = (props) => {
     );
     const childDistance = generateResult(childDistanceChances);
 
-    console.log(childDistance);
+    console.log("distance",childDistance);
 
     // ground start
     const fatherGround = props.filteredMan.ground;
@@ -182,7 +191,7 @@ const FaceModal = (props) => {
     const childGrondChance = getChildGround(fatherGround, motherGround);
 
     const childGround = generateResult(childGrondChance);
-    console.log(childGround);
+    console.log("ground", childGround);
 
     // qualityLeg start
     const fatherQualityT = props.filteredMan.quality_leg;
@@ -196,10 +205,24 @@ const FaceModal = (props) => {
       motherQualityLeg
     );
 
-    console.log(childQualityLegChance);
+    console.log("qualityLegChance", childQualityLegChance);
 
     const childQualityLeg = generateResult(childQualityLegChance);
-    console.log(childQualityLeg);
+    console.log("qualityleg", childQualityLeg);
+    
+    // color start
+    const fatherColor = props.filteredMan.color;
+    const motherColor = props.filteredGirl.color;
+    console.log(fatherColor,motherColor);
+    const childColorChance = getChildColor(fatherColor, motherColor);
+
+    const childColor = generateResult(childColorChance);
+    console.log("color", childColor);
+
+    // gender start
+    const genderData = { "牡" : 50, "牡" : 50};
+    const childGender = generateResult(genderData);
+    console.log("gender", childGender);
 
     // adding speed start
     let addAbilitySpeed = [];
@@ -241,38 +264,6 @@ const FaceModal = (props) => {
         addAbilityStrength = GOOD_FRIEND_STRENGTH;
         break;
 
-      case "final":
-        addAbilitySpeed = FINAL_SPEED;
-        addAbilityStrength = FINAL_STRENGTH;
-        addAbilityMoment = FINAL_MOMENT;
-        addAbilityStamina = FINAL_STAMINA;
-        addAbilityCondition = FINAL_CONDITION;
-        addAbilityHealth = FINAL_HEALTH;
-        break;
-
-      case "triple crown":
-        addAbilitySpeed = TRIPLE_CROWN_SPEED;
-        addAbilityStrength = TRIPLE_CROWN_STRENGTH;
-        break;
-
-      case "shot reversal":
-        addAbilitySpeed = SHOT_REVERSAL_SPEED;
-        addAbilityStrength = SHOT_REVERSAL_STRENGTH;
-        addAbilityMoment = SHOT_REVERSAL_MOMENT;
-        addAbilityStamina = SHOT_REVERSAL_STAMINA;
-        addAbilityCondition = SHOT_REVERSAL_CONDITION;
-        addAbilityHealth = SHOT_REVERSAL_HEALTH;
-        break;
-
-      case "cross":
-        // addAbilitySpeed = MIRACLE_SPEED;
-        // addAbilityStrength = MIRACLE_STRENGTH;
-        // addAbilityMoment = MIRACLE_MOMENT;
-        // addAbilityStamina = MIRACLE_STAMINA;
-        // addAbilityCondition = MIRACLE_CONDITION;
-        // addAbilityHealth = MIRACLE_HEALTH;
-        break;
-
       case "outblid":
         addAbilityStamina = OUTBLID_STAMINA;
         addAbilityHealth = OUTBLID_HEALTH;
@@ -291,23 +282,207 @@ const FaceModal = (props) => {
 
     // adding speed end
 
-    const chlidAbilitySpeed = convertAbilityNum(resultSpeedB);    
+    const childAbilitySpeed = convertAbilityNum(resultSpeedB);    
     const childAbilityStrength = convertAbilityNum(resultStrengthB);    
     const childAbilityMoment = convertAbilityNum(resultMomentB);    
     const childAbilityStamina = convertAbilityNum(resultStaminaB);    
     const childAbilityCondition = convertAbilityNum(resultConditionB);
     const childAbilityHealth = convertAbilityNum(resultHealthB);
 
-    console.log(chlidAbilitySpeed, checkNum(realAddSpeed));
+    console.log("===================================================");
+    console.log(childAbilitySpeed, checkNum(realAddSpeed));
     console.log(childAbilityStrength, checkNum(realAddStrength));
     console.log(childAbilityMoment, checkNum(realAddMoment));
     console.log(childAbilityStamina, checkNum(realAddStamina));
     console.log(childAbilityCondition, checkNum(realAddCondition));
     console.log(childAbilityHealth, checkNum(realAddHealth));
+    console.log("===================================================");
 
+    let childCrossSpeed = 0;
+    let childCrossStrength = 0;
+    let childCrossMoment  = 0;
+    let childCrossStamina = 0;
+    let childCrossCondition = 0;
+    let childCrossHealth = 0;
+
+    if (props.imageSource == 'cross') {
+      const filteredManArray = calculatorCross(props.filteredMan);
+
+      childCrossSpeed += filteredManArray.speed;
+      childCrossStrength += filteredManArray.strength;
+      childCrossMoment  += filteredManArray.moment;
+      childCrossStamina += filteredManArray.stamina;
+      childCrossCondition += filteredManArray.condition;
+      childCrossHealth += filteredManArray.health;
+
+      const fillterGirlArray = calculatorCross(props.filteredGirl);
+
+      childCrossSpeed += fillterGirlArray.speed;
+      childCrossStrength += fillterGirlArray.strength;
+      childCrossMoment  += fillterGirlArray.moment;
+      childCrossStamina += fillterGirlArray.stamina;
+      childCrossCondition += fillterGirlArray.condition;
+      childCrossHealth += fillterGirlArray.health;
+    }
+
+    console.log("===================================================");
+    console.log("childCrossSpeed", childCrossSpeed);
+    console.log("childCrossStrength", childCrossStrength);
+    console.log("childCrossMoment", childCrossMoment);
+    console.log("childCrossStamina", childCrossStamina);
+    console.log("childCrossCondition", childCrossCondition);
+    console.log("childCrossHealth", childCrossHealth);
+    console.log("===================================================");
+
+    const childKnicksSpeed = props.knicks ? calculatorKincks() : 0;
+    const childKnicksStrength = props.knicks ? calculatorKincks() : 0;
+    const childKnicksMoment = props.knicks ? calculatorKincks() : 0;
+    const childKnicksStamina = props.knicks ? calculatorKincks() : 0;
+    const childKnicksCondition = props.knicks ? calculatorKincks() : 0;
+    const childKnicksHealth = props.knicks ? calculatorKincks() : 0;
+
+    console.log("===================================================");
+    console.log("childKnicksSpeed", childKnicksSpeed);
+    console.log("childKnicksStrength", childKnicksStrength);
+    console.log("childKnicksMoment", childKnicksMoment);
+    console.log("childKnicksStamina", childKnicksStamina);
+    console.log("childKnicksCondition", childKnicksCondition);
+    console.log("childKnicksHealth", childKnicksHealth);
+    console.log("===================================================");
+
+    const fillterManAbilityFactorArray = calculatorAbilityFactor(props.filteredMan);
+    const fillterGirlAbilityFactorArray = calculatorAbilityFactor(props.filteredGirl);
+    const childAbilityFactorSpeed = fillterManAbilityFactorArray.speed + fillterGirlAbilityFactorArray.speed;
+    const childAbilityFactorStrength = fillterManAbilityFactorArray.strength + fillterGirlAbilityFactorArray.strength;
+    const childAbilityFactorMoment = fillterManAbilityFactorArray.moment + fillterGirlAbilityFactorArray.moment;
+    const childAbilityFactorStamina = fillterManAbilityFactorArray.stamina + fillterGirlAbilityFactorArray.stamina;
+    const childAbilityFactorCondition = fillterManAbilityFactorArray.condition + fillterGirlAbilityFactorArray.condition;
+    const childAbilityFactorHealth = fillterManAbilityFactorArray.health + fillterGirlAbilityFactorArray.health;
+
+    console.log("===================================================");
+    console.log("childAbilityFactorSpeed", childAbilityFactorSpeed);
+    console.log("childAbilityFactorStrenth", childAbilityFactorStrength);
+    console.log("childAbilityFactorMoment", childAbilityFactorMoment);
+    console.log("childAbilityFactorStamina", childAbilityFactorStamina);
+    console.log("childAbilityFactorCondition", childAbilityFactorCondition);
+    console.log("childAbilityFactorHealth", childAbilityFactorHealth);
+    console.log("===================================================");
     
+    const childFinalSpeed = props.imageSource == "final" ? getRandomValue(FINAL_SPEED) : 0;
+    const childFinalStrength = props.imageSource == "final" ? getRandomValue(FINAL_STRENGTH) : 0;
+    const childFinalMoment = props.imageSource == "final" ? getRandomValue(FINAL_MOMENT) : 0;
+    const childFinalStamina = props.imageSource == "final" ? getRandomValue(FINAL_STAMINA) : 0;
+    const childFinalCondition = props.imageSource == "final" ? getRandomValue(FINAL_CONDITION) : 0;
+    const childFinalHealth = props.imageSource == "final" ? getRandomValue(FINAL_HEALTH) : 0;
 
+    console.log("===================================================");
+    console.log("childFinalSpeed", childFinalSpeed);
+    console.log("childFinalStrenth", childFinalStrength);
+    console.log("childFinalMoment", childFinalMoment);
+    console.log("childFinalStamina", childFinalStamina);
+    console.log("childFinalCondition", childFinalCondition);
+    console.log("childFinalHealth", childFinalHealth);
+    console.log("===================================================");
 
+    const childTripeCrownSpeed = props.imageSource == "triple crown" ? getRandomValue(TRIPLE_CROWN_SPEED) : 0;
+    const childTripeCrownStrength = props.imageSource == "triple crown" ? getRandomValue(TRIPLE_CROWN_STRENGTH) : 0;
+
+    console.log("===================================================");
+    console.log("childTripeCrownSpeed", childTripeCrownSpeed);
+    console.log("childTripeCrownStrength", childTripeCrownStrength);
+    console.log("===================================================");
+
+    const childShotReversalSpeed = props.imageSource == "shot reversal" ? getRandomValue(SHOT_REVERSAL_SPEED) : 0;
+    const childShotReversalStrength = props.imageSource == "shot reversal" ? getRandomValue(SHOT_REVERSAL_STRENGTH) : 0;
+    const childShotReversalMoment = props.imageSource == "shot reversal" ? getRandomValue(SHOT_REVERSAL_MOMENT) : 0;
+    const childShotReversalStamina = props.imageSource == "shot reversal" ? getRandomValue(SHOT_REVERSAL_STAMINA) : 0;
+    const childShotReversalCondition = props.imageSource == "shot reversal" ? getRandomValue(SHOT_REVERSAL_CONDITION) : 0;
+    const childShotReversalHealth = props.imageSource == "shot reversal" ? getRandomValue(SHOT_REVERSAL_HEALTH) : 0;
+
+    console.log("===================================================");
+    console.log("childShotReversalSpeed", childShotReversalSpeed);
+    console.log("childShotReversalStrength", childShotReversalStrength);
+    console.log("childShotReversalMoment", childShotReversalMoment);
+    console.log("childShotReversalStamina", childShotReversalStamina);
+    console.log("childShotReversalCondition", childShotReversalCondition);
+    console.log("childShotReversalHealth", childShotReversalHealth);
+    console.log("===================================================");
+
+    const allChildSpeed = childAbilitySpeed + childCrossSpeed + childKnicksSpeed + childAbilityFactorSpeed + childFinalSpeed + childTripeCrownSpeed + childShotReversalSpeed;
+    const allChildStrength = childAbilityStrength + childCrossStrength + childKnicksStrength + childAbilityFactorStrength + childFinalStrength + childTripeCrownStrength + childShotReversalStrength;
+    const allChildMoment = childAbilityMoment + childCrossMoment + childKnicksMoment + childAbilityFactorMoment + childFinalMoment + childShotReversalMoment;
+    const allChildStamina = childAbilityStamina + childCrossStamina + childKnicksStamina + childAbilityFactorStamina + childFinalStamina + childShotReversalStamina;
+    const allChildCondition = childAbilityCondition + childCrossCondition + childKnicksCondition + childAbilityFactorCondition + childFinalCondition + childShotReversalCondition;
+    const allChildHealth = childAbilityHealth + childCrossHealth + childKnicksHealth + childAbilityFactorHealth + childFinalHealth + childShotReversalHealth;
+
+    console.log("**************************************************");
+    console.log("allChildSpeed", allChildSpeed);
+    console.log("allChildStrength", allChildStrength);
+    console.log("allChildMoment", allChildMoment);
+    console.log("allChildStamina", allChildStamina);
+    console.log("allChildCondition", allChildCondition);
+    console.log("allChildHealth", allChildHealth);
+    console.log("**************************************************");
+
+    console.log(props.filteredGirl.name)
+    const progPastureChildData = {
+      breedingHorseName : props.filteredGirl.name,
+      distance: childDistance,
+      color: childColor,
+      gender: childGender,
+      ground: childGround,
+      quality_leg: childQualityLeg,
+      speed_b: allChildSpeed,
+      strength_b: allChildStrength,
+      moment_b: allChildMoment,
+      stamina_b: allChildStamina,
+      condition_b: allChildCondition,
+      health_b: allChildHealth,
+      f_sys : props.filteredMan.f_sys,
+      f_name: props.filteredMan.name,
+      f_factor: props.filteredMan.f_factor,
+      m_sys: props.filteredMan.m_sys,
+      m_name: props.filteredGirl.name,
+      f_f_sys: props.filteredMan.f_sys,
+      f_f_name: props.filteredMan.f_name,
+      f_f_factor: props.filteredMan.f_factor,
+      f_m_sys: props.filteredMan.m_sys,
+      f_m_name: props.filteredMan.m_name,
+      m_f_sys: props.filteredGirl.f_sys,
+      m_f_name: props.filteredGirl.f_name,
+      m_f_factor : props.filteredGirl.f_factor,
+      m_m_sys: props.filteredGirl.m_sys,
+      m_m_name: props.filteredGirl.m_name,
+      f_f_f_sys: props.filteredMan.f_f_sys,
+      f_f_f_name: props.filteredMan.f_f_name,
+      f_f_f_factor: props.filteredMan.f_f_factor,
+      f_f_m_sys: props.filteredMan.f_m_sys,
+      f_f_m_name: props.filteredMan.f_m_name,
+      f_m_f_sys: props.filteredMan.m_f_sys,
+      f_m_f_name: props.filteredMan.m_f_name,
+      f_m_f_factor: props.filteredMan.m_f_factor,
+      f_m_m_sys: props.filteredMan.m_m_sys,
+      f_m_m_name: props.filteredMan.m_m_name,
+      m_f_f_sys: props.filteredGirl.f_f_sys,
+      m_f_f_name: props.filteredGirl.f_f_name,
+      m_f_f_factor: props.filteredGirl.f_f_factor,
+      m_f_m_sys: props.filteredGirl.f_m_sys,
+      m_f_m_name: props.filteredGirl.f_m_name,
+      m_m_f_sys: props.filteredGirl.m_f_sys,
+      m_m_f_name: props.filteredGirl.m_f_name,
+      m_m_f_factor:  props.filteredGirl.m_f_factor,
+      m_m_m_sys: props.filteredGirl.m_m_sys,
+      m_m_m_name: props.filteredGirl.m_m_name,
+      user_id: props.filteredGirl.user_id
+    };
+
+    const result = dispatch(progPastureAction(progPastureChildData));
+
+    // if (result !== undefined) {
+    //   navigation.navigate("TopScreen");
+    // }
+
+    props.updateModalState(false);
   };
 
   const handleNo = () => {

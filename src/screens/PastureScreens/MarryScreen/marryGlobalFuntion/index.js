@@ -5,6 +5,14 @@ import {
   marryDistanceData,
   marryGroundData,
   marryQualityLegData,
+  knicksData,
+  crossSingleData,
+  crossDoubleData,
+  abilityFactorFiveData,
+  abilityFactorTenData,
+  abilityFactorFifteenData,
+  abilityFactorTwentyData,
+  marryColorData
 } from "../../../../utils/globals";
 // inbreeding
 export const closeRelatives = (man, girl) => {
@@ -284,7 +292,6 @@ export const closeRelatives = (man, girl) => {
     f_four_EqualElements.length +
     three_EqualElements.length +
     four_EqualElements.length;
-
   const finalArr = [
     girl.f_f_sys,
     girl.m_f_sys,
@@ -388,6 +395,11 @@ export const checkKnicks = (man, girl, knickData) => {
 
   return false;
 };
+
+
+export const calculatorKincks = () => {
+  return generateResult(knicksData) * 1;
+}
 
 export const convertAbility = (averageNum) => {
   if (averageNum > 181 && averageNum < 200) {
@@ -561,6 +573,41 @@ export const getChildQualityLeg = (fatherQualityLeg, motherQualityLeg) => {
   }
 };
 
+export const getChildColor = (fatherColor, motherColor) => {
+  if (
+    marryColorData[motherColor] &&
+    marryColorData[motherColor][fatherColor]
+  ) {
+    const abilities = [
+      '鹿毛',
+      '黒鹿毛',
+      '栗毛',
+      '青鹿毛',
+      '青毛',
+      '芦毛',
+      '栃栗毛',
+      '白毛',
+      '海空毛',
+      '赤毛',
+      '尾花栗毛',
+      '星毛',
+      '縞毛',
+      '豹毛',
+      '虹毛'
+    ];
+    const childAbilities =
+    marryColorData[fatherColor][motherColor];
+    const childAbilitiesWithNames = {};
+
+    for (let i = 0; i < abilities.length; i++) {
+      childAbilitiesWithNames[abilities[i]] = childAbilities[i];
+    }
+    return childAbilitiesWithNames;
+  } else {
+    return null;
+  }
+};
+
 export const generateResult = (data) => {
   let totalChance = 0;
   for (let key in data) {
@@ -632,4 +679,222 @@ export const checkNum = (num) => {
   else return num;
 }
 
-const tripleCrownRelatives = (man, girl) => {};
+const splitProblemSequence = (sequence) => {
+
+  const pattern = /^([a-zA-Z]+)(\d+)([a-zA-Z]+)?(\d+)?$/;
+  const matches = sequence.match(pattern);
+
+  if (matches) {
+    if (matches[3] && matches[4]) {
+      const part1 = matches[1] + matches[2];
+      const part2 = matches[3] + matches[4];
+      return [part1, part2];
+    } else {
+      return [sequence];
+    }
+  } else {
+    return [];
+  }
+
+}
+
+const divideString = (str) => {
+  const matches = str.match(/^([a-zA-Z]+)(\d+)$/);
+
+  if (matches) {
+    const letters = matches[1];
+    const numbers = parseInt(matches[2]);
+    
+    return { letters, numbers };
+  } else {
+    return null; // Invalid format
+  }
+
+}
+
+
+export const calculatorCross = (item) => {
+
+  const item_factor_array = [
+    item.m_m_f_factor,
+    item.m_f_f_factor,
+    item.f_m_f_factor,
+    item.f_f_f_factor,
+    item.m_f_factor,
+    item.f_f_factor,
+    item.f_factor
+  ];
+
+  const item_add_point = {
+    speed : 0,
+    strength : 0,
+    stamina : 0,
+    moment : 0,
+    condition : 0,
+    health : 0,
+  };
+
+  item_factor_array.map((item)=>{
+
+    if (item !== "#N/A") {
+      const parts = splitProblemSequence(item);
+
+      parts.map((part)=>{
+        const divided = divideString(part);
+  
+        if (divided) {
+
+          if (divided.numbers == 1) {
+
+            if (divided.letters == 'sp') {
+
+              item_add_point.speed += generateResult(crossSingleData) * 1;
+
+            }else if (divided.letters == 'st') {
+
+              item_add_point.strength += generateResult(crossSingleData) * 1;
+
+            }else if (divided.letters == 'kon') {
+
+              item_add_point.stamina += generateResult(crossSingleData) * 1;
+
+            }else if (divided.letters == 'sy') {
+
+              item_add_point.moment += generateResult(crossSingleData) * 1;
+
+            }else if (divided.letters == 'ki') {
+
+              item_add_point.condition += generateResult(crossSingleData) * 1;
+
+            }else if (divided.letters == 'ken') {
+
+              item_add_point.health += generateResult(crossSingleData) * 1;
+
+            }
+            
+          }else {
+
+            if (divided.letters == 'sp') {
+
+              item_add_point.speed += generateResult(crossDoubleData) * 1;
+
+            }else if (divided.letters == 'st') {
+
+              item_add_point.strength += generateResult(crossDoubleData) * 1;
+
+            }else if (divided.letters == 'kon') {
+
+              item_add_point.stamina += generateResult(crossDoubleData) * 1;
+
+            }else if (divided.letters == 'sy') {
+
+              item_add_point.moment += generateResult(crossDoubleData) * 1;
+
+            }else if (divided.letters == 'ki') {
+
+              item_add_point.condition += generateResult(crossDoubleData) * 1;
+
+            }else if (divided.letters == 'ken') {
+
+              item_add_point.health += generateResult(crossDoubleData) * 1;
+
+            }
+          }
+        } else {
+          console.log("Invalid format");
+        }
+
+      });
+    }
+  });
+
+  return item_add_point;
+}
+
+export const calculatorAbilityFactor = (item) => {
+
+  const item_factor_array = [
+    item.m_m_f_factor,
+    item.m_f_f_factor,
+    item.f_m_f_factor,
+    item.f_f_f_factor,
+    item.m_f_factor,
+    item.f_f_factor,
+    item.f_factor
+  ];
+
+  const item_add_point_number = {
+    speed : 0,
+    strength : 0,
+    stamina : 0,
+    moment : 0,
+    condition : 0,
+    health : 0,
+  };
+
+  const item_add_point = {
+    speed : 0,
+    strength : 0,
+    stamina : 0,
+    moment : 0,
+    condition : 0,
+    health : 0,
+  };
+
+  item_factor_array.map((item)=>{
+
+    if (item !== "#N/A") {
+      const parts = splitProblemSequence(item);
+
+      parts.map((part)=>{
+
+        const divided = divideString(part);
+
+        switch (divided.letters) {
+          case "sp":
+            item_add_point_number.speed += divided.numbers;
+            break;
+          case "st":
+            item_add_point_number.strength += divided.numbers;
+            break;
+          case "kon":
+            item_add_point_number.stamina += divided.numbers;
+          break;
+          case "sy":
+            item_add_point_number.moment += divided.numbers;
+          break;
+          case "ki":
+            item_add_point_number.condition += divided.numbers;
+          break;
+          case "ken":
+            item_add_point_number.health += divided.numbers;
+          break;
+          default:
+            break;
+        }
+
+      });
+    }
+  });
+
+  item_add_point.speed += chooseAbilityFactor(item_add_point_number.speed) * 1;
+  item_add_point.strength += chooseAbilityFactor(item_add_point_number.strength) * 1;
+  item_add_point.stamina += chooseAbilityFactor(item_add_point_number.stamina) * 1;
+  item_add_point.moment += chooseAbilityFactor(item_add_point_number.moment) * 1;
+  item_add_point.condition += chooseAbilityFactor(item_add_point_number.condition) * 1;
+  item_add_point.health += chooseAbilityFactor(item_add_point_number.health) * 1;
+
+  return item_add_point;
+}
+
+const chooseAbilityFactor = (number) => {
+  if(number < 6){
+    return generateResult(abilityFactorFiveData);
+  }else if (5 < number < 11) {
+    return generateResult(abilityFactorTenData);
+  }else if (10 < number < 16) {
+    return generateResult(abilityFactorFifteenData);
+  }else if (15 < number < 21) {
+    return generateResult(abilityFactorTwentyData);
+  }
+}

@@ -43,6 +43,7 @@ const DetailButton = ({
       };
       dispatch(JockeyGrazingAction(upSendJockey));
     } else {
+      console.log("value===============================================", value);
       const ptValue = value;
       const upSend = {
         horse_id: horseId,

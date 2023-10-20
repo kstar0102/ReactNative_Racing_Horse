@@ -24,6 +24,7 @@ import FaceModal from "./FaceModal";
 import { knicksAction } from "../../../store/actions/Pasture/marryKnicksAction";
 
 const MarryScreen = ({ saveData, funAction, knickData }) => {
+
   const dispatch = useDispatch();
 
   const [closeRelative, setCloseRelative] = useState(0);
@@ -38,6 +39,7 @@ const MarryScreen = ({ saveData, funAction, knickData }) => {
   const [filteredGirl, setFilteredGirl] = useState();
   const [imageSource, setImageSource] = useState("");
   const [crossName, setCrossName] = useState('');
+  const [knicksState, setKnicksState] = useState(false);
 
   useEffect(() =>{
     dispatch(knicksAction());
@@ -52,13 +54,15 @@ const MarryScreen = ({ saveData, funAction, knickData }) => {
   };
 
   const handleModal = () => {
+
     let result = closeRelatives(filteredMan, filteredGirl);
     let knicks = checkKnicks(filteredMan, filteredGirl, knickData);
     console.log("result---------------");
-    console.log(result);
-    console.log(knicks);
+    console.log("111",result);
+    console.log("222",knicks);
     console.log("result----------------");
-
+    setKnicksState(knicks);
+    
     if(result.isClose == true){
       setImageSource("inbreeding");
     }
@@ -126,7 +130,7 @@ const MarryScreen = ({ saveData, funAction, knickData }) => {
         </View>
         <FooterScreen />
       </ImageBackground>
-      <FaceModal imageSource={imageSource} modalVisible={modalVisible} updateModalState={handleModalNo} crossName = {crossName} filteredMan = {filteredMan} filteredGirl = {filteredGirl}/>
+      <FaceModal imageSource={imageSource} modalVisible={modalVisible} updateModalState={handleModalNo} crossName = {crossName} filteredMan = {filteredMan} filteredGirl = {filteredGirl} knicks={knicksState}/>
     </View>
   );
 };

@@ -29,6 +29,7 @@ const ScreenMarryG = ({ buttonAction, horseDatas, onDataUpdate }) => {
   const [groundColor, setGroundColor] = useState("#1BFF00");
 
   useEffect(() => {
+    console.log("bannerbannerbanner",banner.f_f_f_name);
     onDataUpdate(banner);
   }, [banner]);
 
@@ -45,6 +46,7 @@ const ScreenMarryG = ({ buttonAction, horseDatas, onDataUpdate }) => {
 
   const data = horseDatas;
   const handleSettingId = (value) => {
+    console.log("ValueVALUEVALUEVALUEVALUEVALUE",value);
     setBanner(value);
     dispatch(funtionCallAction(value));
     if (value) {
