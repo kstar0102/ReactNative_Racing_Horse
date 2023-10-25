@@ -20,7 +20,7 @@ export const saveHorseData = (data) => {
 export const progPastureAction = (progPastureChildData) => async (dispatch, getState) => {
 
   const token = getState().tokenData.tokenData;
-  
+
   return await axios
   .post(
     API + "storechild",
@@ -35,8 +35,10 @@ export const progPastureAction = (progPastureChildData) => async (dispatch, getS
     if (!res.data.message) {
       console.log("***********************************************");
       console.log(res.data.user[0]);
+      console.log(res.data.horses);
       console.log("***********************************************");
       dispatch(saveUserData(res.data.user[0]));
+      dispatch(saveHorseData(res.data.horses));
     }
   })
   .catch(error => {

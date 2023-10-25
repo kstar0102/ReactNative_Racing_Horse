@@ -552,7 +552,7 @@ export const getChildQualityLeg = (fatherQualityLeg, motherQualityLeg) => {
   ) {
     const abilities = [
       "大逃",
-      "逃げ",
+      "逃",
       "先行",
       "差し",
       "追い",
@@ -574,13 +574,15 @@ export const getChildQualityLeg = (fatherQualityLeg, motherQualityLeg) => {
 };
 
 export const getChildColor = (fatherColor, motherColor) => {
+  console.log(marryColorData[fatherColor]);
+  console.log(marryColorData[motherColor]);
   if (
-    marryColorData[motherColor] &&
-    marryColorData[motherColor][fatherColor]
+    marryColorData[fatherColor] &&
+    marryColorData[fatherColor][motherColor]
   ) {
     const abilities = [
       '鹿毛',
-      '黒鹿毛',
+      '黑鹿毛',
       '栗毛',
       '青鹿毛',
       '青毛',

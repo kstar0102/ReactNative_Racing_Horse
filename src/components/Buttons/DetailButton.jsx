@@ -54,7 +54,7 @@ const DetailButton = ({
         gameDate: gameDate,
         user_id: user_id,
       };
-
+      console.log(upSend);
       dispatch(upbringingAction(upSend));
     }
   };

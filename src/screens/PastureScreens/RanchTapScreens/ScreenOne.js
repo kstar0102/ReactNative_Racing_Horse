@@ -57,7 +57,7 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
   const [selected, setSelected] = useState(undefined);
   const [activeButton, setActiveButton] = useState(0);
   const [banner, setBanner] = useState(oneData[0]);
-
+  
   useEffect(() => {
     const sandIds = {
       horse_id: banner.id,
@@ -767,6 +767,10 @@ const ScreenOne = ({ oneData, arrowState, showGrowstate }) => {
             {(!!selected && (
               <>
                 {horseColor.map((colorName, index) => {
+                  console.log(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+                  console.log("cccccccccccccccccccccccccccccccccccc", colorName);
+                  console.log("dddddddddddddddddddddddddddddddddddd", colorName[selected.color]);
+                  console.log(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
                   if (colorName[selected.color]) {
                     return (
                       <Image

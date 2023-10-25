@@ -81,7 +81,7 @@ import {
 // outblid case
 import { OUTBLID_STAMINA, OUTBLID_HEALTH } from "../../../utils/abilities";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { progPastureAction } from "../../../store/actions/Pasture/progPastureAction";
 import { useNavigation } from "@react-navigation/native";
 
@@ -90,6 +90,9 @@ const FaceModal = (props) => {
   const [imageSource, setImageSource] = useState("");
   const [message1, setMessage1] = useState("");
   const [message2, setMessage2] = useState("種付けしますか？");
+  
+  const user_id  = useSelector(state => state.user.userData.id);
+  const pasture_id = useSelector(state => state.pasture.pastureData.id);
 
   console.log(props.imageSource);
   const dispatch = useDispatch();
@@ -199,7 +202,7 @@ const FaceModal = (props) => {
 
     const fatherQualityLeg = convertQualityString(fatherQualityT);
     const motherQualityLeg = convertQualityString(motherQualityT);
-
+    console.log(fatherQualityLeg, motherQualityLeg);
     const childQualityLegChance = getChildQualityLeg(
       fatherQualityLeg,
       motherQualityLeg
@@ -213,7 +216,7 @@ const FaceModal = (props) => {
     // color start
     const fatherColor = props.filteredMan.color;
     const motherColor = props.filteredGirl.color;
-    console.log(fatherColor,motherColor);
+
     const childColorChance = getChildColor(fatherColor, motherColor);
 
     const childColor = generateResult(childColorChance);
@@ -473,7 +476,8 @@ const FaceModal = (props) => {
       m_m_f_factor:  props.filteredGirl.m_f_factor,
       m_m_m_sys: props.filteredGirl.m_m_sys,
       m_m_m_name: props.filteredGirl.m_m_name,
-      user_id: props.filteredGirl.user_id
+      user_id: user_id,
+      pasture_id: pasture_id
     };
 
     const result = dispatch(progPastureAction(progPastureChildData));

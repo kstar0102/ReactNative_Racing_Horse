@@ -21,7 +21,6 @@ export default function horseReducer(state = initialState, action) {
     case HORSE_CHECK_AGE:
       return { ...state, checkAge: action.payload };
     case HORSE_SAVE_DATA:
-      console.log("=============================================", action.payload);
       return { ...state, saveData: action.payload };
     default:
       return state;
