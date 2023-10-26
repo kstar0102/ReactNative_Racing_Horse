@@ -19,6 +19,7 @@ import { stallion } from "./marryGlobalFuntion";
 // Style
 import MarryStyle from "./MarryStyle";
 const ScreenMarryM = ({ horseDatas, buttonAction, onDataUpdate }) => {
+ 
   if (horseDatas == "") {
     return;
   }
@@ -346,7 +347,7 @@ const ScreenMarryM = ({ horseDatas, buttonAction, onDataUpdate }) => {
                 </View>
                 <View style={RTapScreensStyle.marryPt}>
                   <Text style={RTapScreensStyle.marryPtTxt}>
-                    評価額 : 5000pt
+                    評価額 : {(!!selected && selected.etc) || data[0].etc}pt
                   </Text>
                 </View>
               </View>

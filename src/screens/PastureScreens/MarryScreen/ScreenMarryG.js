@@ -340,7 +340,7 @@ const ScreenMarryG = ({ buttonAction, horseDatas, onDataUpdate }) => {
                 </View>
                 <View style={RTapScreensStyle.marryPt}>
                   <Text style={RTapScreensStyle.marryPtTxt}>
-                    評価額 : 5000pt
+                    評価額 : {(!!selected && selected.etc) || data[0].etc}pt
                   </Text>
                 </View>
               </View>

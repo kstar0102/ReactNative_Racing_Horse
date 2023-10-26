@@ -124,11 +124,14 @@ export const closeRelatives = (man, girl) => {
   };
 
   const compareArrays = (arr1, arr2) => {
+
     if (arr1.length !== arr2.length) {
       return false; // If array lengths are different, they are not equal
     }
+    const convertArray1 = arr1.sort();
+    const convertArray2 = arr2.sort();
 
-    return arr1.every((element, index) => element === arr2[index]);
+    return convertArray1.every((element, index) => element === convertArray2[index]);
   };
 
   // 6.25% calculator
@@ -292,6 +295,7 @@ export const closeRelatives = (man, girl) => {
     f_four_EqualElements.length +
     three_EqualElements.length +
     four_EqualElements.length;
+
   const finalArr = [
     girl.f_f_sys,
     girl.m_f_sys,
@@ -303,13 +307,19 @@ export const closeRelatives = (man, girl) => {
     man.m_m_sys,
   ];
 
-  const konwArr1 = [man.f_f_m_sys, man.f_m_m_sys, man.m_m_m_sys, man.m_f_m_sys];
-  const knowArr2 = [
-    girl.f_f_m_sys,
-    girl.f_m_m_sys,
-    girl.m_m_m_sys,
-    girl.m_f_m_sys,
+  const konwArr1 = [
+    man.f_f_m_sys, 
+    man.f_m_m_sys, 
+    man.m_m_m_sys, 
+    man.m_f_m_sys
   ];
+  const knowArr2 = [
+    girl.f_f_f_sys,
+    girl.f_m_f_sys,
+    girl.m_m_f_sys,
+    girl.m_f_f_sys,
+  ];
+
   //cross
   if (lenghtTotal > 0) {
     console.log("cross");
@@ -335,22 +345,44 @@ export const closeRelatives = (man, girl) => {
   }
 
   // match
-  else if (hasSevenDifferentElements(finalArr)) {
-    console.log(finalArr);
+  if (hasSevenDifferentElements(finalArr)) {
     isMatch = true;
-    console.log("match111");
+    console.log(finalArr);
+    console.log("===================================");
+    console.log("種牡馬-父-父", finalArr[4]);
+    console.log("種牡馬-父-母", finalArr[6]);
+    console.log("種牡馬-母-父", finalArr[5]);
+    console.log("種牡馬-母-母", finalArr[7]);
+    console.log("====================================");
+    console.log("繁殖牝馬-父-父", finalArr[0]);
+    console.log("繁殖牝馬-父-母", finalArr[2]);
+    console.log("繁殖牝馬-母-父", finalArr[1]);
+    console.log("繁殖牝馬-母-母", finalArr[3]);
+    console.log("=====================================");
+    console.log("match", "お見合い配合");
   }
 
   // know
-  else if (compareArrays(konwArr1, knowArr2)) {
+  if (compareArrays(konwArr1, knowArr2)) {
     isKnow = true;
-    console.log("know");
+    console.log("===================================");
+    console.log("種牡馬-父-父-母", man.f_f_m_sys);
+    console.log("種牡馬-父-母-母", man.f_m_m_sys);
+    console.log("種牡馬-母-父-母", man.m_f_m_sys);
+    console.log("種牡馬-母-母-母", man.m_m_m_sys);
+    console.log("====================================");
+    console.log("繁殖牝馬-父-父-父", girl.f_f_f_sys);
+    console.log("繁殖牝馬-父-母-父", girl.f_m_f_sys);
+    console.log("繁殖牝馬-母-父-父", girl.m_f_f_sys);
+    console.log("繁殖牝馬-母-母-父", girl.m_m_f_sys);
+    console.log("=====================================");
+    console.log("know", "知り合い配合");
   }
 
   // miracle
-  else if (isMatch && isKnow) {
+  if (isMatch && isKnow) {
     isMiracle = true;
-    console.log("miracle");
+    console.log("miracle", "奇跡の配合");
   }
 
   // outblid
