@@ -177,7 +177,7 @@ const HorseChoiceScreen = ({ navigation, horseData, userPrice }) => {
       }
     }
   };
-
+  console.log("++++++++++++++++++++++", horseData);
   // Click Buybutton
   const handleSubmit = () => {
     const horseDataId = horseData.filter((data) => horses.includes(data.id));

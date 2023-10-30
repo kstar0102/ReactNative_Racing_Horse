@@ -266,7 +266,7 @@ const ScreenMarryM = ({ horseDatas, buttonAction, onDataUpdate }) => {
         return (
           <MarryBloodlineSysTable
             gender={"man"}
-            horseName={banner.name}
+            horseName={banner.sys}
             father_sys={banner.f_sys}
             father_f_sys={banner.f_f_sys}
             father_m_sys={banner.f_m_sys}

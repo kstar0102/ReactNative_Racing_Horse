@@ -193,6 +193,7 @@ const HorseNameScreen = ({
         pasture_id: pasture_id,
         age: modifiedArray,
       };
+      console.log("data1111111111111111111111111111", horseCheckData);
       dispatch(horseAction(CheckData));
 
       navigation.navigate("PastureScreen");

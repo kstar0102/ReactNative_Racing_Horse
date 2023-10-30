@@ -50,66 +50,78 @@ export const closeRelatives = (man, girl) => {
   m_name_array.push(man.name);
 
   // 25%
-  g_f_name_array.push(girl.f_name, girl.m_name);
-  m_f_name_array.push(man.f_name, man.m_name);
+  g_f_name_array.push(
+    girl.f_name, 
+    // girl.m_name
+  );
+  m_f_name_array.push(
+    man.f_name, 
+    // man.m_name
+  );
 
   // 12.50%
   g_f_f_name_array.push(
     girl.f_f_name,
-    girl.f_m_name,
+    // girl.f_m_name,
     girl.m_f_name,
-    girl.m_m_name
+    // girl.m_m_name
   );
-  m_f_f_name_array.push(man.f_f_name, man.f_m_name, man.m_f_name, man.m_m_name);
+  m_f_f_name_array.push(
+    man.f_f_name, 
+    // man.f_m_name, 
+    man.m_f_name, 
+    // man.m_m_name
+  );
 
   // 6.25%
   g_f_f_f_name_array.push(
     girl.f_f_f_name,
-    girl.f_f_m_name,
+    // girl.f_f_m_name,
 
     girl.f_m_f_name,
-    girl.f_m_m_name,
+    // girl.f_m_m_name,
 
     girl.m_m_f_name,
-    girl.m_m_m_name,
+    // girl.m_m_m_name,
 
     girl.m_f_f_name,
-    girl.m_f_m_name
+    // girl.m_f_m_name
   );
 
   m_f_f_f_name_array.push(
     man.f_f_f_name,
-    man.f_f_m_name,
+    // man.f_f_m_name,
 
     man.f_m_f_name,
-    man.f_m_m_name,
+    // man.f_m_m_name,
 
     man.m_m_f_name,
-    man.m_m_m_name,
+    // man.m_m_m_name,
 
     man.m_f_f_name,
-    man.m_f_m_name
+    // man.m_f_m_name
   );
 
   const toGetNum = (str) => {
-    return parseInt(str, 10);
+    const regex = /\d+/g;
+    const matches = str.match(regex);
+    return matches ? matches.map(Number) : [];
   };
 
   const hasThreeSameElements = (input) => {
     let count = 0;
 
-    for (let i = 0; i < input.length; i++) {
+    for (let i = 0; i < 4; i++) {
       let currentElement = input[i];
-      let tempCount = 0;
 
       // Check how many times the current element occurs in the array
-      for (let j = 0; j < input.length; j++) {
+      for (let j = 4; j < input.length; j++) {
         if (input[j] === currentElement) {
-          tempCount++;
+          count++;
         }
       }
 
-      if (tempCount >= 3) {
+      if (count >= 3) {
         return true; // Found three or more same elements
       }
     }
@@ -133,6 +145,15 @@ export const closeRelatives = (man, girl) => {
 
     return convertArray1.every((element, index) => element === convertArray2[index]);
   };
+
+  const compareLineages = () => {
+    if (man.sys == man.f_sys && man.f_sys == man.f_f_sys && man.f_f_sys == man_f_f_f_sys) {
+      console.log("lineage succession", "血統継承");
+      return true;
+    }else {
+      return false;
+    }
+  }
 
   // 6.25% calculator
   const f_f_f_one_EqualElements = m_f_f_f_name_array.filter((element) =>
@@ -251,7 +272,6 @@ export const closeRelatives = (man, girl) => {
   if (four_EqualElements.length != 0) {
     crossName = four_EqualElements[four_EqualElements.length - 1];
   }
-
   const lowestTotal =
     6.25 * f_f_f_one_EqualElements.length +
     f_f_f_two_EqualElements.length +
@@ -322,9 +342,34 @@ export const closeRelatives = (man, girl) => {
 
   //cross
   if (lenghtTotal > 0) {
-    console.log("cross");
     isCross = true;
+    console.log("===================================");
+    console.log("種牡馬", "繁殖牝馬", lenghtTotal);
+    console.log("===================================");
+    console.log("1代");
+    console.log(man.name, girl.name);
+    console.log("2代");
+    console.log(man.f_name, girl.f_name);
+    console.log(man.m_name, girl.m_name);
+    console.log("3代");
+    console.log(man.f_f_name, girl.f_f_name);
+    console.log(man.f_m_name, girl.f_m_name);
+    console.log(man.m_f_name, girl.m_f_name);
+    console.log(man.m_m_name, girl.m_m_name);
+    console.log("4代");
+    console.log(man.f_f_f_name, girl.f_f_f_name);
+    console.log(man.f_f_m_name, girl.f_f_m_name);
+    console.log(man.f_m_f_name, girl.f_m_f_name);
+    console.log(man.f_m_f_name, girl.f_m_f_name);
+    console.log(man.m_f_f_name, girl.m_f_f_name);
+    console.log(man.m_f_m_name, girl.m_f_m_name);
+    console.log(man.m_m_f_name, girl.m_m_f_name);
+    console.log(man.m_m_f_name, girl.m_m_f_name);
+
+    console.log("====================================");
+    console.log("cross", crossName, "クロス(インブリード)");
   }
+
   console.log(totalCalculator, lenghtTotal);
   // inbreeding
   if (totalCalculator >= 50 || lenghtTotal >= 4) {
@@ -333,15 +378,31 @@ export const closeRelatives = (man, girl) => {
   }
 
   // final
+  
   else if (toGetNum(man.age) >= 23 && toGetNum(girl.age) >= 18) {
     isFinal = true;
-    console.log("final");
+    console.log("===================================");
+    console.log("種牡馬", man.age);
+    console.log("繁殖牝馬", girl.age);
+    console.log("====================================");
+    console.log("final", "ファイナル配合");
   }
 
   // goodFriend
   else if (hasThreeSameElements(finalArr)) {
     isGoodFriend = true;
-    console.log("good Friend");
+    console.log("===================================");
+    console.log("種牡馬-父-父", man.f_f_sys);
+    console.log("種牡馬-父-母", man.f_m_sys);
+    console.log("種牡馬-母-父", man.m_f_sys);
+    console.log("種牡馬-母-母", man.m_m_sys);
+    console.log("====================================");
+    console.log("繁殖牝馬-父-父", girl.f_f_sys);
+    console.log("繁殖牝馬-父-母", girl.f_m_sys);
+    console.log("繁殖牝馬-母-父", girl.m_f_sys);
+    console.log("繁殖牝馬-母-母", girl.m_m_sys);
+    console.log("=====================================");
+    console.log("good Friend", "仲良し配合");
   }
 
   // match
@@ -380,7 +441,7 @@ export const closeRelatives = (man, girl) => {
   }
 
   // miracle
-  if (isMatch && isKnow) {
+  if (isMatch && isKnow && compareLineages()) {
     isMiracle = true;
     console.log("miracle", "奇跡の配合");
   }
@@ -388,16 +449,22 @@ export const closeRelatives = (man, girl) => {
   // outblid
   if (lenghtTotal == 0) {
     isOutBlid = true;
-    console.log("outblid");
+    console.log("outblid", "アウトブリード");
   }
 
   //triple crown
   if (girl.triple_crown == 20 && man.triple_crown == 20) {
     isTripCrown = true;
+    console.log("triple crown", "三冠配合");
   }
 
-  if (girl.etc <= 100 && man.hidden == 20) {
+  if (girl.etc <= 100 && man.etc >= 6000) {
     isShotReversal = true;
+    console.log("===================================");
+    console.log("種牡馬", man.etc);
+    console.log("繁殖牝馬", girl.etc);
+    console.log("=====================================");
+    console.log("shot reversal", "一発逆転配合");
   }
 
   const resultArray = {};

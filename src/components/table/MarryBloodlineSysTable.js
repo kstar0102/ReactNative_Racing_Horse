@@ -23,7 +23,7 @@ const MarryBloodlineSysTable = ({
               : styles.horseName,
           ]}
         >
-          <Text style={styles.txtFont}>オーエンテューダー系</Text>
+          <Text style={styles.txtFont}>{horseName}</Text>
         </View>
         <View style={styles.horseParental}>
           <View style={styles.horseFather}>
