@@ -369,7 +369,7 @@ export const closeRelatives = (man, girl) => {
     console.log("====================================");
     console.log("cross", crossName, "クロス(インブリード)");
   }
-
+x
   console.log(totalCalculator, lenghtTotal);
   // inbreeding
   if (totalCalculator >= 50 || lenghtTotal >= 4) {

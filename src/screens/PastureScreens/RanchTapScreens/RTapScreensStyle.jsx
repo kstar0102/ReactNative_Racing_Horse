@@ -391,6 +391,27 @@ const RTapScreensStyle = StyleSheet.create({
     fontSize: 15,
     fontWeight: 700,
   },
+  // Parent
+  parentSys: {
+    width: 150,
+    position: "absolute",
+    top: 27,
+    left: 110,
+    justifyContent: 'center',
+    textAlign: 'center',
+    flexDirection: 'row'
+  },
+  parentSysTxt: {
+    fontSize: 11,
+    fontWeight: 700,
+    top: 3,
+    color: 'red'
+  },
+  parentSysTxtSmall: {
+    fontSize: 11,
+    fontWeight: 700,
+    top: 3
+  },
 });
 
 export default RTapScreensStyle;

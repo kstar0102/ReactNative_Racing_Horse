@@ -254,12 +254,20 @@ const ScreenMarryM = ({ horseDatas, buttonAction, onDataUpdate }) => {
           <MarryBloodlineTable
             gender={"man"}
             horseName={banner.name}
-            father_sys={banner.f_name}
-            father_f_sys={banner.f_f_name}
-            father_m_sys={banner.f_m_name}
-            mother_sys={banner.m_name}
-            mother_f_sys={banner.m_f_name}
-            mother_m_sys={banner.m_m_name}
+            father_name={banner.f_name}
+            father_f_name={banner.f_f_name}
+            father_m_name={banner.f_m_name}
+            mother_name={banner.m_name}
+            mother_f_name={banner.m_f_name}
+            mother_m_name={banner.m_m_name}
+            father_f_f_name={banner.f_f_f_name}
+            father_f_m_name={banner.f_f_m_name}
+            father_m_f_name={banner.f_m_f_name}
+            father_m_m_name={banner.f_m_m_name}
+            mother_f_f_name={banner.m_f_f_name}
+            mother_f_m_name={banner.m_f_m_name}
+            mother_m_f_name={banner.m_m_f_name}
+            mother_m_m_name={banner.m_m_m_name}
           />
         );
       default:
@@ -273,6 +281,14 @@ const ScreenMarryM = ({ horseDatas, buttonAction, onDataUpdate }) => {
             mother_sys={banner.m_sys}
             mother_f_sys={banner.m_f_sys}
             mother_m_sys={banner.m_m_sys}
+            father_f_f_sys={banner.f_f_f_sys}
+            father_f_m_sys={banner.f_f_m_sys}
+            father_m_f_sys={banner.f_m_f_sys}
+            father_m_m_sys={banner.f_m_m_sys}
+            mother_f_f_sys={banner.m_f_f_sys}
+            mother_f_m_sys={banner.m_f_m_sys}
+            mother_m_f_sys={banner.m_m_f_sys}
+            mother_m_m_sys={banner.m_m_m_sys}
           />
         );
     }
@@ -345,11 +361,33 @@ const ScreenMarryM = ({ horseDatas, buttonAction, onDataUpdate }) => {
                     </Text>
                   </Text>
                 </View>
+
                 <View style={RTapScreensStyle.marryPt}>
                   <Text style={RTapScreensStyle.marryPtTxt}>
                     評価額 : {(!!selected && selected.etc) || data[0].etc}pt
                   </Text>
                 </View>
+
+                <View style={RTapScreensStyle.parentSys}>
+                  <Text style={RTapScreensStyle.parentSysTxt}>
+                    {
+                      buttonAction == 1 ? '' : '系統:'
+                    } 
+                  </Text>
+                  <Text style={RTapScreensStyle.parentSysTxtSmall}>
+                    {
+                      buttonAction == 1 ? (
+                        ''
+                      ) : (
+                        (!!selected && selected.sys) || data[0].sys 
+                      )
+                    }
+                    {
+                      buttonAction == 1 ? '' : '系'
+                    }
+                  </Text>
+                </View>
+
               </View>
 
               <View>
