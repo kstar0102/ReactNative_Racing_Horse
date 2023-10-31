@@ -22,6 +22,7 @@ import ButtonStyle from "../../../components/Buttons/ButtonStyle";
 import { closeRelatives, checkKnicks } from "./marryGlobalFuntion";
 import FaceModal from "./FaceModal";
 import { knicksAction } from "../../../store/actions/Pasture/marryKnicksAction";
+import { compareCross } from "./marryGlobalFuntion";
 
 const MarryScreen = ({ saveData, funAction, knickData }) => {
 
@@ -40,6 +41,7 @@ const MarryScreen = ({ saveData, funAction, knickData }) => {
   const [imageSource, setImageSource] = useState("");
   const [crossName, setCrossName] = useState('');
   const [knicksState, setKnicksState] = useState(false);
+  const [crossArray, setCrossArray] = useState([]);
 
   useEffect(() =>{
     dispatch(knicksAction());
@@ -53,6 +55,13 @@ const MarryScreen = ({ saveData, funAction, knickData }) => {
     setFilteredGirl(value);
   };
 
+  useEffect(()=>{
+    // compareCross(filteredMan,filteredGirl);
+    if (filteredMan || filteredGirl) {
+      setCrossArray(compareCross(filteredMan,filteredGirl));
+    }
+  }, [filteredMan,filteredGirl]);
+  console.log("123456789", crossArray);
   const handleModal = () => {
 
     let result = closeRelatives(filteredMan, filteredGirl);
@@ -61,7 +70,7 @@ const MarryScreen = ({ saveData, funAction, knickData }) => {
     console.log("111",result);
     console.log("222",knicks);
     console.log("result----------------");
-    setKnicksState(knicks);
+    // setKnicksState(knicks);
     
     if(result.isClose == true){
       setImageSource("inbreeding");
@@ -118,10 +127,15 @@ const MarryScreen = ({ saveData, funAction, knickData }) => {
           />
         </View>
         <ScrollView style={[MarryStyle.container, { maxHeight: 450 }]}>
-          <ScreenMarryM horseDatas={fillterMan} onDataUpdate={updateValueMan} />
+          <ScreenMarryM 
+            horseDatas={fillterMan} 
+            onDataUpdate={updateValueMan} 
+            crossArray={crossArray}
+          />
           <ScreenMarryG
             horseDatas={fillterGirl}
             onDataUpdate={updateValueGirl}
+            crossArray={crossArray}
           />
         </ScrollView>
         <View style={Screenstyles.marryButton}>

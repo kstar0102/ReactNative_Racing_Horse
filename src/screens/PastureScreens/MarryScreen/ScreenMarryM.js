@@ -18,7 +18,9 @@ import { stallion } from "./marryGlobalFuntion";
 // Custom IMPORT
 // Style
 import MarryStyle from "./MarryStyle";
-const ScreenMarryM = ({ horseDatas, buttonAction, onDataUpdate }) => {
+import { toGetNum } from "./marryGlobalFuntion";
+
+const ScreenMarryM = ({ horseDatas, buttonAction, onDataUpdate, crossArray }) => {
  
   if (horseDatas == "") {
     return;
@@ -268,6 +270,14 @@ const ScreenMarryM = ({ horseDatas, buttonAction, onDataUpdate }) => {
             mother_f_m_name={banner.m_f_m_name}
             mother_m_f_name={banner.m_m_f_name}
             mother_m_m_name={banner.m_m_m_name}
+            crossArray={crossArray}
+            father_factor={banner.f_factor}
+            father_f_factor={banner.f_f_factor}
+            father_f_f_factor={banner.f_f_f_factor}
+            father_m_f_factor={banner.f_m_f_factor}
+            mother_f_factor={banner.m_f_factor}
+            mother_f_f_factor={banner.m_f_f_factor}
+            mother_m_f_factor={banner.m_m_f_factor}
           />
         );
       default:
@@ -289,6 +299,13 @@ const ScreenMarryM = ({ horseDatas, buttonAction, onDataUpdate }) => {
             mother_f_m_sys={banner.m_f_m_sys}
             mother_m_f_sys={banner.m_m_f_sys}
             mother_m_m_sys={banner.m_m_m_sys}
+            father_factor={banner.f_factor}
+            father_f_factor={banner.f_f_factor}
+            father_f_f_factor={banner.f_f_f_factor}
+            father_m_f_factor={banner.f_m_f_factor}
+            mother_f_factor={banner.m_f_factor}
+            mother_f_f_factor={banner.m_f_f_factor}
+            mother_m_f_factor={banner.m_m_f_factor}
           />
         );
     }
@@ -319,9 +336,8 @@ const ScreenMarryM = ({ horseDatas, buttonAction, onDataUpdate }) => {
                 >
                   {(!!selected && selected.gender) || data[0].gender}
                 </Text>
-                9
-                {/* {(!!selected && selected.age.split("")[1]) ||
-                  data[0].age.split("")[1]} */}
+                {(!!selected && toGetNum(selected.age)) ||
+                  toGetNum(data[0].age)}
               </Text>
               <Text style={RTapScreensStyle.oneRioghtHeaderTxt}>
                 {(!!selected && selected.growth) || data[0].growth}

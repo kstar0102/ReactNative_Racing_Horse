@@ -14,6 +14,57 @@ import {
   abilityFactorTwentyData,
   marryColorData
 } from "../../../../utils/globals";
+
+export const toGetNum = (str) => {
+  const regex = /\d+/g;
+  const matches = str.match(regex);
+  return matches ? matches.map(Number) : [];
+};
+
+export const compareCross = (man, girl) => {
+
+  const manArray = [
+    man.name,
+    man.f_name,
+    man.m_name,
+    man.f_f_name,
+    man.f_m_name,
+    man.m_f_name,
+    man.m_m_name,
+    man.f_f_f_name,
+    man.f_f_m_name,
+    man.f_m_f_name,
+    man.f_m_m_name,
+    man.m_f_f_name,
+    man.m_f_m_name,
+    man.m_m_f_name,
+    man.m_m_m_name
+  ];
+  const girlArray = [
+    girl.name,
+    girl.f_name,
+    girl.m_name,
+    girl.f_f_name,
+    girl.f_m_name,
+    girl.m_f_name,
+    girl.m_m_name,
+    girl.f_f_f_name,
+    girl.f_f_m_name,
+    girl.f_m_f_name,
+    girl.f_m_m_name,
+    girl.m_f_f_name,
+    girl.m_f_m_name,
+    girl.m_m_f_name,
+    girl.m_m_m_name
+  ];
+
+  const crossArray = manArray.filter((element) =>
+    girlArray.includes(element)
+  );
+
+  return crossArray;
+}
+
 // inbreeding
 export const closeRelatives = (man, girl) => {
   let isCross = false;
@@ -52,61 +103,56 @@ export const closeRelatives = (man, girl) => {
   // 25%
   g_f_name_array.push(
     girl.f_name, 
-    // girl.m_name
+    girl.m_name
   );
   m_f_name_array.push(
     man.f_name, 
-    // man.m_name
+    man.m_name
   );
 
   // 12.50%
   g_f_f_name_array.push(
     girl.f_f_name,
-    // girl.f_m_name,
+    girl.f_m_name,
     girl.m_f_name,
-    // girl.m_m_name
+    girl.m_m_name
   );
   m_f_f_name_array.push(
     man.f_f_name, 
-    // man.f_m_name, 
+    man.f_m_name, 
     man.m_f_name, 
-    // man.m_m_name
+    man.m_m_name
   );
 
   // 6.25%
   g_f_f_f_name_array.push(
     girl.f_f_f_name,
-    // girl.f_f_m_name,
+    girl.f_f_m_name,
 
     girl.f_m_f_name,
-    // girl.f_m_m_name,
+    girl.f_m_m_name,
 
     girl.m_m_f_name,
-    // girl.m_m_m_name,
+    girl.m_m_m_name,
 
     girl.m_f_f_name,
-    // girl.m_f_m_name
+    girl.m_f_m_name
   );
 
   m_f_f_f_name_array.push(
     man.f_f_f_name,
-    // man.f_f_m_name,
+    man.f_f_m_name,
 
     man.f_m_f_name,
-    // man.f_m_m_name,
+    man.f_m_m_name,
 
     man.m_m_f_name,
-    // man.m_m_m_name,
+    man.m_m_m_name,
 
     man.m_f_f_name,
-    // man.m_f_m_name
+    man.m_f_m_name
   );
 
-  const toGetNum = (str) => {
-    const regex = /\d+/g;
-    const matches = str.match(regex);
-    return matches ? matches.map(Number) : [];
-  };
 
   const hasThreeSameElements = (input) => {
     let count = 0;
@@ -316,6 +362,42 @@ export const closeRelatives = (man, girl) => {
     three_EqualElements.length +
     four_EqualElements.length;
 
+  let fatherBloodVolume = 0;
+  let motherBloodVolume = 0;
+
+  if (lenghtTotal > 0) {
+    fatherBloodVolume = 
+      6.25 * m_f_f_f_name_array.filter((element) =>
+        element == crossName
+      ).length + 
+      12.50 * m_f_f_name_array.filter((element) =>
+        element == crossName
+      ).length + 
+      25 * m_f_name_array.filter((element) =>
+        element == crossName
+      ).length + 
+      50 * m_name_array.filter((element) =>
+        element == crossName
+      ).length;
+
+    motherBloodVolume = 
+      6.25 * g_f_f_f_name_array.filter((element) =>
+        element == crossName
+      ).length + 
+      12.50 * g_f_f_name_array.filter((element) =>
+        element == crossName
+      ).length + 
+      25 * g_f_name_array.filter((element) =>
+        element == crossName
+      ).length + 
+      50 * g_name_array.filter((element) =>
+        element == crossName
+      ).length;
+  }  
+
+  const totalBloodVolume = fatherBloodVolume + motherBloodVolume;
+  console.log("1231312313132132132132132132121", totalBloodVolume);
+
   const finalArr = [
     girl.f_f_sys,
     girl.m_f_sys,
@@ -364,17 +446,17 @@ export const closeRelatives = (man, girl) => {
     console.log(man.m_f_f_name, girl.m_f_f_name);
     console.log(man.m_f_m_name, girl.m_f_m_name);
     console.log(man.m_m_f_name, girl.m_m_f_name);
-    console.log(man.m_m_f_name, girl.m_m_f_name);
+    console.log(man.m_m_m_name, girl.m_m_m_name);
 
     console.log("====================================");
     console.log("cross", crossName, "クロス(インブリード)");
   }
-x
+
   console.log(totalCalculator, lenghtTotal);
   // inbreeding
-  if (totalCalculator >= 50 || lenghtTotal >= 4) {
+  if (totalBloodVolume >= 50 && lenghtTotal >= 4) {
     isClose = true;
-    console.log("inbreeding");
+    console.log("inbreeding", "近親配合");
   }
 
   // final
