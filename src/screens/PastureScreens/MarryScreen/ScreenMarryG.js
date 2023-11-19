@@ -307,6 +307,7 @@ const ScreenMarryG = ({ buttonAction, horseDatas, onDataUpdate, crossArray }) =>
         );
     }
   };
+  console.log("1231212312312q312312q312", data);
   return (
     <ScrollView style={MarryStyle.content}>
       <View>

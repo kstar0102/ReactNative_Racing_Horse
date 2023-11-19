@@ -191,8 +191,8 @@ const styles = StyleSheet.create({
   },
   horseName: {
     backgroundColor: "#4ca3f5",
-    width: vw(8),
-    padding: 10,
+    width: vw(4),
+    // padding: 10,
     textAlign: 'center',
     justifyContent: 'center',
     borderWidth: .4,
@@ -200,8 +200,8 @@ const styles = StyleSheet.create({
   },
   horseNameG: {
     backgroundColor: "#e094f7",
-    width: vw(8),
-    padding: 10,
+    width: vw(4),
+    // padding: 10,
     textAlign: 'center',
     justifyContent: 'center',
     borderWidth: .4,
@@ -214,8 +214,8 @@ const styles = StyleSheet.create({
   horseFather: {
     backgroundColor: "#4ca3f5",
     height: 100,
-    width: vw(31),
-    padding: 10,
+    width: vw(32),
+    // padding: 10,
     textAlign: 'center',
     justifyContent: 'center',
     borderWidth: .4,
@@ -224,8 +224,8 @@ const styles = StyleSheet.create({
   horseMother: {
     backgroundColor: "#e094f7",
     height: 100,
-    width: vw(31),
-    padding: 10,
+    width: vw(32),
+    // padding: 10,
     textAlign: 'center',
     justifyContent: 'center',
     borderWidth: .4,
@@ -238,8 +238,8 @@ const styles = StyleSheet.create({
   },
   horseGrandpa: {
     height: 50,
-    width: vw(31),
-    padding: 10,
+    width: vw(32),
+    // padding: 10,
     textAlign: 'center',
     justifyContent: 'center',
     backgroundColor: "#4ca3f5",
@@ -247,8 +247,8 @@ const styles = StyleSheet.create({
   },
   horseGrandma: {
     height: 50,
-    width: vw(31),
-    padding: 10,
+    width: vw(32),
+    // padding: 10,
     textAlign: 'center',
     justifyContent: 'center',
     backgroundColor: "#e094f7",
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
   },
   horseGreatGrandpa: {
     height: 25,
-    width: vw(30),
+    width: vw(32),
     textAlign: 'center',
     justifyContent: 'center',
     backgroundColor: "#4ca3f5",
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
   },
   horseGreatGrandma: {
     height: 25,
-    width: vw(30),
+    width: vw(32),
     textAlign: 'center',
     justifyContent: 'center',
     backgroundColor: "#e094f7",

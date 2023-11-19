@@ -17,11 +17,19 @@ const FooterScreen = ({ user_id }) => {
     navigation.navigate("StallScreen");
   };
 
+  const handleRaceCourse = () => {
+    // navigation.navigate("RaceCourseScreen");
+  }
+
+  const handleAuctionSumbit = () => {
+    navigation.navigate('AuctionScreen');
+  }
+
   return (
     <View style={styles.containers}>
       <FooterButton label="厩 舎" onPress={() => handleStall()} />
-      <FooterButton label="競馬場" />
-      <FooterButton label="セ リ" />
+      <FooterButton label="競馬場" onPress={() => handleRaceCourse()} />
+      <FooterButton label="セ リ" onPress={() => handleAuctionSumbit()}  />
       <FooterButton label="ランキング" />
       <FooterButton label="V I P" />
     </View>

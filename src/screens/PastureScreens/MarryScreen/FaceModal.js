@@ -20,7 +20,8 @@ import {
   calculatorKincks,
   calculatorCross,
   calculatorAbilityFactor,
-  getChildColor
+  getChildColor,
+  getValutionMoney
 } from "./marryGlobalFuntion";
 // inbreeding case
 import {
@@ -427,7 +428,12 @@ const FaceModal = (props) => {
     console.log("allChildHealth", allChildHealth);
     console.log("**************************************************");
 
-    console.log(props.filteredGirl.name)
+    const abilitiesSum = allChildSpeed + allChildStrength + allChildMoment + allChildStamina + allChildCondition + allChildHealth;
+
+    console.log("123456789", abilitiesSum);
+
+    const valuationMoney = getValutionMoney(abilitiesSum, '0歳');
+
     const progPastureChildData = {
       breedingHorseName : props.filteredGirl.name,
       distance: childDistance,
@@ -441,6 +447,7 @@ const FaceModal = (props) => {
       stamina_b: allChildStamina,
       condition_b: allChildCondition,
       health_b: allChildHealth,
+      sys: props.filteredMan.sys,
       f_sys : props.filteredMan.f_sys,
       f_name: props.filteredMan.name,
       f_factor: props.filteredMan.f_factor,
@@ -480,13 +487,13 @@ const FaceModal = (props) => {
       pasture_id: pasture_id
     };
 
-    const result = dispatch(progPastureAction(progPastureChildData));
+    // const result = dispatch(progPastureAction(progPastureChildData));
 
     // if (result !== undefined) {
     //   navigation.navigate("TopScreen");
     // }
 
-    props.updateModalState(false);
+    // props.updateModalState(false);
   };
 
   const handleNo = () => {

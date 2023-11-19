@@ -18,6 +18,15 @@ const Screenstyles = StyleSheet.create({
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
   },
+  auctionContainers: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+    height: hp(75),
+    marginTop: hp(25),
+    padding: hp(1)
+  },
   content: {
     flexDirection: "column",
     marginTop: hp(20),
@@ -510,7 +519,13 @@ const Screenstyles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around"
-  }
+  },
+
+  // Auction Screen =========================
+  auctionContent: {
+    // marginTop: hp(25),
+    paddingTop: hp(2),
+  },
 });
 
 export default Screenstyles;

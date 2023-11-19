@@ -32,9 +32,11 @@ const MarryScreen = ({ saveData, funAction, knickData }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const fillterMan = saveData.filter(
-    (data) => data.gender === "牡" && data.type === ""
+    (data) => data.gender === "牡" && data.type === "種馬"
   );
   const fillterGirl = saveData.filter((data) => data.type === "繁殖馬");
+  console.log("filterMan", fillterMan);
+  console.log("filteredGirl", filteredGirl);
 
   const [filteredMan, setFilteredMan] = useState();
   const [filteredGirl, setFilteredGirl] = useState();

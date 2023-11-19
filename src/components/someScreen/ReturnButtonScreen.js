@@ -20,6 +20,7 @@ const ReturnButtonScreen = ({ nviUrl, BigPlace, screenName, colorNumber }) => {
         <ReturnButton
           label={screenName ? screenName : "404 NOT FOUND"}
           color={colorNumber}
+          onPress={() => alert("hhh")}
           // onPress={() => navigation.navigate(secondNviUrl ? secondNviUrl : "mmm")}
         />
       </View>

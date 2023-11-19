@@ -67,10 +67,10 @@ const PastureScreen = ({ navigation, user_id, pasture_id }) => {
         style={Screenstyles.img}
       >
         <HeaderScreen />
-        <ReturnButton label="牧  場" onPress={() => navigation.goBack()} />
+        <ReturnButton label="牧　場" onPress={() => navigation.goBack()} />
         <View style={Screenstyles.containers}>
           <View style={Screenstyles.content}>
-            <CustomButtons label="育 成" onPress={() => gotoUpBringScreen()} />
+            <CustomButtons label="育　成" onPress={() => gotoUpBringScreen()} />
             <CustomButtons
               label="繁用馬"
               onPress={() => navigation.navigate("WorkingHorseScreen")}
@@ -79,14 +79,22 @@ const PastureScreen = ({ navigation, user_id, pasture_id }) => {
               label="事務所"
               onPress={() => navigation.navigate("OfficeScreen")}
             />
+            <CustomButtons
+              label="セ　リ"
+              onPress={() => navigation.navigate("AuctionScreen")}
+            />
           </View>
           <View style={Screenstyles.content}>
-            <CustomButtons label="施 設" onPress={handleSubmit} />
+            <CustomButtons label="施　設" onPress={handleSubmit} />
             <CustomButtons label="競馬場" onPress={handleGetSubmit} />
             <CustomButtons
-              label="種 付"
+              label="種　付"
               // disabled={currentDate == 4 || currentDate == 5 ? false : true}
               onPress={() => navigation.navigate("MarryScreen")}
+            />
+            <CustomButtons
+              label="売　却"
+              onPress={() => navigation.navigate("SaleScreen")}
             />
           </View>
         </View>

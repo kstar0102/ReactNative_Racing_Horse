@@ -3,6 +3,7 @@ import {
   HORSE_CHECK_DATA,
   HORSE_CHECK_AGE,
   HORSE_SAVE_DATA,
+  SALE_HORSE_SAVE_DATA
 } from "../actions/types";
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   allData: "",
   saveData: "",
   checkAge: "",
+  saleHorseData: ""
 };
 
 export default function horseReducer(state = initialState, action) {
@@ -22,6 +24,8 @@ export default function horseReducer(state = initialState, action) {
       return { ...state, checkAge: action.payload };
     case HORSE_SAVE_DATA:
       return { ...state, saveData: action.payload };
+    case SALE_HORSE_SAVE_DATA:
+        return { ...state, saleHorseData: action.payload };
     default:
       return state;
   }

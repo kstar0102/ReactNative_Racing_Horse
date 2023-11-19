@@ -57,7 +57,7 @@ const MarryBloodlineTable = ({
           <View style={styles.horseFather}>
 
             <Text style={[styles.txtFont, crossArray && crossArray.includes(father_name) && {color:'red'}]}>
-              {father_name} 
+              &nbsp;{father_name} 
             </Text>
             
             <View style={styles.iconAbilityFactor}>
@@ -77,7 +77,7 @@ const MarryBloodlineTable = ({
 
           <View style={styles.horseGrandpa}>
 
-            <Text style={[styles.txtFont, crossArray && crossArray.includes(father_f_name) && {color:'red'}]}>{father_f_name}</Text>
+            <Text style={[styles.txtFont, crossArray && crossArray.includes(father_f_name) && {color:'red'}]}>&nbsp;{father_f_name}</Text>
 
             <View style={styles.iconAbilityFactor}>
               {father_f_factor && <Image source={abilityFactor[father_f_factor]} />}
@@ -91,7 +91,7 @@ const MarryBloodlineTable = ({
 
           <View style={styles.horseGrandpa}>
 
-            <Text style={[styles.txtFont, crossArray && crossArray.includes(mother_f_name) && {color:'red'}]}>{mother_f_name}</Text>
+            <Text style={[styles.txtFont, crossArray && crossArray.includes(mother_f_name) && {color:'red'}]}>&nbsp;{mother_f_name}</Text>
 
             <View style={styles.iconAbilityFactor}>
               {mother_f_factor && <Image source={abilityFactor[mother_f_factor]} />}
@@ -108,7 +108,7 @@ const MarryBloodlineTable = ({
 
           <View style={styles.horseGreatGrandpa}>
 
-            <Text style={[styles.txtFont, crossArray && crossArray.includes(father_f_f_name) && {color:'red'}]}>{father_f_f_name}</Text>
+            <Text style={[styles.txtFont, crossArray && crossArray.includes(father_f_f_name) && {color:'red'}]}>&nbsp;{father_f_f_name}</Text>
 
             <View style={styles.iconAbilityFactor}>
               {father_f_f_factor && <Image source={abilityFactor[father_f_f_factor]} />}
@@ -123,7 +123,7 @@ const MarryBloodlineTable = ({
 
           <View style={styles.horseGreatGrandpa}>
 
-            <Text style={[styles.txtFont, crossArray && crossArray.includes(father_m_f_name) && {color:'red'}]}>{father_m_f_name}</Text>
+            <Text style={[styles.txtFont, crossArray && crossArray.includes(father_m_f_name) && {color:'red'}]}>&nbsp;{father_m_f_name}</Text>
 
             <View style={styles.iconAbilityFactor}>
               {father_m_f_factor && <Image source={abilityFactor[father_m_f_factor]} />}
@@ -139,7 +139,7 @@ const MarryBloodlineTable = ({
           
           <View style={styles.horseGreatGrandpa}>
 
-            <Text style={[styles.txtFont, crossArray && crossArray.includes(mother_f_f_name) && {color:'red'}]}>{mother_f_f_name}</Text>
+            <Text style={[styles.txtFont, crossArray && crossArray.includes(mother_f_f_name) && {color:'red'}]}>&nbsp;{mother_f_f_name}</Text>
 
             <View style={styles.iconAbilityFactor}>
               {mother_f_f_factor && <Image source={abilityFactor[mother_f_f_factor]} />}
@@ -156,7 +156,7 @@ const MarryBloodlineTable = ({
 
           <View style={styles.horseGreatGrandpa}>
 
-            <Text style={[styles.txtFont, crossArray && crossArray.includes(mother_m_f_name) && {color:'red'}]}>{mother_m_f_name}</Text>
+            <Text style={[styles.txtFont, crossArray && crossArray.includes(mother_m_f_name) && {color:'red'}]}>&nbsp;{mother_m_f_name}</Text>
 
             <View style={styles.iconAbilityFactor}>
               {mother_m_f_factor && <Image source={abilityFactor[mother_m_f_factor]} />}
@@ -191,8 +191,8 @@ const styles = StyleSheet.create({
   },
   horseName: {
     backgroundColor: "#4ca3f5",
-    width: vw(8),
-    padding: 10,
+    width: vw(4),
+    // padding: 10,
     textAlign: 'center',
     justifyContent: 'center',
     borderWidth: .4,
@@ -200,8 +200,8 @@ const styles = StyleSheet.create({
   },
   horseNameG: {
     backgroundColor: "#e094f7",
-    width: vw(8),
-    padding: 10,
+    width: vw(4),
+    // padding: 10,
     textAlign: 'center',
     justifyContent: 'center',
     borderWidth: .4,
@@ -214,8 +214,8 @@ const styles = StyleSheet.create({
   horseFather: {
     backgroundColor: "#4ca3f5",
     height: 100,
-    width: vw(31),
-    padding: 10,
+    width: vw(32),
+    // padding: 10,
     textAlign: 'center',
     justifyContent: 'center',
     borderWidth: .4,
@@ -223,8 +223,8 @@ const styles = StyleSheet.create({
   horseMother: {
     backgroundColor: "#e094f7",
     height: 100,
-    width: vw(31),
-    padding: 10,
+    width: vw(32),
+    // padding: 10,
     textAlign: 'center',
     justifyContent: 'center',
     borderWidth: .4,
@@ -237,8 +237,8 @@ const styles = StyleSheet.create({
   },
   horseGrandpa: {
     height: 50,
-    width: vw(31),
-    padding: 10,
+    width: vw(32),
+    // padding: 10,
     textAlign: 'center',
     justifyContent: 'center',
     backgroundColor: "#4ca3f5",
@@ -246,8 +246,8 @@ const styles = StyleSheet.create({
   },
   horseGrandma: {
     height: 50,
-    width: vw(31),
-    padding: 10,
+    width: vw(32),
+    // padding: 10,
     textAlign: 'center',
     justifyContent: 'center',
     backgroundColor: "#e094f7",
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
   },
   horseGreatGrandpa: {
     height: 25,
-    width: vw(30),
+    width: vw(32),
     textAlign: 'center',
     justifyContent: 'center',
     backgroundColor: "#4ca3f5",
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
   },
   horseGreatGrandma: {
     height: 25,
-    width: vw(30),
+    width: vw(32),
     textAlign: 'center',
     justifyContent: 'center',
     backgroundColor: "#e094f7",

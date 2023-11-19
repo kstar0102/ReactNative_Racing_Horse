@@ -60,6 +60,7 @@ const LoginScreen = () => {
         resizeMode="contain"
         style={Screenstyles.img}
       >
+        {/* <Text style={{fontSize: 100}}>{message}</Text> */}
         <AuthHeaderScreen />
         <View style={AuthStyle.InputGroup}>
           <View style={AuthStyle.EmailInput}>

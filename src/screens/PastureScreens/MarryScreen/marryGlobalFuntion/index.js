@@ -12,7 +12,8 @@ import {
   abilityFactorTenData,
   abilityFactorFifteenData,
   abilityFactorTwentyData,
-  marryColorData
+  marryColorData,
+  valuationMoneyData
 } from "../../../../utils/globals";
 
 export const toGetNum = (str) => {
@@ -1080,4 +1081,15 @@ const chooseAbilityFactor = (number) => {
   }else if (15 < number < 21) {
     return generateResult(abilityFactorTwentyData);
   }
+}
+
+export const getValutionMoney = (abilitySum, age) => {
+  let abilityLevel = '';
+  Object.entries(valuationMoneyData[age]).map(item => {
+    console.log(item[1][0], "", item[1][1], "", item[0])
+    if (item[1][0] < abilitySum && item[1][1] > abilitySum) {
+      abilityLevel = item[0];
+    }
+  });
+  console.log(typeof(abilityLevel));
 }

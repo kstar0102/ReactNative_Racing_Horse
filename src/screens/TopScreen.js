@@ -22,7 +22,7 @@ const TopScreen = ({
 }) => {
   const defaultWidth = Dimensions.get("window").width;
   const defaultHeight = Dimensions.get("window").height;
-
+  
   const dispatch = useDispatch();
   const [currentTime, setCurrentTime] = useState(new Date());
   // HANDLE SUBMIT PASUTE NEXT NAVIGATION
@@ -102,6 +102,10 @@ const TopScreen = ({
     navigation.navigate("RaceCourseScreen");
   };
 
+  const handleAuctionSumbit = () => {
+    navigation.navigate('AuctionScreen');
+  }
+
   return (
     <View style={Screenstyles.container}>
       <ImageBackground
@@ -123,7 +127,7 @@ const TopScreen = ({
             <CustomButtons label="厩 舎" onPress={() => handleStalleSubmit()} />
             <CustomButtons
               label="セ リ"
-              // onPress={() => navigation.navigate("ReverseRace")}
+              onPress={() => handleAuctionSumbit()}
             />
             <CustomButtons label="V I P" disabled={true} />
           </View>

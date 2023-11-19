@@ -49,6 +49,11 @@ import RaceResult from "../screens/HorseRace/RaceResult";
 import MarryScreen from "../screens/PastureScreens/MarryScreen";
 // Bankruptcy
 import Bankruptcy from "../screens/Bankruptcy";
+
+//Auction Screen
+import AuctionScreen from "../screens/Auction";
+import SaleScreen from '../screens/PastureScreens/SaleScreen';
+
 const Stack = createNativeStackNavigator();
 const ModalStack = createStackNavigator();
 const AppStack = ({ userPt }) => {
@@ -226,6 +231,17 @@ const AppStack = ({ userPt }) => {
         <ModalStack.Screen
           name={"MarryScreen"}
           component={MarryScreen}
+          options={horizontalAnimation}
+        />
+        {/* MarryScreen */}
+        <ModalStack.Screen
+          name={"AuctionScreen"}
+          component={AuctionScreen}
+          options={horizontalAnimation}
+        />
+        <ModalStack.Screen
+          name={"SaleScreen"}
+          component={SaleScreen}
           options={horizontalAnimation}
         />
       </ModalStack.Navigator>

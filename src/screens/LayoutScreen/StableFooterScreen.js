@@ -27,11 +27,19 @@ const StableFooterScreen = ({ user_id, pasture_id }) => {
     dispatch(pastureAction(sandIds));
   };
 
+  const handleRaceCourse = () => {
+    // navigation.navigate("RaceCourseScreen");
+  }
+
+  const handleAuctionSumbit = () => {
+    navigation.navigate('AuctionScreen');
+  }
+  
   return (
     <View style={styles.containers}>
       <FooterButton label="牧 場" color={1} onPress={() => handlePasture()} />
-      <FooterButton label="競馬場" color={1} />
-      <FooterButton label="セ リ" color={1} />
+      <FooterButton label="競馬場" color={1} onPress={() => handleRaceCourse()} />
+      <FooterButton label="セ リ" color={1} onPress={() => handleAuctionSumbit()} />
       <FooterButton label="ランキング" color={1} />
       <FooterButton label="V I P" color={1} />
     </View>
