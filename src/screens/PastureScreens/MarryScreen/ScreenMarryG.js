@@ -21,7 +21,7 @@ import MarryStyle from "./MarryStyle";
 import { toGetNum } from "./marryGlobalFuntion";
 
 const ScreenMarryG = ({ buttonAction, horseDatas, onDataUpdate, crossArray }) => {
-  if (horseDatas == "") {
+  if (!horseDatas) {
     return;
   }
   const dispatch = useDispatch();

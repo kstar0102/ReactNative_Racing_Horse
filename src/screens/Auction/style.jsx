@@ -13,16 +13,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 1,
         borderColor: 'green',
-        width: wp(61),
+        width: wp(60),
         position: 'relative',
-        backgroundColor: '#ffebcd'
+        backgroundColor: '#ffebcd',
+        padding: 3
     },
     BigText: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 600
     },
     SmallText: {
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: 500
     },
     boughtPersonTag: {
@@ -53,8 +54,8 @@ const styles = StyleSheet.create({
     horseDropdown: {
         position: "absolute",
         top: SCREEN_HEIGHT > 740 || SCREEN_WIDTH > 400 ? hp(21.4) : hp(18.5),
-        left: wp(27),
-        width: wp(53)
+        left: wp(50),
+        width: wp(45)
     }
 });
 

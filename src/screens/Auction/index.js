@@ -9,7 +9,6 @@ import HeaderScreen from "../LayoutScreen/HeaderScreen";
 import FooterScreen from "../LayoutScreen/FooterScreen";
 
 import Screenstyles from "../ScreenStylesheet";
-import { ReturnButton } from "../../components/Buttons";
 import { ScrollView } from "react-native";
 import styles from "./style";
 import DropDwonM from "../../components/Buttons/DropDwonM";
@@ -20,6 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import SaleHorseCard from "./SaleHorseCard";
 import { getSaleHorseDataAction } from "../../store/actions/Pasture/saleAction";
 import AuctionModal from "./AuctionModal";
+import ReturnButtonScreen from "../../components/someScreen/ReturnButtonScreen";
 
 const data = [
     {
@@ -36,7 +36,7 @@ const data = [
     },
     {
         "id" : 4,
-        "name": "繁殖馬"
+        "name": "・繁殖馬"
     }
 ]
 
@@ -53,10 +53,10 @@ export default Auction = () => {
     const [horseData, setHorseData] = useState([]);
  
     useEffect(()=>{
-        dispatch(getSaleHorseDataAction(userData.id));
+        dispatch(getSaleHorseDataAction());
     },[]);
    
-    const [highestBidAmount, setHighestBidAmount] = useState(0);
+    const [highestBidAmount, setHighestBidAmount] = useState();
     const handleMainModalAuctionVisible = (item, highest_bid_amount) => {
         setHorseData(item);
         setModalActionVisible(!modalAuctionVisible);
@@ -72,6 +72,7 @@ export default Auction = () => {
         setSelectedID(value.id);
 
         let selectData;
+        
         const saleHorseArray = Object.values(saleHorseData);
 
         if (value.name == '繁殖馬') {
@@ -105,11 +106,12 @@ export default Auction = () => {
 
                 <View style={{flexDirection: 'row'}}>
 
-                    <ReturnButton
-                        label={"セ リ"}
-                        onPress={saleAction}
+                    <ReturnButtonScreen
+                        BigPlace={"牧 場"}
+                        screenName={"セ リ"}
+                        nviUrl={"PastureScreen"}
                     />
-                
+
                     <View style={styles.horseDropdown}> 
 
                         <DropDwonM
@@ -133,7 +135,7 @@ export default Auction = () => {
 
                                 selected.map((item)=>(
                                     
-                                    <SaleHorseCard key={item.id} item={item} onPress={handleMainModalAuctionVisible}/>
+                                    <SaleHorseCard key={item.id} item={item} onPress={handleMainModalAuctionVisible} user_id={userData.id}/>
 
                                 ))
 

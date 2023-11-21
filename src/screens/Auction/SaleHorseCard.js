@@ -16,7 +16,7 @@ window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
   broadcaster: 'pusher',
-  key: "cd6c83a080012a4ba743",
+  key: "b0984f99df92877ed6f2",
   cluster: "mt1",
   forceTLS: false,
   wsHost: "192.168.144.23",
@@ -24,7 +24,7 @@ window.Echo = new Echo({
   disableStats: true,
 });
 
-const SaleHorseCard = ({item, onPress}) => {
+const SaleHorseCard = ({item, onPress, user_id}) => {
 
     const [highest_bidder, setHighestBidder] = useState("");
     const [highest_bid_amount, setHighestBidAmount] = useState("");
@@ -32,8 +32,8 @@ const SaleHorseCard = ({item, onPress}) => {
     const [closeAuction, setCloseAuction] = useState(false);
 
     useEffect(() => {
-        window.Echo.channel('channel-name')
-          .listen('MessageEvent', (e) => {
+        window.Echo.channel('sale-horse-data')
+          .listen('SaleHorseEvent', (e) => {
             if (item.id == e.horse_id) {
                 setHighestBidder(e.highest_bidder);
                 setHighestBidAmount(e.highest_bid_amount);
@@ -43,8 +43,10 @@ const SaleHorseCard = ({item, onPress}) => {
     }, []);
 
     const openModal = () => {
-        if (!closeAuction) {
-            onPress(item, highest_bid_amount ? highest_bid_amount : item.highest_bid_amount);
+        if (user_id != item.work_horses.user_id) {
+            if (!closeAuction) {
+                onPress(item, highest_bid_amount ? highest_bid_amount : item.highest_bid_amount);
+            }
         }
     }
 
@@ -97,18 +99,14 @@ const SaleHorseCard = ({item, onPress}) => {
                         <Text style={styles.BigText}> 生産者:</Text>
 
                         <Text style={styles.SmallText}> {item.work_horses.user_id == 0 ? 'C O M': item.work_horses.users.name}</Text>
-                        
                         {
                             item.work_horses.gender == '牡' ? (
-                                <Text style={[styles.BigText, {color: colors.genderColorM}]}>       牡 </Text>
+                                <Text style={[styles.BigText, {color: colors.genderColorM}]}>   牡 </Text>
                             ) : (
-                                <Text style={[styles.BigText, {color: colors.genderColorF}]}>       牝 </Text>
+                                <Text style={[styles.BigText, {color: colors.genderColorF}]}>   牝 </Text>
                             )
                         }
-                        
-
                         <Text style={styles.BigText}> ・{item.work_horses.color} </Text>
-
                     </View>
 
                     <View style={styles.footerLabel}>

@@ -22,7 +22,7 @@ import { toGetNum } from "./marryGlobalFuntion";
 
 const ScreenMarryM = ({ horseDatas, buttonAction, onDataUpdate, crossArray }) => {
  
-  if (horseDatas == "") {
+  if (!horseDatas.length) {
     return;
   }
   const dispatch = useDispatch();

@@ -11,6 +11,7 @@ const TimeCounter = ({remain_bidding_time, setCloseAuction}) => {
 
     useEffect(()=>{
         const startingTime = new Date();
+        console.log("startingTime", startingTime);
         const currentHour = startingTime.getHours();
         if (currentHour >= 12) {
             startingTime.setHours(12);
@@ -25,7 +26,7 @@ const TimeCounter = ({remain_bidding_time, setCloseAuction}) => {
             setEndingTime(new Date(startingTime.getTime() + `${remain_bidding_time}` * 60 * 60 * 1000));
         }
     }, [remain_bidding_time]);
-
+    console.log("===================", new Date());
     useEffect(() => {
         if (endingTime) {
             const interval = setInterval(() => {
@@ -40,7 +41,6 @@ const TimeCounter = ({remain_bidding_time, setCloseAuction}) => {
                     setTime({ hours: 0, minutes: 0, seconds: 0 });
                     clearInterval(interval);
                     setCloseAuction(true);
-                    console.log("123456812345681234568123456812345681234568123456812345681234568");
                 } else {
                     // Calculate the remaining time in hours, minutes, and seconds
                     const remainingHours = Math.floor(remainingTime / (60 * 60 * 1000));

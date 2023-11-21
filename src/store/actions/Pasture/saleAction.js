@@ -58,13 +58,13 @@ export const updateSaleStateAction = (horse_id, user_id, pasture_id) => async (d
   });
 };
 
-export const getSaleHorseDataAction = (user_id) => async (dispatch, getState) => {
+export const getSaleHorseDataAction = () => async (dispatch, getState) => {
 
   const token = getState().tokenData.tokenData;
 
   return await axios
   .get(
-    API + `auction/saleHorse/${user_id}`,
+    API + `auction`,
     {
       headers: { Authorization: token },
     }

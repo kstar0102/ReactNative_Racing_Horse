@@ -21,6 +21,7 @@ const AuctionModal = ({modalState, onPress, item, user_id, highest_bid_amount}) 
     const [modalVisible, setModalVisible] = useState(modalState);
     const [bidAmount, setBidAmount] = useState();
     const [error, setError] = useState(false);
+    const [maxAmount, setMaxAmount] =  useState();
 
     useEffect(()=>{
 
@@ -29,13 +30,40 @@ const AuctionModal = ({modalState, onPress, item, user_id, highest_bid_amount}) 
     },[modalState]);
 
     const updateAuctionState = () => {
-        if (bidAmount > highest_bid_amount) {
+        setBidAmount(null);
+
+        const standNumber = (highest_bid_amount ? highest_bid_amount : item.work_horses.etc) * 1;
+
+        let plusNumber; 
+
+        if (standNumber >= 1000 && 10000 > standNumber) {
+            plusNumber = 100;
+        }else if (standNumber >= 10000 && 99999 > standNumber) {
+            plusNumber = 1000;
+        }else if (standNumber >= 100000) {
+            plusNumber = 10000;
+        }else{
+            plusNumber = 0;
+        }
+
+        console.log(typeof(standNumber), standNumber)
+        console.log(typeof(plusNumber), plusNumber)
+        let max_amount = standNumber + plusNumber;
+
+        if (bidAmount > max_amount) {
             dispatch(updateAuctionAction(item.id, user_id, bidAmount));
+            setError(false);
             onPress();
         }else{
+            setMaxAmount(max_amount);
             setError(true);
         }
     };
+
+    const closeModal = () => {
+        setError(false);
+        onPress();
+    }
 
     return (
         <Modal
@@ -51,9 +79,9 @@ const AuctionModal = ({modalState, onPress, item, user_id, highest_bid_amount}) 
 
                     <TextInput style={styles.text_input} onChangeText={(text) => setBidAmount(text)} value={bidAmount} keyboardType='numeric'/>
 
-                    {error ? (<Text style={styles.errorText}>入札金額は{highest_bid_amount}より高くする必要があります。</Text>) : ('') }
+                    {error ? (<Text style={styles.errorText}>最低入札金額[{maxAmount}]を下回っています。</Text>) : ('') }
 
-                    <Text style={styles.text}>この馬を購入いたしますか？</Text>
+                    <Text style={styles.text}>この馬を入札しますか？</Text>
 
                     <View style={{alignItems: 'center'}}>
 
@@ -61,7 +89,7 @@ const AuctionModal = ({modalState, onPress, item, user_id, highest_bid_amount}) 
 
                             <NormalButton label="はい" buttonStyle={{width: 100, backgroundColor: '#ff0066', marginRight: 20}} onPress={updateAuctionState}/>
 
-                            <NormalButton label="いいえ"　buttonStyle={{width: 100, backgroundColor: '#66ff99'}} onPress={onPress}/>
+                            <NormalButton label="いいえ"　buttonStyle={{width: 100, backgroundColor: '#66ff99'}} onPress={closeModal}/>
 
                         </View>
 

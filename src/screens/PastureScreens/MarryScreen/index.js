@@ -35,8 +35,6 @@ const MarryScreen = ({ saveData, funAction, knickData }) => {
     (data) => data.gender === "牡" && data.type === "種馬"
   );
   const fillterGirl = saveData.filter((data) => data.type === "繁殖馬");
-  console.log("filterMan", fillterMan);
-  console.log("filteredGirl", filteredGirl);
 
   const [filteredMan, setFilteredMan] = useState();
   const [filteredGirl, setFilteredGirl] = useState();
@@ -59,11 +57,11 @@ const MarryScreen = ({ saveData, funAction, knickData }) => {
 
   useEffect(()=>{
     // compareCross(filteredMan,filteredGirl);
-    if (filteredMan || filteredGirl) {
+    if (filteredMan && fillterMan.length) {
       setCrossArray(compareCross(filteredMan,filteredGirl));
     }
   }, [filteredMan,filteredGirl]);
-  console.log("123456789", crossArray);
+
   const handleModal = () => {
 
     let result = closeRelatives(filteredMan, filteredGirl);
