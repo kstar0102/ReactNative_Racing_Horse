@@ -556,6 +556,10 @@ const Screen = ({ horseData, arrowState, showGrowstate }) => {
     }, 2000);
   };
 
+  const initialState = () => {
+    setSelected('');
+  }
+
   return (
     <ScrollView style={STapScreensStyle.twoContainer}>
       <View style={STapScreensStyle.oneTopContent}>
@@ -850,7 +854,7 @@ const Screen = ({ horseData, arrowState, showGrowstate }) => {
               <View>
 
                 <Text style={STapScreensStyle.normalTxt}>父：{(!!selected && selected.f_name) || data[0].f_name}</Text> 
-
+                <View style={{height: 10}}></View>
                 <Text style={STapScreensStyle.normalTxt}>母：{(!!selected && selected.m_name) || data[0].m_name}</Text> 
 
               </View>
@@ -880,7 +884,7 @@ const Screen = ({ horseData, arrowState, showGrowstate }) => {
 
       <PedigreeTableModal modalState={modalPedigreeVsible} banner={banner} onPress={handlePedigreeVisible}/>
       
-      <SaleModal modalState={modalSaleVisible} onPress={handleSaleVisible} etc={banner.etc} horse_id={banner.id} user_id={banner.user_id} pasture_id={banner.pasture_id} />
+      <SaleModal modalState={modalSaleVisible} onPress={handleSaleVisible} etc={banner.etc} horse_id={banner.id} user_id={banner.user_id} pasture_id={banner.pasture_id} initialState={initialState}/>
 
     </ScrollView>
   );

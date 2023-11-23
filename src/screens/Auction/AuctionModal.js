@@ -21,6 +21,8 @@ const AuctionModal = ({modalState, onPress, item, user_id, highest_bid_amount}) 
     const [modalVisible, setModalVisible] = useState(modalState);
     const [bidAmount, setBidAmount] = useState();
     const [error, setError] = useState(false);
+    const [multiAmount, setmultiAmount] = useState();
+    const [multipleError, setMultipleError] = useState(false);
     const [maxAmount, setMaxAmount] =  useState();
 
     useEffect(()=>{
@@ -38,7 +40,7 @@ const AuctionModal = ({modalState, onPress, item, user_id, highest_bid_amount}) 
 
         if (standNumber >= 1000 && 10000 > standNumber) {
             plusNumber = 100;
-        }else if (standNumber >= 10000 && 99999 > standNumber) {
+        }else if (standNumber >= 10000 && 100000 > standNumber) {
             plusNumber = 1000;
         }else if (standNumber >= 100000) {
             plusNumber = 10000;
@@ -46,17 +48,25 @@ const AuctionModal = ({modalState, onPress, item, user_id, highest_bid_amount}) 
             plusNumber = 0;
         }
 
-        console.log(typeof(standNumber), standNumber)
-        console.log(typeof(plusNumber), plusNumber)
         let max_amount = standNumber + plusNumber;
+        console.log(max_amount, "max_amount");
+        if (bidAmount < max_amount) {
 
-        if (bidAmount > max_amount) {
+            setMaxAmount(max_amount);
+                
+            setError(true);
+
+        }else if(bidAmount % plusNumber != 0){
+
+            setmultiAmount(plusNumber);
+                
+            setMultipleError(true);
+
+        }else{
             dispatch(updateAuctionAction(item.id, user_id, bidAmount));
             setError(false);
+            setMultipleError(false);
             onPress();
-        }else{
-            setMaxAmount(max_amount);
-            setError(true);
         }
     };
 
@@ -79,7 +89,9 @@ const AuctionModal = ({modalState, onPress, item, user_id, highest_bid_amount}) 
 
                     <TextInput style={styles.text_input} onChangeText={(text) => setBidAmount(text)} value={bidAmount} keyboardType='numeric'/>
 
-                    {error ? (<Text style={styles.errorText}>最低入札金額[{maxAmount}]を下回っています。</Text>) : ('') }
+                    {error && (<Text style={styles.errorText}>最低入札金額[{maxAmount}]を下回っています。</Text>)  }
+
+                    {multipleError && (<Text style={styles.errorText}>入札金額は[{multiAmount}]の倍数でなければなりません。</Text>) }
 
                     <Text style={styles.text}>この馬を入札しますか？</Text>
 

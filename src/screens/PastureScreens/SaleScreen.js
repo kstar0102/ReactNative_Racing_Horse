@@ -19,7 +19,7 @@ const SaleScreen = () => {
         <View style={Screenstyles.UPContainer}>
           <ReturnButtonScreen
             BigPlace={"牧 場"}
-            screenName={"売　却"}
+            screenName={"売 却"}
             nviUrl={"PastureScreen"}
           />
           <SaleTapScreen />

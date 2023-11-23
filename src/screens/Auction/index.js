@@ -19,26 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import SaleHorseCard from "./SaleHorseCard";
 import { getSaleHorseDataAction } from "../../store/actions/Pasture/saleAction";
 import AuctionModal from "./AuctionModal";
-import ReturnButtonScreen from "../../components/someScreen/ReturnButtonScreen";
-
-const data = [
-    {
-        "id" : 1,
-        "name": "・0歳馬"
-    },
-    {
-        "id" : 2,
-        "name": "・1歳馬"
-    },
-    {
-        "id" : 3,
-        "name": "・2歳馬"
-    },
-    {
-        "id" : 4,
-        "name": "・繁殖馬"
-    }
-]
+import NormalButtonGrop from "../../components/Buttons/NormalButtonGrop";
 
 export default Auction = () => {
 
@@ -51,12 +32,32 @@ export default Auction = () => {
     const [selectedId, setSelectedID] = useState(0);
     const [modalAuctionVisible, setModalActionVisible] = useState(false);
     const [horseData, setHorseData] = useState([]);
- 
+
+    const data = [
+        {
+            "id" : 1,
+            "name": "・0歳馬"
+        },
+        {
+            "id" : 2,
+            "name": "・1歳馬"
+        },
+        {
+            "id" : 3,
+            "name": "・2歳馬"
+        },
+        {
+            "id" : 4,
+            "name": "・繁殖馬"
+        }
+    ];
+
     useEffect(()=>{
         dispatch(getSaleHorseDataAction());
     },[]);
-   
+
     const [highestBidAmount, setHighestBidAmount] = useState();
+
     const handleMainModalAuctionVisible = (item, highest_bid_amount) => {
         setHorseData(item);
         setModalActionVisible(!modalAuctionVisible);
@@ -88,10 +89,12 @@ export default Auction = () => {
         setSelected(selectData);
     }
 
-    const saleAction = () => {
+    const handleFirstEvent = () => {
+        setSelected([]);
         setSelectedID(0);
-        navigation.navigate('TopScreen')
-    }
+
+        navigation.navigate("PastureScreen");
+    };
 
     return (
         <View style={Screenstyles.container}>
@@ -106,10 +109,10 @@ export default Auction = () => {
 
                 <View style={{flexDirection: 'row'}}>
 
-                    <ReturnButtonScreen
+                    <NormalButtonGrop
                         BigPlace={"牧 場"}
                         screenName={"セ リ"}
-                        nviUrl={"PastureScreen"}
+                        onFirstEvent={handleFirstEvent}
                     />
 
                     <View style={styles.horseDropdown}> 

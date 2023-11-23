@@ -32,7 +32,7 @@ const BroodmareHorseTapScreen = () => {
       guts: "C",
       temper: "B",
       health: "A",
-      Hair: "黑鹿毛",
+      Hair: "黒鹿毛",
       class: "GⅡクラス",
     },
     {

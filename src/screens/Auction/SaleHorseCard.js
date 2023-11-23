@@ -2,7 +2,8 @@ import {
     Text,
     View,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    ToastAndroid
 } from "react-native";
 import styles from "./style";
 import colors from "../../containers/colors";
@@ -30,7 +31,7 @@ const SaleHorseCard = ({item, onPress, user_id}) => {
     const [highest_bid_amount, setHighestBidAmount] = useState("");
     const [remain_bidding_time, setRemainBiddingTime] = useState(0);
     const [closeAuction, setCloseAuction] = useState(false);
-
+    
     useEffect(() => {
         window.Echo.channel('sale-horse-data')
           .listen('SaleHorseEvent', (e) => {
@@ -42,11 +43,18 @@ const SaleHorseCard = ({item, onPress, user_id}) => {
           });
     }, []);
 
+    const showToast = () => {
+        ToastAndroid.show('自分の馬には入札できません。', ToastAndroid.SHORT);
+    }
+
     const openModal = () => {
         if (user_id != item.work_horses.user_id) {
             if (!closeAuction) {
                 onPress(item, highest_bid_amount ? highest_bid_amount : item.highest_bid_amount);
             }
+        }else{
+            console.log("11111111111");
+            ToastAndroid.show('自分の馬には入札できません。', ToastAndroid.SHORT);
         }
     }
 
@@ -57,14 +65,14 @@ const SaleHorseCard = ({item, onPress, user_id}) => {
 
                 <View style={[styles.card, ((highest_bidder || item.highest_bidders) && closeAuction) && ({backgroundColor: '#00ff7f'})]}>
                     
-                    <TimeCounter remain_bidding_time={remain_bidding_time ? remain_bidding_time : item.remain_bidding_time} setCloseAuction={setCloseAuction}/>
+                    {/* <TimeCounter remain_bidding_time={remain_bidding_time ? remain_bidding_time : item.remain_bidding_time} setCloseAuction={setCloseAuction}/> */}
 
                     <View style={styles.listLabel}>
 
                     <View style={[styles.boughtPersonTag, {backgroundColor: 'red'}]}>
 
-                        <Text style={styles.BigText}>{highest_bidder ? highest_bidder : (item.highest_bidders ? item.highest_bidders.name : "落札者なし")}</Text>
-
+                        {/* <Text style={styles.BigText}>{highest_bidder ? highest_bidder : (item.highest_bidders ? item.highest_bidders.name : "落札者なし")}</Text> */}
+                        <Text style={styles.BigText}>{highest_bidder ? highest_bidder : (item.highest_bidders ? "最高入札者です。" : "落札者なし")}</Text>
                     </View>
                         
                         <Text style={styles.BigText}>{highest_bid_amount ? highest_bid_amount : (item.highest_bid_amount ? item.highest_bid_amount : item.work_horses.etc)}Pt</Text>

@@ -425,7 +425,7 @@ const RTapScreensStyle = StyleSheet.create({
     marginRight: vw(8)
   },
   normalTxt: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700'
   },
   valuationLabel: {
@@ -438,7 +438,7 @@ const RTapScreensStyle = StyleSheet.create({
     marginTop: 2
   },
   imageRightContainer: {
-    width: wp(50)
+    width: wp(53)
   },
   footerButton: {
     marginTop: hp(2),

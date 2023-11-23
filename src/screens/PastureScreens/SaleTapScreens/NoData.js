@@ -16,7 +16,7 @@ const NoData = () => {
                 <View style={STapScreensStyle.oneTopContentLeft}>
                 <Text style={STapScreensStyle.oneRightContentTxt}>所有馬一覧</Text>
                 <DropdownR
-                    name={"選択できる馬がいない！"}
+                    name={"所有馬がいません。"}
                 />
                 </View>
 

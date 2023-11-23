@@ -764,7 +764,7 @@ export const getChildColor = (fatherColor, motherColor) => {
   ) {
     const abilities = [
       '鹿毛',
-      '黑鹿毛',
+      '黒鹿毛',
       '栗毛',
       '青鹿毛',
       '青毛',

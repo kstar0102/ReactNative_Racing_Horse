@@ -13,7 +13,7 @@ import NormalButton from '../../../components/Buttons/NormalButton';
 import { updateSaleStateAction } from '../../../store/actions/Pasture/saleAction';
 import { useDispatch } from 'react-redux';
 
-const SaleModal = ({modalState, onPress, etc, horse_id, user_id, pasture_id}) => {
+const SaleModal = ({modalState, onPress, etc, horse_id, user_id, pasture_id, initialState}) => {
 
     const dispatch = useDispatch();
 
@@ -27,6 +27,7 @@ const SaleModal = ({modalState, onPress, etc, horse_id, user_id, pasture_id}) =>
 
     const updateSaleState = () => {
         dispatch(updateSaleStateAction(horse_id, user_id, pasture_id));
+        initialState();
         onPress();
     };
 
