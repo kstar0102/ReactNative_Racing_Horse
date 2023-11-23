@@ -3,7 +3,6 @@ import {
     View,
     Image,
     TouchableOpacity,
-    ToastAndroid
 } from "react-native";
 import styles from "./style";
 import colors from "../../containers/colors";
@@ -12,7 +11,7 @@ import { horseColor } from "../../utils/globals";
 import Echo from 'laravel-echo';
 import { useEffect, useState } from "react";
 import TimeCounter from "./TimeCounter";
-
+import Toast from "react-native-root-toast";
 window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
@@ -43,18 +42,15 @@ const SaleHorseCard = ({item, onPress, user_id}) => {
           });
     }, []);
 
-    const showToast = () => {
-        ToastAndroid.show('自分の馬には入札できません。', ToastAndroid.SHORT);
-    }
-
     const openModal = () => {
         if (user_id != item.work_horses.user_id) {
             if (!closeAuction) {
                 onPress(item, highest_bid_amount ? highest_bid_amount : item.highest_bid_amount);
             }
         }else{
-            console.log("11111111111");
-            ToastAndroid.show('自分の馬には入札できません。', ToastAndroid.SHORT);
+            Toast.show("自分の馬には入札できません。", {
+                duration: Toast.durations.LONG,
+              });
         }
     }
 
@@ -65,7 +61,7 @@ const SaleHorseCard = ({item, onPress, user_id}) => {
 
                 <View style={[styles.card, ((highest_bidder || item.highest_bidders) && closeAuction) && ({backgroundColor: '#00ff7f'})]}>
                     
-                    {/* <TimeCounter remain_bidding_time={remain_bidding_time ? remain_bidding_time : item.remain_bidding_time} setCloseAuction={setCloseAuction}/> */}
+                    <TimeCounter remain_bidding_time={remain_bidding_time ? remain_bidding_time : item.remain_bidding_time} setCloseAuction={setCloseAuction}/>
 
                     <View style={styles.listLabel}>
 

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import SelectDropdown from "react-native-select-dropdown";
 
-const DropDwonM = ({ name, data, onSelect, setId }) => {
+const DropDwonM = ({ name, data, onSelect, setId, selectedId }) => {
   const countriesWithFlags = data;
+
   return (
     <>
       <View style={styles.viewContainer}>
@@ -16,7 +17,7 @@ const DropDwonM = ({ name, data, onSelect, setId }) => {
           }}
           defaultButtonText={name}
           buttonTextAfterSelection={(selectedItem, index) => {
-            return selectedItem.name;
+            return selectedId ? selectedItem.name : name;
           }}
           rowTextForSelection={(item, index) => {
             return item.name;

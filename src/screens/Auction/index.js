@@ -54,7 +54,14 @@ export default Auction = () => {
 
     useEffect(()=>{
         dispatch(getSaleHorseDataAction());
+        
     },[]);
+
+    useEffect(()=>{
+        const saleHorseArray = Object.values(saleHorseData);
+        const selectData = saleHorseArray.filter((item) => item.work_horses.age == '・0歳馬');
+        setSelected(selectData);
+    },[saleHorseData]);
 
     const [highestBidAmount, setHighestBidAmount] = useState();
 
@@ -90,7 +97,10 @@ export default Auction = () => {
     }
 
     const handleFirstEvent = () => {
-        setSelected([]);
+        const saleHorseArray = Object.values(saleHorseData);
+        const selectData = saleHorseArray.filter((item) => item.work_horses.age == '・0歳馬');
+        setSelected(selectData);
+        
         setSelectedID(0);
 
         navigation.navigate("PastureScreen");
@@ -122,6 +132,7 @@ export default Auction = () => {
                             data={data}
                             onSelect={setSelected}
                             setId={handleSettingId}
+                            selectedId={selectedId}
                         />
 
                     </View>

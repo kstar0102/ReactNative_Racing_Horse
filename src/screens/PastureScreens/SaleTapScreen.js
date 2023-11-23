@@ -7,7 +7,10 @@ import { connect, useDispatch } from "react-redux";
 import { signAction } from "../../store/actions/horse/signAction";
 // CUSTOM BUTTON
 import { RTapButton } from "../../components/Buttons";
-import Screen from "./SaleTapScreens/Screen";
+import ScreenOne from "./SaleTapScreens/ScreenOne";
+import ScreenTwo from "./SaleTapScreens/ScreenTwo";
+import ScreenThree from "./SaleTapScreens/ScreenThree";
+import ScreenFour from "./SaleTapScreens/ScreenFour";
 import NoData from "./SaleTapScreens/NoData";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -37,25 +40,25 @@ const SaleTapScreen = ({ saveData }) => {
     switch (activeButton) {
       case 1:
         if (filteredOneData.length) {
-          return <Screen horseData={filteredOneData} />;
+          return <ScreenOne horseData={filteredOneData} />;
         }else{
           return <NoData />;
         }
       case 2:
         if (filteredTwoData.length) {
-          return <Screen horseData={filteredTwoData} />;
+          return <ScreenTwo horseData={filteredTwoData} />;
         }else{
           return <NoData />;
         }
       case 3:
         if (filteredThreeData.length) {
-          return <Screen horseData={filteredThreeData} />;
+          return <ScreenThree horseData={filteredThreeData} />;
         }else{
           return <NoData />;
         }
       default:
         if (filtereFourData.length) {
-          return <Screen horseData={filtereFourData} />;
+          return <ScreenFour horseData={filtereFourData} />;
         }else{
           return <NoData />;
         }
