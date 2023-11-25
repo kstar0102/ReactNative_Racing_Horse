@@ -7,6 +7,20 @@ import CountDownTimer from "../../components/time/CountDownTimer";
 import CurrentDateTimeWeather from "../../components/time/CurrentDateTimeWeather";
 import HeaderStylesheet from "./HeaderStylesheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-root-toast";
+
+import Echo from 'laravel-echo';
+window.Pusher = require('pusher-js');
+
+window.Echo = new Echo({
+  broadcaster: 'pusher',
+  key: "b0984f99df92877ed6f2",
+  cluster: "mt1",
+  forceTLS: false,
+  wsHost: "192.168.144.23",
+  wsPort: 6001,
+  disableStats: true,
+});
 
 export const calculateGameDate = (time) => {
   const startCalTime = new Date("2023-06-25");
@@ -33,6 +47,24 @@ const HeaderScreen = ({
   const thirdRemainingRef = useRef(thirdRemaining);
   const fourthRemainingRef = useRef(fourthRemaining);
   const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    
+    window.Echo.channel('user-point-data')
+        .listen('UserPointEvent', (e) => {
+            if (userData.id == e.user_id) {
+              setUserPt(e.amount);
+
+              Toast.show("馬が売却されました。", {
+                duration: Toast.durations.SHORT,
+                position: Toast.positions.TOP,
+                backgroundColor: 'green',
+              });
+            }
+        }
+    );
+
+  }, [userData]);
 
   useEffect(() => {
     setUserPt(userData.user_pt);

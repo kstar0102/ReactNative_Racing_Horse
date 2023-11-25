@@ -46,6 +46,15 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: wp(15)
     },
+    centerCard: {
+        position: 'absolute',
+        bottom: wp(15),
+        alignItems: 'center',
+        backgroundColor: 'red',
+        padding: 5,
+        marginLeft: -wp(6),
+        width: wp(40)
+    },
     footerLabel: {
         flexDirection: 'row',
         width: wp(60),

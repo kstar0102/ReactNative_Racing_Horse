@@ -59,6 +59,10 @@ const PastureScreen = ({ navigation, user_id, pasture_id }) => {
     navigation.navigate("UpbringingScreen");
   };
 
+  const handleAuctionSumbit = () => {
+    navigation.navigate('AuctionScreen');
+  }
+
   return (
     <View style={Screenstyles.container}>
       <ImageBackground
@@ -67,7 +71,7 @@ const PastureScreen = ({ navigation, user_id, pasture_id }) => {
         style={Screenstyles.img}
       >
         <HeaderScreen />
-        <ReturnButton label="牧　場" onPress={() => navigation.goBack()} />
+        <ReturnButton label="牧　場" onPress={() => navigation.navigate("TopScreen")} />
         <View style={Screenstyles.containers}>
           <View style={Screenstyles.content}>
             <CustomButtons label="育　成" onPress={() => gotoUpBringScreen()} />
@@ -81,7 +85,7 @@ const PastureScreen = ({ navigation, user_id, pasture_id }) => {
             />
             <CustomButtons
               label="セ　リ"
-              onPress={() => navigation.navigate("AuctionScreen")}
+              onPress={() => handleAuctionSumbit()}
             />
           </View>
           <View style={Screenstyles.content}>

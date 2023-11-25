@@ -15,7 +15,8 @@ const TimeCounter = ({remain_bidding_time, setCloseAuction}) => {
         const currentHour = startingTime.getHours();
 
         let endingTime;
-        console.log(remain_bidding_time, "remain_bidding_time");
+        console.log(startingTime, "startingTime");
+        console.log(currentHour, "currentHour");
         if (currentHour >= 12) {
             startingTime.setHours(12);
             startingTime.setMinutes(0);

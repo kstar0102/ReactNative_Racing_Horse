@@ -8,10 +8,11 @@ import styles from "./style";
 import colors from "../../containers/colors";
 import { horseColor } from "../../utils/globals";
 
-import Echo from 'laravel-echo';
 import { useEffect, useState } from "react";
 import TimeCounter from "./TimeCounter";
 import Toast from "react-native-root-toast";
+
+import Echo from 'laravel-echo';
 window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
@@ -24,7 +25,7 @@ window.Echo = new Echo({
   disableStats: true,
 });
 
-const SaleHorseCard = ({item, onPress, user_id}) => {
+const SaleHorseCard = ({item, onPress, user_id, user_name}) => {
 
     const [highest_bidder, setHighestBidder] = useState("");
     const [highest_bid_amount, setHighestBidAmount] = useState("");
@@ -33,27 +34,31 @@ const SaleHorseCard = ({item, onPress, user_id}) => {
     
     useEffect(() => {
         window.Echo.channel('sale-horse-data')
-          .listen('SaleHorseEvent', (e) => {
-            if (item.id == e.horse_id) {
-                setHighestBidder(e.highest_bidder);
-                setHighestBidAmount(e.highest_bid_amount);
-                setRemainBiddingTime(e.remain_bidding_time);
+            .listen('SaleHorseEvent', (e) => {
+                if (item.id == e.horse_id) {
+                    setHighestBidder(e.highest_bidder);
+                    setHighestBidAmount(e.highest_bid_amount);
+                    setRemainBiddingTime(e.remain_bidding_time);
+                }
             }
-          });
+        );
     }, []);
 
     const openModal = () => {
         if (user_id != item.work_horses.user_id) {
             if (!closeAuction) {
-                onPress(item, highest_bid_amount ? highest_bid_amount : item.highest_bid_amount);
+                onPress(item, highest_bid_amount ? highest_bid_amount : (item.highest_bid_amount ? item.highest_bid_amount : item.work_horses.etc));
             }
         }else{
             Toast.show("自分の馬には入札できません。", {
-                duration: Toast.durations.LONG,
+                duration: Toast.durations.SHORT,
+                position: Toast.positions.CENTER,
+                backgroundColor: 'red',
+                textColor: 'black'
               });
         }
     }
-
+    console.log(user_name, highest_bidder);
     return (
         <View style={{alignItems: 'center',}}>
 
@@ -67,8 +72,8 @@ const SaleHorseCard = ({item, onPress, user_id}) => {
 
                     <View style={[styles.boughtPersonTag, {backgroundColor: 'red'}]}>
 
-                        {/* <Text style={styles.BigText}>{highest_bidder ? highest_bidder : (item.highest_bidders ? item.highest_bidders.name : "落札者なし")}</Text> */}
-                        <Text style={styles.BigText}>{highest_bidder ? highest_bidder : (item.highest_bidders ? "最高入札者です。" : "落札者なし")}</Text>
+                        <Text style={styles.BigText}>{highest_bidder ? highest_bidder : (item.highest_bidder ? item.highest_bidders.name : "落札者なし")}</Text>
+
                     </View>
                         
                         <Text style={styles.BigText}>{highest_bid_amount ? highest_bid_amount : (item.highest_bid_amount ? item.highest_bid_amount : item.work_horses.etc)}Pt</Text>
@@ -89,6 +94,13 @@ const SaleHorseCard = ({item, onPress, user_id}) => {
                                                 source={require("../../assets/images/soldout.jpg")} 
                                                 style={styles.soldImage}
                                             /> 
+                                        )
+                                    }
+                                    {
+                                        !closeAuction && ((item.highest_bidder && item.highest_bidders.name) == user_name || highest_bidder == user_name) && (
+                                            <View style={styles.centerCard}>
+                                                <Text style={styles.BigText}>最高入札者です。</Text>
+                                            </View>
                                         )
                                     }
                                 </View>
