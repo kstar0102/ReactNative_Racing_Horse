@@ -25,6 +25,12 @@ window.Echo = new Echo({
   disableStats: true,
 });
 
+const CustomToast = ({ message }) => (
+
+      <Text style={{ color: 'white', fontWeight: 'bold' }}>{message}</Text>
+
+);
+
 const SaleHorseCard = ({item, onPress, user_id, user_name}) => {
 
     const [highest_bidder, setHighestBidder] = useState("");
@@ -43,10 +49,20 @@ const SaleHorseCard = ({item, onPress, user_id, user_name}) => {
             }
         );
     }, []);
-
+    console.log(user_name, "highest_bidder");
     const openModal = () => {
-        if (user_id != item.work_horses.user_id) {
+        if ((item.highest_bidders && (user_id == item.highest_bidders.id)) || user_name == highest_bidder) {
+            console.log("========================================")
+            Toast.show(<CustomToast message={"最高入札者のため入札できません。"} />, {
+                duration: Toast.durations.SHORT,
+                position: Toast.positions.CENTER,
+                backgroundColor: 'black',
+                textColor: 'white'
+            });
+        }else if (user_id != item.work_horses.user_id) {
+            console.log("here");
             if (!closeAuction) {
+                console.log("here2");
                 onPress(item, highest_bid_amount ? highest_bid_amount : (item.highest_bid_amount ? item.highest_bid_amount : item.work_horses.etc));
             }
         }else{
@@ -55,10 +71,10 @@ const SaleHorseCard = ({item, onPress, user_id, user_name}) => {
                 position: Toast.positions.CENTER,
                 backgroundColor: 'red',
                 textColor: 'black'
-              });
+            });
         }
     }
-    console.log(user_name, highest_bidder);
+
     return (
         <View style={{alignItems: 'center',}}>
 

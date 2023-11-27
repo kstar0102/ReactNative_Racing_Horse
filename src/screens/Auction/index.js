@@ -20,49 +20,14 @@ import SaleHorseCard from "./SaleHorseCard";
 import { getSaleHorseDataAction } from "../../store/actions/Pasture/saleAction";
 import AuctionModal from "./AuctionModal";
 import NormalButtonGrop from "../../components/Buttons/NormalButtonGrop";
-import Echo from 'laravel-echo';
-window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//   broadcaster: 'pusher',
-//   key: "b0984f99df92877ed6f2",
-//   cluster: "mt1",
-//   forceTLS: false,
-//   wsHost: "192.168.144.23",
-//   wsPort: 6001,
-//   disableStats: true,
-//   authEndpoint: "http://192.168.144.23/api/" + "broadcasting/auth",
-//   auth: {
-//       headers: {
-//           user: 'codewithgun',
-//           password: 'gunwithcode'
-//       }
-//   }
-// });
-
-// window.Echo.private('user-point-data').listen('UserPointEvent', e => {
-//   console.log("Message", e);
-// });  
-
-
-window.Echo = new Echo({
-  broadcaster: 'pusher',
-  key: "b0984f99df92877ed6f2",
-  cluster: "mt1",
-  forceTLS: false,
-  wsHost: "192.168.144.23",
-  wsPort: 6001,
-  disableStats: true,
-});
 
 export default Auction = () => {
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const getSaleHorseData = useSelector(state => state.horseData.saleHorseData);
+    const saleHorseData = useSelector(state => state.horseData.saleHorseData);
     const userData = useSelector(state => state.user.userData);
-    // console.log(saleHorseData, "saleHorseData");
-    const [saleHorseData, setSaleHorseData] = useState([]);
+
     const [selected, setSelected] = useState([]);
     const [selectedId, setSelectedID] = useState(0);
     const [modalAuctionVisible, setModalActionVisible] = useState(false);
@@ -87,24 +52,9 @@ export default Auction = () => {
         }
     ];
 
-    useEffect(() => {
-
-        window.Echo.channel('sale-horses-data')
-            .listen('SaleHorsesEvent', (e) => {
-                // setSaleHorseData(e.sale_horses);
-                console.log(e.sale_horses, "========================")
-            }
-        );
-
-    }, []);
-
     useEffect(()=>{
         dispatch(getSaleHorseDataAction());
     },[]);
-
-    useEffect(()=>{
-        setSaleHorseData(getSaleHorseData);
-    },[getSaleHorseData]);
     
     useEffect(()=>{
         const saleHorseArray = Object.values(saleHorseData);
@@ -212,7 +162,7 @@ export default Auction = () => {
 
                 <FooterScreen />
 
-                <AuctionModal modalState={modalAuctionVisible} onPress={handleModalAuctionVisible} item={horseData} user_id={userData.id} highest_bid_amount={highestBidAmount}/>
+                <AuctionModal modalState={modalAuctionVisible} onPress={handleModalAuctionVisible} item={horseData} user_id={userData.id} highest_bid_amount={highestBidAmount} user_pt={userData.user_pt} />
 
             </ImageBackground>
 

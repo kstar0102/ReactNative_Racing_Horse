@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, ImageBackground } from "react-native";
 // Custom IMPORT
 import HeaderScreen from "../LayoutScreen/HeaderScreen";
@@ -8,6 +8,9 @@ import Screenstyles from "../ScreenStylesheet";
 import RanchTapScreen from "./RanchTapScreen";
 
 const UpbringingScreen = () => {
+  useEffect(()=> {
+    console.log("==============================================");
+  },[]);
   return (
     <View style={Screenstyles.container}>
       <ImageBackground

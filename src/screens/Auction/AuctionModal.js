@@ -14,13 +14,14 @@ import NormalButton from '../../components/Buttons/NormalButton';
 import { updateAuctionAction } from '../../store/actions/Pasture/saleAction';
 import { useDispatch } from 'react-redux';
 
-const AuctionModal = ({modalState, onPress, item, user_id, highest_bid_amount}) => {
+const AuctionModal = ({modalState, onPress, item, user_id, highest_bid_amount, user_pt}) => {
 
     const dispatch = useDispatch();
 
     const [modalVisible, setModalVisible] = useState(modalState);
     const [bidAmount, setBidAmount] = useState();
     const [error, setError] = useState(false);
+    const [errorOver, setErrorOver] = useState(false);
     const [maxAmount, setMaxAmount] =  useState();
     const [digit, setDigit] = useState(2);
 
@@ -52,24 +53,31 @@ const AuctionModal = ({modalState, onPress, item, user_id, highest_bid_amount}) 
 
         let max_amount = standNumber + plusNumber;
 
-        if (bidAmount == undefined || bidAmount * plusNumber < max_amount) {
+        if(bidAmount * plusNumber > user_pt){
+
+            setErrorOver(true);
+            
+        }else if(bidAmount == undefined || bidAmount * plusNumber < max_amount) {
 
             setMaxAmount(max_amount);
                 
             setError(true);
-
+            
         }else{
 
             dispatch(updateAuctionAction(item.id, user_id, bidAmount * plusNumber));
             setBidAmount();
             setError(false);
+            setErrorOver(false);
             onPress();
             
         }
+
     };
 
     const closeModal = () => {
         setError(false);
+        setErrorOver(false);
         setBidAmount();
         onPress();
     }
@@ -94,6 +102,8 @@ const AuctionModal = ({modalState, onPress, item, user_id, highest_bid_amount}) 
                     </View>
 
                     {error && (<Text style={styles.errorText}>最低入札金額[{maxAmount}]を下回っています。</Text>)  }
+
+                    {errorOver && (<Text style={styles.errorText}>入札金額が足りません。</Text>)  }
 
                     <Text style={styles.text}>この馬を入札しますか？</Text>
 

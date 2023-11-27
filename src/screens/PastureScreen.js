@@ -85,7 +85,7 @@ const PastureScreen = ({ navigation, user_id, pasture_id }) => {
             />
             <CustomButtons
               label="セ　リ"
-              onPress={() => handleAuctionSumbit()}
+              onPress={handleAuctionSumbit}
             />
           </View>
           <View style={Screenstyles.content}>

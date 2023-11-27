@@ -49,6 +49,32 @@ const PedigreeTableModal = ({modalState, banner, onPress}) => {
                     </Pressable>
                     {
                         state ? (
+                            <MarryBloodlineSysTable
+                                gender={banner.gender == "牝" ? 'girl' : 'man'}
+                                horseName={banner.sys}
+                                father_sys={banner.f_sys}
+                                father_f_sys={banner.f_f_sys}
+                                father_m_sys={banner.f_m_sys}
+                                mother_sys={banner.m_sys}
+                                mother_f_sys={banner.m_f_sys}
+                                mother_m_sys={banner.m_m_sys}
+                                father_f_f_sys={banner.f_f_f_sys}
+                                father_f_m_sys={banner.f_f_m_sys}
+                                father_m_f_sys={banner.f_m_f_sys}
+                                father_m_m_sys={banner.f_m_m_sys}
+                                mother_f_f_sys={banner.m_f_f_sys}
+                                mother_f_m_sys={banner.m_f_m_sys}
+                                mother_m_f_sys={banner.m_m_f_sys}
+                                mother_m_m_sys={banner.m_m_m_sys}
+                                father_factor={banner.f_factor}
+                                father_f_factor={banner.f_f_factor}
+                                father_f_f_factor={banner.f_f_f_factor}
+                                father_m_f_factor={banner.f_m_f_factor}
+                                mother_f_factor={banner.m_f_factor}
+                                mother_f_f_factor={banner.m_f_f_factor}
+                                mother_m_f_factor={banner.m_m_f_factor}
+                            />
+                        ) : (
                             <MarryBloodlineTable
                                 gender={banner.gender == "牝" ? 'girl' : 'man'}
                                 horseName={banner.name}
@@ -75,38 +101,12 @@ const PedigreeTableModal = ({modalState, banner, onPress}) => {
                                 mother_f_f_factor={banner.m_f_f_factor}
                                 mother_m_f_factor={banner.m_m_f_factor}
                             />
-                        ) : (
-                            <MarryBloodlineSysTable
-                                gender={banner.gender == "牝" ? 'girl' : 'man'}
-                                horseName={banner.sys}
-                                father_sys={banner.f_sys}
-                                father_f_sys={banner.f_f_sys}
-                                father_m_sys={banner.f_m_sys}
-                                mother_sys={banner.m_sys}
-                                mother_f_sys={banner.m_f_sys}
-                                mother_m_sys={banner.m_m_sys}
-                                father_f_f_sys={banner.f_f_f_sys}
-                                father_f_m_sys={banner.f_f_m_sys}
-                                father_m_f_sys={banner.f_m_f_sys}
-                                father_m_m_sys={banner.f_m_m_sys}
-                                mother_f_f_sys={banner.m_f_f_sys}
-                                mother_f_m_sys={banner.m_f_m_sys}
-                                mother_m_f_sys={banner.m_m_f_sys}
-                                mother_m_m_sys={banner.m_m_m_sys}
-                                father_factor={banner.f_factor}
-                                father_f_factor={banner.f_f_factor}
-                                father_f_f_factor={banner.f_f_f_factor}
-                                father_m_f_factor={banner.f_m_f_factor}
-                                mother_f_factor={banner.m_f_factor}
-                                mother_f_f_factor={banner.m_f_f_factor}
-                                mother_m_f_factor={banner.m_m_f_factor}
-                            />
                         )
                     }
 
                 </View>
                 
-                <NormalButton label={state ? "系  統" : "馬  名"}　buttonStyle={styles.changeButton} onPress={handleState}/>
+                <NormalButton label={state ? "馬  名" : "系  統"}　buttonStyle={styles.changeButton} onPress={handleState}/>
             </View>
             
         </Modal>
